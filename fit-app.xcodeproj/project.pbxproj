@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A1B2C3D4E5F60001 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002 /* App.swift */; };
 		A1B2C3D4E5F60003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60004 /* ContentView.swift */; };
+		A1B2C3D4E5F6000D /* InicioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000E /* InicioView.swift */; };
+		A1B2C3D4E5F6000F /* RegistroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60010 /* RegistroView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +18,8 @@
 		A1B2C3D4E5F60002 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60004 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1B2C3D4E5F6000E /* InicioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InicioView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60010 /* RegistroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistroView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +46,8 @@
 			children = (
 				A1B2C3D4E5F60002 /* App.swift */,
 				A1B2C3D4E5F60004 /* ContentView.swift */,
+				A1B2C3D4E5F6000E /* InicioView.swift */,
+				A1B2C3D4E5F60010 /* RegistroView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
 			);
 			path = "fit-app";
@@ -124,6 +130,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1B2C3D4E5F60003 /* ContentView.swift in Sources */,
+				A1B2C3D4E5F6000D /* InicioView.swift in Sources */,
+				A1B2C3D4E5F6000F /* RegistroView.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,18 +2,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Text("Hola, Antonio 👋")
-                .font(.largeTitle)
-                .padding()
+        NavigationStack {
+            InicioView()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black)
-        .foregroundColor(.white)
+        .preferredColorScheme(.dark)
     }
 }
 
 #Preview {
     ContentView()
-        .preferredColorScheme(.dark)
 }
