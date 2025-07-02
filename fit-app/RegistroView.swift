@@ -114,7 +114,7 @@ struct SuccessModalView: View {
             .scaleEffect(isVisible ? 1 : 0.8)
             .opacity(isVisible ? 1 : 0)
             .transition(.scale.combined(with: .opacity))
-            .animation(.easeOut(duration: 0.3), value: isVisible)
+            .animation(.spring(response: 0.5, dampingFraction: 0.8), value: isVisible)
         }
         .zIndex(2)
     }
@@ -174,6 +174,7 @@ struct SummaryMetricCard: View {
 
 struct RegistroView: View {
     @ObservedObject var viewModel: EntrenamientoViewModel
+    @Binding var selectedTab: Int
     
     @State private var tipoSeleccionado = "Cardio"
     @State private var duracion = ""
@@ -491,14 +492,26 @@ struct RegistroView: View {
                         showError = true
                         viewModel.clearError()
                     } else {
-                        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                        // Show success modal with scale transition
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                             showSuccess = true
                         }
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            // Clear form after successful save
-                            tipoSeleccionado = "Cardio"
-                            duracion = ""
+                        // Auto-dismiss after 2 seconds and navigate to home
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showSuccess = false
+                            }
+                            
+                            // Navigate back to home tab after modal disappears
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                // Clear form and reset state
+                                tipoSeleccionado = "Cardio"
+                                duracion = ""
+                                
+                                // Navigate to home tab
+                                selectedTab = 0
+                            }
                         }
                     }
                 }
@@ -511,5 +524,5 @@ struct RegistroView: View {
 }
 
 #Preview {
-    RegistroView(viewModel: EntrenamientoViewModel())
+    RegistroView(viewModel: EntrenamientoViewModel(), selectedTab: .constant(1))
 }

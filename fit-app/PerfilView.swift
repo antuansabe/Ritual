@@ -231,28 +231,30 @@ struct PerfilView: View {
             }
             
             VStack(spacing: 16) {
-                // Heatmap
-                ModernHeatmapView(data: generateHeatmapData())
+                // iOS Calendar
+                iOSCalendarView(workouts: viewModel.entrenamientos)
                 
                 // Legend
                 HStack {
-                    Text("Menos")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(.gray)
-                    
-                    HStack(spacing: 4) {
-                        ForEach(0..<5) { intensity in
-                            RoundedRectangle(cornerRadius: 3)
-                                .fill(heatmapColor(for: intensity))
-                                .frame(width: 12, height: 12)
-                        }
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(width: 12, height: 12)
+                        Text("Sin entrenar")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.gray)
                     }
                     
-                    Text("Más")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(.gray)
-                    
                     Spacer()
+                    
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(Color.green)
+                            .frame(width: 12, height: 12)
+                        Text("Con entrenamiento")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.gray)
+                    }
                 }
             }
             .padding(20)
@@ -294,32 +296,6 @@ struct PerfilView: View {
     }
     
     // MARK: - Helper Functions
-    private func heatmapColor(for intensity: Int) -> Color {
-        switch intensity {
-        case 0: return Color.gray.opacity(0.2)
-        case 1: return Color.green.opacity(0.3)
-        case 2: return Color.green.opacity(0.5)
-        case 3: return Color.green.opacity(0.7)
-        default: return Color.green
-        }
-    }
-    
-    private func generateHeatmapData() -> [HeatmapDay] {
-        let calendar = Calendar.current
-        let currentYear = calendar.component(.year, from: Date())
-        let startOfYear = calendar.date(from: DateComponents(year: currentYear, month: 1, day: 1))!
-        
-        var data: [HeatmapDay] = []
-        
-        for dayOffset in 0..<365 {
-            if let date = calendar.date(byAdding: .day, value: dayOffset, to: startOfYear) {
-                let intensity = Int.random(in: 0...4)
-                data.append(HeatmapDay(date: date, intensity: intensity))
-            }
-        }
-        
-        return data
-    }
     
     private var achievements: [Achievement] {
         [
@@ -376,57 +352,173 @@ struct StatCard: View {
     }
 }
 
-struct ModernHeatmapView: View {
-    let data: [HeatmapDay]
+struct iOSCalendarView: View {
+    let workouts: [Entrenamiento]
+    @State private var currentDate = Date()
+    
+    private let calendar = Calendar.current
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        formatter.locale = Locale(identifier: "es_ES")
+        return formatter
+    }()
+    
+    private var monthDays: [Date] {
+        guard let monthRange = calendar.range(of: .day, in: .month, for: currentDate),
+              let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate)) else {
+            return []
+        }
+        
+        let firstWeekday = calendar.component(.weekday, from: firstDayOfMonth)
+        let startingSpaces = (firstWeekday - calendar.firstWeekday + 7) % 7
+        
+        var days: [Date] = []
+        
+        // Add empty dates for spacing
+        for _ in 0..<startingSpaces {
+            if let date = calendar.date(byAdding: .day, value: -(startingSpaces - days.count), to: firstDayOfMonth) {
+                days.append(date)
+            }
+        }
+        
+        // Add all days of the month
+        for day in monthRange {
+            if let date = calendar.date(byAdding: .day, value: day - 1, to: firstDayOfMonth) {
+                days.append(date)
+            }
+        }
+        
+        return days
+    }
+    
+    private func hasWorkout(on date: Date) -> Bool {
+        return workouts.contains { workout in
+            calendar.isDate(workout.fecha, inSameDayAs: date)
+        }
+    }
+    
+    private func isCurrentMonth(_ date: Date) -> Bool {
+        calendar.isDate(date, equalTo: currentDate, toGranularity: .month)
+    }
+    
+    private func isToday(_ date: Date) -> Bool {
+        calendar.isDateInToday(date)
+    }
     
     var body: some View {
-        let weeks = organizeByWeeks(data)
-        
-        HStack(spacing: 3) {
-            ForEach(0..<weeks.count, id: \.self) { weekIndex in
-                if weekIndex < weeks.count {
-                    VStack(spacing: 3) {
-                        ForEach(weeks[weekIndex], id: \.date) { day in
-                            RoundedRectangle(cornerRadius: 2)
-                                .fill(colorForIntensity(day.intensity))
-                                .frame(width: 12, height: 12)
-                        }
+        VStack(spacing: 16) {
+            // Month header with navigation
+            HStack {
+                Button(action: { changeMonth(by: -1) }) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.8))
+                        .frame(width: 30, height: 30)
+                        .background(Color.white.opacity(0.1))
+                        .clipShape(Circle())
+                }
+                
+                Spacer()
+                
+                Text(dateFormatter.string(from: currentDate).capitalized)
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Button(action: { changeMonth(by: 1) }) {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.8))
+                        .frame(width: 30, height: 30)
+                        .background(Color.white.opacity(0.1))
+                        .clipShape(Circle())
+                }
+            }
+            
+            VStack(spacing: 8) {
+                // Weekday headers
+                HStack(spacing: 0) {
+                    ForEach(["L", "M", "M", "J", "V", "S", "D"], id: \.self) { day in
+                        Text(day)
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.gray)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                
+                // Calendar grid
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 7), spacing: 4) {
+                    ForEach(monthDays, id: \.self) { date in
+                        CalendarDayView(
+                            date: date,
+                            hasWorkout: hasWorkout(on: date),
+                            isCurrentMonth: isCurrentMonth(date),
+                            isToday: isToday(date)
+                        )
                     }
                 }
             }
         }
     }
     
-    private func organizeByWeeks(_ days: [HeatmapDay]) -> [[HeatmapDay]] {
-        let calendar = Calendar.current
-        var weeks: [[HeatmapDay]] = []
-        var currentWeek: [HeatmapDay] = []
-        
-        for day in days {
-            if currentWeek.isEmpty {
-                currentWeek.append(day)
-            } else if calendar.component(.weekOfYear, from: day.date) == calendar.component(.weekOfYear, from: currentWeek.first!.date) {
-                currentWeek.append(day)
-            } else {
-                weeks.append(currentWeek)
-                currentWeek = [day]
+    private func changeMonth(by value: Int) {
+        if let newDate = calendar.date(byAdding: .month, value: value, to: currentDate) {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                currentDate = newDate
             }
         }
-        
-        if !currentWeek.isEmpty {
-            weeks.append(currentWeek)
-        }
-        
-        return weeks
+    }
+}
+
+struct CalendarDayView: View {
+    let date: Date
+    let hasWorkout: Bool
+    let isCurrentMonth: Bool
+    let isToday: Bool
+    
+    private var dayNumber: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
+        return formatter.string(from: date)
     }
     
-    private func colorForIntensity(_ intensity: Int) -> Color {
-        switch intensity {
-        case 0: return Color.gray.opacity(0.2)
-        case 1: return Color.green.opacity(0.3)
-        case 2: return Color.green.opacity(0.5)
-        case 3: return Color.green.opacity(0.7)
-        default: return Color.green
+    var body: some View {
+        VStack {
+            Text(dayNumber)
+                .font(.system(size: 14, weight: isToday ? .bold : .medium))
+                .foregroundColor(textColor)
+        }
+        .frame(width: 32, height: 32)
+        .background(backgroundColor)
+        .clipShape(Circle())
+        .overlay(
+            Circle()
+                .stroke(isToday ? Color.blue : Color.clear, lineWidth: 2)
+        )
+        .scaleEffect(isCurrentMonth ? 1.0 : 0.8)
+        .opacity(isCurrentMonth ? 1.0 : 0.3)
+        .animation(.easeInOut(duration: 0.2), value: hasWorkout)
+    }
+    
+    private var backgroundColor: Color {
+        if hasWorkout && isCurrentMonth {
+            return Color.green.opacity(0.8)
+        } else if isCurrentMonth {
+            return Color.gray.opacity(0.2)
+        } else {
+            return Color.clear
+        }
+    }
+    
+    private var textColor: Color {
+        if hasWorkout && isCurrentMonth {
+            return .white
+        } else if isCurrentMonth {
+            return .white.opacity(0.8)
+        } else {
+            return .gray.opacity(0.5)
         }
     }
 }
@@ -479,11 +571,6 @@ struct ModernAchievementCard: View {
 }
 
 // MARK: - Data Models
-
-struct HeatmapDay {
-    let date: Date
-    let intensity: Int
-}
 
 struct Achievement {
     let id: Int

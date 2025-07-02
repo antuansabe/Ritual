@@ -23,7 +23,7 @@ struct ContentView: View {
                 .tag(0)
                 
                 NavigationStack {
-                    RegistroView(viewModel: viewModel)
+                    RegistroView(viewModel: viewModel, selectedTab: $selectedTab)
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 1 ? "plus.circle.fill" : "plus.circle")
