@@ -36,6 +36,74 @@ struct AppConstants {
         static let metricCardWidth: CGFloat = 120
         static let metricCardHeight: CGFloat = 100
         static let activityButtonHeight: CGFloat = 80
+        
+        // Shadow
+        static let shadowRadius: CGFloat = 4
+        static let shadowOpacity: Double = 0.1
+        
+        // Border
+        static let borderWidth: CGFloat = 1
+        static let borderOpacity: Double = 0.1
+    }
+    
+    // MARK: - Design System
+    struct Design {
+        // Main Colors
+        static let primaryGradient = LinearGradient(
+            colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.6)],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        
+        static let backgroundGradient = LinearGradient(
+            colors: [Color.black, Color(.systemGray6).opacity(0.1)],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        
+        static let cardGradient = LinearGradient(
+            colors: [Color.white.opacity(0.3), Color.white.opacity(0.1)],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        
+        // Accent Colors
+        static let blue = Color.blue
+        static let purple = Color.purple
+        static let green = Color.green
+        static let orange = Color.orange
+        static let red = Color.red
+        static let yellow = Color.yellow
+        
+        // Typography
+        static let titleFont = Font.system(size: 28, weight: .bold, design: .rounded)
+        static let headerFont = Font.system(size: 22, weight: .bold, design: .rounded)
+        static let subheaderFont = Font.system(size: 18, weight: .semibold, design: .rounded)
+        static let bodyFont = Font.system(size: 16, weight: .medium, design: .default)
+        static let captionFont = Font.system(size: 14, weight: .medium, design: .default)
+        static let footnoteFont = Font.system(size: 12, weight: .medium, design: .default)
+        
+        // Card Styles
+        static func cardBackground(_ isHighlighted: Bool = false) -> some ShapeStyle {
+            Color.white.opacity(isHighlighted ? 0.1 : 0.05)
+        }
+        
+        static func cardBorder(_ color: Color = .white) -> some ShapeStyle {
+            color.opacity(0.1)
+        }
+        
+        static func cardShadow() -> Color {
+            Color.black.opacity(0.1)
+        }
+        
+        // Button Styles
+        static let primaryButtonGradient = LinearGradient(
+            colors: [Color.blue, Color.purple],
+            startPoint: .leading,
+            endPoint: .trailing
+        )
+        
+        static let secondaryButtonBackground = Color.white.opacity(0.1)
     }
     
     // MARK: - Animation

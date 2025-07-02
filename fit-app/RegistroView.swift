@@ -29,24 +29,33 @@ struct TrainingTypeButton: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: 8) {
-                Image(systemName: icon)
-                    .font(.title3)
-                    .foregroundColor(isSelected ? .white : color)
-                    .frame(width: 32, height: 32)
-                    .accessibilityHidden(true)
+                ZStack {
+                    Circle()
+                        .fill(isSelected ? .white.opacity(0.2) : color.opacity(0.2))
+                        .frame(width: 44, height: 44)
+                    
+                    Image(systemName: icon)
+                        .font(.title3)
+                        .foregroundColor(isSelected ? .white : color)
+                }
                 
                 Text(type)
-                    .font(.caption.weight(.medium))
-                    .foregroundColor(isSelected ? .white : .primary)
+                    .font(AppConstants.Design.captionFont)
+                    .foregroundColor(isSelected ? .white : .white.opacity(0.8))
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity)
             .frame(height: AppConstants.UI.activityButtonHeight)
             .background(
-                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusM)
-                    .fill(isSelected ? color : Color(.systemGray6))
+                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                    .fill(isSelected ? AnyShapeStyle(color) : AnyShapeStyle(AppConstants.Design.cardBackground()))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                            .stroke(isSelected ? AnyShapeStyle(color.opacity(0.3)) : AnyShapeStyle(AppConstants.Design.cardBorder()), lineWidth: AppConstants.UI.borderWidth)
+                    )
             )
+            .shadow(color: isSelected ? color.opacity(0.3) : AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
         }
         .buttonStyle(PlainButtonStyle())
         .animation(.easeInOut(duration: 0.2), value: isSelected)
@@ -70,24 +79,38 @@ struct SuccessModalView: View {
                 .animation(.easeOut(duration: 0.3), value: isVisible)
             
             VStack(spacing: 16) {
-                Image(systemName: icon)
-                    .font(.system(size: 48))
-                    .foregroundColor(.green)
+                ZStack {
+                    Circle()
+                        .fill(AppConstants.Design.green.opacity(0.2))
+                        .frame(width: 80, height: 80)
+                    
+                    Image(systemName: icon)
+                        .font(.system(size: 48))
+                        .foregroundColor(AppConstants.Design.green)
+                }
                 
                 VStack(spacing: 8) {
                     Text(title)
-                        .font(.title3.bold())
-                        .foregroundColor(.primary)
+                        .font(AppConstants.Design.subheaderFont)
+                        .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                     
                     Text(message)
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .font(AppConstants.Design.captionFont)
+                        .foregroundColor(.white.opacity(0.8))
                         .multilineTextAlignment(.center)
                 }
             }
             .frame(width: 280, height: 180)
-            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20))
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(AppConstants.Design.cardBackground(true))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                    )
+            )
+            .shadow(color: AppConstants.Design.cardShadow(), radius: 10)
             .scaleEffect(isVisible ? 1 : 0.8)
             .opacity(isVisible ? 1 : 0)
             .transition(.scale.combined(with: .opacity))
@@ -106,21 +129,25 @@ struct SummaryMetricCard: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundStyle(tint)
-                .frame(width: 32, height: 32)
-                .accessibilityHidden(true)
+            ZStack {
+                Circle()
+                    .fill(tint.opacity(0.2))
+                    .frame(width: 50, height: 50)
+                
+                Image(systemName: icon)
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundColor(tint)
+            }
             
             VStack(spacing: 4) {
                 Text(value)
-                    .font(.title.bold())
-                    .foregroundColor(.primary)
+                    .font(AppConstants.Design.subheaderFont)
+                    .foregroundColor(.white)
                     .accessibilityLabel("\(value) \(label)")
                 
                 Text(label)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(AppConstants.Design.footnoteFont)
+                    .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.6)
                     .lineLimit(1)
@@ -130,8 +157,16 @@ struct SummaryMetricCard: View {
         }
         .frame(maxWidth: .infinity)
         .aspectRatio(1, contentMode: .fit)
-        .padding(.vertical, 8)
-        .background(Material.ultraThin, in: RoundedRectangle(cornerRadius: 16))
+        .padding(.vertical, 20)
+        .background(
+            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                .fill(AppConstants.Design.cardBackground())
+                .overlay(
+                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                )
+        )
+        .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(value) \(label)")
     }
@@ -159,7 +194,7 @@ struct RegistroView: View {
     
     var body: some View {
         ZStack {
-            Color(.systemBackground)
+            AppConstants.Design.backgroundGradient
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
@@ -207,8 +242,8 @@ struct RegistroView: View {
             Spacer()
             
             Text("Nuevo Entrenamiento")
-                .font(.title2.bold())
-                .foregroundColor(.primary)
+                .font(AppConstants.Design.headerFont)
+                .foregroundColor(.white)
             
             Spacer()
             
@@ -237,8 +272,8 @@ struct RegistroView: View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text("Selecciona tu actividad")
-                    .font(.title3.weight(.semibold))
-                    .foregroundColor(.primary)
+                    .font(AppConstants.Design.subheaderFont)
+                    .foregroundColor(.white)
                     .opacity(animateOnAppear ? 1 : 0)
                     .offset(y: animateOnAppear ? 0 : 20)
                     .animation(.easeOut(duration: 0.6).delay(0.1), value: animateOnAppear)
@@ -273,8 +308,8 @@ struct RegistroView: View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text("Duración del entrenamiento")
-                    .font(.title3.weight(.semibold))
-                    .foregroundColor(.primary)
+                    .font(AppConstants.Design.subheaderFont)
+                    .foregroundColor(.white)
                     .opacity(animateOnAppear ? 1 : 0)
                     .offset(y: animateOnAppear ? 0 : 20)
                     .animation(.easeOut(duration: 0.6).delay(0.4), value: animateOnAppear)
@@ -287,18 +322,26 @@ struct RegistroView: View {
                 HStack(spacing: 8) {
                     TextField("0", text: $duracion)
                         .font(.system(size: 48, weight: .bold, design: .rounded))
-                        .foregroundColor(.primary)
+                        .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .keyboardType(.numberPad)
                         .frame(maxWidth: 100)
                     
                     Text("minutos")
-                        .font(.title3)
-                        .foregroundColor(.secondary)
+                        .font(AppConstants.Design.subheaderFont)
+                        .foregroundColor(.white.opacity(0.8))
                 }
                 .padding(.vertical, 16)
                 .padding(.horizontal, 20)
-                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+                .background(
+                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        .fill(AppConstants.Design.cardBackground())
+                        .overlay(
+                            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                                .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                        )
+                )
+                .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
                 
                 quickDurationButtons
             }
@@ -313,8 +356,8 @@ struct RegistroView: View {
     private var quickDurationButtons: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Duraciones comunes")
-                .font(.caption)
-                .foregroundColor(.secondary)
+                .font(AppConstants.Design.footnoteFont)
+                .foregroundColor(.white.opacity(0.8))
             
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 8) {
                 ForEach([15, 30, 45, 60, 90, 120], id: \.self) { minutes in
@@ -324,14 +367,19 @@ struct RegistroView: View {
                         }
                     }) {
                         Text("\(minutes)")
-                            .font(.caption.weight(.medium))
-                            .foregroundColor(duracion == "\(minutes)" ? .white : .secondary)
+                            .font(AppConstants.Design.captionFont)
+                            .foregroundColor(duracion == "\(minutes)" ? .white : .white.opacity(0.8))
                             .frame(height: AppConstants.UI.minTouchTarget)
                             .frame(maxWidth: .infinity)
                             .background(
                                 RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusS)
-                                    .fill(duracion == "\(minutes)" ? .blue : Color(.systemGray6))
+                                    .fill(duracion == "\(minutes)" ? AnyShapeStyle(AppConstants.Design.blue) : AnyShapeStyle(AppConstants.Design.cardBackground()))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusS)
+                                            .stroke(duracion == "\(minutes)" ? AnyShapeStyle(AppConstants.Design.blue.opacity(0.3)) : AnyShapeStyle(AppConstants.Design.cardBorder()), lineWidth: AppConstants.UI.borderWidth)
+                                    )
                             )
+                            .shadow(color: duracion == "\(minutes)" ? AppConstants.Design.blue.opacity(0.3) : .clear, radius: 2)
                     }
                     .animation(.easeInOut(duration: 0.2), value: duracion == "\(minutes)")
                 }
@@ -344,8 +392,8 @@ struct RegistroView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Text("Resumen")
-                    .font(.title3.weight(.semibold))
-                    .foregroundColor(.primary)
+                    .font(AppConstants.Design.subheaderFont)
+                    .foregroundColor(.white)
                     .opacity(animateOnAppear ? 1 : 0)
                     .offset(y: animateOnAppear ? 0 : 20)
                     .animation(.easeOut(duration: 0.6).delay(0.6), value: animateOnAppear)
@@ -393,15 +441,16 @@ struct RegistroView: View {
                     }
                     
                     Text(viewModel.isLoading ? "Guardando..." : "Guardar Entrenamiento")
-                        .font(.subheadline.weight(.semibold))
+                        .font(AppConstants.Design.bodyFont)
                 }
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
                 .background(
                     RoundedRectangle(cornerRadius: 28)
-                        .fill(isFormValid ? .blue : .gray.opacity(0.3))
+                        .fill(isFormValid ? AnyShapeStyle(AppConstants.Design.primaryButtonGradient) : AnyShapeStyle(.gray.opacity(0.3)))
                 )
+                .shadow(color: isFormValid ? AppConstants.Design.blue.opacity(0.3) : .clear, radius: AppConstants.UI.shadowRadius)
                 .scaleEffect(isFormValid ? 1.0 : 0.98)
                 .animation(.easeInOut(duration: 0.2), value: isFormValid)
             }
@@ -411,8 +460,8 @@ struct RegistroView: View {
                 tipoSeleccionado = "Cardio"
                 duracion = ""
             }
-            .font(.subheadline)
-            .foregroundColor(.secondary)
+            .font(AppConstants.Design.captionFont)
+            .foregroundColor(.white.opacity(0.6))
         }
         .padding(.horizontal, 16)
         .padding(.bottom, 44)

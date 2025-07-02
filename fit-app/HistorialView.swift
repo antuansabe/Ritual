@@ -35,7 +35,7 @@ struct HistorialView: View {
     
     var body: some View {
         ZStack {
-            Color(.systemBackground)
+            AppConstants.Design.backgroundGradient
                 .ignoresSafeArea()
             
             ScrollView {
@@ -73,12 +73,12 @@ struct HistorialView: View {
             
             VStack(spacing: AppConstants.UI.spacingS) {
                 Text("Tu año en entrenamientos 💪")
-                    .font(.title2.bold())
-                    .foregroundColor(.primary)
+                    .font(AppConstants.Design.headerFont)
+                    .foregroundColor(.white)
                 
                 Text("\(Calendar.current.component(.year, from: Date()))")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .font(AppConstants.Design.bodyFont)
+                    .foregroundColor(.white.opacity(0.8))
             }
             
             Spacer()
@@ -186,26 +186,32 @@ struct HistorialView: View {
     private var statsSection: some View {
         VStack(spacing: AppConstants.UI.spacingL) {
             Text("Estadísticas del año")
-                .font(.title3.weight(.semibold))
-                .foregroundColor(.primary)
+                .font(AppConstants.Design.headerFont)
+                .foregroundColor(.white)
             
             HStack(spacing: AppConstants.UI.spacingL) {
                 StatCard(
+                    icon: "figure.walk.circle.fill",
                     value: "\(yearStats.totalWorkouts)",
                     label: "Entrenamientos",
-                    tint: .blue
+                    color: .blue,
+                    accentColor: .blue.opacity(0.2)
                 )
                 
                 StatCard(
+                    icon: "clock.fill",
                     value: "\(yearStats.totalMinutes)",
                     label: "Minutos",
-                    tint: .green
+                    color: .green,
+                    accentColor: .green.opacity(0.2)
                 )
                 
                 StatCard(
+                    icon: "flame.fill",
                     value: "\(yearStats.currentStreak)",
                     label: "Racha actual",
-                    tint: .orange
+                    color: .orange,
+                    accentColor: .orange.opacity(0.2)
                 )
             }
         }
@@ -273,32 +279,6 @@ struct ContributionSquare: View {
     }
 }
 
-// MARK: - Stat Card Component
-struct StatCard: View {
-    let value: String
-    let label: String
-    let tint: Color
-    
-    var body: some View {
-        VStack(spacing: AppConstants.UI.spacingS) {
-            Text(value)
-                .font(.title.bold())
-                .foregroundColor(tint)
-            
-            Text(label)
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .minimumScaleFactor(0.6)
-                .lineLimit(1)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .frame(maxWidth: .infinity)
-        .aspectRatio(1, contentMode: .fit)
-        .padding(.vertical, 8)
-        .background(Material.ultraThin, in: RoundedRectangle(cornerRadius: 16))
-    }
-}
 
 #Preview {
     NavigationStack {

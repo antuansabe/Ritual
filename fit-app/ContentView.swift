@@ -2,34 +2,63 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel = EntrenamientoViewModel()
+    @State private var selectedTab = 0
     
     var body: some View {
-        TabView {
-            NavigationStack {
-                InicioView(viewModel: viewModel)
-            }
-            .tabItem {
-                Image(systemName: "house.fill")
-                Text("Inicio")
-            }
+        ZStack {
+            // Background gradient
+            AppConstants.Design.backgroundGradient
+                .ignoresSafeArea()
             
-            NavigationStack {
-                RegistroView(viewModel: viewModel)
+            TabView(selection: $selectedTab) {
+                NavigationStack {
+                    InicioView(viewModel: viewModel, selectedTab: $selectedTab)
+                }
+                .tabItem {
+                    Image(systemName: selectedTab == 0 ? "house.fill" : "house")
+                        .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
+                    Text("Inicio")
+                        .font(AppConstants.Design.footnoteFont)
+                }
+                .tag(0)
+                
+                NavigationStack {
+                    RegistroView(viewModel: viewModel)
+                }
+                .tabItem {
+                    Image(systemName: selectedTab == 1 ? "plus.circle.fill" : "plus.circle")
+                        .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
+                    Text("Registrar")
+                        .font(AppConstants.Design.footnoteFont)
+                }
+                .tag(1)
+                
+                NavigationStack {
+                    HistorialView(viewModel: viewModel)
+                }
+                .tabItem {
+                    Image(systemName: selectedTab == 2 ? "chart.bar.fill" : "chart.bar")
+                        .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
+                    Text("Historial")
+                        .font(AppConstants.Design.footnoteFont)
+                }
+                .tag(2)
+                
+                NavigationStack {
+                    PerfilView(viewModel: viewModel)
+                }
+                .tabItem {
+                    Image(systemName: selectedTab == 3 ? "person.crop.circle.fill" : "person.crop.circle")
+                        .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
+                    Text("Perfil")
+                        .font(AppConstants.Design.footnoteFont)
+                }
+                .tag(3)
             }
-            .tabItem {
-                Image(systemName: "plus.circle.fill")
-                Text("Registrar")
-            }
-            
-            NavigationStack {
-                PerfilView(viewModel: viewModel)
-            }
-            .tabItem {
-                Image(systemName: "person.crop.circle.fill")
-                Text("Perfil")
-            }
+            .tint(AppConstants.Design.blue)
+            .toolbarBackground(.ultraThinMaterial, for: .tabBar)
+            .toolbarBackground(.visible, for: .tabBar)
         }
-        .accentColor(.blue)
     }
 }
 

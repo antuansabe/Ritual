@@ -9,21 +9,25 @@ struct MetricCardView: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundStyle(tint)
-                .frame(width: 32, height: 32)
-                .accessibilityHidden(true)
+            ZStack {
+                Circle()
+                    .fill(tint.opacity(0.2))
+                    .frame(width: 50, height: 50)
+                
+                Image(systemName: icon)
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundColor(tint)
+            }
             
             VStack(spacing: 4) {
                 Text(value)
-                    .font(.title.bold())
-                    .foregroundColor(.primary)
+                    .font(AppConstants.Design.subheaderFont)
+                    .foregroundColor(.white)
                     .accessibilityLabel("\(value) \(label)")
                 
                 Text(label)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(AppConstants.Design.footnoteFont)
+                    .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.6)
                     .lineLimit(1)
@@ -33,8 +37,16 @@ struct MetricCardView: View {
         }
         .frame(maxWidth: .infinity)
         .aspectRatio(1, contentMode: .fit)
-        .padding(.vertical, 8)
-        .background(Material.ultraThin, in: RoundedRectangle(cornerRadius: 16))
+        .padding(.vertical, 20)
+        .background(
+            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                .fill(AppConstants.Design.cardBackground())
+                .overlay(
+                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                )
+        )
+        .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(value) \(label)")
     }
@@ -79,31 +91,43 @@ struct TrainingListItem: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: workoutIcon)
-                .font(.title3)
-                .foregroundColor(workoutColor)
-                .frame(width: 36, height: 36)
-                .accessibilityHidden(true)
+            ZStack {
+                Circle()
+                    .fill(workoutColor.opacity(0.2))
+                    .frame(width: 44, height: 44)
+                
+                Image(systemName: workoutIcon)
+                    .font(.title3)
+                    .foregroundColor(workoutColor)
+            }
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(entrenamiento.tipo)
-                    .font(.subheadline.weight(.medium))
-                    .foregroundColor(.primary)
+                    .font(AppConstants.Design.bodyFont)
+                    .foregroundColor(.white)
                 
                 Text("\(entrenamiento.duracion) min • \(AppConstants.calculateCalories(for: entrenamiento.duracion)) kcal")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(AppConstants.Design.captionFont)
+                    .foregroundColor(.gray)
             }
             
             Spacer()
             
             Text(dateFormatter.string(from: entrenamiento.fecha))
-                .font(.caption)
-                .foregroundColor(.secondary)
+                .font(AppConstants.Design.captionFont)
+                .foregroundColor(.gray)
         }
         .padding(.horizontal, AppConstants.UI.spacingL)
-        .padding(.vertical, AppConstants.UI.spacingM)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusM))
+        .padding(.vertical, AppConstants.UI.spacingL)
+        .background(
+            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                .fill(AppConstants.Design.cardBackground())
+                .overlay(
+                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                )
+        )
+        .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(entrenamiento.tipo) workout, \(entrenamiento.duracion) minutes, \(entrenamiento.duracion * 8) calories, \(dateFormatter.string(from: entrenamiento.fecha))")
     }
@@ -121,8 +145,8 @@ struct FloatingActionButton: View {
                 .frame(width: 56, height: 56)
                 .background(
                     Circle()
-                        .fill(.blue)
-                        .shadow(color: .blue.opacity(0.3), radius: 10, x: 0, y: 5)
+                        .fill(AppConstants.Design.primaryButtonGradient)
+                        .shadow(color: AppConstants.Design.blue.opacity(0.3), radius: 10, x: 0, y: 5)
                 )
         }
         .scaleEffect(isPressed ? 0.95 : 1.0)
@@ -142,9 +166,12 @@ struct InicioView: View {
     @State private var showingHistorial = false
     @Namespace private var heroAnimation
     
+    // Add TabView selection binding
+    @Binding var selectedTab: Int
+    
     var body: some View {
         ZStack {
-            Color(.systemBackground)
+            AppConstants.Design.backgroundGradient
                 .ignoresSafeArea()
             
             ScrollView {
@@ -162,7 +189,7 @@ struct InicioView: View {
                 HStack {
                     Spacer()
                     FloatingActionButton {
-                        // Navigation will be handled by TabView
+                        selectedTab = 1 // Navigate to Registrar tab
                     }
                     .padding(.trailing, 16)
                     .padding(.bottom, 44)
@@ -184,15 +211,15 @@ struct InicioView: View {
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("\(AppConstants.User.greeting), \(AppConstants.User.defaultName) \(AppConstants.User.welcomeEmoji)")
-                .font(.title.bold())
-                .foregroundColor(.primary)
+                .font(AppConstants.Design.titleFont)
+                .foregroundColor(.white)
                 .opacity(animateOnAppear ? 1 : 0)
                 .offset(y: animateOnAppear ? 0 : 30)
                 .animation(.easeOut(duration: 0.8), value: animateOnAppear)
             
             Text("¿Qué entrenamiento harás hoy?")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+                .font(AppConstants.Design.bodyFont)
+                .foregroundColor(.white.opacity(0.8))
                 .opacity(animateOnAppear ? 1 : 0)
                 .offset(y: animateOnAppear ? 0 : 30)
                 .animation(.easeOut(duration: 0.8).delay(0.1), value: animateOnAppear)
@@ -206,8 +233,8 @@ struct InicioView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Text("Progreso")
-                    .font(.title3.weight(.semibold))
-                    .foregroundColor(.primary)
+                    .font(AppConstants.Design.headerFont)
+                    .foregroundColor(.white)
                     .opacity(animateOnAppear ? 1 : 0)
                     .offset(y: animateOnAppear ? 0 : 20)
                     .animation(.easeOut(duration: 0.8).delay(0.2), value: animateOnAppear)
@@ -263,8 +290,8 @@ struct InicioView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Text("Entrenamientos recientes")
-                    .font(.title3.weight(.semibold))
-                    .foregroundColor(.primary)
+                    .font(AppConstants.Design.headerFont)
+                    .foregroundColor(.white)
                 
                 Spacer()
                 
@@ -272,8 +299,8 @@ struct InicioView: View {
                     Button("Ver historial") {
                         showingHistorial = true
                     }
-                    .font(.subheadline)
-                    .foregroundColor(.blue)
+                    .font(AppConstants.Design.captionFont)
+                    .foregroundColor(AppConstants.Design.blue)
                 }
             }
             .padding(.horizontal, 16)
@@ -308,27 +335,28 @@ struct InicioView: View {
             
             VStack(spacing: 8) {
                 Text("Comienza tu viaje")
-                    .font(.title2.bold())
-                    .foregroundColor(.primary)
+                    .font(AppConstants.Design.headerFont)
+                    .foregroundColor(.white)
                 
                 Text("Registra tu primer entrenamiento para comenzar a ver tu progreso")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .font(AppConstants.Design.bodyFont)
+                    .foregroundColor(.white.opacity(0.8))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
             
             Button("Empezar ahora") {
-                // Navigation will be handled by TabView
+                selectedTab = 1 // Navigate to Registrar tab
             }
-            .font(.subheadline.weight(.medium))
+            .font(AppConstants.Design.bodyFont)
             .foregroundColor(.white)
             .padding(.horizontal, 32)
             .padding(.vertical, 12)
             .background(
                 RoundedRectangle(cornerRadius: 25)
-                    .fill(.blue)
+                    .fill(AppConstants.Design.primaryButtonGradient)
             )
+            .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
         }
         .padding(.vertical, 60)
         .opacity(animateOnAppear ? 1 : 0)
@@ -339,6 +367,6 @@ struct InicioView: View {
 
 #Preview {
     NavigationStack {
-        InicioView(viewModel: EntrenamientoViewModel())
+        InicioView(viewModel: EntrenamientoViewModel(), selectedTab: .constant(0))
     }
 }
