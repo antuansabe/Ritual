@@ -1,11 +1,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = EntrenamientoViewModel()
-    
     var body: some View {
         NavigationStack {
-            InicioView(viewModel: viewModel)
+            InicioView()
         }
         .preferredColorScheme(.dark)
     }

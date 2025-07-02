@@ -11,6 +11,8 @@
 		A1B2C3D4E5F60003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60004 /* ContentView.swift */; };
 		A1B2C3D4E5F6000D /* InicioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000E /* InicioView.swift */; };
 		A1B2C3D4E5F6000F /* RegistroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60010 /* RegistroView.swift */; };
+		A1B2C3D4E5F60011 /* Entrenamiento.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60012 /* Entrenamiento.swift */; };
+		A1B2C3D4E5F60013 /* EntrenamientoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60014 /* EntrenamientoViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		A1B2C3D4E5F60005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1B2C3D4E5F6000E /* InicioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InicioView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60010 /* RegistroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistroView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60012 /* Entrenamiento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entrenamiento.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60014 /* EntrenamientoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntrenamientoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +45,14 @@
 			);
 			sourceTree = "<group>";
 		};
+		A1B2C3D4E5F60006 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F60000 /* fit-app.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A1B2C3D4E5F60008 /* fit-app */ = {
 			isa = PBXGroup;
 			children = (
@@ -48,17 +60,11 @@
 				A1B2C3D4E5F60004 /* ContentView.swift */,
 				A1B2C3D4E5F6000E /* InicioView.swift */,
 				A1B2C3D4E5F60010 /* RegistroView.swift */,
+				A1B2C3D4E5F60012 /* Entrenamiento.swift */,
+				A1B2C3D4E5F60014 /* EntrenamientoViewModel.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
 			);
 			path = "fit-app";
-			sourceTree = "<group>";
-		};
-		A1B2C3D4E5F60006 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A1B2C3D4E5F60000 /* fit-app.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +138,8 @@
 				A1B2C3D4E5F60003 /* ContentView.swift in Sources */,
 				A1B2C3D4E5F6000D /* InicioView.swift in Sources */,
 				A1B2C3D4E5F6000F /* RegistroView.swift in Sources */,
+				A1B2C3D4E5F60011 /* Entrenamiento.swift in Sources */,
+				A1B2C3D4E5F60013 /* EntrenamientoViewModel.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,7 +273,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = WP54892UWX;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "fit-app/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -294,7 +302,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = WP54892UWX;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "fit-app/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

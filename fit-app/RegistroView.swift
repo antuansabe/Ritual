@@ -1,72 +1,54 @@
 import SwiftUI
 
 struct RegistroView: View {
-    @State private var tipoActividad = "Jiu-Jitsu"
-    @State private var duracion = ""
-    @State private var intensidad = "Moderado"
-    @State private var notas = ""
+    @ObservedObject var viewModel: EntrenamientoViewModel
+    @Environment(\.dismiss) private var dismiss
     
-    let tiposActividad = ["Jiu-Jitsu", "Pesas", "Funcional", "Yoga", "MMA", "Running"]
-    let nivelesIntensidad = ["Ligero", "Moderado", "Intenso"]
+    @State private var tipoSeleccionado = "Cardio"
+    @State private var duracion = ""
+    
+    let tiposEntrenamiento = ["Cardio", "Fuerza", "Flexibilidad", "Deportes"]
     
     var body: some View {
-        ScrollView {
+        NavigationStack {
             VStack(spacing: 24) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Tipo de actividad")
+                Text("Registrar Entrenamiento")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding(.top, 20)
+                
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("Tipo de entrenamiento")
                         .font(.headline)
                         .foregroundColor(.white)
                     
-                    Picker("Tipo de actividad", selection: $tipoActividad) {
-                        ForEach(tiposActividad, id: \.self) { tipo in
+                    Picker("Tipo", selection: $tipoSeleccionado) {
+                        ForEach(tiposEntrenamiento, id: \.self) { tipo in
                             Text(tipo).tag(tipo)
                         }
                     }
-                    .pickerStyle(MenuPickerStyle())
-                    .accentColor(.white)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(8)
+                    .pickerStyle(SegmentedPickerStyle())
                 }
+                .padding(.horizontal, 20)
                 
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 16) {
                     Text("Duración (minutos)")
                         .font(.headline)
                         .foregroundColor(.white)
                     
-                    TextField("Ej: 60", text: $duracion)
-                        .keyboardType(.numberPad)
+                    TextField("Ej: 30", text: $duracion)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .colorScheme(.dark)
+                        .keyboardType(.numberPad)
                 }
+                .padding(.horizontal, 20)
                 
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Intensidad")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                    
-                    Picker("Intensidad", selection: $intensidad) {
-                        ForEach(nivelesIntensidad, id: \.self) { nivel in
-                            Text(nivel).tag(nivel)
-                        }
+                Button(action: {
+                    if let duracionInt = Int(duracion), duracionInt > 0 {
+                        viewModel.agregarEntrenamiento(tipo: tipoSeleccionado, duracion: duracionInt)
+                        dismiss()
                     }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .background(Color.clear)
-                }
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Notas")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                    
-                    TextEditor(text: $notas)
-                        .frame(minHeight: 100)
-                        .padding(8)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(8)
-                        .colorScheme(.dark)
-                }
-                
-                Button(action: guardarEntrenamiento) {
+                }) {
                     Text("Guardar entrenamiento")
                         .font(.headline)
                         .foregroundColor(.black)
@@ -75,30 +57,27 @@ struct RegistroView: View {
                         .background(Color.white)
                         .cornerRadius(12)
                 }
-                .padding(.top, 16)
+                .padding(.horizontal, 20)
+                .disabled(duracion.isEmpty || Int(duracion) == nil || Int(duracion)! <= 0)
+                
+                Spacer()
             }
-            .padding(20)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancelar") {
+                        dismiss()
+                    }
+                    .foregroundColor(.white)
+                }
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black)
-        .navigationTitle("Registro")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarColorScheme(.dark, for: .navigationBar)
-    }
-    
-    private func guardarEntrenamiento() {
-        print("=== ENTRENAMIENTO GUARDADO ===")
-        print("Tipo: \(tipoActividad)")
-        print("Duración: \(duracion) minutos")
-        print("Intensidad: \(intensidad)")
-        print("Notas: \(notas)")
-        print("==============================")
     }
 }
 
 #Preview {
-    NavigationStack {
-        RegistroView()
-    }
-    .preferredColorScheme(.dark)
+    RegistroView(viewModel: EntrenamientoViewModel())
+        .preferredColorScheme(.dark)
 }
