@@ -144,7 +144,7 @@ struct InicioView: View {
     
     var body: some View {
         ZStack {
-            Color.black
+            Color(.systemBackground)
                 .ignoresSafeArea()
             
             ScrollView {
@@ -162,7 +162,7 @@ struct InicioView: View {
                 HStack {
                     Spacer()
                     FloatingActionButton {
-                        showingRegistro = true
+                        // Navigation will be handled by TabView
                     }
                     .padding(.trailing, 16)
                     .padding(.bottom, 44)
@@ -170,9 +170,6 @@ struct InicioView: View {
             }
         }
         .navigationBarHidden(true)
-        .sheet(isPresented: $showingRegistro) {
-            RegistroView(viewModel: viewModel)
-        }
         .sheet(isPresented: $showingHistorial) {
             HistorialView(viewModel: viewModel)
         }
@@ -322,7 +319,7 @@ struct InicioView: View {
             }
             
             Button("Empezar ahora") {
-                showingRegistro = true
+                // Navigation will be handled by TabView
             }
             .font(.subheadline.weight(.medium))
             .foregroundColor(.white)
@@ -344,5 +341,4 @@ struct InicioView: View {
     NavigationStack {
         InicioView(viewModel: EntrenamientoViewModel())
     }
-    .preferredColorScheme(.dark)
 }

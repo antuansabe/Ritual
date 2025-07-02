@@ -35,7 +35,7 @@ struct HistorialView: View {
     
     var body: some View {
         ZStack {
-            Color.black
+            Color(.systemBackground)
                 .ignoresSafeArea()
             
             ScrollView {
@@ -304,5 +304,4 @@ struct StatCard: View {
     NavigationStack {
         HistorialView(viewModel: EntrenamientoViewModel())
     }
-    .preferredColorScheme(.dark)
 }

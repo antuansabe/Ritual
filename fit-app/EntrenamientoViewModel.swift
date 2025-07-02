@@ -82,11 +82,16 @@ class EntrenamientoViewModel: ObservableObject {
     }
     
     private func loadWorkouts() {
-        if let data = userDefaults.data(forKey: workoutsKey),
-           let decodedWorkouts = try? JSONDecoder().decode([Entrenamiento].self, from: data) {
-            self.entrenamientos = decodedWorkouts
-        } else {
-            // Solo cargar datos de muestra si no hay datos guardados
+        guard let data = userDefaults.data(forKey: workoutsKey) else {
+            loadSampleData()
+            return
+        }
+        
+        do {
+            self.entrenamientos = try JSONDecoder().decode([Entrenamiento].self, from: data)
+        } catch {
+            print("Error loading workouts: \(error.localizedDescription)")
+            errorMessage = AppError.loadFailed.localizedDescription
             loadSampleData()
         }
     }

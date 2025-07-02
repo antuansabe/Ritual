@@ -139,7 +139,6 @@ struct SummaryMetricCard: View {
 
 struct RegistroView: View {
     @ObservedObject var viewModel: EntrenamientoViewModel
-    @Environment(\.dismiss) private var dismiss
     
     @State private var tipoSeleccionado = "Cardio"
     @State private var duracion = ""
@@ -160,7 +159,7 @@ struct RegistroView: View {
     
     var body: some View {
         ZStack {
-            Color.black
+            Color(.systemBackground)
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
@@ -204,15 +203,7 @@ struct RegistroView: View {
     
     // MARK: - Header Section
     private var headerSection: some View {
-        HStack {
-            Button(action: { dismiss() }) {
-                Image(systemName: "xmark")
-                    .font(.title3)
-                    .foregroundColor(.secondary)
-                    .frame(width: 40, height: 40)
-                    .background(.ultraThinMaterial, in: Circle())
-            }
-            
+        HStack {            
             Spacer()
             
             Text("Nuevo Entrenamiento")
@@ -416,9 +407,12 @@ struct RegistroView: View {
             }
             .disabled(!isFormValid || viewModel.isLoading)
             
-            Button("Cancelar", action: { dismiss() })
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+            Button("Limpiar campos") {
+                tipoSeleccionado = "Cardio"
+                duracion = ""
+            }
+            .font(.subheadline)
+            .foregroundColor(.secondary)
         }
         .padding(.horizontal, 16)
         .padding(.bottom, 44)
@@ -453,7 +447,9 @@ struct RegistroView: View {
                         }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            dismiss()
+                            // Clear form after successful save
+                            tipoSeleccionado = "Cardio"
+                            duracion = ""
                         }
                     }
                 }
@@ -467,5 +463,4 @@ struct RegistroView: View {
 
 #Preview {
     RegistroView(viewModel: EntrenamientoViewModel())
-        .preferredColorScheme(.dark)
 }

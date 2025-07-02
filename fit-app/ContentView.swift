@@ -4,10 +4,32 @@ struct ContentView: View {
     @StateObject private var viewModel = EntrenamientoViewModel()
     
     var body: some View {
-        NavigationStack {
-            InicioView(viewModel: viewModel)
+        TabView {
+            NavigationStack {
+                InicioView(viewModel: viewModel)
+            }
+            .tabItem {
+                Image(systemName: "house.fill")
+                Text("Inicio")
+            }
+            
+            NavigationStack {
+                RegistroView(viewModel: viewModel)
+            }
+            .tabItem {
+                Image(systemName: "plus.circle.fill")
+                Text("Registrar")
+            }
+            
+            NavigationStack {
+                PerfilView(viewModel: viewModel)
+            }
+            .tabItem {
+                Image(systemName: "person.crop.circle.fill")
+                Text("Perfil")
+            }
         }
-        .preferredColorScheme(.dark)
+        .accentColor(.blue)
     }
 }
 
