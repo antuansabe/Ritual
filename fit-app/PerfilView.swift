@@ -1,14 +1,16 @@
 import SwiftUI
+import CoreData
 
 struct PerfilView: View {
-    @ObservedObject var viewModel: EntrenamientoViewModel
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
+    private var workouts: FetchedResults<WorkoutEntity>
     
     private var workoutsThisWeek: Int {
         let calendar = Calendar.current
         let today = Date()
         
-        return viewModel.entrenamientos.filter { workout in
-            calendar.isDate(workout.fecha, equalTo: today, toGranularity: .weekOfYear)
+        return workouts.filter { workout in
+            calendar.isDate(workout.date ?? Date(), equalTo: today, toGranularity: .weekOfYear)
         }.count
     }
     
@@ -117,7 +119,7 @@ struct PerfilView: View {
             HStack(spacing: 16) {
                 StatCard(
                     icon: "figure.walk.circle.fill",
-                    value: "\(viewModel.totalWorkouts)",
+                    value: "\(workouts.count)",
                     label: "Entrenamientos",
                     color: .blue,
                     accentColor: .blue.opacity(0.2)
@@ -125,7 +127,7 @@ struct PerfilView: View {
                 
                 StatCard(
                     icon: "clock.fill",
-                    value: "\(viewModel.totalMinutes)",
+                    value: "\(workouts.reduce(0) { $0 + Int($1.duration) })",
                     label: "Minutos",
                     color: .green,
                     accentColor: .green.opacity(0.2)
@@ -133,7 +135,7 @@ struct PerfilView: View {
                 
                 StatCard(
                     icon: "flame.fill",
-                    value: "\(viewModel.totalCalories)",
+                    value: "\(workouts.reduce(0) { $0 + Int($1.calories) })",
                     label: "Calorías",
                     color: .orange,
                     accentColor: .orange.opacity(0.2)
@@ -230,7 +232,7 @@ struct PerfilView: View {
                 }
                 Spacer()
                 
-                NavigationLink(destination: HistorialView(viewModel: viewModel)) {
+                NavigationLink(destination: HistorialView()) {
                     HStack(spacing: 6) {
                         Text("Ver todo")
                             .font(.system(size: 14, weight: .medium))
@@ -242,7 +244,7 @@ struct PerfilView: View {
             }
             
             VStack(spacing: 16) {
-                if viewModel.entrenamientos.isEmpty {
+                if workouts.isEmpty {
                     // Empty state
                     VStack(spacing: 16) {
                         Image(systemName: "figure.walk.circle")
@@ -262,7 +264,7 @@ struct PerfilView: View {
                     .padding(.vertical, 40)
                 } else {
                     // Recent workouts summary
-                    let recentWorkouts = Array(viewModel.entrenamientosOrdenados.prefix(3))
+                    let recentWorkouts = Array(workouts.prefix(3))
                     
                     VStack(spacing: 12) {
                         ForEach(recentWorkouts, id: \.id) { workout in
@@ -270,12 +272,12 @@ struct PerfilView: View {
                         }
                     }
                     
-                    if viewModel.entrenamientos.count > 3 {
+                    if workouts.count > 3 {
                         Divider()
                             .background(Color.white.opacity(0.1))
                         
                         HStack {
-                            Text("Y \(viewModel.entrenamientos.count - 3) entrenamientos más")
+                            Text("Y \(workouts.count - 3) entrenamientos más")
                                 .font(.system(size: 14, weight: .medium))
                                 .foregroundColor(.gray)
                             Spacer()
@@ -427,10 +429,10 @@ struct ModernAchievementCard: View {
 }
 
 struct RecentWorkoutRow: View {
-    let workout: Entrenamiento
+    let workout: WorkoutEntity
     
     private var workoutIcon: String {
-        switch workout.tipo {
+        switch workout.type ?? "" {
         case "Cardio": return "heart.circle.fill"
         case "Fuerza": return "dumbbell.fill"
         case "Yoga": return "figure.mind.and.body"
@@ -444,7 +446,7 @@ struct RecentWorkoutRow: View {
     }
     
     private var workoutColor: Color {
-        switch workout.tipo {
+        switch workout.type ?? "" {
         case "Cardio": return .red
         case "Fuerza": return .blue
         case "Yoga": return .purple
@@ -477,18 +479,18 @@ struct RecentWorkoutRow: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Text(workout.tipo)
+                    Text(workout.type ?? "")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                     
                     Spacer()
                     
-                    Text(dateFormatter.string(from: workout.fecha))
+                    Text(dateFormatter.string(from: workout.date ?? Date()))
                         .font(.system(size: 12, weight: .medium))
                         .foregroundColor(.gray)
                 }
                 
-                Text("\(workout.duracion) min • \(AppConstants.calculateCalories(for: workout.duracion)) kcal")
+                Text("\(workout.duration) min • \(workout.calories) kcal")
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.gray)
             }
@@ -510,6 +512,7 @@ struct Achievement {
 
 #Preview {
     NavigationStack {
-        PerfilView(viewModel: EntrenamientoViewModel())
+        PerfilView()
     }
+    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

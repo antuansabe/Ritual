@@ -28,7 +28,7 @@ struct PersistenceController {
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "fit_app") // Match your .xcdatamodeld file name
+        container = NSPersistentContainer(name: "WorkoutHeroModel") // Match your .xcdatamodeld file name
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }

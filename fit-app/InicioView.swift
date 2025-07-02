@@ -53,10 +53,10 @@ struct MetricCardView: View {
 }
 
 struct TrainingListItem: View {
-    let entrenamiento: Entrenamiento
+    let workout: WorkoutEntity
     
     private var workoutIcon: String {
-        switch entrenamiento.tipo {
+        switch workout.type ?? "" {
         case "Cardio": return "heart.circle.fill"
         case "Fuerza": return "dumbbell.fill"
         case "Yoga": return "figure.mind.and.body"
@@ -70,7 +70,7 @@ struct TrainingListItem: View {
     }
     
     private var workoutColor: Color {
-        switch entrenamiento.tipo {
+        switch workout.type ?? "" {
         case "Cardio": return .red
         case "Fuerza": return .blue
         case "Yoga": return .purple
@@ -102,18 +102,18 @@ struct TrainingListItem: View {
             }
             
             VStack(alignment: .leading, spacing: 2) {
-                Text(entrenamiento.tipo)
+                Text(workout.type ?? "")
                     .font(AppConstants.Design.bodyFont)
                     .foregroundColor(.white)
                 
-                Text("\(entrenamiento.duracion) min • \(AppConstants.calculateCalories(for: entrenamiento.duracion)) kcal")
+                Text("\(workout.duration) min • \(workout.calories) kcal")
                     .font(AppConstants.Design.captionFont)
                     .foregroundColor(.gray)
             }
             
             Spacer()
             
-            Text(dateFormatter.string(from: entrenamiento.fecha))
+            Text(dateFormatter.string(from: workout.date ?? Date()))
                 .font(AppConstants.Design.captionFont)
                 .foregroundColor(.gray)
         }
@@ -129,7 +129,7 @@ struct TrainingListItem: View {
         )
         .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(entrenamiento.tipo) workout, \(entrenamiento.duracion) minutes, \(entrenamiento.duracion * 8) calories, \(dateFormatter.string(from: entrenamiento.fecha))")
+        .accessibilityLabel("\(workout.type ?? "") workout, \(workout.duration) minutes, \(workout.calories) calories, \(dateFormatter.string(from: workout.date ?? Date()))")
     }
 }
 
@@ -160,7 +160,9 @@ struct FloatingActionButton: View {
 }
 
 struct InicioView: View {
-    @ObservedObject var viewModel: EntrenamientoViewModel
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
+    private var workouts: FetchedResults<WorkoutEntity>
+    
     @State private var animateOnAppear = false
     @State private var showingRegistro = false
     @State private var showingHistorial = false
@@ -198,7 +200,7 @@ struct InicioView: View {
         }
         .navigationBarHidden(true)
         .sheet(isPresented: $showingHistorial) {
-            HistorialView(viewModel: viewModel)
+            HistorialView()
         }
         .onAppear {
             withAnimation(.easeOut(duration: 1.0)) {
@@ -247,7 +249,7 @@ struct InicioView: View {
                 HStack(spacing: 12) {
                     MetricCardView(
                         icon: "figure.walk.circle.fill",
-                        value: "\(viewModel.totalWorkouts)",
+                        value: "\(workouts.count)",
                         label: "Entrenamientos",
                         tint: .blue
                     )
@@ -255,7 +257,7 @@ struct InicioView: View {
                     
                     MetricCardView(
                         icon: "clock.fill",
-                        value: "\(viewModel.totalMinutes)",
+                        value: "\(workouts.reduce(0) { $0 + Int($1.duration) })",
                         label: "Minutos",
                         tint: .green
                     )
@@ -263,7 +265,7 @@ struct InicioView: View {
                     
                     MetricCardView(
                         icon: "flame.fill",
-                        value: "\(viewModel.totalCalories)",
+                        value: "\(workouts.reduce(0) { $0 + Int($1.calories) })",
                         label: "Calorías",
                         tint: .orange
                     )
@@ -271,7 +273,7 @@ struct InicioView: View {
                     
                     MetricCardView(
                         icon: "calendar.circle.fill",
-                        value: "\(viewModel.currentStreak)",
+                        value: "\(calculateCurrentStreak())",
                         label: "Racha",
                         tint: .purple
                     )
@@ -295,7 +297,7 @@ struct InicioView: View {
                 
                 Spacer()
                 
-                if viewModel.entrenamientosOrdenados.count > 3 {
+                if workouts.count > 3 {
                     Button("Ver historial") {
                         showingHistorial = true
                     }
@@ -308,10 +310,10 @@ struct InicioView: View {
             .offset(y: animateOnAppear ? 0 : 20)
             .animation(.easeOut(duration: 0.8).delay(0.4), value: animateOnAppear)
             
-            if !viewModel.entrenamientosOrdenados.isEmpty {
+            if !workouts.isEmpty {
                 VStack(spacing: 8) {
-                    ForEach(Array(viewModel.entrenamientosOrdenados.prefix(3).enumerated()), id: \.element.id) { index, entrenamiento in
-                        TrainingListItem(entrenamiento: entrenamiento)
+                    ForEach(Array(workouts.prefix(3).enumerated()), id: \.element.objectID) { index, workout in
+                        TrainingListItem(workout: workout)
                             .opacity(animateOnAppear ? 1 : 0)
                             .offset(y: animateOnAppear ? 0 : 30)
                             .animation(.easeOut(duration: 0.6).delay(0.5 + Double(index) * 0.1), value: animateOnAppear)
@@ -363,10 +365,35 @@ struct InicioView: View {
         .offset(y: animateOnAppear ? 0 : 40)
         .animation(.easeOut(duration: 0.8).delay(0.6), value: animateOnAppear)
     }
+    
+    // MARK: - Helper Functions
+    private func calculateCurrentStreak() -> Int {
+        let calendar = Calendar.current
+        let sortedWorkouts = workouts.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
+        guard !sortedWorkouts.isEmpty else { return 0 }
+        
+        var streak = 0
+        var currentDay = Date()
+        
+        for workout in sortedWorkouts {
+            let workoutDay = calendar.startOfDay(for: workout.date ?? Date())
+            let currentDayStart = calendar.startOfDay(for: currentDay)
+            
+            if calendar.isDate(workoutDay, inSameDayAs: currentDayStart) {
+                streak += 1
+                currentDay = calendar.date(byAdding: .day, value: -1, to: currentDay) ?? Date()
+            } else {
+                break
+            }
+        }
+        
+        return streak
+    }
 }
 
 #Preview {
     NavigationStack {
-        InicioView(viewModel: EntrenamientoViewModel(), selectedTab: .constant(0))
+        InicioView(selectedTab: .constant(0))
     }
+    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

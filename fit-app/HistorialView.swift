@@ -1,7 +1,9 @@
 import SwiftUI
+import CoreData
 
 struct HistorialView: View {
-    @ObservedObject var viewModel: EntrenamientoViewModel
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
+    private var workouts: FetchedResults<WorkoutEntity>
     @Environment(\.dismiss) private var dismiss
     @State private var animateOnAppear = false
     @State private var currentDate = Date()
@@ -13,9 +15,9 @@ struct HistorialView: View {
         let currentMonth = calendar.component(.month, from: currentDate)
         let currentYear = calendar.component(.year, from: currentDate)
         
-        return viewModel.entrenamientos.filter { workout in
-            let workoutMonth = calendar.component(.month, from: workout.fecha)
-            let workoutYear = calendar.component(.year, from: workout.fecha)
+        return workouts.filter { workout in
+            let workoutMonth = calendar.component(.month, from: workout.date ?? Date())
+            let workoutYear = calendar.component(.year, from: workout.date ?? Date())
             return workoutMonth == currentMonth && workoutYear == currentYear
         }.count
     }
@@ -25,11 +27,11 @@ struct HistorialView: View {
         let currentMonth = calendar.component(.month, from: currentDate)
         let currentYear = calendar.component(.year, from: currentDate)
         
-        let workoutDates = Set(viewModel.entrenamientos.compactMap { workout in
-            let workoutMonth = calendar.component(.month, from: workout.fecha)
-            let workoutYear = calendar.component(.year, from: workout.fecha)
+        let workoutDates = Set(workouts.compactMap { workout in
+            let workoutMonth = calendar.component(.month, from: workout.date ?? Date())
+            let workoutYear = calendar.component(.year, from: workout.date ?? Date())
             if workoutMonth == currentMonth && workoutYear == currentYear {
-                return calendar.startOfDay(for: workout.fecha)
+                return calendar.startOfDay(for: workout.date ?? Date())
             }
             return nil
         })
@@ -40,14 +42,14 @@ struct HistorialView: View {
     // Estadísticas del año
     private var yearStats: (totalWorkouts: Int, totalMinutes: Int, currentStreak: Int) {
         let currentYear = Calendar.current.component(.year, from: Date())
-        let yearWorkouts = viewModel.entrenamientos.filter { 
-            Calendar.current.component(.year, from: $0.fecha) == currentYear 
+        let yearWorkouts = workouts.filter { 
+            Calendar.current.component(.year, from: $0.date ?? Date()) == currentYear 
         }
         
         return (
             totalWorkouts: yearWorkouts.count,
-            totalMinutes: yearWorkouts.reduce(0) { $0 + $1.duracion },
-            currentStreak: viewModel.currentStreak
+            totalMinutes: yearWorkouts.reduce(0) { $0 + Int($1.duration) },
+            currentStreak: calculateCurrentStreak()
         )
     }
     
@@ -114,7 +116,7 @@ struct HistorialView: View {
     private var calendarSection: some View {
         VStack(spacing: 24) {
             HistorialCalendarView(
-                workouts: viewModel.entrenamientos,
+                workouts: Array(workouts),
                 currentDate: $currentDate
             )
         }
@@ -232,11 +234,32 @@ struct HistorialView: View {
     }
     
     // MARK: - Helper Functions
+    private func calculateCurrentStreak() -> Int {
+        let sortedWorkouts = workouts.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
+        guard !sortedWorkouts.isEmpty else { return 0 }
+        
+        var streak = 0
+        var currentDay = Date()
+        
+        for workout in sortedWorkouts {
+            let workoutDay = calendar.startOfDay(for: workout.date ?? Date())
+            let currentDayStart = calendar.startOfDay(for: currentDay)
+            
+            if calendar.isDate(workoutDay, inSameDayAs: currentDayStart) {
+                streak += 1
+                currentDay = calendar.date(byAdding: .day, value: -1, to: currentDay) ?? Date()
+            } else {
+                break
+            }
+        }
+        
+        return streak
+    }
 }
 
 // MARK: - Historial Calendar Component
 struct HistorialCalendarView: View {
-    let workouts: [Entrenamiento]
+    let workouts: [WorkoutEntity]
     @Binding var currentDate: Date
     
     private let calendar = Calendar.current
@@ -277,7 +300,7 @@ struct HistorialCalendarView: View {
     
     private func hasWorkout(on date: Date) -> Bool {
         return workouts.contains { workout in
-            calendar.isDate(workout.fecha, inSameDayAs: date)
+            calendar.isDate(workout.date ?? Date(), inSameDayAs: date)
         }
     }
     
@@ -432,6 +455,7 @@ struct HistorialCalendarDayView: View {
 
 #Preview {
     NavigationStack {
-        HistorialView(viewModel: EntrenamientoViewModel())
+        HistorialView()
     }
+    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

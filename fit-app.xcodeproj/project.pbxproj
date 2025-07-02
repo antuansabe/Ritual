@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		20A4EEDC2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEDA2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld */; };
-		20A4EEE32E15EBBE00AC8C57 /* WorkoutEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE12E15EBBE00AC8C57 /* WorkoutEntity+CoreDataClass.swift */; };
-		20A4EEE42E15EBBE00AC8C57 /* WorkoutEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE22E15EBBE00AC8C57 /* WorkoutEntity+CoreDataProperties.swift */; };
+		20A4EEE52E15EC0000AC8C57 /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE52E15EC0100AC8C57 /* WorkoutViewModel.swift */; };
+		20A4EEE62E15EC0000AC8C57 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE62E15EC0200AC8C57 /* PersistenceController.swift */; };
 		A1B2C3D4E5F60001 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002 /* App.swift */; };
 		A1B2C3D4E5F60003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60004 /* ContentView.swift */; };
 		A1B2C3D4E5F6000D /* InicioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000E /* InicioView.swift */; };
@@ -23,8 +23,8 @@
 
 /* Begin PBXFileReference section */
 		20A4EEDB2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WorkoutHeroModel.xcdatamodel; sourceTree = "<group>"; };
-		20A4EEE12E15EBBE00AC8C57 /* WorkoutEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		20A4EEE22E15EBBE00AC8C57 /* WorkoutEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		20A4EEE52E15EC0100AC8C57 /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
+		20A4EEE62E15EC0200AC8C57 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60000 /* fit-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fit-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B2C3D4E5F60002 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60004 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,8 +52,6 @@
 		A1B2C3D4E5F5FFF7 = {
 			isa = PBXGroup;
 			children = (
-				20A4EEE12E15EBBE00AC8C57 /* WorkoutEntity+CoreDataClass.swift */,
-				20A4EEE22E15EBBE00AC8C57 /* WorkoutEntity+CoreDataProperties.swift */,
 				A1B2C3D4E5F60008 /* fit-app */,
 				A1B2C3D4E5F60006 /* Products */,
 			);
@@ -79,6 +77,8 @@
 				A1B2C3D4E5F60016 /* AppConstants.swift */,
 				A1B2C3D4E5F60018 /* HistorialView.swift */,
 				A1B2C3D4E5F6001A /* PerfilView.swift */,
+				20A4EEE52E15EC0100AC8C57 /* WorkoutViewModel.swift */,
+				20A4EEE62E15EC0200AC8C57 /* PersistenceController.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
 				20A4EEDA2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld */,
 			);
@@ -155,14 +155,14 @@
 			files = (
 				A1B2C3D4E5F60003 /* ContentView.swift in Sources */,
 				A1B2C3D4E5F6000D /* InicioView.swift in Sources */,
-				20A4EEE32E15EBBE00AC8C57 /* WorkoutEntity+CoreDataClass.swift in Sources */,
-				20A4EEE42E15EBBE00AC8C57 /* WorkoutEntity+CoreDataProperties.swift in Sources */,
 				A1B2C3D4E5F6000F /* RegistroView.swift in Sources */,
 				A1B2C3D4E5F60011 /* Entrenamiento.swift in Sources */,
 				A1B2C3D4E5F60013 /* EntrenamientoViewModel.swift in Sources */,
 				A1B2C3D4E5F60015 /* AppConstants.swift in Sources */,
 				A1B2C3D4E5F60017 /* HistorialView.swift in Sources */,
 				20A4EEDC2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld in Sources */,
+				20A4EEE52E15EC0000AC8C57 /* WorkoutViewModel.swift in Sources */,
+				20A4EEE62E15EC0000AC8C57 /* PersistenceController.swift in Sources */,
 				A1B2C3D4E5F60019 /* PerfilView.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
