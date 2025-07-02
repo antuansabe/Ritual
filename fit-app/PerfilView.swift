@@ -19,15 +19,15 @@ struct PerfilView: View {
                 headerSection
                 
                 // Main content
-                VStack(spacing: 24) {
+                VStack(spacing: 32) {
                     // Quick stats
                     statsSection
                     
                     // Weekly progress
                     weeklyProgressSection
                     
-                    // Activity heatmap
-                    activitySection
+                    // Recent activity summary
+                    recentActivitySection
                     
                     // Achievements
                     achievementsSection
@@ -215,45 +215,71 @@ struct PerfilView: View {
         }
     }
     
-    // MARK: - Activity Section
-    private var activitySection: some View {
+    
+    // MARK: - Recent Activity Section
+    private var recentActivitySection: some View {
         VStack(spacing: 20) {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Actividad")
+                    Text("Actividad Reciente")
                         .font(.system(size: 22, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
-                    Text("Tu constancia durante el año")
+                    Text("Tus últimos entrenamientos")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.gray)
                 }
                 Spacer()
+                
+                NavigationLink(destination: HistorialView(viewModel: viewModel)) {
+                    HStack(spacing: 6) {
+                        Text("Ver todo")
+                            .font(.system(size: 14, weight: .medium))
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 12, weight: .medium))
+                    }
+                    .foregroundColor(.blue)
+                }
             }
             
             VStack(spacing: 16) {
-                // iOS Calendar
-                iOSCalendarView(workouts: viewModel.entrenamientos)
-                
-                // Legend
-                HStack {
-                    HStack(spacing: 6) {
-                        Circle()
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(width: 12, height: 12)
-                        Text("Sin entrenar")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.gray)
+                if viewModel.entrenamientos.isEmpty {
+                    // Empty state
+                    VStack(spacing: 16) {
+                        Image(systemName: "figure.walk.circle")
+                            .font(.system(size: 50))
+                            .foregroundColor(.gray.opacity(0.6))
+                        
+                        VStack(spacing: 8) {
+                            Text("Aún no hay entrenamientos")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.white)
+                            Text("Registra tu primer entrenamiento para empezar a ver tu progreso")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.gray)
+                                .multilineTextAlignment(.center)
+                        }
+                    }
+                    .padding(.vertical, 40)
+                } else {
+                    // Recent workouts summary
+                    let recentWorkouts = Array(viewModel.entrenamientosOrdenados.prefix(3))
+                    
+                    VStack(spacing: 12) {
+                        ForEach(recentWorkouts, id: \.id) { workout in
+                            RecentWorkoutRow(workout: workout)
+                        }
                     }
                     
-                    Spacer()
-                    
-                    HStack(spacing: 6) {
-                        Circle()
-                            .fill(Color.green)
-                            .frame(width: 12, height: 12)
-                        Text("Con entrenamiento")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.gray)
+                    if viewModel.entrenamientos.count > 3 {
+                        Divider()
+                            .background(Color.white.opacity(0.1))
+                        
+                        HStack {
+                            Text("Y \(viewModel.entrenamientos.count - 3) entrenamientos más")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.gray)
+                            Spacer()
+                        }
                     }
                 }
             }
@@ -352,176 +378,6 @@ struct StatCard: View {
     }
 }
 
-struct iOSCalendarView: View {
-    let workouts: [Entrenamiento]
-    @State private var currentDate = Date()
-    
-    private let calendar = Calendar.current
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM yyyy"
-        formatter.locale = Locale(identifier: "es_ES")
-        return formatter
-    }()
-    
-    private var monthDays: [Date] {
-        guard let monthRange = calendar.range(of: .day, in: .month, for: currentDate),
-              let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate)) else {
-            return []
-        }
-        
-        let firstWeekday = calendar.component(.weekday, from: firstDayOfMonth)
-        let startingSpaces = (firstWeekday - calendar.firstWeekday + 7) % 7
-        
-        var days: [Date] = []
-        
-        // Add empty dates for spacing
-        for _ in 0..<startingSpaces {
-            if let date = calendar.date(byAdding: .day, value: -(startingSpaces - days.count), to: firstDayOfMonth) {
-                days.append(date)
-            }
-        }
-        
-        // Add all days of the month
-        for day in monthRange {
-            if let date = calendar.date(byAdding: .day, value: day - 1, to: firstDayOfMonth) {
-                days.append(date)
-            }
-        }
-        
-        return days
-    }
-    
-    private func hasWorkout(on date: Date) -> Bool {
-        return workouts.contains { workout in
-            calendar.isDate(workout.fecha, inSameDayAs: date)
-        }
-    }
-    
-    private func isCurrentMonth(_ date: Date) -> Bool {
-        calendar.isDate(date, equalTo: currentDate, toGranularity: .month)
-    }
-    
-    private func isToday(_ date: Date) -> Bool {
-        calendar.isDateInToday(date)
-    }
-    
-    var body: some View {
-        VStack(spacing: 16) {
-            // Month header with navigation
-            HStack {
-                Button(action: { changeMonth(by: -1) }) {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.white.opacity(0.8))
-                        .frame(width: 30, height: 30)
-                        .background(Color.white.opacity(0.1))
-                        .clipShape(Circle())
-                }
-                
-                Spacer()
-                
-                Text(dateFormatter.string(from: currentDate).capitalized)
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
-                
-                Spacer()
-                
-                Button(action: { changeMonth(by: 1) }) {
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.white.opacity(0.8))
-                        .frame(width: 30, height: 30)
-                        .background(Color.white.opacity(0.1))
-                        .clipShape(Circle())
-                }
-            }
-            
-            VStack(spacing: 8) {
-                // Weekday headers
-                HStack(spacing: 0) {
-                    ForEach(["L", "M", "M", "J", "V", "S", "D"], id: \.self) { day in
-                        Text(day)
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundColor(.gray)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                
-                // Calendar grid
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 7), spacing: 4) {
-                    ForEach(monthDays, id: \.self) { date in
-                        CalendarDayView(
-                            date: date,
-                            hasWorkout: hasWorkout(on: date),
-                            isCurrentMonth: isCurrentMonth(date),
-                            isToday: isToday(date)
-                        )
-                    }
-                }
-            }
-        }
-    }
-    
-    private func changeMonth(by value: Int) {
-        if let newDate = calendar.date(byAdding: .month, value: value, to: currentDate) {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                currentDate = newDate
-            }
-        }
-    }
-}
-
-struct CalendarDayView: View {
-    let date: Date
-    let hasWorkout: Bool
-    let isCurrentMonth: Bool
-    let isToday: Bool
-    
-    private var dayNumber: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d"
-        return formatter.string(from: date)
-    }
-    
-    var body: some View {
-        VStack {
-            Text(dayNumber)
-                .font(.system(size: 14, weight: isToday ? .bold : .medium))
-                .foregroundColor(textColor)
-        }
-        .frame(width: 32, height: 32)
-        .background(backgroundColor)
-        .clipShape(Circle())
-        .overlay(
-            Circle()
-                .stroke(isToday ? Color.blue : Color.clear, lineWidth: 2)
-        )
-        .scaleEffect(isCurrentMonth ? 1.0 : 0.8)
-        .opacity(isCurrentMonth ? 1.0 : 0.3)
-        .animation(.easeInOut(duration: 0.2), value: hasWorkout)
-    }
-    
-    private var backgroundColor: Color {
-        if hasWorkout && isCurrentMonth {
-            return Color.green.opacity(0.8)
-        } else if isCurrentMonth {
-            return Color.gray.opacity(0.2)
-        } else {
-            return Color.clear
-        }
-    }
-    
-    private var textColor: Color {
-        if hasWorkout && isCurrentMonth {
-            return .white
-        } else if isCurrentMonth {
-            return .white.opacity(0.8)
-        } else {
-            return .gray.opacity(0.5)
-        }
-    }
-}
 
 struct ModernAchievementCard: View {
     let achievement: Achievement
@@ -567,6 +423,77 @@ struct ModernAchievementCard: View {
         )
         .scaleEffect(achievement.isUnlocked ? 1.0 : 0.95)
         .opacity(achievement.isUnlocked ? 1.0 : 0.6)
+    }
+}
+
+struct RecentWorkoutRow: View {
+    let workout: Entrenamiento
+    
+    private var workoutIcon: String {
+        switch workout.tipo {
+        case "Cardio": return "heart.circle.fill"
+        case "Fuerza": return "dumbbell.fill"
+        case "Yoga": return "figure.mind.and.body"
+        case "Caminata": return "figure.walk"
+        case "Ciclismo": return "bicycle"
+        case "Natación": return "figure.pool.swim"
+        case "Striking": return "figure.boxing"
+        case "Jiu Jitsu": return "figure.martial.arts"
+        default: return "figure.walk.circle.fill"
+        }
+    }
+    
+    private var workoutColor: Color {
+        switch workout.tipo {
+        case "Cardio": return .red
+        case "Fuerza": return .blue
+        case "Yoga": return .purple
+        case "Caminata": return .green
+        case "Ciclismo": return .yellow
+        case "Natación": return .cyan
+        case "Striking": return .red
+        case "Jiu Jitsu": return .purple
+        default: return .gray
+        }
+    }
+    
+    private var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter
+    }
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            ZStack {
+                Circle()
+                    .fill(workoutColor.opacity(0.2))
+                    .frame(width: 40, height: 40)
+                
+                Image(systemName: workoutIcon)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(workoutColor)
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text(workout.tipo)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+                    
+                    Text(dateFormatter.string(from: workout.fecha))
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.gray)
+                }
+                
+                Text("\(workout.duracion) min • \(AppConstants.calculateCalories(for: workout.duracion)) kcal")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding(.vertical, 4)
     }
 }
 

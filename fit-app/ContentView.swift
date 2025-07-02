@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = EntrenamientoViewModel()
     @State private var selectedTab = 0
+    let persistenceController = PersistenceController.shared
     
     var body: some View {
         ZStack {
@@ -12,7 +12,7 @@ struct ContentView: View {
             
             TabView(selection: $selectedTab) {
                 NavigationStack {
-                    InicioView(viewModel: viewModel, selectedTab: $selectedTab)
+                    InicioView(selectedTab: $selectedTab)
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 0 ? "house.fill" : "house")
@@ -23,7 +23,7 @@ struct ContentView: View {
                 .tag(0)
                 
                 NavigationStack {
-                    RegistroView(viewModel: viewModel, selectedTab: $selectedTab)
+                    RegistroView(selectedTab: $selectedTab)
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 1 ? "plus.circle.fill" : "plus.circle")
@@ -34,7 +34,7 @@ struct ContentView: View {
                 .tag(1)
                 
                 NavigationStack {
-                    HistorialView(viewModel: viewModel)
+                    HistorialView()
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 2 ? "chart.bar.fill" : "chart.bar")
@@ -45,7 +45,7 @@ struct ContentView: View {
                 .tag(2)
                 
                 NavigationStack {
-                    PerfilView(viewModel: viewModel)
+                    PerfilView()
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 3 ? "person.crop.circle.fill" : "person.crop.circle")
@@ -59,9 +59,11 @@ struct ContentView: View {
             .toolbarBackground(.ultraThinMaterial, for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)
         }
+        .environment(\.managedObjectContext, persistenceController.container.viewContext)
     }
 }
 
 #Preview {
     ContentView()
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

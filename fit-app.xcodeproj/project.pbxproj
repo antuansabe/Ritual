@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20A4EEDC2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEDA2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld */; };
+		20A4EEE32E15EBBE00AC8C57 /* WorkoutEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE12E15EBBE00AC8C57 /* WorkoutEntity+CoreDataClass.swift */; };
+		20A4EEE42E15EBBE00AC8C57 /* WorkoutEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE22E15EBBE00AC8C57 /* WorkoutEntity+CoreDataProperties.swift */; };
 		A1B2C3D4E5F60001 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002 /* App.swift */; };
 		A1B2C3D4E5F60003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60004 /* ContentView.swift */; };
 		A1B2C3D4E5F6000D /* InicioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000E /* InicioView.swift */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20A4EEDB2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WorkoutHeroModel.xcdatamodel; sourceTree = "<group>"; };
+		20A4EEE12E15EBBE00AC8C57 /* WorkoutEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		20A4EEE22E15EBBE00AC8C57 /* WorkoutEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A1B2C3D4E5F60000 /* fit-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fit-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B2C3D4E5F60002 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60004 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -28,8 +34,8 @@
 		A1B2C3D4E5F60012 /* Entrenamiento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entrenamiento.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60014 /* EntrenamientoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntrenamientoViewModel.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60016 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
-	A1B2C3D4E5F60018 /* HistorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorialView.swift; sourceTree = "<group>"; };
-	A1B2C3D4E5F6001A /* PerfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfilView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60018 /* HistorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorialView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F6001A /* PerfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfilView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +52,8 @@
 		A1B2C3D4E5F5FFF7 = {
 			isa = PBXGroup;
 			children = (
+				20A4EEE12E15EBBE00AC8C57 /* WorkoutEntity+CoreDataClass.swift */,
+				20A4EEE22E15EBBE00AC8C57 /* WorkoutEntity+CoreDataProperties.swift */,
 				A1B2C3D4E5F60008 /* fit-app */,
 				A1B2C3D4E5F60006 /* Products */,
 			);
@@ -72,6 +80,7 @@
 				A1B2C3D4E5F60018 /* HistorialView.swift */,
 				A1B2C3D4E5F6001A /* PerfilView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
+				20A4EEDA2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld */,
 			);
 			path = "fit-app";
 			sourceTree = "<group>";
@@ -146,11 +155,14 @@
 			files = (
 				A1B2C3D4E5F60003 /* ContentView.swift in Sources */,
 				A1B2C3D4E5F6000D /* InicioView.swift in Sources */,
+				20A4EEE32E15EBBE00AC8C57 /* WorkoutEntity+CoreDataClass.swift in Sources */,
+				20A4EEE42E15EBBE00AC8C57 /* WorkoutEntity+CoreDataProperties.swift in Sources */,
 				A1B2C3D4E5F6000F /* RegistroView.swift in Sources */,
 				A1B2C3D4E5F60011 /* Entrenamiento.swift in Sources */,
 				A1B2C3D4E5F60013 /* EntrenamientoViewModel.swift in Sources */,
 				A1B2C3D4E5F60015 /* AppConstants.swift in Sources */,
 				A1B2C3D4E5F60017 /* HistorialView.swift in Sources */,
+				20A4EEDC2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld in Sources */,
 				A1B2C3D4E5F60019 /* PerfilView.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
@@ -358,6 +370,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		20A4EEDA2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				20A4EEDB2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodel */,
+			);
+			currentVersion = 20A4EEDB2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodel */;
+			path = WorkoutHeroModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A1B2C3D4E5F5FFF8 /* Project object */;
 }

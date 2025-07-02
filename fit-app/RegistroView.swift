@@ -173,15 +173,13 @@ struct SummaryMetricCard: View {
 }
 
 struct RegistroView: View {
-    @ObservedObject var viewModel: EntrenamientoViewModel
+    @StateObject private var workoutViewModel = WorkoutViewModel()
+    @Environment(\.managedObjectContext) private var managedObjectContext
     @Binding var selectedTab: Int
     
     @State private var tipoSeleccionado = "Cardio"
     @State private var duracion = ""
     @State private var animateOnAppear = false
-    @State private var showSuccess = false
-    @State private var showError = false
-    @State private var errorMessage = ""
     @Namespace private var heroAnimation
     
     var isFormValid: Bool {
@@ -219,21 +217,21 @@ struct RegistroView: View {
             }
         }
         .overlay {
-            if showSuccess {
+            if workoutViewModel.showSuccess {
                 SuccessModalView(
                     title: "¡Entrenamiento Guardado!",
                     message: "¡Sigue así y alcanza tus metas!",
                     icon: "checkmark.circle.fill",
-                    isVisible: showSuccess
+                    isVisible: workoutViewModel.showSuccess
                 )
             }
         }
-        .alert("Error", isPresented: $showError) {
+        .alert("Error", isPresented: .constant(workoutViewModel.errorMessage != nil)) {
             Button("OK") {
-                showError = false
+                workoutViewModel.clearError()
             }
         } message: {
-            Text(errorMessage)
+            Text(workoutViewModel.errorMessage ?? "")
         }
     }
     
@@ -432,7 +430,7 @@ struct RegistroView: View {
         VStack(spacing: 16) {
             Button(action: saveWorkout) {
                 HStack {
-                    if viewModel.isLoading {
+                    if workoutViewModel.isLoading {
                         ProgressView()
                             .scaleEffect(0.8)
                             .tint(.white)
@@ -441,7 +439,7 @@ struct RegistroView: View {
                             .font(.title3)
                     }
                     
-                    Text(viewModel.isLoading ? "Guardando..." : "Guardar Entrenamiento")
+                    Text(workoutViewModel.isLoading ? "Guardando..." : "Guardar Entrenamiento")
                         .font(AppConstants.Design.bodyFont)
                 }
                 .foregroundColor(.white)
@@ -455,7 +453,7 @@ struct RegistroView: View {
                 .scaleEffect(isFormValid ? 1.0 : 0.98)
                 .animation(.easeInOut(duration: 0.2), value: isFormValid)
             }
-            .disabled(!isFormValid || viewModel.isLoading)
+            .disabled(!isFormValid || workoutViewModel.isLoading)
             
             Button("Limpiar campos") {
                 tipoSeleccionado = "Cardio"
@@ -484,23 +482,23 @@ struct RegistroView: View {
         switch validationResult {
         case .success(let validDuration):
             Task {
-                await viewModel.agregarEntrenamiento(tipo: tipoSeleccionado, duracion: validDuration)
+                await workoutViewModel.saveWorkout(
+                    type: tipoSeleccionado,
+                    duration: validDuration,
+                    managedObjectContext: managedObjectContext
+                )
                 
                 await MainActor.run {
-                    if let error = viewModel.errorMessage {
-                        errorMessage = error
-                        showError = true
-                        viewModel.clearError()
-                    } else {
+                    if workoutViewModel.showSuccess {
                         // Show success modal with scale transition
                         withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
-                            showSuccess = true
+                            // Modal is already shown by workoutViewModel.showSuccess
                         }
                         
                         // Auto-dismiss after 2 seconds and navigate to home
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                             withAnimation(.easeInOut(duration: 0.3)) {
-                                showSuccess = false
+                                workoutViewModel.clearSuccess()
                             }
                             
                             // Navigate back to home tab after modal disappears
@@ -517,12 +515,12 @@ struct RegistroView: View {
                 }
             }
         case .failure(let error):
-            errorMessage = error.localizedDescription
-            showError = true
+            workoutViewModel.errorMessage = error.localizedDescription
         }
     }
 }
 
 #Preview {
-    RegistroView(viewModel: EntrenamientoViewModel(), selectedTab: .constant(1))
+    RegistroView(selectedTab: .constant(1))
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
