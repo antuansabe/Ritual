@@ -13,6 +13,8 @@
 		A1B2C3D4E5F6000F /* RegistroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60010 /* RegistroView.swift */; };
 		A1B2C3D4E5F60011 /* Entrenamiento.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60012 /* Entrenamiento.swift */; };
 		A1B2C3D4E5F60013 /* EntrenamientoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60014 /* EntrenamientoViewModel.swift */; };
+		A1B2C3D4E5F60015 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60016 /* AppConstants.swift */; };
+		A1B2C3D4E5F60017 /* HistorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60018 /* HistorialView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		A1B2C3D4E5F60010 /* RegistroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistroView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60012 /* Entrenamiento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entrenamiento.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60014 /* EntrenamientoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntrenamientoViewModel.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60016 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+	A1B2C3D4E5F60018 /* HistorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorialView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,8 @@
 				A1B2C3D4E5F60010 /* RegistroView.swift */,
 				A1B2C3D4E5F60012 /* Entrenamiento.swift */,
 				A1B2C3D4E5F60014 /* EntrenamientoViewModel.swift */,
+				A1B2C3D4E5F60016 /* AppConstants.swift */,
+				A1B2C3D4E5F60018 /* HistorialView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
 			);
 			path = "fit-app";
@@ -140,6 +146,8 @@
 				A1B2C3D4E5F6000F /* RegistroView.swift in Sources */,
 				A1B2C3D4E5F60011 /* Entrenamiento.swift in Sources */,
 				A1B2C3D4E5F60013 /* EntrenamientoViewModel.swift in Sources */,
+				A1B2C3D4E5F60015 /* AppConstants.swift in Sources */,
+				A1B2C3D4E5F60017 /* HistorialView.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

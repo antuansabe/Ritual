@@ -2,6 +2,11 @@ import Foundation
 
 class EntrenamientoViewModel: ObservableObject {
     @Published var entrenamientos: [Entrenamiento] = []
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+    
+    private let userDefaults = UserDefaults.standard
+    private let workoutsKey = "SavedWorkouts"
     
     var entrenamientosOrdenados: [Entrenamiento] {
         entrenamientos.sorted { $0.fecha > $1.fecha }
@@ -16,32 +21,32 @@ class EntrenamientoViewModel: ObservableObject {
     }
     
     var totalCalories: Int {
-        entrenamientos.reduce(0) { $0 + ($1.duracion * 8) }
+        entrenamientos.reduce(0) { $0 + AppConstants.calculateCalories(for: $1.duracion) }
     }
     
     var currentStreak: Int {
         guard !entrenamientos.isEmpty else { return 0 }
         
         let calendar = Calendar.current
-        let today = Date()
+        let today = calendar.startOfDay(for: Date())
+        
+        // Agrupar entrenamientos por día
+        let workoutDays = Set(entrenamientos.map { calendar.startOfDay(for: $0.fecha) })
+        let sortedDays = Array(workoutDays).sorted(by: >)
+        
         var streak = 0
-        var currentDate = today
+        var currentCheckDate = today
         
-        let sortedWorkouts = entrenamientos.sorted { $0.fecha > $1.fecha }
-        
-        for workout in sortedWorkouts {
-            if calendar.isDate(workout.fecha, inSameDayAs: currentDate) {
+        for day in sortedDays {
+            if calendar.isDate(day, inSameDayAs: currentCheckDate) {
                 streak += 1
-                currentDate = calendar.date(byAdding: .day, value: -1, to: currentDate) ?? currentDate
-            } else if calendar.isDate(workout.fecha, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: today) ?? today) {
-                streak += 1
-                break
+                currentCheckDate = calendar.date(byAdding: .day, value: -1, to: currentCheckDate) ?? currentCheckDate
             } else {
                 break
             }
         }
         
-        return max(streak, entrenamientos.isEmpty ? 0 : 1)
+        return streak
     }
     
     var todayWorkouts: [Entrenamiento] {
@@ -57,13 +62,39 @@ class EntrenamientoViewModel: ObservableObject {
         return entrenamientos.filter { $0.fecha >= weekAgo }
     }
     
-    func agregarEntrenamiento(tipo: String, duracion: Int) {
-        let nuevoEntrenamiento = Entrenamiento(tipo: tipo, duracion: duracion, fecha: Date())
-        entrenamientos.append(nuevoEntrenamiento)
+    func agregarEntrenamiento(tipo: String, duracion: Int) async {
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            let nuevoEntrenamiento = Entrenamiento(tipo: tipo, duracion: duracion, fecha: Date())
+            entrenamientos.append(nuevoEntrenamiento)
+            try await saveWorkouts()
+        } catch {
+            errorMessage = AppError.saveFailed.localizedDescription
+        }
+        
+        isLoading = false
     }
     
     init() {
-        loadSampleData()
+        loadWorkouts()
+    }
+    
+    private func loadWorkouts() {
+        if let data = userDefaults.data(forKey: workoutsKey),
+           let decodedWorkouts = try? JSONDecoder().decode([Entrenamiento].self, from: data) {
+            self.entrenamientos = decodedWorkouts
+        } else {
+            // Solo cargar datos de muestra si no hay datos guardados
+            loadSampleData()
+        }
+    }
+    
+    private func saveWorkouts() async throws {
+        let encoder = JSONEncoder()
+        let data = try encoder.encode(entrenamientos)
+        userDefaults.set(data, forKey: workoutsKey)
     }
     
     private func loadSampleData() {
@@ -80,5 +111,9 @@ class EntrenamientoViewModel: ObservableObject {
             Entrenamiento(tipo: "Striking", duracion: 50, fecha: calendar.date(byAdding: .day, value: -4, to: today) ?? today),
         ]
         entrenamientos = sampleData
+    }
+    
+    func clearError() {
+        errorMessage = nil
     }
 }

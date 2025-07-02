@@ -5,27 +5,38 @@ struct MetricCardView: View {
     let icon: String
     let value: String
     let label: String
-    let color: Color
+    let tint: Color
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.title2)
-                .foregroundColor(color)
-                .frame(width: 40, height: 40)
+                .foregroundStyle(tint)
+                .frame(width: 32, height: 32)
+                .accessibilityHidden(true)
             
             VStack(spacing: 4) {
                 Text(value)
                     .font(.title.bold())
                     .foregroundColor(.primary)
+                    .accessibilityLabel("\(value) \(label)")
                 
                 Text(label)
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.6)
+                    .lineLimit(1)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityHidden(true)
             }
         }
-        .frame(width: 120, height: 120)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20))
+        .frame(maxWidth: .infinity)
+        .aspectRatio(1, contentMode: .fit)
+        .padding(.vertical, 8)
+        .background(Material.ultraThin, in: RoundedRectangle(cornerRadius: 16))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(value) \(label)")
     }
 }
 
@@ -36,8 +47,6 @@ struct TrainingListItem: View {
         switch entrenamiento.tipo {
         case "Cardio": return "heart.circle.fill"
         case "Fuerza": return "dumbbell.fill"
-        case "Flexibilidad": return "figure.flexibility"
-        case "Deportes": return "sportscourt.fill"
         case "Yoga": return "figure.mind.and.body"
         case "Caminata": return "figure.walk"
         case "Ciclismo": return "bicycle"
@@ -52,14 +61,12 @@ struct TrainingListItem: View {
         switch entrenamiento.tipo {
         case "Cardio": return .red
         case "Fuerza": return .blue
-        case "Flexibilidad": return .green
-        case "Deportes": return .orange
         case "Yoga": return .purple
-        case "Caminata": return .teal
+        case "Caminata": return .green
         case "Ciclismo": return .yellow
-        case "Natación": return .blue
-        case "Striking": return .pink
-        case "Jiu Jitsu": return .indigo
+        case "Natación": return .cyan
+        case "Striking": return .red
+        case "Jiu Jitsu": return .purple
         default: return .gray
         }
     }
@@ -71,18 +78,19 @@ struct TrainingListItem: View {
     }
     
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 12) {
             Image(systemName: workoutIcon)
-                .font(.title2)
+                .font(.title3)
                 .foregroundColor(workoutColor)
-                .frame(width: 40, height: 40)
+                .frame(width: 36, height: 36)
+                .accessibilityHidden(true)
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text(entrenamiento.tipo)
                     .font(.subheadline.weight(.medium))
                     .foregroundColor(.primary)
                 
-                Text("\(entrenamiento.duracion) min • \(entrenamiento.duracion * 8) kcal")
+                Text("\(entrenamiento.duracion) min • \(AppConstants.calculateCalories(for: entrenamiento.duracion)) kcal")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -91,11 +99,13 @@ struct TrainingListItem: View {
             
             Text(dateFormatter.string(from: entrenamiento.fecha))
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundColor(.secondary)
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 16)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .padding(.horizontal, AppConstants.UI.spacingL)
+        .padding(.vertical, AppConstants.UI.spacingM)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusM))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(entrenamiento.tipo) workout, \(entrenamiento.duracion) minutes, \(entrenamiento.duracion * 8) calories, \(dateFormatter.string(from: entrenamiento.fecha))")
     }
 }
 
@@ -120,6 +130,8 @@ struct FloatingActionButton: View {
         .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
             isPressed = pressing
         }, perform: {})
+        .accessibilityLabel("Add new workout")
+        .accessibilityHint("Opens the workout registration form")
     }
 }
 
@@ -127,6 +139,7 @@ struct InicioView: View {
     @ObservedObject var viewModel: EntrenamientoViewModel
     @State private var animateOnAppear = false
     @State private var showingRegistro = false
+    @State private var showingHistorial = false
     @Namespace private var heroAnimation
     
     var body: some View {
@@ -135,12 +148,11 @@ struct InicioView: View {
                 .ignoresSafeArea()
             
             ScrollView {
-                VStack(spacing: 48) {
+                VStack(spacing: 32) {
                     headerSection
                     metricsSection
                     recentWorkoutsSection
                 }
-                .padding(.horizontal, 24)
                 .padding(.top, 20)
                 .padding(.bottom, 120)
             }
@@ -152,7 +164,7 @@ struct InicioView: View {
                     FloatingActionButton {
                         showingRegistro = true
                     }
-                    .padding(.trailing, 24)
+                    .padding(.trailing, 16)
                     .padding(.bottom, 44)
                 }
             }
@@ -160,6 +172,9 @@ struct InicioView: View {
         .navigationBarHidden(true)
         .sheet(isPresented: $showingRegistro) {
             RegistroView(viewModel: viewModel)
+        }
+        .sheet(isPresented: $showingHistorial) {
+            HistorialView(viewModel: viewModel)
         }
         .onAppear {
             withAnimation(.easeOut(duration: 1.0)) {
@@ -170,46 +185,47 @@ struct InicioView: View {
     
     // MARK: - Header Section
     private var headerSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Hola, Antonio 👋")
-                        .font(.title.bold())
-                        .foregroundColor(.primary)
-                        .opacity(animateOnAppear ? 1 : 0)
-                        .offset(y: animateOnAppear ? 0 : 30)
-                        .animation(.easeOut(duration: 0.8), value: animateOnAppear)
-                    
-                    Text("¿Qué entrenamiento harás hoy?")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .opacity(animateOnAppear ? 1 : 0)
-                        .offset(y: animateOnAppear ? 0 : 30)
-                        .animation(.easeOut(duration: 0.8).delay(0.1), value: animateOnAppear)
-                }
-                
-                Spacer()
-            }
+        VStack(alignment: .leading, spacing: 8) {
+            Text("\(AppConstants.User.greeting), \(AppConstants.User.defaultName) \(AppConstants.User.welcomeEmoji)")
+                .font(.title.bold())
+                .foregroundColor(.primary)
+                .opacity(animateOnAppear ? 1 : 0)
+                .offset(y: animateOnAppear ? 0 : 30)
+                .animation(.easeOut(duration: 0.8), value: animateOnAppear)
+            
+            Text("¿Qué entrenamiento harás hoy?")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .opacity(animateOnAppear ? 1 : 0)
+                .offset(y: animateOnAppear ? 0 : 30)
+                .animation(.easeOut(duration: 0.8).delay(0.1), value: animateOnAppear)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 16)
     }
     
     // MARK: - Metrics Section
     private var metricsSection: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text("Progreso")
-                .font(.title2.bold())
-                .foregroundColor(.primary)
-                .opacity(animateOnAppear ? 1 : 0)
-                .offset(y: animateOnAppear ? 0 : 20)
-                .animation(.easeOut(duration: 0.8).delay(0.2), value: animateOnAppear)
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("Progreso")
+                    .font(.title3.weight(.semibold))
+                    .foregroundColor(.primary)
+                    .opacity(animateOnAppear ? 1 : 0)
+                    .offset(y: animateOnAppear ? 0 : 20)
+                    .animation(.easeOut(duration: 0.8).delay(0.2), value: animateOnAppear)
+                
+                Spacer()
+            }
+            .padding(.horizontal, 16)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
+                HStack(spacing: 12) {
                     MetricCardView(
                         icon: "figure.walk.circle.fill",
                         value: "\(viewModel.totalWorkouts)",
                         label: "Entrenamientos",
-                        color: .blue
+                        tint: .blue
                     )
                     .matchedGeometryEffect(id: "workouts", in: heroAnimation)
                     
@@ -217,7 +233,7 @@ struct InicioView: View {
                         icon: "clock.fill",
                         value: "\(viewModel.totalMinutes)",
                         label: "Minutos",
-                        color: .green
+                        tint: .green
                     )
                     .matchedGeometryEffect(id: "minutes", in: heroAnimation)
                     
@@ -225,7 +241,7 @@ struct InicioView: View {
                         icon: "flame.fill",
                         value: "\(viewModel.totalCalories)",
                         label: "Calorías",
-                        color: .orange
+                        tint: .orange
                     )
                     .matchedGeometryEffect(id: "calories", in: heroAnimation)
                     
@@ -233,11 +249,11 @@ struct InicioView: View {
                         icon: "calendar.circle.fill",
                         value: "\(viewModel.currentStreak)",
                         label: "Racha",
-                        color: .purple
+                        tint: .purple
                     )
                     .matchedGeometryEffect(id: "streak", in: heroAnimation)
                 }
-                .padding(.horizontal, 24)
+                .padding(.horizontal, 16)
             }
             .opacity(animateOnAppear ? 1 : 0)
             .offset(x: animateOnAppear ? 0 : -50)
@@ -247,28 +263,29 @@ struct InicioView: View {
     
     // MARK: - Recent Workouts Section
     private var recentWorkoutsSection: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Text("Entrenamientos recientes")
-                    .font(.title2.bold())
+                    .font(.title3.weight(.semibold))
                     .foregroundColor(.primary)
                 
                 Spacer()
                 
                 if viewModel.entrenamientosOrdenados.count > 3 {
-                    Button("Ver todos") {
-                        // Navigate to all workouts
+                    Button("Ver historial") {
+                        showingHistorial = true
                     }
                     .font(.subheadline)
                     .foregroundColor(.blue)
                 }
             }
+            .padding(.horizontal, 16)
             .opacity(animateOnAppear ? 1 : 0)
             .offset(y: animateOnAppear ? 0 : 20)
             .animation(.easeOut(duration: 0.8).delay(0.4), value: animateOnAppear)
             
             if !viewModel.entrenamientosOrdenados.isEmpty {
-                VStack(spacing: 12) {
+                VStack(spacing: 8) {
                     ForEach(Array(viewModel.entrenamientosOrdenados.prefix(3).enumerated()), id: \.element.id) { index, entrenamiento in
                         TrainingListItem(entrenamiento: entrenamiento)
                             .opacity(animateOnAppear ? 1 : 0)
@@ -276,8 +293,10 @@ struct InicioView: View {
                             .animation(.easeOut(duration: 0.6).delay(0.5 + Double(index) * 0.1), value: animateOnAppear)
                     }
                 }
+                .padding(.horizontal, 16)
             } else {
                 emptyStateView
+                    .padding(.horizontal, 16)
             }
         }
     }
