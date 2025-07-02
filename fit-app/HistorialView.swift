@@ -4,19 +4,37 @@ struct HistorialView: View {
     @ObservedObject var viewModel: EntrenamientoViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var animateOnAppear = false
+    @State private var currentDate = Date()
     
-    // Datos procesados para el heatmap
-    private var workoutsByDate: [String: Int] {
-        var grouped: [String: Int] = [:]
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+    private let calendar = Calendar.current
+    
+    // Entrenamientos del mes actual
+    private var currentMonthWorkouts: Int {
+        let currentMonth = calendar.component(.month, from: currentDate)
+        let currentYear = calendar.component(.year, from: currentDate)
         
-        for workout in viewModel.entrenamientos {
-            let dateString = formatter.string(from: workout.fecha)
-            grouped[dateString, default: 0] += workout.duracion
-        }
+        return viewModel.entrenamientos.filter { workout in
+            let workoutMonth = calendar.component(.month, from: workout.fecha)
+            let workoutYear = calendar.component(.year, from: workout.fecha)
+            return workoutMonth == currentMonth && workoutYear == currentYear
+        }.count
+    }
+    
+    // Días únicos con entrenamientos en el mes actual
+    private var uniqueWorkoutDays: Int {
+        let currentMonth = calendar.component(.month, from: currentDate)
+        let currentYear = calendar.component(.year, from: currentDate)
         
-        return grouped
+        let workoutDates = Set(viewModel.entrenamientos.compactMap { workout in
+            let workoutMonth = calendar.component(.month, from: workout.fecha)
+            let workoutYear = calendar.component(.year, from: workout.fecha)
+            if workoutMonth == currentMonth && workoutYear == currentYear {
+                return calendar.startOfDay(for: workout.fecha)
+            }
+            return nil
+        })
+        
+        return workoutDates.count
     }
     
     // Estadísticas del año
@@ -39,10 +57,10 @@ struct HistorialView: View {
                 .ignoresSafeArea()
             
             ScrollView {
-                VStack(spacing: AppConstants.UI.spacingXXL) {
+                VStack(spacing: 32) {
                     headerSection
-                    heatmapSection
-                    legendSection
+                    calendarSection
+                    monthSummarySection
                     statsSection
                 }
                 .padding(.horizontal, AppConstants.UI.spacingL)
@@ -72,11 +90,11 @@ struct HistorialView: View {
             Spacer()
             
             VStack(spacing: AppConstants.UI.spacingS) {
-                Text("Tu año en entrenamientos 💪")
+                Text("Historial de Entrenamientos")
                     .font(AppConstants.Design.headerFont)
                     .foregroundColor(.white)
                 
-                Text("\(Calendar.current.component(.year, from: Date()))")
+                Text("Tu actividad mensual")
                     .font(AppConstants.Design.bodyFont)
                     .foregroundColor(.white.opacity(0.8))
             }
@@ -92,90 +110,83 @@ struct HistorialView: View {
         .animation(.easeOut(duration: 0.6), value: animateOnAppear)
     }
     
-    // MARK: - Heatmap Section
-    private var heatmapSection: some View {
-        VStack(spacing: AppConstants.UI.spacingL) {
-            // Días de la semana (labels)
-            weekdayLabels
-            
-            // Grid principal del heatmap
-            contributionGrid
+    // MARK: - Calendar Section
+    private var calendarSection: some View {
+        VStack(spacing: 24) {
+            HistorialCalendarView(
+                workouts: viewModel.entrenamientos,
+                currentDate: $currentDate
+            )
         }
+        .padding(20)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(AppConstants.Design.cardBackground())
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                )
+        )
+        .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 30)
         .animation(.easeOut(duration: 0.8).delay(0.2), value: animateOnAppear)
     }
     
-    // MARK: - Weekday Labels
-    private var weekdayLabels: some View {
-        HStack(spacing: 2) {
-            // Espacio para los meses
-            Color.clear
-                .frame(width: 24)
-            
-            ForEach(["L", "M", "X", "J", "V", "S", "D"], id: \.self) { day in
-                Text(day)
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-                    .frame(width: 12, height: 12)
+    // MARK: - Month Summary Section
+    private var monthSummarySection: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Text("Resumen del mes")
+                    .font(AppConstants.Design.subheaderFont)
+                    .foregroundColor(.white)
+                Spacer()
             }
             
-            Spacer()
-        }
-    }
-    
-    // MARK: - Contribution Grid
-    private var contributionGrid: some View {
-        let currentYear = Calendar.current.component(.year, from: Date())
-        let startOfYear = Calendar.current.date(from: DateComponents(year: currentYear, month: 1, day: 1))!
-        let calendar = Calendar.current
-        
-        return ScrollView(.horizontal, showsIndicators: false) {
-            LazyHGrid(rows: Array(repeating: GridItem(.fixed(12), spacing: 2), count: 7), spacing: 2) {
-                ForEach(0..<53, id: \.self) { week in
-                    ForEach(0..<7, id: \.self) { day in
-                        let dayOffset = week * 7 + day
-                        let currentDate = calendar.date(byAdding: .day, value: dayOffset, to: startOfYear)!
+            VStack(spacing: 12) {
+                HStack {
+                    HStack(spacing: 8) {
+                        Image(systemName: "calendar.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(.blue)
                         
-                        if calendar.component(.year, from: currentDate) == currentYear {
-                            ContributionSquare(
-                                date: currentDate,
-                                minutes: workoutsByDate[dateString(from: currentDate)] ?? 0
-                            )
-                        } else {
-                            Color.clear
-                                .frame(width: 12, height: 12)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("\(uniqueWorkoutDays)")
+                                .font(AppConstants.Design.subheaderFont)
+                                .foregroundColor(.white)
+                            Text(uniqueWorkoutDays == 1 ? "día entrenado" : "días entrenados")
+                                .font(AppConstants.Design.captionFont)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    HStack(spacing: 8) {
+                        Image(systemName: "figure.run.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(.green)
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("\(currentMonthWorkouts)")
+                                .font(AppConstants.Design.subheaderFont)
+                                .foregroundColor(.white)
+                            Text(currentMonthWorkouts == 1 ? "entrenamiento" : "entrenamientos")
+                                .font(AppConstants.Design.captionFont)
+                                .foregroundColor(.gray)
                         }
                     }
                 }
             }
-            .padding(.horizontal, AppConstants.UI.spacingL)
-        }
-    }
-    
-    // MARK: - Legend Section
-    private var legendSection: some View {
-        VStack(spacing: AppConstants.UI.spacingM) {
-            HStack {
-                Text("Menos")
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-                
-                HStack(spacing: 3) {
-                    ForEach([0, 15, 30, 60], id: \.self) { minutes in
-                        Rectangle()
-                            .fill(colorForMinutes(minutes))
-                            .frame(width: 12, height: 12)
-                            .cornerRadius(2)
-                    }
-                }
-                
-                Text("Más")
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-                
-                Spacer()
-            }
+            .padding(20)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(AppConstants.Design.cardBackground())
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                    )
+            )
         }
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 20)
@@ -221,60 +232,199 @@ struct HistorialView: View {
     }
     
     // MARK: - Helper Functions
-    private func dateString(from date: Date) -> String {
+}
+
+// MARK: - Historial Calendar Component
+struct HistorialCalendarView: View {
+    let workouts: [Entrenamiento]
+    @Binding var currentDate: Date
+    
+    private let calendar = Calendar.current
+    private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
+        formatter.dateFormat = "MMMM yyyy"
+        formatter.locale = Locale(identifier: "es_ES")
+        return formatter
+    }()
+    
+    private var monthDays: [Date] {
+        guard let monthRange = calendar.range(of: .day, in: .month, for: currentDate),
+              let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate)) else {
+            return []
+        }
+        
+        let firstWeekday = calendar.component(.weekday, from: firstDayOfMonth)
+        let startingSpaces = (firstWeekday - calendar.firstWeekday + 7) % 7
+        
+        var days: [Date] = []
+        
+        // Add empty dates for spacing
+        for _ in 0..<startingSpaces {
+            if let date = calendar.date(byAdding: .day, value: -(startingSpaces - days.count), to: firstDayOfMonth) {
+                days.append(date)
+            }
+        }
+        
+        // Add all days of the month
+        for day in monthRange {
+            if let date = calendar.date(byAdding: .day, value: day - 1, to: firstDayOfMonth) {
+                days.append(date)
+            }
+        }
+        
+        return days
     }
     
-    private func colorForMinutes(_ minutes: Int) -> Color {
-        switch minutes {
-        case 0:
-            return .gray.opacity(0.2)
-        case 1...20:
-            return .green.opacity(0.3)
-        case 21...40:
-            return .green.opacity(0.6)
-        default:
-            return .green
+    private func hasWorkout(on date: Date) -> Bool {
+        return workouts.contains { workout in
+            calendar.isDate(workout.fecha, inSameDayAs: date)
+        }
+    }
+    
+    private func isCurrentMonth(_ date: Date) -> Bool {
+        calendar.isDate(date, equalTo: currentDate, toGranularity: .month)
+    }
+    
+    private func isToday(_ date: Date) -> Bool {
+        calendar.isDateInToday(date)
+    }
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            // Month header with navigation
+            HStack {
+                Button(action: { changeMonth(by: -1) }) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.8))
+                        .frame(width: 32, height: 32)
+                        .background(AppConstants.Design.cardBackground())
+                        .clipShape(Circle())
+                }
+                
+                Spacer()
+                
+                Text(dateFormatter.string(from: currentDate).capitalized)
+                    .font(AppConstants.Design.subheaderFont)
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Button(action: { changeMonth(by: 1) }) {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.8))
+                        .frame(width: 32, height: 32)
+                        .background(AppConstants.Design.cardBackground())
+                        .clipShape(Circle())
+                }
+            }
+            
+            VStack(spacing: 12) {
+                // Weekday headers
+                HStack(spacing: 0) {
+                    ForEach(["L", "M", "M", "J", "V", "S", "D"], id: \.self) { day in
+                        Text(day)
+                            .font(AppConstants.Design.captionFont)
+                            .foregroundColor(.gray)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                
+                // Calendar grid
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 7), spacing: 6) {
+                    ForEach(monthDays, id: \.self) { date in
+                        HistorialCalendarDayView(
+                            date: date,
+                            hasWorkout: hasWorkout(on: date),
+                            isCurrentMonth: isCurrentMonth(date),
+                            isToday: isToday(date)
+                        )
+                    }
+                }
+            }
+            
+            // Legend
+            HStack {
+                HStack(spacing: 8) {
+                    Circle()
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width: 12, height: 12)
+                    Text("Sin entrenar")
+                        .font(AppConstants.Design.footnoteFont)
+                        .foregroundColor(.gray)
+                }
+                
+                Spacer()
+                
+                HStack(spacing: 8) {
+                    Circle()
+                        .fill(Color.green)
+                        .frame(width: 12, height: 12)
+                    Text("Con entrenamiento")
+                        .font(AppConstants.Design.footnoteFont)
+                        .foregroundColor(.gray)
+                }
+            }
+        }
+    }
+    
+    private func changeMonth(by value: Int) {
+        if let newDate = calendar.date(byAdding: .month, value: value, to: currentDate) {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                currentDate = newDate
+            }
         }
     }
 }
 
-// MARK: - Contribution Square Component
-struct ContributionSquare: View {
+struct HistorialCalendarDayView: View {
     let date: Date
-    let minutes: Int
-    @State private var isHovered = false
+    let hasWorkout: Bool
+    let isCurrentMonth: Bool
+    let isToday: Bool
     
-    var body: some View {
-        Rectangle()
-            .fill(colorForMinutes(minutes))
-            .frame(width: 12, height: 12)
-            .cornerRadius(2)
-            .scaleEffect(isHovered ? 1.1 : 1.0)
-            .animation(.easeInOut(duration: 0.1), value: isHovered)
-            .onTapGesture {
-                // Pequeña animación de feedback
-                withAnimation(.easeInOut(duration: 0.1)) {
-                    isHovered.toggle()
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    isHovered = false
-                }
-            }
+    private var dayNumber: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
+        return formatter.string(from: date)
     }
     
-    private func colorForMinutes(_ minutes: Int) -> Color {
-        switch minutes {
-        case 0:
-            return .gray.opacity(0.2)
-        case 1...20:
-            return .green.opacity(0.3)
-        case 21...40:
-            return .green.opacity(0.6)
-        default:
-            return .green
+    var body: some View {
+        VStack {
+            Text(dayNumber)
+                .font(.system(size: 14, weight: isToday ? .bold : .medium))
+                .foregroundColor(textColor)
+        }
+        .frame(width: 36, height: 36)
+        .background(backgroundColor)
+        .clipShape(Circle())
+        .overlay(
+            Circle()
+                .stroke(isToday ? Color.blue : Color.clear, lineWidth: 2)
+        )
+        .scaleEffect(isCurrentMonth ? 1.0 : 0.8)
+        .opacity(isCurrentMonth ? 1.0 : 0.3)
+        .animation(.easeInOut(duration: 0.2), value: hasWorkout)
+    }
+    
+    private var backgroundColor: Color {
+        if hasWorkout && isCurrentMonth {
+            return Color.green.opacity(0.8)
+        } else if isCurrentMonth {
+            return Color.gray.opacity(0.2)
+        } else {
+            return Color.clear
+        }
+    }
+    
+    private var textColor: Color {
+        if hasWorkout && isCurrentMonth {
+            return .white
+        } else if isCurrentMonth {
+            return .white.opacity(0.8)
+        } else {
+            return .gray.opacity(0.5)
         }
     }
 }
