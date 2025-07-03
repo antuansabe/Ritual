@@ -168,6 +168,11 @@ struct InicioView: View {
     @State private var showingHistorial = false
     @Namespace private var heroAnimation
     
+    // Button press states for touch feedback
+    @State private var isComenzarPressed = false
+    @State private var isHistorialPressed = false
+    @State private var isPerfilPressed = false
+    
     // Add TabView selection binding
     @Binding var selectedTab: Int
     
@@ -217,23 +222,147 @@ struct InicioView: View {
     
     // MARK: - Header Section
     private var headerSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("\(AppConstants.User.greeting), \(AppConstants.User.defaultName) \(AppConstants.User.welcomeEmoji)")
-                .font(AppConstants.Design.titleFont)
-                .foregroundColor(.white)
-                .opacity(animateOnAppear ? 1 : 0)
-                .offset(y: animateOnAppear ? 0 : 30)
-                .animation(.easeOut(duration: 0.8), value: animateOnAppear)
+        VStack(spacing: AppConstants.UI.spacingXL) {
+            // Welcome title - centrado y moderno
+            VStack(spacing: AppConstants.UI.spacingM) {
+                Text("¡Bienvenido de nuevo!")
+                    .font(.system(size: 36, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
+                    .opacity(animateOnAppear ? 1 : 0)
+                    .offset(y: animateOnAppear ? 0 : 30)
+                    .animation(.easeOut(duration: 0.8), value: animateOnAppear)
+                
+                Text("Tu transformación empieza aquí")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.white.opacity(0.9))
+                    .multilineTextAlignment(.center)
+                    .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 1)
+                    .opacity(animateOnAppear ? 1 : 0)
+                    .offset(y: animateOnAppear ? 0 : 30)
+                    .animation(.easeOut(duration: 0.8).delay(0.1), value: animateOnAppear)
+            }
+            .frame(maxWidth: .infinity)
             
-            Text("¿Qué entrenamiento harás hoy?")
-                .font(AppConstants.Design.bodyFont)
-                .foregroundColor(.white.opacity(0.8))
-                .opacity(animateOnAppear ? 1 : 0)
-                .offset(y: animateOnAppear ? 0 : 30)
-                .animation(.easeOut(duration: 0.8).delay(0.1), value: animateOnAppear)
+            // Botones principales de navegación
+            actionButtonsSection
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 16)
+        .padding(.horizontal, AppConstants.UI.spacingL)
+    }
+    
+    // MARK: - Action Buttons Section
+    private var actionButtonsSection: some View {
+        VStack(spacing: AppConstants.UI.spacingL) {
+            // Botón Comenzar entrenamiento
+            Button(action: {
+                selectedTab = 1 // Navigate to Registrar tab
+            }) {
+                HStack(spacing: AppConstants.UI.spacingM) {
+                    Image(systemName: "figure.run.circle.fill")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(.white)
+                    
+                    Text("Comenzar entrenamiento")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "arrow.right.circle.fill")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                .padding(.horizontal, AppConstants.UI.spacingXL)
+                .padding(.vertical, AppConstants.UI.spacingL)
+                .background(
+                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.blue, Color.purple],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                )
+                .shadow(color: Color.blue.opacity(0.4), radius: 8, x: 0, y: 4)
+            }
+            .scaleEffect(isComenzarPressed ? 0.95 : (animateOnAppear ? 1 : 0.9))
+            .opacity(animateOnAppear ? 1 : 0)
+            .animation(.easeOut(duration: 0.6).delay(0.3), value: animateOnAppear)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isComenzarPressed)
+            .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+                isComenzarPressed = pressing
+            }, perform: {})
+            
+            HStack(spacing: AppConstants.UI.spacingM) {
+                // Botón Ver historial
+                Button(action: {
+                    showingHistorial = true
+                }) {
+                    VStack(spacing: AppConstants.UI.spacingS) {
+                        Image(systemName: "chart.bar.fill")
+                            .font(.system(size: 28, weight: .semibold))
+                            .foregroundColor(.green)
+                        
+                        Text("Ver historial")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.white)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, AppConstants.UI.spacingXL)
+                    .background(
+                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                            .fill(Color.white.opacity(0.15))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                                    .stroke(Color.green.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                    .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
+                }
+                .scaleEffect(isHistorialPressed ? 0.95 : (animateOnAppear ? 1 : 0.9))
+                .opacity(animateOnAppear ? 1 : 0)
+                .animation(.easeOut(duration: 0.6).delay(0.4), value: animateOnAppear)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isHistorialPressed)
+                .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+                    isHistorialPressed = pressing
+                }, perform: {})
+                
+                // Botón Perfil
+                Button(action: {
+                    selectedTab = 3 // Navigate to Perfil tab
+                }) {
+                    VStack(spacing: AppConstants.UI.spacingS) {
+                        Image(systemName: "person.circle.fill")
+                            .font(.system(size: 28, weight: .semibold))
+                            .foregroundColor(.orange)
+                        
+                        Text("Perfil")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.white)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, AppConstants.UI.spacingXL)
+                    .background(
+                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                            .fill(Color.white.opacity(0.15))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                                    .stroke(Color.orange.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                    .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
+                }
+                .scaleEffect(isPerfilPressed ? 0.95 : (animateOnAppear ? 1 : 0.9))
+                .opacity(animateOnAppear ? 1 : 0)
+                .animation(.easeOut(duration: 0.6).delay(0.5), value: animateOnAppear)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPerfilPressed)
+                .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+                    isPerfilPressed = pressing
+                }, perform: {})
+            }
+        }
     }
     
     // MARK: - Metrics Section
