@@ -7,7 +7,13 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
+            Image("loginBackground")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .ignoresSafeArea()
+            
             AppConstants.Design.backgroundGradient
+                .opacity(0.7)
                 .ignoresSafeArea()
             
             ScrollView {

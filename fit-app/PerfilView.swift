@@ -44,12 +44,19 @@ struct PerfilView: View {
             }
         }
         .background(
-            LinearGradient(
-                colors: [Color.black, Color(.systemGray6).opacity(0.1)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            ZStack {
+                Image("profileBackground")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .ignoresSafeArea()
+                
+                LinearGradient(
+                    colors: [Color.black.opacity(0.7), Color(.systemGray6).opacity(0.3)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+            }
         )
         .navigationBarHidden(true)
     }

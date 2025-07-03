@@ -194,7 +194,13 @@ struct RegistroView: View {
     
     var body: some View {
         ZStack {
+            Image("historialBackground")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .ignoresSafeArea()
+            
             AppConstants.Design.backgroundGradient
+                .opacity(0.7)
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
