@@ -394,38 +394,46 @@ struct StatCard: View {
     let accentColor: Color
     
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: AppConstants.UI.spacingM) {
             ZStack {
                 Circle()
                     .fill(accentColor)
-                    .frame(width: 50, height: 50)
+                    .frame(width: 60, height: 60)
+                    .shadow(color: color.opacity(0.3), radius: 4, x: 0, y: 2)
                 
                 Image(systemName: icon)
-                    .font(.system(size: 24, weight: .semibold))
+                    .font(.system(size: 28, weight: .semibold))
                     .foregroundColor(color)
             }
             
-            VStack(spacing: 4) {
+            VStack(spacing: AppConstants.UI.spacingXS) {
                 Text(value)
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .font(.system(size: 22, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
+                    .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
                 
                 Text(label)
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.gray)
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundColor(.white.opacity(0.8))
                     .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.8)
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 20)
+        .padding(.vertical, AppConstants.UI.spacingL)
+        .padding(.horizontal, AppConstants.UI.spacingM)
         .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(0.05))
+            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                .fill(Color.white.opacity(0.08))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        .stroke(color.opacity(0.2), lineWidth: 1)
                 )
         )
+        .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: 3)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(label): \(value)")
     }
 }
 

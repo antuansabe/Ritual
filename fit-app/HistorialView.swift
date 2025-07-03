@@ -86,33 +86,48 @@ struct HistorialView: View {
     
     // MARK: - Header Section
     private var headerSection: some View {
-        HStack {
-            Button(action: { dismiss() }) {
-                Image(systemName: "chevron.left")
-                    .font(.title3)
-                    .foregroundColor(.secondary)
-                    .frame(width: 40, height: 40)
-                    .background(.ultraThinMaterial, in: Circle())
-            }
-            
-            Spacer()
-            
-            VStack(spacing: AppConstants.UI.spacingS) {
-                Text("Historial de Entrenamientos")
-                    .font(AppConstants.Design.headerFont)
-                    .foregroundColor(.white)
+        VStack(spacing: AppConstants.UI.spacingL) {
+            // Navigation Bar
+            HStack {
+                Button(action: { dismiss() }) {
+                    HStack(spacing: AppConstants.UI.spacingS) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.white)
+                        
+                        Text("Atrás")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.horizontal, AppConstants.UI.spacingM)
+                    .padding(.vertical, AppConstants.UI.spacingS)
+                    .background(
+                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusM)
+                            .fill(.ultraThinMaterial.opacity(0.7))
+                    )
+                }
+                .accessibilityLabel("Volver atrás")
                 
-                Text("Tu actividad mensual")
-                    .font(AppConstants.Design.bodyFont)
-                    .foregroundColor(.white.opacity(0.8))
+                Spacer()
             }
             
-            Spacer()
-            
-            // Espacio para balancear el botón izquierdo
-            Color.clear
-                .frame(width: 40, height: 40)
+            // Title Section
+            VStack(spacing: AppConstants.UI.spacingM) {
+                Text("Historial de Entrenamientos")
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+                
+                Text("Revisa tu progreso y mantente motivado")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.white.opacity(0.9))
+                    .multilineTextAlignment(.center)
+                    .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
+            }
+            .frame(maxWidth: .infinity)
         }
+        .padding(.horizontal, AppConstants.UI.spacingL)
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : -20)
         .animation(.easeOut(duration: 0.6), value: animateOnAppear)
@@ -143,58 +158,90 @@ struct HistorialView: View {
     
     // MARK: - Month Summary Section
     private var monthSummarySection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: AppConstants.UI.spacingL) {
             HStack {
-                Text("Resumen del mes")
-                    .font(AppConstants.Design.subheaderFont)
-                    .foregroundColor(.white)
+                VStack(alignment: .leading, spacing: AppConstants.UI.spacingXS) {
+                    Text("Resumen del mes")
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                        .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
+                    
+                    Text("Tu actividad reciente")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.white.opacity(0.7))
+                }
                 Spacer()
             }
             
-            VStack(spacing: 12) {
-                HStack {
-                    HStack(spacing: 8) {
-                        Image(systemName: "calendar.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(.blue)
+            HStack(spacing: AppConstants.UI.spacingL) {
+                // Días entrenados
+                VStack(spacing: AppConstants.UI.spacingM) {
+                    ZStack {
+                        Circle()
+                            .fill(Color.blue.opacity(0.2))
+                            .frame(width: 60, height: 60)
                         
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("\(uniqueWorkoutDays)")
-                                .font(AppConstants.Design.subheaderFont)
-                                .foregroundColor(.white)
-                            Text(uniqueWorkoutDays == 1 ? "día entrenado" : "días entrenados")
-                                .font(AppConstants.Design.captionFont)
-                                .foregroundColor(.gray)
-                        }
+                        Image(systemName: "calendar.circle.fill")
+                            .font(.system(size: 28))
+                            .foregroundColor(.blue)
                     }
                     
-                    Spacer()
-                    
-                    HStack(spacing: 8) {
-                        Image(systemName: "figure.run.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(.green)
+                    VStack(spacing: AppConstants.UI.spacingXS) {
+                        Text("\(uniqueWorkoutDays)")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
                         
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("\(currentMonthWorkouts)")
-                                .font(AppConstants.Design.subheaderFont)
-                                .foregroundColor(.white)
-                            Text(currentMonthWorkouts == 1 ? "entrenamiento" : "entrenamientos")
-                                .font(AppConstants.Design.captionFont)
-                                .foregroundColor(.gray)
-                        }
+                        Text(uniqueWorkoutDays == 1 ? "día entrenado" : "días entrenados")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.white.opacity(0.8))
+                            .multilineTextAlignment(.center)
                     }
                 }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, AppConstants.UI.spacingL)
+                .background(
+                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        .fill(AppConstants.Design.cardBackground())
+                        .overlay(
+                            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                                .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+                        )
+                )
+                
+                // Total entrenamientos
+                VStack(spacing: AppConstants.UI.spacingM) {
+                    ZStack {
+                        Circle()
+                            .fill(Color.green.opacity(0.2))
+                            .frame(width: 60, height: 60)
+                        
+                        Image(systemName: "figure.run.circle.fill")
+                            .font(.system(size: 28))
+                            .foregroundColor(.green)
+                    }
+                    
+                    VStack(spacing: AppConstants.UI.spacingXS) {
+                        Text("\(currentMonthWorkouts)")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                        
+                        Text(currentMonthWorkouts == 1 ? "entrenamiento" : "entrenamientos")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.white.opacity(0.8))
+                            .multilineTextAlignment(.center)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, AppConstants.UI.spacingL)
+                .background(
+                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        .fill(AppConstants.Design.cardBackground())
+                        .overlay(
+                            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                                .stroke(Color.green.opacity(0.3), lineWidth: 1)
+                        )
+                )
             }
-            .padding(20)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(AppConstants.Design.cardBackground())
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
-                    )
-            )
         }
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 20)
@@ -204,34 +251,56 @@ struct HistorialView: View {
     // MARK: - Stats Section
     private var statsSection: some View {
         VStack(spacing: AppConstants.UI.spacingL) {
-            Text("Estadísticas del año")
-                .font(AppConstants.Design.headerFont)
-                .foregroundColor(.white)
+            HStack {
+                VStack(alignment: .leading, spacing: AppConstants.UI.spacingXS) {
+                    Text("Estadísticas del año")
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                        .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
+                    
+                    Text("Tu progreso anual")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                Spacer()
+            }
             
-            HStack(spacing: AppConstants.UI.spacingL) {
-                StatCard(
-                    icon: "figure.walk.circle.fill",
-                    value: "\(yearStats.totalWorkouts)",
-                    label: "Entrenamientos",
-                    color: .blue,
-                    accentColor: .blue.opacity(0.2)
-                )
+            VStack(spacing: AppConstants.UI.spacingM) {
+                HStack(spacing: AppConstants.UI.spacingM) {
+                    StatCard(
+                        icon: "figure.walk.circle.fill",
+                        value: "\(yearStats.totalWorkouts)",
+                        label: "Entrenamientos",
+                        color: .blue,
+                        accentColor: .blue.opacity(0.2)
+                    )
+                    
+                    StatCard(
+                        icon: "clock.fill",
+                        value: "\(yearStats.totalMinutes)",
+                        label: "Minutos",
+                        color: .green,
+                        accentColor: .green.opacity(0.2)
+                    )
+                }
                 
-                StatCard(
-                    icon: "clock.fill",
-                    value: "\(yearStats.totalMinutes)",
-                    label: "Minutos",
-                    color: .green,
-                    accentColor: .green.opacity(0.2)
-                )
-                
-                StatCard(
-                    icon: "flame.fill",
-                    value: "\(yearStats.currentStreak)",
-                    label: "Racha actual",
-                    color: .orange,
-                    accentColor: .orange.opacity(0.2)
-                )
+                HStack(spacing: AppConstants.UI.spacingM) {
+                    StatCard(
+                        icon: "flame.fill",
+                        value: "\(yearStats.currentStreak)",
+                        label: "Racha actual",
+                        color: .orange,
+                        accentColor: .orange.opacity(0.2)
+                    )
+                    
+                    StatCard(
+                        icon: "heart.circle.fill",
+                        value: "\(Int(Double(yearStats.totalMinutes) * 8.0))",
+                        label: "Calorías quemadas",
+                        color: .red,
+                        accentColor: .red.opacity(0.2)
+                    )
+                }
             }
         }
         .opacity(animateOnAppear ? 1 : 0)
