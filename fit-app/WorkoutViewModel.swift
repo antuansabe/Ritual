@@ -42,4 +42,8 @@ class WorkoutViewModel: ObservableObject {
     func clearSuccess() {
         showSuccess = false
     }
+    
+    func resetSuccessState() {
+        showSuccess = false
+    }
 }

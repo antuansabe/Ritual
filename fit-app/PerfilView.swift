@@ -2,6 +2,7 @@ import SwiftUI
 import CoreData
 
 struct PerfilView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
     
@@ -33,6 +34,9 @@ struct PerfilView: View {
                     
                     // Achievements
                     achievementsSection
+                    
+                    // Settings section with logout
+                    settingsSection
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 32)
@@ -323,6 +327,44 @@ struct PerfilView: View {
         }
     }
     
+    // MARK: - Settings Section
+    private var settingsSection: some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text("Configuración")
+                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            
+            Button(action: {
+                authViewModel.logout()
+            }) {
+                HStack(spacing: 12) {
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.red)
+                    
+                    Text("Cerrar sesión")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.red)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.red.opacity(0.1))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color.red.opacity(0.3), lineWidth: 1)
+                        )
+                )
+            }
+        }
+    }
+    
     // MARK: - Helper Functions
     
     private var achievements: [Achievement] {
@@ -515,4 +557,5 @@ struct Achievement {
         PerfilView()
     }
     .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    .environmentObject(AuthViewModel())
 }

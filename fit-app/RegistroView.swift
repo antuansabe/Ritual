@@ -180,6 +180,7 @@ struct RegistroView: View {
     @State private var tipoSeleccionado = "Cardio"
     @State private var duracion = ""
     @State private var animateOnAppear = false
+    @State private var showSuccessOverlay = false
     @Namespace private var heroAnimation
     
     var isFormValid: Bool {
@@ -217,13 +218,17 @@ struct RegistroView: View {
             }
         }
         .overlay {
-            if workoutViewModel.showSuccess {
-                SuccessModalView(
-                    title: "¡Entrenamiento Guardado!",
-                    message: "¡Sigue así y alcanza tus metas!",
-                    icon: "checkmark.circle.fill",
-                    isVisible: workoutViewModel.showSuccess
-                )
+            OverlaySuccessView(
+                title: "¡Entrenamiento guardado!",
+                subtitle: "Sigue así y alcanza tus metas",
+                isVisible: $showSuccessOverlay
+            )
+            .opacity(showSuccessOverlay ? 1 : 0)
+            .allowsHitTesting(showSuccessOverlay)
+        }
+        .onChange(of: workoutViewModel.showSuccess) { success in
+            if success {
+                showSuccessOverlay = true
             }
         }
         .alert("Error", isPresented: .constant(workoutViewModel.errorMessage != nil)) {
@@ -488,26 +493,19 @@ struct RegistroView: View {
                     managedObjectContext: managedObjectContext
                 )
                 
+                // Handle success state on main actor
                 await MainActor.run {
                     if workoutViewModel.showSuccess {
-                        // Show success modal with scale transition
-                        withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
-                            // Modal is already shown by workoutViewModel.showSuccess
+                        // The overlay will be shown by onChange
+                        // Reset form fields after a short delay
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            tipoSeleccionado = "Cardio"
+                            duracion = ""
                         }
                         
-                        // Auto-dismiss after 2 seconds and navigate to home
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        // Navigate back to home tab after overlay disappears
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                             withAnimation(.easeInOut(duration: 0.3)) {
-                                workoutViewModel.clearSuccess()
-                            }
-                            
-                            // Navigate back to home tab after modal disappears
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                // Clear form and reset state
-                                tipoSeleccionado = "Cardio"
-                                duracion = ""
-                                
-                                // Navigate to home tab
                                 selectedTab = 0
                             }
                         }
