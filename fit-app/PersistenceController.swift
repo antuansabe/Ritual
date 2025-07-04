@@ -32,7 +32,22 @@ struct PersistenceController {
         container = NSPersistentCloudKitContainer(name: "WorkoutHeroModel")
         
         if inMemory {
+            // Configure for preview/testing with in-memory store
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+            // Disable CloudKit for preview mode
+            container.persistentStoreDescriptions.first!.setOption(true as NSNumber, 
+                                                                  forKey: NSPersistentHistoryTrackingKey)
+        } else {
+            // Configure for production with CloudKit synchronization
+            guard let description = container.persistentStoreDescriptions.first else {
+                fatalError("Failed to retrieve a persistent store description.")
+            }
+            
+            // Enable persistent history tracking (required for CloudKit)
+            description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+            
+            // Enable remote change notifications
+            description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
         }
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -41,7 +56,15 @@ struct PersistenceController {
             }
         })
         
+        // Configure view context for optimal CloudKit synchronization
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        // Enable query generation tokens for consistent reads
+        do {
+            try container.viewContext.setQueryGenerationFrom(.current)
+        } catch {
+            print("Failed to pin viewContext to the current generation: \(error)")
+        }
     }
 }
