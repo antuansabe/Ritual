@@ -18,47 +18,60 @@ struct ActivityType {
     ]
 }
 
-// MARK: - Training Type Button Component
-struct TrainingTypeButton: View {
+// MARK: - Modern Workout Type Button Component
+struct ModernWorkoutTypeButton: View {
     let type: String
     let icon: String
     let color: Color
     let isSelected: Bool
     let action: () -> Void
     
+    @State private var isPressed = false
+    
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 8) {
+            VStack(spacing: 12) {
                 ZStack {
                     Circle()
-                        .fill(isSelected ? .white.opacity(0.2) : color.opacity(0.2))
-                        .frame(width: 44, height: 44)
+                        .fill(isSelected ? color.opacity(0.3) : color.opacity(0.15))
+                        .frame(width: 60, height: 60)
+                        .shadow(color: isSelected ? color.opacity(0.4) : .clear, radius: 6, x: 0, y: 3)
                     
                     Image(systemName: icon)
-                        .font(.title3)
+                        .font(.system(size: 28, weight: .semibold))
                         .foregroundColor(isSelected ? .white : color)
+                        .shadow(color: isSelected ? .black.opacity(0.3) : .clear, radius: 1, x: 0, y: 0.5)
                 }
                 
                 Text(type)
-                    .font(AppConstants.Design.captionFont)
-                    .foregroundColor(isSelected ? .white : .white.opacity(0.8))
+                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                    .foregroundColor(isSelected ? .white : .white.opacity(0.9))
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
+                    .shadow(color: isSelected ? .black.opacity(0.2) : .clear, radius: 1, x: 0, y: 0.5)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: AppConstants.UI.activityButtonHeight)
+            .frame(height: 100)
             .background(
                 RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                    .fill(isSelected ? AnyShapeStyle(color) : AnyShapeStyle(AppConstants.Design.cardBackground()))
+                    .fill(isSelected ? 
+                        LinearGradient(colors: [color, color.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing) :
+                        LinearGradient(colors: [Color.white.opacity(0.08), Color.white.opacity(0.04)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    )
                     .overlay(
                         RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                            .stroke(isSelected ? AnyShapeStyle(color.opacity(0.3)) : AnyShapeStyle(AppConstants.Design.cardBorder()), lineWidth: AppConstants.UI.borderWidth)
+                            .stroke(isSelected ? color.opacity(0.5) : Color.white.opacity(0.1), lineWidth: isSelected ? 2 : 1)
                     )
             )
-            .shadow(color: isSelected ? color.opacity(0.3) : AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
+            .shadow(color: isSelected ? color.opacity(0.3) : .black.opacity(0.1), radius: isSelected ? 8 : 4, x: 0, y: isSelected ? 4 : 2)
+            .scaleEffect(isPressed ? 0.95 : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isPressed)
+            .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSelected)
         }
         .buttonStyle(PlainButtonStyle())
-        .animation(.easeInOut(duration: 0.2), value: isSelected)
+        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+            isPressed = pressing
+        }, perform: {})
         .accessibilityLabel(type)
         .accessibilityHint(isSelected ? "Currently selected activity type" : "Tap to select \(type) as activity type")
         .accessibilityValue(isSelected ? "Selected" : "Not selected")
@@ -183,6 +196,9 @@ struct RegistroView: View {
     @State private var showSuccessOverlay = false
     @Namespace private var heroAnimation
     
+    // Button press state for save button animation
+    @State private var isSaveButtonPressed = false
+    
     var isFormValid: Bool {
         switch AppConstants.validateWorkoutDuration(duracion) {
         case .success:
@@ -284,6 +300,7 @@ struct RegistroView: View {
                 Text("Selecciona tu actividad")
                     .font(AppConstants.Design.subheaderFont)
                     .foregroundColor(.white)
+                    .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
                     .opacity(animateOnAppear ? 1 : 0)
                     .offset(y: animateOnAppear ? 0 : 20)
                     .animation(.easeOut(duration: 0.6).delay(0.1), value: animateOnAppear)
@@ -292,15 +309,15 @@ struct RegistroView: View {
             }
             .padding(.horizontal, 16)
             
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 2), spacing: 16) {
                 ForEach(Array(ActivityType.allTypes.enumerated()), id: \.offset) { index, activityType in
-                    TrainingTypeButton(
+                    ModernWorkoutTypeButton(
                         type: activityType.name,
                         icon: activityType.icon,
                         color: activityType.color,
                         isSelected: tipoSeleccionado == activityType.name
                     ) {
-                        withAnimation(.easeInOut(duration: 0.3)) {
+                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                             tipoSeleccionado = activityType.name
                         }
                     }
@@ -329,29 +346,31 @@ struct RegistroView: View {
             .padding(.horizontal, 16)
             
             VStack(spacing: 16) {
-                HStack(spacing: 8) {
+                HStack(spacing: 12) {
                     TextField("0", text: $duracion)
-                        .font(.system(size: 48, weight: .bold, design: .rounded))
+                        .font(.system(size: 56, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .keyboardType(.numberPad)
-                        .frame(maxWidth: 100)
+                        .frame(maxWidth: 120)
+                        .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
                     
                     Text("minutos")
-                        .font(AppConstants.Design.subheaderFont)
-                        .foregroundColor(.white.opacity(0.8))
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        .foregroundColor(.white.opacity(0.9))
+                        .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
                 }
-                .padding(.vertical, 16)
-                .padding(.horizontal, 20)
+                .padding(.vertical, 24)
+                .padding(.horizontal, 24)
                 .background(
                     RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                        .fill(AppConstants.Design.cardBackground())
+                        .fill(AppConstants.Design.cardBackground(true))
                         .overlay(
                             RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                                .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                                .stroke(Color.blue.opacity(0.3), lineWidth: 2)
                         )
                 )
-                .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
+                .shadow(color: AppConstants.Design.cardShadow(), radius: 8, x: 0, y: 4)
                 
                 quickDurationButtons
             }
@@ -440,35 +459,45 @@ struct RegistroView: View {
     private var bottomActionSection: some View {
         VStack(spacing: 16) {
             Button(action: saveWorkout) {
-                HStack {
+                HStack(spacing: 12) {
                     if workoutViewModel.isLoading {
                         ProgressView()
                             .scaleEffect(0.8)
                             .tint(.white)
                     } else {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.title3)
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 20, weight: .semibold))
+                            .foregroundColor(.white)
                     }
                     
                     Text(workoutViewModel.isLoading ? "Guardando..." : "Guardar Entrenamiento")
-                        .font(AppConstants.Design.bodyFont)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white)
                 }
-                .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
-                .frame(height: 56)
+                .frame(height: 60)
                 .background(
-                    RoundedRectangle(cornerRadius: 28)
-                        .fill(isFormValid ? AnyShapeStyle(AppConstants.Design.primaryButtonGradient) : AnyShapeStyle(.gray.opacity(0.3)))
+                    RoundedRectangle(cornerRadius: 30)
+                        .fill(isFormValid ? 
+                            LinearGradient(colors: [Color.green, Color.blue], startPoint: .leading, endPoint: .trailing) :
+                            LinearGradient(colors: [Color.gray.opacity(0.3)], startPoint: .leading, endPoint: .trailing)
+                        )
                 )
-                .shadow(color: isFormValid ? AppConstants.Design.blue.opacity(0.3) : .clear, radius: AppConstants.UI.shadowRadius)
-                .scaleEffect(isFormValid ? 1.0 : 0.98)
+                .shadow(color: isFormValid ? Color.green.opacity(0.4) : .clear, radius: 10, x: 0, y: 5)
+                .scaleEffect(isSaveButtonPressed ? 0.95 : (isFormValid ? 1.0 : 0.98))
                 .animation(.easeInOut(duration: 0.2), value: isFormValid)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSaveButtonPressed)
             }
             .disabled(!isFormValid || workoutViewModel.isLoading)
+            .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+                isSaveButtonPressed = pressing
+            }, perform: {})
             
             Button("Limpiar campos") {
-                tipoSeleccionado = "Cardio"
-                duracion = ""
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    tipoSeleccionado = "Cardio"
+                    duracion = ""
+                }
             }
             .font(AppConstants.Design.captionFont)
             .foregroundColor(.white.opacity(0.6))
