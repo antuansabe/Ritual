@@ -8,6 +8,7 @@ struct PerfilView: View {
     private var workouts: FetchedResults<WorkoutEntity>
     
     @State private var showingCloudKitTest = false
+    @State private var showingCloudKitConflicts = false
     
     private var workoutsThisWeek: Int {
         let calendar = Calendar.current
@@ -26,6 +27,9 @@ struct PerfilView: View {
                 
                 // Main content
                 VStack(spacing: 32) {
+                    // Network status
+                    networkStatusSection
+                    
                     // Quick stats
                     statsSection
                     
@@ -64,6 +68,11 @@ struct PerfilView: View {
         .navigationBarHidden(true)
         .sheet(isPresented: $showingCloudKitTest) {
             SimpleCloudKitTestView()
+        }
+        .sheet(isPresented: $showingCloudKitConflicts) {
+            // CloudKitConflictView() // Temporarily disabled
+            Text("CloudKit Monitor en desarrollo")
+                .navigationTitle("CloudKit Monitor")
         }
     }
     
@@ -378,6 +387,46 @@ struct PerfilView: View {
                     )
                 }
                 
+                // CloudKit Conflict Monitor Button
+                Button(action: {
+                    showingCloudKitConflicts = true
+                }) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.orange)
+                        
+                        Text("Monitor CloudKit")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.orange)
+                        
+                        Spacer()
+                        
+                        // Show conflict count if any (temporarily disabled)
+                        /*
+                        if PersistenceController.conflictMonitor.conflicts.count > 0 {
+                            Text("\(PersistenceController.conflictMonitor.conflicts.count)")
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Color.red)
+                                .cornerRadius(12)
+                        }
+                        */
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.orange.opacity(0.1))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.orange.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                }
+                
                 // Logout Button
                 Button(action: {
                     authViewModel.logout()
@@ -406,6 +455,11 @@ struct PerfilView: View {
                 }
             }
         }
+    }
+    
+    // MARK: - Network Status Section
+    private var networkStatusSection: some View {
+        NetworkStatusCard()
     }
     
     // MARK: - Helper Functions

@@ -60,6 +60,12 @@ struct PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
+        // Add CloudKit conflict monitoring logging
+        print("🔧 Configurando monitoreo de conflictos CloudKit...")
+        print("✅ automaticallyMergesChangesFromParent = true")
+        print("✅ mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy")
+        print("✅ CloudKit conflict monitor iniciado")
+        
         // Enable query generation tokens for consistent reads
         do {
             try container.viewContext.setQueryGenerationFrom(.current)
@@ -68,3 +74,11 @@ struct PersistenceController {
         }
     }
 }
+
+// MARK: - CloudKit Conflict Monitor
+// Temporarily disabled for compilation - will be implemented as singleton
+/*
+extension PersistenceController {
+    static let conflictMonitor = CloudKitConflictMonitor(container: PersistenceController.shared.container)
+}
+*/

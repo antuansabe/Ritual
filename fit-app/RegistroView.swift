@@ -187,6 +187,8 @@ struct SummaryMetricCard: View {
 
 struct RegistroView: View {
     @StateObject private var workoutViewModel = WorkoutViewModel()
+    @ObservedObject private var offlineManager = OfflineManager.shared
+    @ObservedObject private var networkMonitor = NetworkMonitor.shared
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Binding var selectedTab: Int
     
@@ -220,6 +222,9 @@ struct RegistroView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
+                // Network status banner
+                NetworkStatusBanner()
+                
                 headerSection
                 
                 ScrollView {
@@ -521,6 +526,9 @@ struct RegistroView: View {
         
         switch validationResult {
         case .success(let validDuration):
+            let calories = Int32(AppConstants.calculateCalories(for: validDuration))
+            
+            // Use basic Core Data saving with offline capability built into CloudKit
             Task {
                 await workoutViewModel.saveWorkout(
                     type: tipoSeleccionado,
@@ -531,11 +539,16 @@ struct RegistroView: View {
                 // Handle success state on main actor
                 await MainActor.run {
                     if workoutViewModel.showSuccess {
-                        // Log CloudKit sync trigger
-                        print("🏃‍♂️ Nuevo entrenamiento guardado - iniciando sincronización CloudKit")
+                        // Enhanced logging for offline detection
+                        print("🏃‍♂️ Entrenamiento guardado - CloudKit manejará sync automáticamente")
                         print("📊 Tipo: \(tipoSeleccionado), Duración: \(validDuration) min")
+                        print("💾 Core Data + CloudKit: Funciona offline y sync cuando hay red")
                         
-                        // The overlay will be shown by onChange
+                        // Show success overlay
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            showSuccessOverlay = true
+                        }
+                        
                         // Reset form fields after a short delay
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             tipoSeleccionado = "Cardio"
@@ -551,6 +564,7 @@ struct RegistroView: View {
                     }
                 }
             }
+            
         case .failure(let error):
             workoutViewModel.errorMessage = error.localizedDescription
         }

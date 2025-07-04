@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2060E2C32E181C020007493B /* OfflineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2060E2C22E181C020007493B /* OfflineManager.swift */; };
+		2060E2C42E181C020007493B /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2060E2C12E181C020007493B /* NetworkMonitor.swift */; };
 		20A4EEDC2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEDA2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld */; };
 		20A4EEE52E15EC0000AC8C57 /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE52E15EC0100AC8C57 /* WorkoutViewModel.swift */; };
 		20A4EEE62E15EC0000AC8C57 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE62E15EC0200AC8C57 /* PersistenceController.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2060E2C12E181C020007493B /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		2060E2C22E181C020007493B /* OfflineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineManager.swift; sourceTree = "<group>"; };
 		20A4EEDB2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WorkoutHeroModel.xcdatamodel; sourceTree = "<group>"; };
 		20A4EEE52E15EC0100AC8C57 /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
 		20A4EEE62E15EC0200AC8C57 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 		A1B2C3D4E5F60008 /* fit-app */ = {
 			isa = PBXGroup;
 			children = (
+				2060E2C12E181C020007493B /* NetworkMonitor.swift */,
+				2060E2C22E181C020007493B /* OfflineManager.swift */,
 				20E86F702E16388E00AA2B13 /* fit-app.entitlements */,
 				A1B2C3D4E5F60002 /* App.swift */,
 				A1B2C3D4E5F60004 /* ContentView.swift */,
@@ -190,6 +196,8 @@
 				20A4EEDC2E15D3D000AC8C57 /* WorkoutHeroModel.xcdatamodeld in Sources */,
 				20A4EEE52E15EC0000AC8C57 /* WorkoutViewModel.swift in Sources */,
 				20A4EEE62E15EC0000AC8C57 /* PersistenceController.swift in Sources */,
+				2060E2C32E181C020007493B /* OfflineManager.swift in Sources */,
+				2060E2C42E181C020007493B /* NetworkMonitor.swift in Sources */,
 				20A4EEE72E15ED0000AC8C57 /* OverlaySuccessView.swift in Sources */,
 				20A4EEE82E15EE0000AC8C57 /* AuthViewModel.swift in Sources */,
 				20A4EEE92E15EE0000AC8C57 /* LoginView.swift in Sources */,

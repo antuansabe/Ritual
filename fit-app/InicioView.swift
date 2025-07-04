@@ -166,6 +166,8 @@ struct InicioView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
     
+    @ObservedObject private var offlineManager = OfflineManager.shared
+    @ObservedObject private var networkMonitor = NetworkMonitor.shared
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     @State private var animateOnAppear = false
@@ -196,6 +198,7 @@ struct InicioView: View {
                 VStack(spacing: 32) {
                     headerSection
                     cloudKitSyncSection
+                    syncStatusSection
                     metricsSection
                     recentWorkoutsSection
                 }
@@ -518,6 +521,17 @@ struct InicioView: View {
         .padding(.horizontal, AppConstants.UI.spacingL)
     }
     
+    // MARK: - Sync Status Section
+    private var syncStatusSection: some View {
+        VStack(spacing: 16) {
+            SyncStatusCard()
+                .opacity(animateOnAppear ? 1 : 0)
+                .offset(y: animateOnAppear ? 0 : 20)
+                .animation(.easeOut(duration: 0.6).delay(0.25), value: animateOnAppear)
+        }
+        .padding(.horizontal, AppConstants.UI.spacingL)
+    }
+    
     // MARK: - Helper Functions
     private func calculateCurrentStreak() -> Int {
         let calendar = Calendar.current
@@ -549,6 +563,7 @@ struct CloudKitStatusCard: View {
     @State private var showingAlert = false
     @State private var errorMessage: String?
     @State private var lastSyncDate: Date?
+    // @ObservedObject var conflictMonitor = PersistenceController.conflictMonitor // Temporarily disabled
     
     enum CloudKitSyncStatus {
         case unknown, syncing, success, failed
@@ -601,15 +616,27 @@ struct CloudKitStatusCard: View {
                 
                 Spacer()
                 
-                Button("Test Sync") {
-                    testCloudKitSync()
+                VStack(spacing: 4) {
+                    Button("Test Sync") {
+                        testCloudKitSync()
+                    }
+                    .font(.caption)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    
+                    // Show conflict count if any (temporarily disabled)
+                    /*
+                    if conflictMonitor.conflicts.count > 0 {
+                        Text("\(conflictMonitor.conflicts.count) conflictos")
+                            .font(.caption)
+                            .foregroundColor(.red)
+                            .fontWeight(.semibold)
+                    }
+                    */
                 }
-                .font(.caption)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
             }
             
             if let lastSync = lastSyncDate {
