@@ -197,6 +197,7 @@ struct InicioView: View {
             ScrollView {
                 VStack(spacing: 32) {
                     headerSection
+                    dailySummarySection
                     cloudKitSyncSection
                     syncStatusSection
                     metricsSection
@@ -530,6 +531,375 @@ struct InicioView: View {
                 .animation(.easeOut(duration: 0.6).delay(0.25), value: animateOnAppear)
         }
         .padding(.horizontal, AppConstants.UI.spacingL)
+    }
+    
+    // MARK: - Daily Summary Section
+    private var dailySummarySection: some View {
+        VStack(spacing: 0) {
+            // Main card content
+            VStack(spacing: 20) {
+                dailySummaryHeaderSection
+                dailySummaryStatusSection
+                if calculateCurrentStreak() > 0 {
+                    dailySummaryStreakSection
+                }
+                dailySummaryMotivationalSection
+                dailySummaryQuickActionsSection
+            }
+            .padding(24)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(.ultraThinMaterial)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(AppConstants.Design.electricBlue.opacity(0.2), lineWidth: 1)
+                    )
+            )
+            .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: 5)
+        }
+        .opacity(animateOnAppear ? 1 : 0)
+        .offset(y: animateOnAppear ? 0 : 30)
+        .animation(.easeOut(duration: 0.8).delay(0.1), value: animateOnAppear)
+        .padding(.horizontal, AppConstants.UI.spacingL)
+    }
+    
+    // MARK: - Daily Summary Components
+    
+    // Computed properties for daily summary
+    private var userName: String {
+        UserDefaults.standard.string(forKey: "userName") ?? "Antonio"
+    }
+    
+    private var hasWorkoutToday: Bool {
+        let calendar = Calendar.current
+        let today = Date()
+        
+        return workouts.contains { workout in
+            calendar.isDate(workout.date ?? Date.distantPast, inSameDayAs: today)
+        }
+    }
+    
+    private var todaysWorkouts: [WorkoutEntity] {
+        let calendar = Calendar.current
+        let today = Date()
+        
+        return workouts.filter { workout in
+            calendar.isDate(workout.date ?? Date.distantPast, inSameDayAs: today)
+        }
+    }
+    
+    private var dailySummaryHeaderSection: some View {
+        HStack(spacing: 12) {
+            // Profile circle with gradient
+            ZStack {
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            colors: [AppConstants.Design.electricBlue.opacity(0.3), AppConstants.Design.softPurple.opacity(0.2)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 50, height: 50)
+                
+                Image(systemName: "person.fill")
+                    .font(.system(size: 22, weight: .medium))
+                    .foregroundColor(.white)
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text("¡Hola, \(userName)!")
+                    .font(.title2.bold())
+                    .foregroundColor(.white)
+                
+                Text(dailyMessage)
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.8))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(2)
+            }
+            
+            Spacer()
+            
+            // Time of day icon
+            Image(systemName: timeOfDayIcon)
+                .font(.system(size: 24))
+                .foregroundColor(AppConstants.Design.lavender)
+        }
+    }
+    
+    private var dailySummaryStatusSection: some View {
+        HStack(spacing: 16) {
+            // Status icon
+            ZStack {
+                Circle()
+                    .fill(statusColor.opacity(0.2))
+                    .frame(width: 40, height: 40)
+                
+                Image(systemName: statusIcon)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(statusColor)
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(statusTitle)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                
+                if hasWorkoutToday && !todaysWorkouts.isEmpty {
+                    Text("\(todaysWorkouts.count) entrenamiento\(todaysWorkouts.count > 1 ? "s" : "") completado\(todaysWorkouts.count > 1 ? "s" : "")")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.7))
+                }
+            }
+            
+            Spacer()
+            
+            if hasWorkoutToday {
+                Text("✅")
+                    .font(.title2)
+            }
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white.opacity(0.05))
+        )
+    }
+    
+    private var dailySummaryStreakSection: some View {
+        HStack(spacing: 12) {
+            Image(systemName: "flame.fill")
+                .font(.system(size: 20))
+                .foregroundColor(.orange)
+            
+            Text("Racha: \(calculateCurrentStreak()) día\(calculateCurrentStreak() > 1 ? "s" : "") seguido\(calculateCurrentStreak() > 1 ? "s" : "")")
+                .font(.subheadline.weight(.semibold))
+                .foregroundColor(.white)
+            
+            Spacer()
+            
+            Text("🔥")
+                .font(.title3)
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(
+                    LinearGradient(
+                        colors: [Color.orange.opacity(0.1), Color.red.opacity(0.05)],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+        )
+    }
+    
+    private var dailySummaryMotivationalSection: some View {
+        VStack(spacing: 12) {
+            HStack {
+                Image(systemName: "quote.bubble.fill")
+                    .font(.system(size: 16))
+                    .foregroundColor(AppConstants.Design.lavender)
+                
+                Text("Frase del día")
+                    .font(.caption.weight(.semibold))
+                    .foregroundColor(.white.opacity(0.8))
+                
+                Spacer()
+            }
+            
+            Text(getMotivationalQuote())
+                .font(.subheadline.weight(.medium))
+                .foregroundColor(.white)
+                .multilineTextAlignment(.center)
+                .lineSpacing(4)
+                .padding(.vertical, 4)
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(
+                    LinearGradient(
+                        colors: [AppConstants.Design.lavender.opacity(0.1), AppConstants.Design.electricBlue.opacity(0.05)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+        )
+    }
+    
+    private var dailySummaryQuickActionsSection: some View {
+        VStack(spacing: 12) {
+            HStack {
+                Text("Acciones rápidas")
+                    .font(.caption.weight(.semibold))
+                    .foregroundColor(.white.opacity(0.8))
+                
+                Spacer()
+            }
+            
+            HStack(spacing: 12) {
+                QuickActionButton(
+                    title: hasWorkoutToday ? "Entrenar más" : "Entrenar ahora",
+                    icon: "figure.walk",
+                    color: AppConstants.Design.electricBlue,
+                    action: {
+                        selectedTab = 1 // Navigate to Registro tab
+                    }
+                )
+                
+                QuickActionButton(
+                    title: "Ver progreso",
+                    icon: "chart.bar.fill",
+                    color: AppConstants.Design.softPurple,
+                    action: {
+                        selectedTab = 2 // Navigate to Historial tab
+                    }
+                )
+                
+                QuickActionButton(
+                    title: "Perfil",
+                    icon: "person.circle.fill",
+                    color: AppConstants.Design.lavender,
+                    action: {
+                        selectedTab = 3 // Navigate to Perfil tab
+                    }
+                )
+            }
+        }
+    }
+    
+    // Computed Properties for Daily Summary UI
+    private var dailyMessage: String {
+        if hasWorkoutToday {
+            return "¡Excelente trabajo hoy! 💪"
+        } else {
+            let hour = Calendar.current.component(.hour, from: Date())
+            switch hour {
+            case 6..<12:
+                return "Hoy es un gran día para moverte 🌅"
+            case 12..<18:
+                return "Aún puedes regalarte unos minutos 🧘‍♂️"
+            default:
+                return "Relájate, mañana es otro día 🌙"
+            }
+        }
+    }
+    
+    private var timeOfDayIcon: String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        switch hour {
+        case 6..<12: return "sun.max.fill"
+        case 12..<18: return "sun.haze.fill"
+        case 18..<21: return "sunset.fill"
+        default: return "moon.stars.fill"
+        }
+    }
+    
+    private var statusTitle: String {
+        if hasWorkoutToday {
+            return "Entrenamiento completado"
+        } else if calculateCurrentStreak() > 0 {
+            return "Mantén tu racha activa"
+        } else {
+            return "Todo bien, hoy puedes retomar"
+        }
+    }
+    
+    private var statusIcon: String {
+        if hasWorkoutToday {
+            return "checkmark.circle.fill"
+        } else if calculateCurrentStreak() > 0 {
+            return "figure.run.circle"
+        } else {
+            return "leaf.circle"
+        }
+    }
+    
+    private var statusColor: Color {
+        if hasWorkoutToday {
+            return AppConstants.Design.electricBlue
+        } else if calculateCurrentStreak() > 0 {
+            return .orange
+        } else {
+            return AppConstants.Design.softPurple
+        }
+    }
+    
+    private func getMotivationalQuote() -> String {
+        let quotes = getMotivationalQuotes()
+        return quotes.randomElement() ?? "Cada paso cuenta 🌟"
+    }
+    
+    private func getMotivationalQuotes() -> [String] {
+        if hasWorkoutToday {
+            return [
+                "¡Qué bien te has cuidado hoy! Tu cuerpo te lo agradece 💙",
+                "Cada movimiento fue un acto de amor propio 🤗",
+                "Has plantado una semilla de bienestar hoy 🌻",
+                "Tu energía positiva se nota desde aquí ⚡",
+                "Completaste algo hermoso para ti mismo 🌈"
+            ]
+        } else if calculateCurrentStreak() > 0 {
+            return [
+                "Cada día que eliges cuidarte construyes algo hermoso 🏗️",
+                "Tu constancia es tu superpoder silencioso 💫",
+                "Paso a paso, estás creando la mejor versión de ti 🦋",
+                "Tu dedicación se nota, sigue escribiendo tu historia 📖",
+                "Cada entrenamiento es una carta de amor a tu futuro yo 💌"
+            ]
+        } else {
+            return [
+                "Descansar también es entrenar tu constancia 🧘‍♂️",
+                "Tu cuerpo sabe cuándo necesita una pausa, escúchalo 🎵",
+                "Mañana será otro día para brillar ⭐",
+                "A veces el mejor entrenamiento es cuidar tu mente 🌙",
+                "No hay prisa, tu bienestar es un viaje, no una carrera 🛤️"
+            ]
+        }
+    }
+    
+    // MARK: - Quick Action Button Component
+    struct QuickActionButton: View {
+        let title: String
+        let icon: String
+        let color: Color
+        let action: () -> Void
+        
+        @State private var isPressed = false
+        
+        var body: some View {
+            Button(action: action) {
+                VStack(spacing: 8) {
+                    Image(systemName: icon)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(color)
+                    
+                    Text(title)
+                        .font(.caption.weight(.medium))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.8)
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 60)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.white.opacity(0.08))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(color.opacity(0.3), lineWidth: 1)
+                        )
+                )
+                .scaleEffect(isPressed ? 0.95 : 1.0)
+                .animation(.easeInOut(duration: 0.1), value: isPressed)
+            }
+            .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+                isPressed = pressing
+            }, perform: {})
+        }
     }
     
     // MARK: - Helper Functions

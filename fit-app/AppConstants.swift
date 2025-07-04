@@ -75,6 +75,12 @@ struct AppConstants {
         static let red = Color.red
         static let yellow = Color.yellow
         
+        // Modern Auth Colors
+        static let lavender = Color(red: 0.8, green: 0.8, blue: 1.0)
+        static let electricBlue = Color(red: 0.0, green: 0.7, blue: 1.0)
+        static let softPurple = Color(red: 0.6, green: 0.5, blue: 0.8)
+        static let moonlight = Color(red: 0.95, green: 0.95, blue: 1.0)
+        
         // Typography
         static let titleFont = Font.system(size: 28, weight: .bold, design: .rounded)
         static let headerFont = Font.system(size: 22, weight: .bold, design: .rounded)
@@ -104,6 +110,25 @@ struct AppConstants {
         )
         
         static let secondaryButtonBackground = Color.white.opacity(0.1)
+        
+        // Auth Gradients
+        static let authHeroGradient = LinearGradient(
+            colors: [Color.white.opacity(0.1), Color.blue.opacity(0.05), Color.purple.opacity(0.03)],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        
+        static let fieldGradient = LinearGradient(
+            colors: [Color.white.opacity(0.08), Color.blue.opacity(0.05)],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        
+        static let modernButtonGradient = LinearGradient(
+            colors: [electricBlue.opacity(0.8), softPurple.opacity(0.7)],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
     }
     
     // MARK: - Animation

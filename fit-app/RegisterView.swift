@@ -74,29 +74,58 @@ struct RegisterView: View {
     
     // MARK: - Title Section
     private var titleSection: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "person.crop.circle.fill.badge.plus")
-                .font(.system(size: 80))
-                .foregroundColor(AppConstants.Design.blue)
-                .opacity(animateOnAppear ? 1 : 0)
-                .scaleEffect(animateOnAppear ? 1 : 0.5)
-                .animation(.spring(response: 0.8, dampingFraction: 0.6), value: animateOnAppear)
+        VStack(spacing: 32) {
+            // Elemento visual elegante con puntos animados
+            HStack(spacing: 12) {
+                ForEach(0..<3, id: \.self) { index in
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [AppConstants.Design.lavender.opacity(0.8), AppConstants.Design.electricBlue.opacity(0.6)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 8, height: 8)
+                        .opacity(animateOnAppear ? 1 : 0)
+                        .scaleEffect(animateOnAppear ? 1 : 0.3)
+                        .animation(.spring(response: 0.8, dampingFraction: 0.6).delay(Double(index) * 0.2), value: animateOnAppear)
+                }
+            }
+            .opacity(animateOnAppear ? 1 : 0)
+            .animation(.easeInOut(duration: 0.8).delay(0.1), value: animateOnAppear)
             
-            VStack(spacing: 8) {
+            VStack(spacing: 20) {
                 Text("Crear Cuenta")
-                    .font(.system(size: 32, weight: .bold, design: .rounded))
+                    .font(.system(size: 34, weight: .ultraLight, design: .rounded))
                     .foregroundColor(.white)
+                    .kerning(2)
+                
+                // Línea decorativa que se expande
+                Rectangle()
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.white.opacity(0.5), AppConstants.Design.softPurple.opacity(0.4), AppConstants.Design.electricBlue.opacity(0.3)],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .frame(width: animateOnAppear ? 80 : 0, height: 1.5)
+                    .cornerRadius(1)
+                    .animation(.easeInOut(duration: 1.2).delay(0.5), value: animateOnAppear)
                 
                 Text("Regístrate para comenzar tu viaje fitness")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(.white.opacity(0.8))
+                    .font(.system(size: 16, weight: .light))
+                    .foregroundColor(.white.opacity(0.7))
                     .multilineTextAlignment(.center)
+                    .lineSpacing(4)
+                    .tracking(0.5)
             }
             .opacity(animateOnAppear ? 1 : 0)
             .offset(y: animateOnAppear ? 0 : 30)
-            .animation(.easeOut(duration: 0.8).delay(0.2), value: animateOnAppear)
+            .animation(.easeOut(duration: 1.0).delay(0.3), value: animateOnAppear)
         }
-        .padding(.top, 20)
+        .padding(.top, 40)
     }
     
     // MARK: - Form Section
@@ -109,14 +138,21 @@ struct RegisterView: View {
                     .foregroundColor(.white)
                 
                 TextField("Ingresa tu email", text: $authViewModel.email)
-                    .font(.system(size: 16))
+                    .font(.system(size: 16, weight: .light))
                     .padding()
                     .background(
                         RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                            .fill(AppConstants.Design.cardBackground())
+                            .fill(AppConstants.Design.fieldGradient)
                             .overlay(
                                 RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                                    .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                                    .stroke(
+                                        LinearGradient(
+                                            colors: [Color.white.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1
+                                    )
                             )
                     )
                     .foregroundColor(.white)
@@ -133,14 +169,21 @@ struct RegisterView: View {
                     .foregroundColor(.white)
                 
                 SecureField("Crea una contraseña", text: $authViewModel.password)
-                    .font(.system(size: 16))
+                    .font(.system(size: 16, weight: .light))
                     .padding()
                     .background(
                         RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                            .fill(AppConstants.Design.cardBackground())
+                            .fill(AppConstants.Design.fieldGradient)
                             .overlay(
                                 RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                                    .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                                    .stroke(
+                                        LinearGradient(
+                                            colors: [Color.white.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1
+                                    )
                             )
                     )
                     .foregroundColor(.white)
@@ -154,14 +197,27 @@ struct RegisterView: View {
                     .foregroundColor(.white)
                 
                 SecureField("Confirma tu contraseña", text: $authViewModel.confirmPassword)
-                    .font(.system(size: 16))
+                    .font(.system(size: 16, weight: .light))
                     .padding()
                     .background(
                         RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                            .fill(AppConstants.Design.cardBackground())
+                            .fill(AppConstants.Design.fieldGradient)
                             .overlay(
                                 RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                                    .stroke(passwordsMatch ? AnyShapeStyle(AppConstants.Design.cardBorder()) : AnyShapeStyle(Color.red.opacity(0.6)), lineWidth: AppConstants.UI.borderWidth)
+                                    .stroke(
+                                        passwordsMatch ? 
+                                        LinearGradient(
+                                            colors: [Color.white.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ) :
+                                        LinearGradient(
+                                            colors: [Color.red.opacity(0.6), Color.red.opacity(0.3)],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1
+                                    )
                             )
                     )
                     .foregroundColor(.white)
@@ -173,19 +229,21 @@ struct RegisterView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 8) {
                         Image(systemName: authViewModel.password.count >= 6 ? "checkmark.circle.fill" : "circle")
-                            .foregroundColor(authViewModel.password.count >= 6 ? .green : .white.opacity(0.5))
+                            .foregroundColor(authViewModel.password.count >= 6 ? AppConstants.Design.electricBlue : .white.opacity(0.4))
+                            .font(.system(size: 12))
                         Text("Al menos 6 caracteres")
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(authViewModel.password.count >= 6 ? .green : .white.opacity(0.7))
+                            .font(.system(size: 13, weight: .light))
+                            .foregroundColor(authViewModel.password.count >= 6 ? AppConstants.Design.electricBlue : .white.opacity(0.6))
                     }
                     
                     if !authViewModel.confirmPassword.isEmpty {
                         HStack(spacing: 8) {
                             Image(systemName: passwordsMatch ? "checkmark.circle.fill" : "circle")
-                                .foregroundColor(passwordsMatch ? .green : .white.opacity(0.5))
+                                .foregroundColor(passwordsMatch ? AppConstants.Design.electricBlue : .white.opacity(0.4))
+                                .font(.system(size: 12))
                             Text("Las contraseñas coinciden")
-                                .font(.system(size: 14, weight: .medium))
-                                .foregroundColor(passwordsMatch ? .green : .white.opacity(0.7))
+                                .font(.system(size: 13, weight: .light))
+                                .foregroundColor(passwordsMatch ? AppConstants.Design.electricBlue : .white.opacity(0.6))
                         }
                     }
                 }
@@ -210,9 +268,9 @@ struct RegisterView: View {
                 .frame(height: 56)
                 .background(
                     RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                        .fill(AppConstants.Design.primaryButtonGradient)
+                        .fill(AppConstants.Design.modernButtonGradient)
                 )
-                .shadow(color: AppConstants.Design.blue.opacity(0.3), radius: 8, x: 0, y: 4)
+                .shadow(color: AppConstants.Design.electricBlue.opacity(0.4), radius: 12, x: 0, y: 6)
         }
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 30)
@@ -231,7 +289,7 @@ struct RegisterView: View {
                 
                 Text("Inicia sesión")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(AppConstants.Design.blue)
+                    .foregroundColor(AppConstants.Design.electricBlue)
             }
         }
         .opacity(animateOnAppear ? 1 : 0)
