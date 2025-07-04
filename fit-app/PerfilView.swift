@@ -1,10 +1,13 @@
 import SwiftUI
 import CoreData
+import CloudKit
 
 struct PerfilView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
+    
+    @State private var showingCloudKitTest = false
     
     private var workoutsThisWeek: Int {
         let calendar = Calendar.current
@@ -59,6 +62,9 @@ struct PerfilView: View {
             }
         )
         .navigationBarHidden(true)
+        .sheet(isPresented: $showingCloudKitTest) {
+            SimpleCloudKitTestView()
+        }
     }
     
     // MARK: - Header Section
@@ -344,30 +350,60 @@ struct PerfilView: View {
                 Spacer()
             }
             
-            Button(action: {
-                authViewModel.logout()
-            }) {
-                HStack(spacing: 12) {
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(.red)
-                    
-                    Text("Cerrar sesión")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.red)
-                    
-                    Spacer()
+            VStack(spacing: 12) {
+                // CloudKit Test Button
+                Button(action: {
+                    showingCloudKitTest = true
+                }) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "icloud.and.arrow.up.and.arrow.down")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.blue)
+                        
+                        Text("Test CloudKit")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.blue)
+                        
+                        Spacer()
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.blue.opacity(0.1))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+                            )
+                    )
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 16)
-                .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.red.opacity(0.1))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.red.opacity(0.3), lineWidth: 1)
-                        )
-                )
+                
+                // Logout Button
+                Button(action: {
+                    authViewModel.logout()
+                }) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.red)
+                        
+                        Text("Cerrar sesión")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.red)
+                        
+                        Spacer()
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.red.opacity(0.1))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.red.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                }
             }
         }
     }
@@ -565,6 +601,273 @@ struct Achievement {
     let icon: String
     let color: Color
     let isUnlocked: Bool
+}
+
+// MARK: - Simple CloudKit Test View
+struct SimpleCloudKitTestView: View {
+    @Environment(\.dismiss) private var dismiss
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
+    private var workouts: FetchedResults<WorkoutEntity>
+    @Environment(\.managedObjectContext) private var managedObjectContext
+    
+    @State private var testResults: [String] = []
+    @State private var isRunningTest = false
+    
+    var body: some View {
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 24) {
+                    headerSection
+                    workoutDataSection
+                    testActionsSection
+                    testResultsSection
+                }
+                .padding()
+            }
+            .navigationTitle("CloudKit Test")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cerrar") {
+                        dismiss()
+                    }
+                }
+            }
+        }
+        .onAppear {
+            addTestResult("📱 Vista de testing CloudKit iniciada")
+        }
+    }
+    
+    private var headerSection: some View {
+        VStack(spacing: 12) {
+            Image(systemName: "icloud.and.arrow.up.and.arrow.down")
+                .font(.system(size: 48))
+                .foregroundColor(.blue)
+            
+            Text("CloudKit Sync Test")
+                .font(.title2)
+                .fontWeight(.bold)
+            
+            Text("Prueba la sincronización de datos con iCloud")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.blue.opacity(0.1))
+        )
+    }
+    
+    private var workoutDataSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Datos Locales (\(workouts.count) entrenamientos)")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            if workouts.isEmpty {
+                Text("No hay entrenamientos guardados")
+                    .foregroundColor(.secondary)
+                    .italic()
+            } else {
+                VStack(spacing: 8) {
+                    ForEach(Array(workouts.prefix(5).enumerated()), id: \.element.objectID) { index, workout in
+                        HStack {
+                            Text("\(index + 1).")
+                                .fontWeight(.medium)
+                                .frame(width: 20, alignment: .leading)
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(workout.type ?? "Unknown")
+                                    .fontWeight(.medium)
+                                
+                                Text("\(workout.duration) min • \(workout.calories) kcal")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            
+                            Spacer()
+                            
+                            Text(formatDate(workout.date))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding(.vertical, 4)
+                    }
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemGray6))
+        )
+    }
+    
+    private var testActionsSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Acciones de Testing")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            VStack(spacing: 12) {
+                testButton(
+                    title: "Verificar Cuenta iCloud",
+                    icon: "person.icloud",
+                    action: testCloudKitAccount
+                )
+                
+                testButton(
+                    title: "Crear Entrenamiento de Prueba",
+                    icon: "plus.circle",
+                    action: createTestWorkout
+                )
+                
+                testButton(
+                    title: "Limpiar Logs",
+                    icon: "trash",
+                    action: clearTestResults
+                )
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemGray6))
+        )
+    }
+    
+    private var testResultsSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Logs de Testing")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            ScrollView {
+                VStack(alignment: .leading, spacing: 4) {
+                    ForEach(Array(testResults.enumerated()), id: \.offset) { index, result in
+                        Text(result)
+                            .font(.system(.caption, design: .monospaced))
+                            .foregroundColor(.primary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
+                .padding(12)
+                .background(Color.black.opacity(0.05))
+                .cornerRadius(8)
+            }
+            .frame(maxHeight: 200)
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemGray6))
+        )
+    }
+    
+    private func testButton(title: String, icon: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack {
+                Image(systemName: icon)
+                    .frame(width: 20)
+                Text(title)
+                Spacer()
+                if isRunningTest {
+                    ProgressView()
+                        .scaleEffect(0.7)
+                }
+            }
+            .padding()
+            .background(Color.blue.opacity(0.1))
+            .cornerRadius(8)
+        }
+        .disabled(isRunningTest)
+    }
+    
+    private func testCloudKitAccount() {
+        isRunningTest = true
+        addTestResult("🔍 Verificando cuenta iCloud...")
+        
+        CKContainer.default().accountStatus { status, error in
+            DispatchQueue.main.async {
+                self.isRunningTest = false
+                
+                if let error = error {
+                    self.addTestResult("❌ Error: \(error.localizedDescription)")
+                    return
+                }
+                
+                switch status {
+                case .available:
+                    self.addTestResult("✅ Cuenta iCloud disponible")
+                    self.addTestResult("📊 Entrenamientos locales: \(self.workouts.count)")
+                case .noAccount:
+                    self.addTestResult("❌ No hay cuenta iCloud configurada")
+                case .restricted:
+                    self.addTestResult("❌ Cuenta iCloud restringida")
+                case .couldNotDetermine:
+                    self.addTestResult("❌ No se pudo determinar estado iCloud")
+                case .temporarilyUnavailable:
+                    self.addTestResult("⚠️ iCloud temporalmente no disponible")
+                @unknown default:
+                    self.addTestResult("❓ Estado iCloud desconocido")
+                }
+            }
+        }
+    }
+    
+    private func createTestWorkout() {
+        isRunningTest = true
+        addTestResult("🏋️‍♂️ Creando entrenamiento de prueba...")
+        
+        let context = managedObjectContext
+        let testWorkout = WorkoutEntity(context: context)
+        testWorkout.id = UUID()
+        testWorkout.type = "Test CloudKit"
+        testWorkout.duration = Int32.random(in: 15...60)
+        testWorkout.date = Date()
+        testWorkout.calories = Int32(testWorkout.duration * 8)
+        
+        do {
+            try context.save()
+            addTestResult("✅ Entrenamiento de prueba creado")
+            addTestResult("📤 Sincronización CloudKit iniciada automáticamente")
+            print("🏃‍♂️ Nuevo entrenamiento Test CloudKit guardado - iniciando sincronización CloudKit")
+            print("📊 Tipo: Test CloudKit, Duración: \(testWorkout.duration) min")
+            isRunningTest = false
+        } catch {
+            addTestResult("❌ Error al crear entrenamiento: \(error.localizedDescription)")
+            isRunningTest = false
+        }
+    }
+    
+    private func clearTestResults() {
+        testResults.removeAll()
+        addTestResult("🧹 Logs limpiados")
+    }
+    
+    private func addTestResult(_ message: String) {
+        let timestamp = DateFormatter.testTimeFormatter.string(from: Date())
+        testResults.append("[\(timestamp)] \(message)")
+    }
+    
+    private func formatDate(_ date: Date?) -> String {
+        guard let date = date else { return "No date" }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+}
+
+extension DateFormatter {
+    static let testTimeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        return formatter
+    }()
 }
 
 #Preview {

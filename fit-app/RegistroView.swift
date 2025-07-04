@@ -531,6 +531,10 @@ struct RegistroView: View {
                 // Handle success state on main actor
                 await MainActor.run {
                     if workoutViewModel.showSuccess {
+                        // Log CloudKit sync trigger
+                        print("🏃‍♂️ Nuevo entrenamiento guardado - iniciando sincronización CloudKit")
+                        print("📊 Tipo: \(tipoSeleccionado), Duración: \(validDuration) min")
+                        
                         // The overlay will be shown by onChange
                         // Reset form fields after a short delay
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

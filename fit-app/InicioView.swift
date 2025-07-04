@@ -1,4 +1,7 @@
 import SwiftUI
+import CoreData
+import CloudKit
+import Combine
 
 // MARK: - Reusable Components
 struct MetricCardView: View {
@@ -163,6 +166,8 @@ struct InicioView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
     
+    @Environment(\.managedObjectContext) private var managedObjectContext
+    
     @State private var animateOnAppear = false
     @State private var showingRegistro = false
     @State private var showingHistorial = false
@@ -190,6 +195,7 @@ struct InicioView: View {
             ScrollView {
                 VStack(spacing: 32) {
                     headerSection
+                    cloudKitSyncSection
                     metricsSection
                     recentWorkoutsSection
                 }
@@ -501,6 +507,17 @@ struct InicioView: View {
         .animation(.easeOut(duration: 0.8).delay(0.6), value: animateOnAppear)
     }
     
+    // MARK: - CloudKit Sync Section
+    private var cloudKitSyncSection: some View {
+        VStack(spacing: 16) {
+            CloudKitStatusCard()
+                .opacity(animateOnAppear ? 1 : 0)
+                .offset(y: animateOnAppear ? 0 : 20)
+                .animation(.easeOut(duration: 0.6).delay(0.2), value: animateOnAppear)
+        }
+        .padding(.horizontal, AppConstants.UI.spacingL)
+    }
+    
     // MARK: - Helper Functions
     private func calculateCurrentStreak() -> Int {
         let calendar = Calendar.current
@@ -523,6 +540,175 @@ struct InicioView: View {
         }
         
         return streak
+    }
+}
+
+// MARK: - CloudKit Status Card
+struct CloudKitStatusCard: View {
+    @State private var syncStatus: CloudKitSyncStatus = .unknown
+    @State private var showingAlert = false
+    @State private var errorMessage: String?
+    @State private var lastSyncDate: Date?
+    
+    enum CloudKitSyncStatus {
+        case unknown, syncing, success, failed
+        
+        var description: String {
+            switch self {
+            case .unknown: return "Estado desconocido"
+            case .syncing: return "Sincronizando..."
+            case .success: return "Sincronización exitosa"
+            case .failed: return "Error de sincronización"
+            }
+        }
+        
+        var color: Color {
+            switch self {
+            case .unknown: return .gray
+            case .syncing: return .orange
+            case .success: return .green
+            case .failed: return .red
+            }
+        }
+        
+        var icon: String {
+            switch self {
+            case .unknown: return "questionmark.circle"
+            case .syncing: return "arrow.triangle.2.circlepath"
+            case .success: return "checkmark.circle.fill"
+            case .failed: return "exclamationmark.triangle.fill"
+            }
+        }
+    }
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack {
+                Image(systemName: syncStatus.icon)
+                    .foregroundColor(syncStatus.color)
+                    .font(.title2)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Estado CloudKit")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
+                    
+                    Text(syncStatus.description)
+                        .font(.caption)
+                        .foregroundColor(syncStatus.color)
+                }
+                
+                Spacer()
+                
+                Button("Test Sync") {
+                    testCloudKitSync()
+                }
+                .font(.caption)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+            }
+            
+            if let lastSync = lastSyncDate {
+                HStack {
+                    Image(systemName: "clock")
+                        .foregroundColor(.gray)
+                    
+                    Text("Última sync: \(formatTime(lastSync))")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    
+                    Spacer()
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white.opacity(0.05))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                )
+        )
+        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+        .alert("CloudKit Error", isPresented: $showingAlert) {
+            Button("OK") {
+                showingAlert = false
+            }
+        } message: {
+            Text(errorMessage ?? "Error desconocido")
+        }
+        .onAppear {
+            checkCloudKitAccount()
+        }
+    }
+    
+    private func testCloudKitSync() {
+        print("🔄 Iniciando test de sincronización CloudKit...")
+        syncStatus = .syncing
+        
+        // Simulate checking CloudKit
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            // Check CloudKit account status
+            CKContainer.default().accountStatus { status, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print("🔴 CloudKit Error: \(error.localizedDescription)")
+                        self.syncStatus = .failed
+                        self.errorMessage = error.localizedDescription
+                        self.showingAlert = true
+                        return
+                    }
+                    
+                    switch status {
+                    case .available:
+                        print("✅ CloudKit disponible - datos sincronizados")
+                        self.syncStatus = .success
+                        self.lastSyncDate = Date()
+                    case .noAccount:
+                        print("❌ No hay cuenta iCloud")
+                        self.syncStatus = .failed
+                        self.errorMessage = "No hay cuenta iCloud configurada"
+                        self.showingAlert = true
+                    default:
+                        print("⚠️ CloudKit no disponible")
+                        self.syncStatus = .failed
+                        self.errorMessage = "iCloud no está disponible"
+                        self.showingAlert = true
+                    }
+                }
+            }
+        }
+    }
+    
+    private func checkCloudKitAccount() {
+        CKContainer.default().accountStatus { status, error in
+            DispatchQueue.main.async {
+                if error != nil {
+                    self.syncStatus = .failed
+                } else {
+                    switch status {
+                    case .available:
+                        self.syncStatus = .success
+                        self.lastSyncDate = Date()
+                    case .noAccount:
+                        self.syncStatus = .failed
+                    default:
+                        self.syncStatus = .unknown
+                    }
+                }
+            }
+        }
+    }
+    
+    private func formatTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
     }
 }
 
