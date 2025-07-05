@@ -27,6 +27,9 @@ struct LoginView: View {
                 .padding(.top, 60)
                 .padding(.bottom, 40)
             }
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            }
         }
         .navigationBarHidden(true)
         .onAppear {
@@ -68,9 +71,9 @@ struct LoginView: View {
                     .stroke(Color.white.opacity(0.1), lineWidth: 1)
                     .frame(width: 70, height: 70)
                 
-                // Ícono central moderno y sutil
-                Image(systemName: "lock.shield")
-                    .font(.system(size: 24, weight: .ultraLight))
+                // Ícono central fitness y motivacional
+                Image(systemName: "dumbbell.fill")
+                    .font(.system(size: 22, weight: .light))
                     .foregroundStyle(
                         LinearGradient(
                             colors: [AppConstants.Design.moonlight.opacity(0.9), AppConstants.Design.electricBlue.opacity(0.7)],

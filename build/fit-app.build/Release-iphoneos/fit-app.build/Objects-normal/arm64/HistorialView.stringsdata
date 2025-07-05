@@ -1,0 +1,152 @@
+{
+  "source": "/Users/Antonn/Desktop/fit-app/fit-app/HistorialView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Volver atrás",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 125
+        }
+      },
+      {
+        "comment": "",
+        "key": "Atrás",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "Historial de Entrenamientos",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 132
+        }
+      },
+      {
+        "comment": "",
+        "key": "Revisa tu progreso y mantente motivado",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 138
+        }
+      },
+      {
+        "comment": "",
+        "key": "Resumen del mes",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 180
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tu actividad reciente",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 206
+        }
+      },
+      {
+        "comment": "",
+        "key": "día entrenado",
+        "location": {
+          "startingColumn": 55,
+          "startingLine": 210
+        }
+      },
+      {
+        "comment": "",
+        "key": "días entrenados",
+        "location": {
+          "startingColumn": 74,
+          "startingLine": 210
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 240
+        }
+      },
+      {
+        "comment": "",
+        "key": "entrenamiento",
+        "location": {
+          "startingColumn": 58,
+          "startingLine": 244
+        }
+      },
+      {
+        "comment": "",
+        "key": "entrenamientos",
+        "location": {
+          "startingColumn": 76,
+          "startingLine": 244
+        }
+      },
+      {
+        "comment": "",
+        "key": "Estadísticas del año",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 272
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tu progreso anual",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 277
+        }
+      },
+      {
+        "comment": "",
+        "key": "Lista completa de entrenamientos",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 332
+        }
+      },
+      {
+        "comment": "",
+        "key": "Carga inteligente con scroll infinito",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 337
+        }
+      },
+      {
+        "comment": "",
+        "key": "Sin entrenar",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 482
+        }
+      },
+      {
+        "comment": "",
+        "key": "Con entrenamiento",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 493
+        }
+      }
+    ]
+  },
+  "version": 1
+}

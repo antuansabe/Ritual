@@ -1,0 +1,280 @@
+{
+  "source": "/Users/Antonn/Desktop/fit-app/fit-app/PerfilView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "CloudKit Monitor en desarrollo",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 80
+        }
+      },
+      {
+        "comment": "",
+        "key": "CloudKit Monitor",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "Antonio Dromundo",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 126
+        }
+      },
+      {
+        "comment": "",
+        "key": "Miembro desde Enero 2024",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 130
+        }
+      },
+      {
+        "comment": "",
+        "key": "Estadísticas",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 145
+        }
+      },
+      {
+        "comment": "",
+        "key": "Meta Semanal",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 183
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 211
+        }
+      },
+      {
+        "comment": "",
+        "key": "de 3",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 214
+        }
+      },
+      {
+        "comment": "",
+        "key": "Entrena 3 veces esta semana",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 221
+        }
+      },
+      {
+        "comment": "",
+        "key": "¡Meta completada!",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 229
+        }
+      },
+      {
+        "comment": "",
+        "key": "Actividad Reciente",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 258
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tus últimos entrenamientos",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 261
+        }
+      },
+      {
+        "comment": "",
+        "key": "Ver todo",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 269
+        }
+      },
+      {
+        "comment": "",
+        "key": "Aún no hay entrenamientos",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 287
+        }
+      },
+      {
+        "comment": "",
+        "key": "Registra tu primer entrenamiento para empezar a ver tu progreso",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 290
+        }
+      },
+      {
+        "comment": "",
+        "key": "Y %lld entrenamientos más",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 312
+        }
+      },
+      {
+        "comment": "",
+        "key": "Logros",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 337
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld desbloqueados",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 340
+        }
+      },
+      {
+        "comment": "",
+        "key": "Configuración",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 362
+        }
+      },
+      {
+        "comment": "",
+        "key": "Test CloudKit",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 378
+        }
+      },
+      {
+        "comment": "",
+        "key": "Monitor CloudKit",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 405
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cerrar sesión",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 445
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@: %@",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 532
+        }
+      },
+      {
+        "comment": "",
+        "key": "%d min • %d kcal",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 646
+        }
+      },
+      {
+        "comment": "",
+        "key": "CloudKit Test",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 695
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cerrar",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 699
+        }
+      },
+      {
+        "comment": "",
+        "key": "CloudKit Sync Test",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 716
+        }
+      },
+      {
+        "comment": "",
+        "key": "Prueba la sincronización de datos con iCloud",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 720
+        }
+      },
+      {
+        "comment": "",
+        "key": "Datos Locales (%lld entrenamientos)",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 734
+        }
+      },
+      {
+        "comment": "",
+        "key": "No hay entrenamientos guardados",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 739
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld.",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 746
+        }
+      },
+      {
+        "comment": "",
+        "key": "%d min • %d kcal",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 754
+        }
+      },
+      {
+        "comment": "",
+        "key": "Acciones de Testing",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 779
+        }
+      },
+      {
+        "comment": "",
+        "key": "Logs de Testing",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 812
+        }
+      }
+    ]
+  },
+  "version": 1
+}

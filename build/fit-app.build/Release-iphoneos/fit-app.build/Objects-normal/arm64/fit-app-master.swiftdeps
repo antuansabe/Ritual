@@ -1,0 +1,31 @@
+version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
+options: "04fe6a50a665845dcd6bc67b16d7b85b3c4e8fc75dbab9933cf2a439ecf18f52"
+build_start_time: [1751746789, 32806000]
+build_end_time: [1751746801, 182567000]
+inputs:
+  ? "/Users/Antonn/Desktop/fit-app/build/fit-app.build/Release-iphoneos/fit-app.build/DerivedSources/CoreDataGenerated/WorkoutHeroModel/WorkoutEntity+CoreDataClass.swift"
+  : [1751746674, 909443815]
+  ? "/Users/Antonn/Desktop/fit-app/build/fit-app.build/Release-iphoneos/fit-app.build/DerivedSources/CoreDataGenerated/WorkoutHeroModel/WorkoutEntity+CoreDataProperties.swift"
+  : [1751746674, 909990439]
+  ? "/Users/Antonn/Desktop/fit-app/build/fit-app.build/Release-iphoneos/fit-app.build/DerivedSources/CoreDataGenerated/WorkoutHeroModel/WorkoutHeroModel+CoreDataModel.swift"
+  : [1751746674, 908155526]
+  "/Users/Antonn/Desktop/fit-app/build/fit-app.build/Release-iphoneos/fit-app.build/DerivedSources/GeneratedAssetSymbols.swift": [1751746673, 843354200]
+  "/Users/Antonn/Desktop/fit-app/fit-app/App.swift": [1751516573, 736412286]
+  "/Users/Antonn/Desktop/fit-app/fit-app/AppConstants.swift": [1751746776, 817889615]
+  "/Users/Antonn/Desktop/fit-app/fit-app/AuthTestView.swift": [1751516399, 183815956]
+  "/Users/Antonn/Desktop/fit-app/fit-app/AuthViewModel.swift": [1751516543, 516982555]
+  "/Users/Antonn/Desktop/fit-app/fit-app/ContentView.swift": [1751742104, 333986145]
+  "/Users/Antonn/Desktop/fit-app/fit-app/Entrenamiento.swift": [1751413912, 59488296]
+  "/Users/Antonn/Desktop/fit-app/fit-app/EntrenamientoViewModel.swift": [1751467823, 897690296]
+  "/Users/Antonn/Desktop/fit-app/fit-app/HistorialView.swift": [1751746477, 17362742]
+  "/Users/Antonn/Desktop/fit-app/fit-app/InicioView.swift": [1751742248, 610898206]
+  "/Users/Antonn/Desktop/fit-app/fit-app/LoginView.swift": [1751681614, 334092471]
+  "/Users/Antonn/Desktop/fit-app/fit-app/MainAppView.swift": [1751516896, 586107730]
+  "/Users/Antonn/Desktop/fit-app/fit-app/NetworkMonitor.swift": [1751637906, 313909053]
+  "/Users/Antonn/Desktop/fit-app/fit-app/OfflineManager.swift": [1751639318, 722469568]
+  "/Users/Antonn/Desktop/fit-app/fit-app/OverlaySuccessView.swift": [1751509142, 900673151]
+  "/Users/Antonn/Desktop/fit-app/fit-app/PerfilView.swift": [1751742004, 951659993]
+  "/Users/Antonn/Desktop/fit-app/fit-app/PersistenceController.swift": [1751637422, 686389923]
+  "/Users/Antonn/Desktop/fit-app/fit-app/RegisterView.swift": [1751681622, 746137973]
+  "/Users/Antonn/Desktop/fit-app/fit-app/RegistroView.swift": [1751678455, 303616487]
+  "/Users/Antonn/Desktop/fit-app/fit-app/WorkoutViewModel.swift": [1751509127, 85072994]

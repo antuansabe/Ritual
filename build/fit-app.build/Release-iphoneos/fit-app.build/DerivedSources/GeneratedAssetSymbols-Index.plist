@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>colors</key>
+	<array/>
+	<key>images</key>
+	<array>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/Antonn/Desktop/fit-app/fit-app/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameHistorialBackground</string>
+			<key>relativePath</key>
+			<string>./historialBackground.imageset</string>
+			<key>swiftSymbol</key>
+			<string>historialBackground</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/Antonn/Desktop/fit-app/fit-app/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameLoginBackground</string>
+			<key>relativePath</key>
+			<string>./loginBackground.imageset</string>
+			<key>swiftSymbol</key>
+			<string>loginBackground</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/Antonn/Desktop/fit-app/fit-app/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameProfileBackground</string>
+			<key>relativePath</key>
+			<string>./profileBackground.imageset</string>
+			<key>swiftSymbol</key>
+			<string>profileBackground</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/Antonn/Desktop/fit-app/fit-app/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameRegistroBackground</string>
+			<key>relativePath</key>
+			<string>./registroBackground.imageset</string>
+			<key>swiftSymbol</key>
+			<string>registroBackground</string>
+		</dict>
+	</array>
+	<key>symbols</key>
+	<array/>
+</dict>
+</plist>

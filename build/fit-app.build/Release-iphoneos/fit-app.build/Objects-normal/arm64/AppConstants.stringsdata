@@ -1,0 +1,144 @@
+{
+  "source": "/Users/Antonn/Desktop/fit-app/fit-app/AppConstants.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 938
+        }
+      },
+      {
+        "comment": "",
+        "key": "Modo Offline",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 926
+        }
+      },
+      {
+        "comment": "",
+        "key": "Los datos se sincronizarán cuando regrese la conexión",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 930
+        }
+      },
+      {
+        "comment": "",
+        "key": "Conexión Restaurada",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 965
+        }
+      },
+      {
+        "comment": "",
+        "key": "Sincronizando datos con iCloud...",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 969
+        }
+      },
+      {
+        "comment": "",
+        "key": "CloudKit Error",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 1099
+        }
+      },
+      {
+        "comment": "",
+        "key": "Estado de Red y Sincronización",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 999
+        }
+      },
+      {
+        "comment": "",
+        "key": "Conectado",
+        "location": {
+          "startingColumn": 48,
+          "startingLine": 1018
+        }
+      },
+      {
+        "comment": "",
+        "key": "Desconectado",
+        "location": {
+          "startingColumn": 62,
+          "startingLine": 1018
+        }
+      },
+      {
+        "comment": "",
+        "key": "Sincronizar",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 1074
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld entrenamientos pendientes",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 1059
+        }
+      },
+      {
+        "comment": "",
+        "key": "Última sync: %@",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 1065
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 1100
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cargando más entrenamientos...",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 1267
+        }
+      },
+      {
+        "comment": "",
+        "key": "No hay más entrenamientos",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 1279
+        }
+      },
+      {
+        "comment": "",
+        "key": "%d min",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 1412
+        }
+      },
+      {
+        "comment": "",
+        "key": "%d kcal",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 1422
+        }
+      }
+    ]
+  },
+  "version": 1
+}

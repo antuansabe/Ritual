@@ -30,6 +30,9 @@ struct RegisterView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, 40)
                 }
+                .onTapGesture {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
             }
         }
         .navigationBarHidden(true)
@@ -75,25 +78,39 @@ struct RegisterView: View {
     // MARK: - Title Section
     private var titleSection: some View {
         VStack(spacing: 32) {
-            // Elemento visual elegante con puntos animados
-            HStack(spacing: 12) {
-                ForEach(0..<3, id: \.self) { index in
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: [AppConstants.Design.lavender.opacity(0.8), AppConstants.Design.electricBlue.opacity(0.6)],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
+            // Elemento visual emotivo con ícono de bienvenida
+            ZStack {
+                // Círculo exterior con gradiente sutil
+                Circle()
+                    .stroke(
+                        LinearGradient(
+                            colors: [AppConstants.Design.lavender.opacity(0.3), AppConstants.Design.electricBlue.opacity(0.2), AppConstants.Design.softPurple.opacity(0.1)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1.5
+                    )
+                    .frame(width: 100, height: 100)
+                
+                // Círculo medio
+                Circle()
+                    .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                    .frame(width: 70, height: 70)
+                
+                // Ícono central emotivo y acogedor
+                Image(systemName: "figure.wave")
+                    .font(.system(size: 22, weight: .light))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [AppConstants.Design.lavender.opacity(0.9), AppConstants.Design.electricBlue.opacity(0.7)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
                         )
-                        .frame(width: 8, height: 8)
-                        .opacity(animateOnAppear ? 1 : 0)
-                        .scaleEffect(animateOnAppear ? 1 : 0.3)
-                        .animation(.spring(response: 0.8, dampingFraction: 0.6).delay(Double(index) * 0.2), value: animateOnAppear)
-                }
+                    )
             }
             .opacity(animateOnAppear ? 1 : 0)
-            .animation(.easeInOut(duration: 0.8).delay(0.1), value: animateOnAppear)
+            .scaleEffect(animateOnAppear ? 1 : 0.8)
+            .animation(.spring(response: 1.0, dampingFraction: 0.8), value: animateOnAppear)
             
             VStack(spacing: 20) {
                 Text("Crear Cuenta")
