@@ -449,6 +449,35 @@ struct AppConstants {
         static let greeting = "Hola"
         static let welcomeEmoji = "👋"
     }
+    
+    // MARK: - Daily Motivational Phrases
+    struct DailyMotivation {
+        static let phrases = [
+            "Hoy puedes darte un regalo de movimiento 🧘‍♂️",
+            "Tu bienestar merece estos momentos 💚",
+            "Cada día es una nueva oportunidad 🌅",
+            "Tu cuerpo te agradece este cuidado ✨",
+            "Pequeños pasos, grandes cambios 👣",
+            "Eres más fuerte de lo que imaginas 💪",
+            "Hoy es perfecto para brillar ⭐",
+            "Tu energía positiva transforma todo 🌟",
+            "Cada movimiento cuenta hacia tu bienestar 🌱",
+            "Dedícate tiempo, te lo mereces 🤗",
+            "Hoy puedes crear algo hermoso para ti 🌸",
+            "Tu constancia silenciosa es poderosa 🌿",
+            "Respira, sonríe y comienza 😊",
+            "Tu mejor versión te está esperando 🦋",
+            "Hoy es un lienzo en blanco lleno de posibilidades 🎨"
+        ]
+        
+        static func randomPhrase() -> String {
+            return phrases.randomElement() ?? "Hoy es tu día para brillar ✨"
+        }
+        
+        static func getUserName() -> String {
+            return UserDefaults.standard.string(forKey: "userName") ?? AppConstants.User.defaultName
+        }
+    }
 }
 
 // MARK: - App Errors
@@ -497,5 +526,51 @@ extension AppConstants {
     
     static func calculateCalories(for duration: Int) -> Int {
         return duration * Workout.caloriesPerMinute
+    }
+}
+
+// MARK: - Motivational Phrase View Component
+struct MotivationalPhraseView: View {
+    @State private var animateOnAppear = false
+    private let userName: String
+    private let motivationalPhrase: String
+    
+    init() {
+        self.userName = AppConstants.DailyMotivation.getUserName()
+        self.motivationalPhrase = AppConstants.DailyMotivation.randomPhrase()
+    }
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            // Welcome greeting with user name
+            Text("Bienvenido de nuevo, \(userName) 👋")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .multilineTextAlignment(.center)
+                .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+                .opacity(animateOnAppear ? 1 : 0)
+                .offset(y: animateOnAppear ? 0 : 20)
+                .animation(.easeOut(duration: 0.6), value: animateOnAppear)
+            
+            // Motivational phrase
+            Text(motivationalPhrase)
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.white.opacity(0.9))
+                .multilineTextAlignment(.center)
+                .lineSpacing(2)
+                .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
+                .opacity(animateOnAppear ? 1 : 0)
+                .offset(y: animateOnAppear ? 0 : 20)
+                .animation(.easeOut(duration: 0.6).delay(0.2), value: animateOnAppear)
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 16)
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.8)) {
+                animateOnAppear = true
+            }
+        }
     }
 }

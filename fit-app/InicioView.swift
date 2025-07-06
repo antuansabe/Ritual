@@ -166,11 +166,8 @@ struct InicioView: View {
                 .ignoresSafeArea()
             
             ScrollView {
-                VStack(spacing: 32) {
+                VStack(spacing: 40) {
                     headerSection
-                    dailySummarySection
-                    cloudKitSyncSection
-                    syncStatusSection
                     metricsSection
                     recentWorkoutsSection
                 }
@@ -193,47 +190,28 @@ struct InicioView: View {
     // MARK: - Header Section
     private var headerSection: some View {
         VStack(spacing: AppConstants.UI.spacingXL) {
-            // Welcome title - centrado y moderno
-            VStack(spacing: AppConstants.UI.spacingM) {
-                Text("¡Bienvenido de nuevo!")
-                    .font(.system(size: 36, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
-                    .opacity(animateOnAppear ? 1 : 0)
-                    .offset(y: animateOnAppear ? 0 : 30)
-                    .animation(.easeOut(duration: 0.8), value: animateOnAppear)
-                
-                Text("Tu transformación empieza aquí")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(.white.opacity(0.9))
-                    .multilineTextAlignment(.center)
-                    .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 1)
-                    .opacity(animateOnAppear ? 1 : 0)
-                    .offset(y: animateOnAppear ? 0 : 30)
-                    .animation(.easeOut(duration: 0.8).delay(0.1), value: animateOnAppear)
-            }
-            .frame(maxWidth: .infinity)
-            
+            // Motivational greeting with user name and daily phrase
+            MotivationalPhraseView()
+                .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal, AppConstants.UI.spacingL)
+        .padding(.horizontal, 20)
     }
     
     
     // MARK: - Metrics Section
     private var metricsSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text("Progreso")
                     .font(AppConstants.Design.headerFont)
                     .foregroundColor(.white)
                     .opacity(animateOnAppear ? 1 : 0)
                     .offset(y: animateOnAppear ? 0 : 20)
-                    .animation(.easeOut(duration: 0.8).delay(0.2), value: animateOnAppear)
+                    .animation(.easeOut(duration: 0.8).delay(0.1), value: animateOnAppear)
                 
                 Spacer()
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 20)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
@@ -269,17 +247,17 @@ struct InicioView: View {
                     )
                     .matchedGeometryEffect(id: "streak", in: heroAnimation)
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 20)
             }
             .opacity(animateOnAppear ? 1 : 0)
             .offset(x: animateOnAppear ? 0 : -50)
-            .animation(.easeOut(duration: 0.8).delay(0.3), value: animateOnAppear)
+            .animation(.easeOut(duration: 0.8).delay(0.2), value: animateOnAppear)
         }
     }
     
     // MARK: - Recent Workouts Section
     private var recentWorkoutsSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text("Entrenamientos recientes")
                     .font(AppConstants.Design.headerFont)
@@ -295,24 +273,24 @@ struct InicioView: View {
                     .foregroundColor(AppConstants.Design.blue)
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 20)
             .opacity(animateOnAppear ? 1 : 0)
             .offset(y: animateOnAppear ? 0 : 20)
-            .animation(.easeOut(duration: 0.8).delay(0.4), value: animateOnAppear)
+            .animation(.easeOut(duration: 0.8).delay(0.3), value: animateOnAppear)
             
             if !workouts.isEmpty {
-                VStack(spacing: 8) {
+                VStack(spacing: 12) {
                     ForEach(Array(workouts.prefix(3).enumerated()), id: \.element.objectID) { index, workout in
                         TrainingListItem(workout: workout)
                             .opacity(animateOnAppear ? 1 : 0)
                             .offset(y: animateOnAppear ? 0 : 30)
-                            .animation(.easeOut(duration: 0.6).delay(0.5 + Double(index) * 0.1), value: animateOnAppear)
+                            .animation(.easeOut(duration: 0.6).delay(0.4 + Double(index) * 0.1), value: animateOnAppear)
                     }
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 20)
             } else {
                 emptyStateView
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, 20)
             }
         }
     }
@@ -353,7 +331,7 @@ struct InicioView: View {
         .padding(.vertical, 60)
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 40)
-        .animation(.easeOut(duration: 0.8).delay(0.6), value: animateOnAppear)
+        .animation(.easeOut(duration: 0.8).delay(0.4), value: animateOnAppear)
     }
     
     // MARK: - CloudKit Sync Section
