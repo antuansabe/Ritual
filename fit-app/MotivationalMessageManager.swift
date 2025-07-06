@@ -95,7 +95,7 @@ class MotivationalMessageManager: ObservableObject {
         
         let calendar = Calendar.current
         let today = Date()
-        let lastWorkoutDate = lastWorkout.fecha ?? today
+        let lastWorkoutDate = lastWorkout.date ?? today
         
         return calendar.dateComponents([.day], from: lastWorkoutDate, to: today).day ?? 0
     }
@@ -109,7 +109,7 @@ class MotivationalMessageManager: ObservableObject {
         
         for _ in 0..<30 { // Check last 30 days maximum
             let workoutsOnDate = workouts.filter { workout in
-                guard let workoutDate = workout.fecha else { return false }
+                guard let workoutDate = workout.date else { return false }
                 return calendar.isDate(workoutDate, inSameDayAs: checkDate)
             }
             

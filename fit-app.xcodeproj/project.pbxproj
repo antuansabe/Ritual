@@ -28,6 +28,8 @@
 		A1B2C3D4E5F60015 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60016 /* AppConstants.swift */; };
 		A1B2C3D4E5F60017 /* HistorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60018 /* HistorialView.swift */; };
 		A1B2C3D4E5F60019 /* PerfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6001A /* PerfilView.swift */; };
+		49705EEFE14E41BBB3DE3393 /* WeeklyGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D95DEBE509A4710AD4AE6E4 /* WeeklyGoalView.swift */; };
+		A9B8C7D5F7A640BBEF123456 /* WeeklyGoalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F2A9D8C4B5678901234567 /* WeeklyGoalManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		A1B2C3D4E5F60016 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60018 /* HistorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorialView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6001A /* PerfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfilView.swift; sourceTree = "<group>"; };
+		9D95DEBE509A4710AD4AE6E4 /* WeeklyGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyGoalView.swift; sourceTree = "<group>"; };
+		E3F2A9D8C4B5678901234567 /* WeeklyGoalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyGoalManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 				A1B2C3D4E5F60016 /* AppConstants.swift */,
 				A1B2C3D4E5F60018 /* HistorialView.swift */,
 				A1B2C3D4E5F6001A /* PerfilView.swift */,
+				9D95DEBE509A4710AD4AE6E4 /* WeeklyGoalView.swift */,
+				E3F2A9D8C4B5678901234567 /* WeeklyGoalManager.swift */,
 				20A4EEE52E15EC0100AC8C57 /* WorkoutViewModel.swift */,
 				20A4EEE62E15EC0200AC8C57 /* PersistenceController.swift */,
 				20A4EEE72E15ED0100AC8C57 /* OverlaySuccessView.swift */,
@@ -205,6 +211,8 @@
 				20A4EEEB2E15EF0000AC8C57 /* AuthTestView.swift in Sources */,
 				20A4EEEC2E15F00000AC8C57 /* MainAppView.swift in Sources */,
 				A1B2C3D4E5F60019 /* PerfilView.swift in Sources */,
+				49705EEFE14E41BBB3DE3393 /* WeeklyGoalView.swift in Sources */,
+				A9B8C7D5F7A640BBEF123456 /* WeeklyGoalManager.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

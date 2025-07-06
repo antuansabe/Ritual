@@ -23,6 +23,9 @@ class WorkoutViewModel: ObservableObject {
             
             try managedObjectContext.save()
             
+            // Notify WeeklyGoalManager about the new workout
+            NotificationCenter.default.post(name: .workoutSaved, object: workout)
+            
             await MainActor.run {
                 isLoading = false
                 showSuccess = true

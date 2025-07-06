@@ -10,6 +10,12 @@ struct PerfilView: View {
     
     @State private var showingCloudKitTest = false
     @State private var showingCloudKitConflicts = false
+    @State private var showingWeeklyGoal = false
+    
+    private var weeklyGoal: Int {
+        let defaultGoal = UserDefaults.standard.integer(forKey: "weeklyGoal")
+        return defaultGoal == 0 ? 3 : defaultGoal
+    }
     
     private var workoutsThisWeek: Int {
         let calendar = Calendar.current
@@ -77,6 +83,9 @@ struct PerfilView: View {
             // CloudKitConflictView() // Temporarily disabled
             Text("CloudKit Monitor en desarrollo")
                 .navigationTitle("CloudKit Monitor")
+        }
+        .sheet(isPresented: $showingWeeklyGoal) {
+            WeeklyGoalView()
         }
     }
     
@@ -192,10 +201,10 @@ struct PerfilView: View {
                         .frame(width: 120, height: 120)
                     
                     Circle()
-                        .trim(from: 0, to: CGFloat(workoutsThisWeek) / 3.0)
+                        .trim(from: 0, to: min(CGFloat(workoutsThisWeek) / CGFloat(weeklyGoal), 1.0))
                         .stroke(
                             LinearGradient(
-                                colors: [.green, .blue],
+                                colors: workoutsThisWeek >= weeklyGoal ? [.green, .blue] : [.blue, .purple],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
@@ -209,18 +218,18 @@ struct PerfilView: View {
                         Text("\(workoutsThisWeek)")
                             .font(.system(size: 36, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
-                        Text("de 3")
+                        Text("de \(weeklyGoal)")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.gray)
                     }
                 }
                 
                 VStack(spacing: 8) {
-                    Text("Entrena 3 veces esta semana")
+                    Text("Entrena \(weeklyGoal) \(weeklyGoal == 1 ? "vez" : "veces") esta semana")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white.opacity(0.8))
                     
-                    if workoutsThisWeek >= 3 {
+                    if workoutsThisWeek >= weeklyGoal {
                         HStack(spacing: 8) {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(.green)
@@ -232,8 +241,63 @@ struct PerfilView: View {
                         .padding(.vertical, 8)
                         .background(Color.green.opacity(0.2))
                         .cornerRadius(20)
+                    } else {
+                        let remaining = weeklyGoal - workoutsThisWeek
+                        HStack(spacing: 8) {
+                            Image(systemName: "target")
+                                .foregroundColor(.blue)
+                            Text("Faltan \(remaining) \(remaining == 1 ? "entrenamiento" : "entrenamientos")")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.blue)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(Color.blue.opacity(0.2))
+                        .cornerRadius(20)
                     }
                 }
+                
+                // Change Goal Button
+                Button(action: {
+                    showingWeeklyGoal = true
+                }) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "gear")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(AppConstants.Design.electricBlue)
+                        
+                        Text("Cambiar meta semanal")
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .foregroundColor(.white)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(.white.opacity(0.6))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 52)
+                    .padding(.horizontal, 20)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(
+                                LinearGradient(
+                                    colors: [Color.white.opacity(0.12), Color.white.opacity(0.06)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(AppConstants.Design.electricBlue.opacity(0.3), lineWidth: 1.5)
+                            )
+                    )
+                    .shadow(color: AppConstants.Design.electricBlue.opacity(0.2), radius: 6, x: 0, y: 3)
+                }
+                .buttonStyle(PlainButtonStyle())
+                .scaleEffect(1.0)
+                .animation(.easeInOut(duration: 0.2), value: showingWeeklyGoal)
             }
             .padding(24)
             .background(
@@ -480,11 +544,34 @@ struct PerfilView: View {
     
     private var achievements: [Achievement] {
         [
-            Achievement(id: 1, title: "Primer Paso", description: "Completa tu primer entrenamiento", icon: "star.fill", color: .yellow, isUnlocked: true),
-            Achievement(id: 2, title: "Constancia", description: "5 días seguidos entrenando", icon: "flame.fill", color: .orange, isUnlocked: true),
-            Achievement(id: 3, title: "Meta Semanal", description: "Completa tu meta semanal", icon: "target", color: .blue, isUnlocked: workoutsThisWeek >= 3),
-            Achievement(id: 4, title: "Caminador", description: "Camina 10,000 pasos", icon: "figure.walk", color: .green, isUnlocked: true)
+            Achievement(id: 1, title: "Primer Paso", description: "Completa tu primer entrenamiento", icon: "star.fill", color: .yellow, isUnlocked: workouts.count > 0),
+            Achievement(id: 2, title: "Constancia", description: "5 días seguidos entrenando", icon: "flame.fill", color: .orange, isUnlocked: calculateCurrentStreak() >= 5),
+            Achievement(id: 3, title: "Meta Semanal", description: "Completa tu meta semanal", icon: "target", color: .blue, isUnlocked: workoutsThisWeek >= weeklyGoal),
+            Achievement(id: 4, title: "Disciplinado", description: "10 entrenamientos completados", icon: "figure.walk", color: .green, isUnlocked: workouts.count >= 10)
         ]
+    }
+    
+    private func calculateCurrentStreak() -> Int {
+        let calendar = Calendar.current
+        let sortedWorkouts = workouts.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
+        guard !sortedWorkouts.isEmpty else { return 0 }
+        
+        var streak = 0
+        var currentDay = Date()
+        
+        for workout in sortedWorkouts {
+            let workoutDay = calendar.startOfDay(for: workout.date ?? Date())
+            let currentDayStart = calendar.startOfDay(for: currentDay)
+            
+            if calendar.isDate(workoutDay, inSameDayAs: currentDayStart) {
+                streak += 1
+                currentDay = calendar.date(byAdding: .day, value: -1, to: currentDay) ?? Date()
+            } else {
+                break
+            }
+        }
+        
+        return streak
     }
 }
 
