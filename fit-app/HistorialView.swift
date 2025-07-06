@@ -8,6 +8,9 @@ struct HistorialView: View {
     @State private var animateOnAppear = false
     @State private var currentDate = Date()
     @StateObject private var motivationalManager = MotivationalMessageManager()
+    @State private var showingTrainingDetail = false
+    @State private var selectedDateWorkouts: [WorkoutEntity] = []
+    @State private var selectedDate = Date()
     
     private let calendar = Calendar.current
     
@@ -83,6 +86,15 @@ struct HistorialView: View {
             }
         }
         .navigationBarHidden(true)
+        .overlay {
+            if showingTrainingDetail {
+                TrainingDetailPopupView(
+                    workouts: selectedDateWorkouts,
+                    selectedDate: selectedDate,
+                    isPresented: $showingTrainingDetail
+                )
+            }
+        }
         .onAppear {
             withAnimation(.easeOut(duration: AppConstants.Animation.entrance)) {
                 animateOnAppear = true
@@ -144,7 +156,8 @@ struct HistorialView: View {
         VStack(spacing: 24) {
             HistorialCalendarView(
                 workouts: Array(workouts),
-                currentDate: $currentDate
+                currentDate: $currentDate,
+                onDateTapped: showTrainingDetails
             )
         }
         .padding(20)
@@ -337,6 +350,22 @@ struct HistorialView: View {
         return streak
     }
     
+    // MARK: - Helper Functions for Popup
+    private func getWorkoutsForDate(_ date: Date) -> [WorkoutEntity] {
+        return workouts.filter { workout in
+            calendar.isDate(workout.date ?? Date(), inSameDayAs: date)
+        }
+    }
+    
+    private func showTrainingDetails(for date: Date) {
+        let dayWorkouts = getWorkoutsForDate(date)
+        if !dayWorkouts.isEmpty {
+            selectedDate = date
+            selectedDateWorkouts = dayWorkouts
+            showingTrainingDetail = true
+        }
+    }
+    
     // MARK: - Motivational Empty Section
     private var motivationalEmptySection: some View {
         VStack(spacing: 40) {
@@ -393,6 +422,7 @@ struct HistorialView: View {
 struct HistorialCalendarView: View {
     let workouts: [WorkoutEntity]
     @Binding var currentDate: Date
+    let onDateTapped: (Date) -> Void
     
     private let calendar = Calendar.current
     private let dateFormatter: DateFormatter = {
@@ -493,7 +523,8 @@ struct HistorialCalendarView: View {
                             date: date,
                             hasWorkout: hasWorkout(on: date),
                             isCurrentMonth: isCurrentMonth(date),
-                            isToday: isToday(date)
+                            isToday: isToday(date),
+                            onTap: onDateTapped
                         )
                     }
                 }
@@ -538,6 +569,7 @@ struct HistorialCalendarDayView: View {
     let hasWorkout: Bool
     let isCurrentMonth: Bool
     let isToday: Bool
+    let onTap: (Date) -> Void
     
     private var dayNumber: String {
         let formatter = DateFormatter()
@@ -561,6 +593,11 @@ struct HistorialCalendarDayView: View {
         .scaleEffect(isCurrentMonth ? 1.0 : 0.8)
         .opacity(isCurrentMonth ? 1.0 : 0.3)
         .animation(.easeInOut(duration: 0.2), value: hasWorkout)
+        .onTapGesture {
+            if hasWorkout && isCurrentMonth {
+                onTap(date)
+            }
+        }
     }
     
     private var backgroundColor: Color {

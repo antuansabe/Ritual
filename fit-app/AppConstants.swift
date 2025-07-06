@@ -574,3 +574,253 @@ struct MotivationalPhraseView: View {
         }
     }
 }
+
+// MARK: - Training Detail Popup View Component
+struct TrainingDetailPopupView: View {
+    let workouts: [WorkoutEntity]
+    let selectedDate: Date
+    @Binding var isPresented: Bool
+    @State private var animateOnAppear = false
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        formatter.locale = Locale(identifier: "es_ES")
+        return formatter
+    }()
+    
+    private func getWorkoutIcon(for type: String) -> String {
+        switch type {
+        case "Cardio": return "heart.circle.fill"
+        case "Fuerza": return "dumbbell.fill"
+        case "Yoga": return "figure.mind.and.body"
+        case "Caminata": return "figure.walk"
+        case "Ciclismo": return "bicycle"
+        case "Natación": return "figure.pool.swim"
+        case "Striking": return "figure.boxing"
+        case "Jiu Jitsu": return "figure.martial.arts"
+        default: return "figure.walk.circle.fill"
+        }
+    }
+    
+    private func getWorkoutColor(for type: String) -> Color {
+        switch type {
+        case "Cardio": return .red
+        case "Fuerza": return .blue
+        case "Yoga": return .purple
+        case "Caminata": return .green
+        case "Ciclismo": return .yellow
+        case "Natación": return .cyan
+        case "Striking": return .red
+        case "Jiu Jitsu": return .purple
+        default: return .gray
+        }
+    }
+    
+    var body: some View {
+        ZStack {
+            // Semi-transparent background
+            Color.black.opacity(0.4)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    dismissPopup()
+                }
+            
+            VStack(spacing: 0) {
+                // Header
+                VStack(spacing: 16) {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Entrenamientos")
+                                .font(.system(size: 24, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                            
+                            Text(dateFormatter.string(from: selectedDate))
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: dismissPopup) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 28))
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                    }
+                    
+                    Text("\(workouts.count) entrenamiento\(workouts.count > 1 ? "s" : "") registrado\(workouts.count > 1 ? "s" : "")")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.white.opacity(0.7))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 24)
+                .padding(.bottom, 20)
+                
+                // Workouts list
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        ForEach(Array(workouts.enumerated()), id: \.element.objectID) { index, workout in
+                            WorkoutDetailCard(workout: workout)
+                                .opacity(animateOnAppear ? 1 : 0)
+                                .offset(y: animateOnAppear ? 0 : 30)
+                                .animation(.easeOut(duration: 0.4).delay(Double(index) * 0.1), value: animateOnAppear)
+                        }
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 24)
+                }
+                .frame(maxHeight: 400)
+                
+                // Close button
+                Button(action: dismissPopup) {
+                    Text("Entendido")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .background(
+                            RoundedRectangle(cornerRadius: 25)
+                                .fill(AppConstants.Design.primaryButtonGradient)
+                        )
+                        .shadow(color: AppConstants.Design.blue.opacity(0.3), radius: 8, x: 0, y: 4)
+                }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 32)
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(.ultraThinMaterial)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 24)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
+            )
+            .padding(.horizontal, 20)
+            .scaleEffect(animateOnAppear ? 1 : 0.9)
+            .opacity(animateOnAppear ? 1 : 0)
+            .animation(.spring(response: 0.6, dampingFraction: 0.8), value: animateOnAppear)
+        }
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.3)) {
+                animateOnAppear = true
+            }
+        }
+    }
+    
+    private func dismissPopup() {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            animateOnAppear = false
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            isPresented = false
+        }
+    }
+}
+
+// MARK: - Workout Detail Card Component
+struct WorkoutDetailCard: View {
+    let workout: WorkoutEntity
+    
+    private func getWorkoutIcon(for type: String) -> String {
+        switch type {
+        case "Cardio": return "heart.circle.fill"
+        case "Fuerza": return "dumbbell.fill"
+        case "Yoga": return "figure.mind.and.body"
+        case "Caminata": return "figure.walk"
+        case "Ciclismo": return "bicycle"
+        case "Natación": return "figure.pool.swim"
+        case "Striking": return "figure.boxing"
+        case "Jiu Jitsu": return "figure.martial.arts"
+        default: return "figure.walk.circle.fill"
+        }
+    }
+    
+    private func getWorkoutColor(for type: String) -> Color {
+        switch type {
+        case "Cardio": return .red
+        case "Fuerza": return .blue
+        case "Yoga": return .purple
+        case "Caminata": return .green
+        case "Ciclismo": return .yellow
+        case "Natación": return .cyan
+        case "Striking": return .red
+        case "Jiu Jitsu": return .purple
+        default: return .gray
+        }
+    }
+    
+    private var timeFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter
+    }
+    
+    var body: some View {
+        HStack(spacing: 20) {
+            // Workout icon
+            ZStack {
+                Circle()
+                    .fill(getWorkoutColor(for: workout.type ?? "").opacity(0.2))
+                    .frame(width: 80, height: 80)
+                    .overlay(
+                        Circle()
+                            .stroke(getWorkoutColor(for: workout.type ?? "").opacity(0.3), lineWidth: 2)
+                    )
+                
+                Image(systemName: getWorkoutIcon(for: workout.type ?? ""))
+                    .font(.system(size: 36, weight: .semibold))
+                    .foregroundColor(getWorkoutColor(for: workout.type ?? ""))
+            }
+            
+            // Workout details
+            VStack(alignment: .leading, spacing: 8) {
+                Text(workout.type ?? "Entrenamiento")
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "clock.fill")
+                            .font(.system(size: 14))
+                            .foregroundColor(.blue)
+                        Text("\(workout.duration) minutos")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                    
+                    HStack(spacing: 8) {
+                        Image(systemName: "flame.fill")
+                            .font(.system(size: 14))
+                            .foregroundColor(.orange)
+                        Text("\(workout.calories) calorías")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                    
+                    HStack(spacing: 8) {
+                        Image(systemName: "clock.badge.checkmark.fill")
+                            .font(.system(size: 14))
+                            .foregroundColor(.green)
+                        Text(timeFormatter.string(from: workout.date ?? Date()))
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                }
+            }
+            
+            Spacer()
+        }
+        .padding(20)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.white.opacity(0.08))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(getWorkoutColor(for: workout.type ?? "").opacity(0.3), lineWidth: 1)
+                )
+        )
+        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+    }
+}
