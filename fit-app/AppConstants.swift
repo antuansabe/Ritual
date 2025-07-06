@@ -1,6 +1,310 @@
 import Foundation
 import SwiftUI
 
+// MARK: - Motivational Message Model
+struct MotivationalMessage {
+    let text: String
+    let emoji: String
+    let context: MessageContext
+    
+    enum MessageContext {
+        case profile
+        case historyEmpty
+        case workoutStart
+        case longBreak
+        case streak
+        case general
+    }
+}
+
+// MARK: - Motivational Message Manager
+class MotivationalMessageManager: ObservableObject {
+    
+    // MARK: - Message Collections
+    private let profileMessages = [
+        MotivationalMessage(text: "Hoy puedes darte un regalo de movimiento", emoji: "🧘‍♂️", context: .profile),
+        MotivationalMessage(text: "Tu bienestar merece estos momentos", emoji: "💚", context: .profile),
+        MotivationalMessage(text: "Cada día es una nueva oportunidad", emoji: "🌅", context: .profile),
+        MotivationalMessage(text: "Tu cuerpo te agradece este cuidado", emoji: "✨", context: .profile),
+        MotivationalMessage(text: "Pequeños pasos, grandes cambios", emoji: "👣", context: .profile)
+    ]
+    
+    private let historyEmptyMessages = [
+        MotivationalMessage(text: "Tu primer entrenamiento te está esperando", emoji: "🌱", context: .historyEmpty),
+        MotivationalMessage(text: "Cada gran viaje comienza con un paso", emoji: "🚀", context: .historyEmpty),
+        MotivationalMessage(text: "Hoy puede ser el día perfecto para empezar", emoji: "🌟", context: .historyEmpty),
+        MotivationalMessage(text: "Tu historia fitness está por comenzar", emoji: "📖", context: .historyEmpty)
+    ]
+    
+    private let workoutStartMessages = [
+        MotivationalMessage(text: "¿Qué tipo de energía quieres crear hoy?", emoji: "⚡", context: .workoutStart),
+        MotivationalMessage(text: "Tu cuerpo está listo para este momento", emoji: "💪", context: .workoutStart),
+        MotivationalMessage(text: "Conecta con tu fuerza interior", emoji: "🔥", context: .workoutStart),
+        MotivationalMessage(text: "Este momento es tuyo", emoji: "🎯", context: .workoutStart)
+    ]
+    
+    private let longBreakMessages = [
+        MotivationalMessage(text: "Todo bien, puedes volver a empezar", emoji: "🌱", context: .longBreak),
+        MotivationalMessage(text: "El descanso también es parte del proceso", emoji: "🌿", context: .longBreak),
+        MotivationalMessage(text: "Si descansaste, hoy puedes regresar con calma", emoji: "🕊️", context: .longBreak),
+        MotivationalMessage(text: "Cada regreso es una nueva oportunidad", emoji: "🌈", context: .longBreak)
+    ]
+    
+    private let streakMessages = [
+        MotivationalMessage(text: "¡Tu constancia inspira!", emoji: "🔥", context: .streak),
+        MotivationalMessage(text: "Mira lo lejos que has llegado", emoji: "⭐", context: .streak),
+        MotivationalMessage(text: "Tu disciplina está dando frutos", emoji: "🌸", context: .streak),
+        MotivationalMessage(text: "Eres más fuerte de lo que crees", emoji: "💎", context: .streak)
+    ]
+    
+    // MARK: - Public Methods
+    func getMessage(for context: MotivationalMessage.MessageContext, daysSinceLastWorkout: Int = 0, currentStreak: Int = 0) -> MotivationalMessage {
+        
+        // Lógica adaptativa basada en patrones de entrenamiento
+        if daysSinceLastWorkout > 3 {
+            return longBreakMessages.randomElement() ?? getDefaultMessage(for: context)
+        }
+        
+        if currentStreak >= 3 {
+            return streakMessages.randomElement() ?? getDefaultMessage(for: context)
+        }
+        
+        return getDefaultMessage(for: context)
+    }
+    
+    private func getDefaultMessage(for context: MotivationalMessage.MessageContext) -> MotivationalMessage {
+        switch context {
+        case .profile:
+            return profileMessages.randomElement() ?? MotivationalMessage(text: "Hoy es tu día", emoji: "✨", context: .profile)
+        case .historyEmpty:
+            return historyEmptyMessages.randomElement() ?? MotivationalMessage(text: "Tu primer paso te espera", emoji: "🌱", context: .historyEmpty)
+        case .workoutStart:
+            return workoutStartMessages.randomElement() ?? MotivationalMessage(text: "¡A por ello!", emoji: "💪", context: .workoutStart)
+        case .longBreak:
+            return longBreakMessages.randomElement() ?? MotivationalMessage(text: "Vuelve cuando estés listo", emoji: "🌿", context: .longBreak)
+        case .streak:
+            return streakMessages.randomElement() ?? MotivationalMessage(text: "¡Increíble progreso!", emoji: "🔥", context: .streak)
+        case .general:
+            return MotivationalMessage(text: "Cada momento cuenta", emoji: "⭐", context: .general)
+        }
+    }
+    
+    // MARK: - Workout Analysis Methods
+    func calculateDaysSinceLastWorkout(workouts: [WorkoutEntity]) -> Int {
+        guard let lastWorkout = workouts.first else { return Int.max }
+        
+        let calendar = Calendar.current
+        let today = Date()
+        let lastWorkoutDate = lastWorkout.date ?? today
+        
+        return calendar.dateComponents([.day], from: lastWorkoutDate, to: today).day ?? 0
+    }
+    
+    func calculateCurrentStreak(workouts: [WorkoutEntity]) -> Int {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        
+        var streak = 0
+        var checkDate = today
+        
+        for _ in 0..<30 { // Check last 30 days maximum
+            let workoutsOnDate = workouts.compactMap { workout -> WorkoutEntity? in
+                guard let workoutDate = workout.date else { return nil }
+                return calendar.isDate(workoutDate, inSameDayAs: checkDate) ? workout : nil
+            }
+            
+            if workoutsOnDate.isEmpty {
+                break
+            } else {
+                streak += 1
+            }
+            
+            checkDate = calendar.date(byAdding: .day, value: -1, to: checkDate) ?? checkDate
+        }
+        
+        return streak
+    }
+}
+
+// MARK: - Motivational Card View
+struct MotivationalCardView: View {
+    let message: MotivationalMessage
+    let style: CardStyle
+    @State private var animateOnAppear = false
+    
+    enum CardStyle {
+        case prominent      // Para pantallas principales como Perfil
+        case subtle         // Para pantallas con más contenido
+        case minimal        // Para espacios reducidos
+    }
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            // Emoji container
+            ZStack {
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            colors: [AppConstants.Design.lavender.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: emojiSize, height: emojiSize)
+                
+                Text(message.emoji)
+                    .font(.system(size: emojiFontSize))
+            }
+            
+            // Message content
+            VStack(alignment: .leading, spacing: 4) {
+                Text(message.text)
+                    .font(textFont)
+                    .foregroundColor(.white.opacity(0.9))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                
+                if style == .prominent {
+                    Text("💫 Inspiración del día")
+                        .font(.system(size: 12, weight: .light))
+                        .foregroundColor(.white.opacity(0.6))
+                        .italic()
+                }
+            }
+            
+            Spacer(minLength: 0)
+        }
+        .padding(cardPadding)
+        .background(
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .fill(cardBackground)
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(cardBorder, lineWidth: 1)
+                )
+        )
+        .shadow(color: cardShadow, radius: shadowRadius, x: 0, y: shadowOffset)
+        .scaleEffect(animateOnAppear ? 1 : 0.95)
+        .opacity(animateOnAppear ? 1 : 0)
+        .animation(.spring(response: 0.6, dampingFraction: 0.8), value: animateOnAppear)
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.5).delay(0.2)) {
+                animateOnAppear = true
+            }
+        }
+    }
+    
+    // MARK: - Style Computed Properties
+    private var emojiSize: CGFloat {
+        switch style {
+        case .prominent: return 50
+        case .subtle: return 40
+        case .minimal: return 32
+        }
+    }
+    
+    private var emojiFontSize: CGFloat {
+        switch style {
+        case .prominent: return 24
+        case .subtle: return 20
+        case .minimal: return 16
+        }
+    }
+    
+    private var textFont: Font {
+        switch style {
+        case .prominent: return .system(size: 16, weight: .medium, design: .rounded)
+        case .subtle: return .system(size: 15, weight: .regular, design: .rounded)
+        case .minimal: return .system(size: 14, weight: .regular, design: .rounded)
+        }
+    }
+    
+    private var cardPadding: EdgeInsets {
+        switch style {
+        case .prominent: return EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
+        case .subtle: return EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
+        case .minimal: return EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
+        }
+    }
+    
+    private var cornerRadius: CGFloat {
+        switch style {
+        case .prominent: return AppConstants.UI.cornerRadiusL
+        case .subtle: return AppConstants.UI.cornerRadiusM
+        case .minimal: return AppConstants.UI.cornerRadiusS
+        }
+    }
+    
+    private var cardBackground: LinearGradient {
+        switch style {
+        case .prominent:
+            return LinearGradient(
+                colors: [
+                    AppConstants.Design.lavender.opacity(0.15),
+                    AppConstants.Design.electricBlue.opacity(0.08),
+                    AppConstants.Design.softPurple.opacity(0.05)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        case .subtle:
+            return LinearGradient(
+                colors: [Color.white.opacity(0.08), Color.white.opacity(0.04)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        case .minimal:
+            return LinearGradient(
+                colors: [Color.white.opacity(0.06), Color.white.opacity(0.03)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+    }
+    
+    private var cardBorder: LinearGradient {
+        switch style {
+        case .prominent:
+            return LinearGradient(
+                colors: [AppConstants.Design.lavender.opacity(0.3), AppConstants.Design.electricBlue.opacity(0.2)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        case .subtle, .minimal:
+            return LinearGradient(
+                colors: [Color.white.opacity(0.15), Color.white.opacity(0.08)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+    }
+    
+    private var cardShadow: Color {
+        switch style {
+        case .prominent: return AppConstants.Design.lavender.opacity(0.2)
+        case .subtle: return .black.opacity(0.1)
+        case .minimal: return .black.opacity(0.05)
+        }
+    }
+    
+    private var shadowRadius: CGFloat {
+        switch style {
+        case .prominent: return 8
+        case .subtle: return 4
+        case .minimal: return 2
+        }
+    }
+    
+    private var shadowOffset: CGFloat {
+        switch style {
+        case .prominent: return 4
+        case .subtle: return 2
+        case .minimal: return 1
+        }
+    }
+}
+
 // MARK: - App Configuration
 struct AppConstants {
     

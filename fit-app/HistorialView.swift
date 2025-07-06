@@ -7,6 +7,7 @@ struct HistorialView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var animateOnAppear = false
     @State private var currentDate = Date()
+    @StateObject private var motivationalManager = MotivationalMessageManager()
     
     private let calendar = Calendar.current
     
@@ -67,9 +68,14 @@ struct HistorialView: View {
             ScrollView {
                 VStack(spacing: 32) {
                     headerSection
-                    calendarSection
-                    monthSummarySection
-                    statsSection
+                    
+                    if workouts.isEmpty {
+                        motivationalEmptySection
+                    } else {
+                        calendarSection
+                        monthSummarySection
+                        statsSection
+                    }
                 }
                 .padding(.horizontal, AppConstants.UI.spacingL)
                 .padding(.top, AppConstants.UI.spacingXL)
@@ -329,6 +335,57 @@ struct HistorialView: View {
         }
         
         return streak
+    }
+    
+    // MARK: - Motivational Empty Section
+    private var motivationalEmptySection: some View {
+        VStack(spacing: 40) {
+            // Motivational message
+            let message = motivationalManager.getMessage(for: .historyEmpty)
+            MotivationalCardView(message: message, style: .prominent)
+            
+            // Empty state illustration
+            VStack(spacing: 20) {
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [AppConstants.Design.lavender.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 120, height: 120)
+                    
+                    Image(systemName: "figure.run.circle")
+                        .font(.system(size: 60, weight: .light))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [AppConstants.Design.lavender.opacity(0.8), AppConstants.Design.electricBlue.opacity(0.6)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                }
+                
+                VStack(spacing: 12) {
+                    Text("Tu historial de entrenamientos")
+                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                    
+                    Text("Aquí aparecerán todos tus entrenamientos una vez que comiences tu viaje fitness.")
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundColor(.white.opacity(0.7))
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(4)
+                }
+            }
+            .opacity(animateOnAppear ? 1 : 0)
+            .offset(y: animateOnAppear ? 0 : 30)
+            .animation(.easeOut(duration: 0.8).delay(0.3), value: animateOnAppear)
+        }
+        .padding(.top, 60)
     }
 }
 

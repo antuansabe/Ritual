@@ -191,6 +191,7 @@ struct RegistroView: View {
     @ObservedObject private var networkMonitor = NetworkMonitor.shared
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Binding var selectedTab: Int
+    @StateObject private var motivationalManager = MotivationalMessageManager()
     
     @State private var tipoSeleccionado = "Cardio"
     @State private var duracion = ""
@@ -229,6 +230,7 @@ struct RegistroView: View {
                 
                 ScrollView {
                     VStack(spacing: 32) {
+                        motivationalSection
                         workoutTypeSection
                         durationSection
                         summarySection
@@ -522,6 +524,15 @@ struct RegistroView: View {
         .animation(.easeOut(duration: 0.6).delay(0.3), value: animateOnAppear)
     }
     
+    // MARK: - Motivational Section
+    private var motivationalSection: some View {
+        let message = motivationalManager.getMessage(for: .workoutStart)
+        
+        return MotivationalCardView(message: message, style: .subtle)
+            .opacity(animateOnAppear ? 1 : 0)
+            .offset(y: animateOnAppear ? 0 : 20)
+            .animation(.easeOut(duration: 0.6).delay(0.2), value: animateOnAppear)
+    }
     
     // MARK: - Save Function
     private func saveWorkout() {

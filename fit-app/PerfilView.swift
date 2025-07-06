@@ -6,6 +6,7 @@ struct PerfilView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
+    @StateObject private var motivationalManager = MotivationalMessageManager()
     
     @State private var showingCloudKitTest = false
     @State private var showingCloudKitConflicts = false
@@ -27,6 +28,9 @@ struct PerfilView: View {
                 
                 // Main content
                 VStack(spacing: 32) {
+                    // Motivational message
+                    motivationalSection
+                    
                     // Network status
                     networkStatusSection
                     
@@ -455,6 +459,16 @@ struct PerfilView: View {
                 }
             }
         }
+    }
+    
+    // MARK: - Motivational Section
+    private var motivationalSection: some View {
+        let workoutArray = Array(workouts)
+        let daysSinceLastWorkout = motivationalManager.calculateDaysSinceLastWorkout(workouts: workoutArray)
+        let currentStreak = motivationalManager.calculateCurrentStreak(workouts: workoutArray)
+        let message = motivationalManager.getMessage(for: .profile, daysSinceLastWorkout: daysSinceLastWorkout, currentStreak: currentStreak)
+        
+        return MotivationalCardView(message: message, style: .prominent)
     }
     
     // MARK: - Network Status Section

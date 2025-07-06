@@ -136,31 +136,6 @@ struct TrainingListItem: View {
     }
 }
 
-struct FloatingActionButton: View {
-    let action: () -> Void
-    @State private var isPressed = false
-    
-    var body: some View {
-        Button(action: action) {
-            Image(systemName: "plus")
-                .font(.title2.weight(.semibold))
-                .foregroundColor(.white)
-                .frame(width: 56, height: 56)
-                .background(
-                    Circle()
-                        .fill(AppConstants.Design.primaryButtonGradient)
-                        .shadow(color: AppConstants.Design.blue.opacity(0.3), radius: 10, x: 0, y: 5)
-                )
-        }
-        .scaleEffect(isPressed ? 0.95 : 1.0)
-        .animation(.easeInOut(duration: 0.1), value: isPressed)
-        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
-            isPressed = pressing
-        }, perform: {})
-        .accessibilityLabel("Add new workout")
-        .accessibilityHint("Opens the workout registration form")
-    }
-}
 
 struct InicioView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
@@ -175,10 +150,6 @@ struct InicioView: View {
     @State private var showingHistorial = false
     @Namespace private var heroAnimation
     
-    // Button press states for touch feedback
-    @State private var isComenzarPressed = false
-    @State private var isHistorialPressed = false
-    @State private var isPerfilPressed = false
     
     // Add TabView selection binding
     @Binding var selectedTab: Int
@@ -207,17 +178,6 @@ struct InicioView: View {
                 .padding(.bottom, 120)
             }
             
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    FloatingActionButton {
-                        selectedTab = 1 // Navigate to Registrar tab
-                    }
-                    .padding(.trailing, 16)
-                    .padding(.bottom, 44)
-                }
-            }
         }
         .navigationBarHidden(true)
         .sheet(isPresented: $showingHistorial) {
@@ -255,125 +215,10 @@ struct InicioView: View {
             }
             .frame(maxWidth: .infinity)
             
-            // Botones principales de navegación
-            actionButtonsSection
         }
         .padding(.horizontal, AppConstants.UI.spacingL)
     }
     
-    // MARK: - Action Buttons Section
-    private var actionButtonsSection: some View {
-        VStack(spacing: AppConstants.UI.spacingL) {
-            // Botón Comenzar entrenamiento
-            Button(action: {
-                selectedTab = 1 // Navigate to Registrar tab
-            }) {
-                HStack(spacing: AppConstants.UI.spacingM) {
-                    Image(systemName: "figure.run.circle.fill")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(.white)
-                    
-                    Text("Comenzar entrenamiento")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(.white)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "arrow.right.circle.fill")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.white.opacity(0.8))
-                }
-                .padding(.horizontal, AppConstants.UI.spacingXL)
-                .padding(.vertical, AppConstants.UI.spacingL)
-                .background(
-                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                        .fill(
-                            LinearGradient(
-                                colors: [Color.blue, Color.purple],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                )
-                .shadow(color: Color.blue.opacity(0.4), radius: 8, x: 0, y: 4)
-            }
-            .scaleEffect(isComenzarPressed ? 0.95 : (animateOnAppear ? 1 : 0.9))
-            .opacity(animateOnAppear ? 1 : 0)
-            .animation(.easeOut(duration: 0.6).delay(0.3), value: animateOnAppear)
-            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isComenzarPressed)
-            .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
-                isComenzarPressed = pressing
-            }, perform: {})
-            
-            HStack(spacing: AppConstants.UI.spacingM) {
-                // Botón Ver historial
-                Button(action: {
-                    showingHistorial = true
-                }) {
-                    VStack(spacing: AppConstants.UI.spacingS) {
-                        Image(systemName: "chart.bar.fill")
-                            .font(.system(size: 28, weight: .semibold))
-                            .foregroundColor(.green)
-                        
-                        Text("Ver historial")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.white)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, AppConstants.UI.spacingXL)
-                    .background(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                            .fill(Color.white.opacity(0.15))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                                    .stroke(Color.green.opacity(0.3), lineWidth: 1)
-                            )
-                    )
-                    .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
-                }
-                .scaleEffect(isHistorialPressed ? 0.95 : (animateOnAppear ? 1 : 0.9))
-                .opacity(animateOnAppear ? 1 : 0)
-                .animation(.easeOut(duration: 0.6).delay(0.4), value: animateOnAppear)
-                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isHistorialPressed)
-                .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
-                    isHistorialPressed = pressing
-                }, perform: {})
-                
-                // Botón Perfil
-                Button(action: {
-                    selectedTab = 3 // Navigate to Perfil tab
-                }) {
-                    VStack(spacing: AppConstants.UI.spacingS) {
-                        Image(systemName: "person.circle.fill")
-                            .font(.system(size: 28, weight: .semibold))
-                            .foregroundColor(.orange)
-                        
-                        Text("Perfil")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.white)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, AppConstants.UI.spacingXL)
-                    .background(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                            .fill(Color.white.opacity(0.15))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                                    .stroke(Color.orange.opacity(0.3), lineWidth: 1)
-                            )
-                    )
-                    .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
-                }
-                .scaleEffect(isPerfilPressed ? 0.95 : (animateOnAppear ? 1 : 0.9))
-                .opacity(animateOnAppear ? 1 : 0)
-                .animation(.easeOut(duration: 0.6).delay(0.5), value: animateOnAppear)
-                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPerfilPressed)
-                .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
-                    isPerfilPressed = pressing
-                }, perform: {})
-            }
-        }
-    }
     
     // MARK: - Metrics Section
     private var metricsSection: some View {
