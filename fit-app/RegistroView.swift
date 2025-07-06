@@ -274,27 +274,11 @@ struct RegistroView: View {
     
     // MARK: - Header Section
     private var headerSection: some View {
-        HStack {            
-            Spacer()
-            
+        HStack {
             Text("Nuevo Entrenamiento")
                 .font(AppConstants.Design.headerFont)
                 .foregroundColor(.white)
-            
-            Spacer()
-            
-            Button(action: saveWorkout) {
-                Image(systemName: "checkmark")
-                    .font(.title3)
-                    .foregroundColor(isFormValid ? .green : .secondary)
-                    .frame(width: 40, height: 40)
-                    .background(
-                        Circle()
-                            .fill(isFormValid ? .green.opacity(0.2) : .gray.opacity(0.1))
-                    )
-            }
-            .disabled(!isFormValid)
-            .animation(.easeInOut(duration: 0.2), value: isFormValid)
+                .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 20)
