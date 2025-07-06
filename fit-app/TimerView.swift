@@ -39,6 +39,32 @@ enum TimerType: String, CaseIterable {
     }
 }
 
+// MARK: - Timer State Enum
+enum TimerState {
+    case ready
+    case work
+    case rest
+    case finished
+    
+    var title: String {
+        switch self {
+        case .ready: return "Listo para empezar"
+        case .work: return "¡TRABAJA!"
+        case .rest: return "Descansa"
+        case .finished: return "¡Completado!"
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .ready: return .blue
+        case .work: return .green
+        case .rest: return .orange
+        case .finished: return .purple
+        }
+    }
+}
+
 // MARK: - Timer View
 struct TimerView: View {
     @State private var selectedTimerType: TimerType = .tabata
@@ -48,6 +74,14 @@ struct TimerView: View {
     @State private var isTimerRunning: Bool = false
     @State private var isPaused: Bool = false
     @State private var animateOnAppear = false
+    
+    // Timer Logic State
+    @State private var minutes: Int = 0
+    @State private var seconds: Int = 20
+    @State private var timer: Timer?
+    @State private var currentState: TimerState = .ready
+    @State private var currentRound: Int = 1
+    @State private var showCompletionAlert = false
     
     var body: some View {
         ZStack {
@@ -64,8 +98,14 @@ struct TimerView: View {
             ScrollView {
                 VStack(spacing: 32) {
                     headerSection
-                    timerTypeSection
-                    configurationSection
+                    
+                    if isTimerRunning || currentState != .ready {
+                        timerDisplaySection
+                    } else {
+                        timerTypeSection
+                        configurationSection
+                    }
+                    
                     startButtonSection
                 }
                 .padding(.horizontal, 20)
@@ -80,10 +120,116 @@ struct TimerView: View {
             }
         }
         .onChange(of: selectedTimerType) { newType in
-            // Update durations when timer type changes
-            workDuration = newType.defaultWorkDuration
-            restDuration = newType.defaultRestDuration
+            // Update durations when timer type changes only if not running
+            if !isTimerRunning {
+                workDuration = newType.defaultWorkDuration
+                restDuration = newType.defaultRestDuration
+                resetTimer()
+            }
         }
+        .alert("¡Tiempo Completo!", isPresented: $showCompletionAlert) {
+            Button("OK") {
+                resetToInitialState()
+            }
+        } message: {
+            Text("Has completado tu sesión de entrenamiento")
+        }
+        .onDisappear {
+            stopTimer()
+        }
+    }
+    
+    // MARK: - Timer Display Section
+    private var timerDisplaySection: some View {
+        VStack(spacing: 32) {
+            // Current State and Round Info
+            VStack(spacing: 12) {
+                if selectedTimerType != .custom && rounds > 1 {
+                    Text("Ronda \(currentRound) de \(rounds)")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                
+                Text(currentState.title)
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .foregroundColor(currentState.color)
+                    .shadow(color: currentState.color.opacity(0.4), radius: 4, x: 0, y: 2)
+            }
+            
+            // Main Timer Display
+            VStack(spacing: 24) {
+                ZStack {
+                    // Outer ring
+                    Circle()
+                        .stroke(Color.white.opacity(0.2), lineWidth: 8)
+                        .frame(width: 260, height: 260)
+                    
+                    // Progress ring
+                    Circle()
+                        .trim(from: 0, to: progressPercentage)
+                        .stroke(
+                            LinearGradient(
+                                colors: [currentState.color, currentState.color.opacity(0.6)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                        )
+                        .frame(width: 260, height: 260)
+                        .rotationEffect(.degrees(-90))
+                        .animation(.easeInOut(duration: 0.3), value: progressPercentage)
+                    
+                    // Time display
+                    VStack(spacing: 8) {
+                        Text(timeDisplayString)
+                            .font(.system(size: 64, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+                        
+                        Text("mm:ss")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white.opacity(0.6))
+                    }
+                }
+                
+                // Next phase indicator
+                if isTimerRunning && !isPaused {
+                    VStack(spacing: 8) {
+                        Text("Siguiente:")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(.white.opacity(0.7))
+                        
+                        Text(nextPhaseText)
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.ultraThinMaterial.opacity(0.3))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                            )
+                    )
+                }
+            }
+        }
+        .padding(32)
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(.ultraThinMaterial.opacity(0.4))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 24)
+                        .stroke(currentState.color.opacity(0.4), lineWidth: 2)
+                )
+        )
+        .shadow(color: currentState.color.opacity(0.2), radius: 12, x: 0, y: 6)
+        .opacity(animateOnAppear ? 1 : 0)
+        .scaleEffect(animateOnAppear ? 1 : 0.9)
+        .animation(.spring(response: 0.6, dampingFraction: 0.8), value: animateOnAppear)
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: currentState)
     }
     
     // MARK: - Header Section
@@ -331,6 +477,137 @@ struct TimerView: View {
         }
     }
     
+    // MARK: - Computed Properties
+    private var timeDisplayString: String {
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
+    private var progressPercentage: Double {
+        let totalSeconds = getCurrentPhaseDuration()
+        let remainingSeconds = minutes * 60 + seconds
+        let elapsedSeconds = totalSeconds - remainingSeconds
+        return totalSeconds > 0 ? Double(elapsedSeconds) / Double(totalSeconds) : 0
+    }
+    
+    private var nextPhaseText: String {
+        switch currentState {
+        case .work:
+            if selectedTimerType == .custom {
+                return "Fin del entrenamiento"
+            } else {
+                return currentRound >= rounds ? "Fin del entrenamiento" : "Descanso (\(restDuration)s)"
+            }
+        case .rest:
+            return currentRound >= rounds ? "Fin del entrenamiento" : "Trabajo (\(workDuration)s)"
+        default:
+            return ""
+        }
+    }
+    
+    // MARK: - Timer Logic
+    private func getCurrentPhaseDuration() -> Int {
+        switch currentState {
+        case .work: return workDuration
+        case .rest: return restDuration
+        default: return workDuration
+        }
+    }
+    
+    private func startTimer() {
+        if currentState == .ready {
+            currentState = .work
+            setTimerFor(duration: workDuration)
+        }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            decrementTime()
+        }
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    private func resetTimer() {
+        minutes = workDuration / 60
+        seconds = workDuration % 60
+        currentState = .ready
+        currentRound = 1
+    }
+    
+    private func resetToInitialState() {
+        withAnimation(.easeInOut(duration: 0.5)) {
+            isTimerRunning = false
+            isPaused = false
+            currentState = .ready
+            currentRound = 1
+            stopTimer()
+            setTimerFor(duration: workDuration)
+        }
+    }
+    
+    private func setTimerFor(duration: Int) {
+        minutes = duration / 60
+        seconds = duration % 60
+    }
+    
+    private func decrementTime() {
+        guard isTimerRunning && !isPaused else { return }
+        
+        if seconds > 0 {
+            seconds -= 1
+        } else if minutes > 0 {
+            minutes -= 1
+            seconds = 59
+        } else {
+            // Time reached zero
+            handlePhaseCompletion()
+        }
+    }
+    
+    private func handlePhaseCompletion() {
+        switch currentState {
+        case .work:
+            if selectedTimerType == .custom {
+                // Custom timer completes after work phase
+                completeTimer()
+            } else {
+                // Switch to rest phase
+                currentState = .rest
+                setTimerFor(duration: restDuration)
+            }
+            
+        case .rest:
+            if currentRound >= rounds {
+                // All rounds completed
+                completeTimer()
+            } else {
+                // Move to next round
+                currentRound += 1
+                currentState = .work
+                setTimerFor(duration: workDuration)
+            }
+            
+        default:
+            break
+        }
+    }
+    
+    private func completeTimer() {
+        stopTimer()
+        currentState = .finished
+        withAnimation(.easeInOut(duration: 0.3)) {
+            isTimerRunning = false
+            isPaused = false
+        }
+        
+        // Show completion alert after a brief delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            showCompletionAlert = true
+        }
+    }
+    
     // MARK: - Actions
     private func toggleTimer() {
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
@@ -338,12 +615,17 @@ struct TimerView: View {
                 // Start timer
                 isTimerRunning = true
                 isPaused = false
+                startTimer()
             } else if isPaused {
                 // Resume timer
                 isPaused = false
+                if timer == nil {
+                    startTimer()
+                }
             } else {
                 // Pause timer
                 isPaused = true
+                stopTimer()
             }
         }
     }
