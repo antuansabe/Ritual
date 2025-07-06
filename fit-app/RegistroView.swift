@@ -187,6 +187,7 @@ struct SummaryMetricCard: View {
 
 struct RegistroView: View {
     @StateObject private var workoutViewModel = WorkoutViewModel()
+    @StateObject private var customTrainingManager = CustomTrainingManager()
     @ObservedObject private var offlineManager = OfflineManager.shared
     @ObservedObject private var networkMonitor = NetworkMonitor.shared
     @Environment(\.managedObjectContext) private var managedObjectContext
@@ -196,6 +197,9 @@ struct RegistroView: View {
     @State private var duracion = ""
     @State private var animateOnAppear = false
     @State private var showSuccessOverlay = false
+    @State private var showAddCustomTraining = false
+    @State private var showDeleteConfirmation = false
+    @State private var trainingToDelete: CustomTraining?
     @Namespace private var heroAnimation
     
     // Button press state for save button animation
@@ -301,6 +305,7 @@ struct RegistroView: View {
             }
             .padding(.horizontal, 16)
             
+            // Default activity types
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 2), spacing: 16) {
                 ForEach(Array(ActivityType.allTypes.enumerated()), id: \.offset) { index, activityType in
                     ModernWorkoutTypeButton(
@@ -319,6 +324,118 @@ struct RegistroView: View {
                 }
             }
             .padding(.horizontal, 16)
+            
+            // Custom trainings section
+            if !customTrainingManager.customTrainings.isEmpty || customTrainingManager.canAddMoreTrainings() {
+                customTrainingsSection
+            }
+        }
+        .sheet(isPresented: $showAddCustomTraining) {
+            AddCustomTrainingView()
+                .environmentObject(customTrainingManager)
+        }
+        .alert("Eliminar Entrenamiento", isPresented: $showDeleteConfirmation) {
+            Button("Cancelar", role: .cancel) { }
+            Button("Eliminar", role: .destructive) {
+                if let training = trainingToDelete {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        customTrainingManager.removeCustomTraining(training)
+                        if tipoSeleccionado == training.name {
+                            tipoSeleccionado = "Cardio"
+                        }
+                    }
+                }
+                trainingToDelete = nil
+            }
+        } message: {
+            if let training = trainingToDelete {
+                Text("¿Estás seguro de que quieres eliminar '\(training.name)'?")
+            }
+        }
+    }
+    
+    // MARK: - Custom Trainings Section
+    private var customTrainingsSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("Entrenamientos personalizados")
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                    .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
+                
+                Spacer()
+                
+                if customTrainingManager.canAddMoreTrainings() {
+                    Button(action: {
+                        showAddCustomTraining = true
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "plus.circle.fill")
+                                .font(.system(size: 16, weight: .semibold))
+                            Text("Agregar")
+                                .font(.system(size: 14, weight: .semibold))
+                        }
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(AppConstants.Design.electricBlue)
+                                .shadow(color: AppConstants.Design.electricBlue.opacity(0.4), radius: 4, x: 0, y: 2)
+                        )
+                    }
+                }
+            }
+            .padding(.horizontal, 16)
+            .opacity(animateOnAppear ? 1 : 0)
+            .offset(y: animateOnAppear ? 0 : 20)
+            .animation(.easeOut(duration: 0.6).delay(0.8), value: animateOnAppear)
+            
+            if !customTrainingManager.customTrainings.isEmpty {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 2), spacing: 16) {
+                    ForEach(Array(customTrainingManager.customTrainings.enumerated()), id: \.element.id) { index, customTraining in
+                        CustomWorkoutTypeButton(
+                            training: customTraining,
+                            isSelected: tipoSeleccionado == customTraining.name,
+                            onSelect: {
+                                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                                    tipoSeleccionado = customTraining.name
+                                }
+                            },
+                            onDelete: {
+                                trainingToDelete = customTraining
+                                showDeleteConfirmation = true
+                            }
+                        )
+                        .opacity(animateOnAppear ? 1 : 0)
+                        .offset(y: animateOnAppear ? 0 : 30)
+                        .animation(.easeOut(duration: 0.5).delay(0.9 + Double(index) * 0.05), value: animateOnAppear)
+                    }
+                    
+                    // Add button if there's space and less than max
+                    if customTrainingManager.canAddMoreTrainings() && customTrainingManager.customTrainings.count % 2 == 1 {
+                        AddTrainingButton {
+                            showAddCustomTraining = true
+                        }
+                        .opacity(animateOnAppear ? 1 : 0)
+                        .offset(y: animateOnAppear ? 0 : 30)
+                        .animation(.easeOut(duration: 0.5).delay(0.9 + Double(customTrainingManager.customTrainings.count) * 0.05), value: animateOnAppear)
+                    }
+                }
+                .padding(.horizontal, 16)
+            } else if customTrainingManager.canAddMoreTrainings() {
+                // Show add button when no custom trainings exist
+                HStack {
+                    AddTrainingButton {
+                        showAddCustomTraining = true
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                .opacity(animateOnAppear ? 1 : 0)
+                .offset(y: animateOnAppear ? 0 : 30)
+                .animation(.easeOut(duration: 0.5).delay(0.9), value: animateOnAppear)
+            }
         }
     }
     
@@ -555,6 +672,206 @@ struct RegistroView: View {
         case .failure(let error):
             workoutViewModel.errorMessage = error.localizedDescription
         }
+    }
+}
+
+// MARK: - Custom Workout Type Button Component
+struct CustomWorkoutTypeButton: View {
+    let training: CustomTraining
+    let isSelected: Bool
+    let onSelect: () -> Void
+    let onDelete: () -> Void
+    
+    @State private var isPressed = false
+    @State private var showDeleteButton = false
+    
+    var body: some View {
+        Button(action: onSelect) {
+            VStack(spacing: 12) {
+                ZStack {
+                    // Main icon circle
+                    Circle()
+                        .fill(
+                            isSelected ? 
+                                LinearGradient(
+                                    colors: [AppConstants.Design.electricBlue, AppConstants.Design.softPurple],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ) :
+                                LinearGradient(
+                                    colors: [Color.white.opacity(0.15), Color.white.opacity(0.08)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                        )
+                        .frame(width: 60, height: 60)
+                        .shadow(color: isSelected ? AppConstants.Design.electricBlue.opacity(0.4) : .clear, radius: 6, x: 0, y: 3)
+                    
+                    Image(systemName: training.iconName)
+                        .font(.system(size: 28, weight: .semibold))
+                        .foregroundColor(isSelected ? .white : .white.opacity(0.9))
+                        .shadow(color: isSelected ? .black.opacity(0.3) : .clear, radius: 1, x: 0, y: 0.5)
+                    
+                    // Delete button overlay
+                    if showDeleteButton {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Button(action: onDelete) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .foregroundColor(.red)
+                                        .background(
+                                            Circle()
+                                                .fill(.white)
+                                                .frame(width: 16, height: 16)
+                                        )
+                                }
+                                .offset(x: 8, y: -8)
+                            }
+                            Spacer()
+                        }
+                    }
+                }
+                
+                Text(training.name)
+                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                    .foregroundColor(isSelected ? .white : .white.opacity(0.9))
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .shadow(color: isSelected ? .black.opacity(0.2) : .clear, radius: 1, x: 0, y: 0.5)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 100)
+            .background(
+                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                    .fill(
+                        isSelected ? 
+                            LinearGradient(
+                                colors: [AppConstants.Design.electricBlue.opacity(0.3), AppConstants.Design.softPurple.opacity(0.2)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ) :
+                            LinearGradient(
+                                colors: [Color.white.opacity(0.08), Color.white.opacity(0.04)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                            .stroke(
+                                isSelected ? AppConstants.Design.electricBlue.opacity(0.5) : Color.white.opacity(0.1),
+                                lineWidth: isSelected ? 2 : 1
+                            )
+                    )
+            )
+            .shadow(
+                color: isSelected ? AppConstants.Design.electricBlue.opacity(0.3) : .black.opacity(0.1),
+                radius: isSelected ? 8 : 4,
+                x: 0,
+                y: isSelected ? 4 : 2
+            )
+            .scaleEffect(isPressed ? 0.95 : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isPressed)
+            .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSelected)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .onLongPressGesture(minimumDuration: 0.5, maximumDistance: .infinity, pressing: { pressing in
+            if pressing {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    showDeleteButton = true
+                }
+            }
+        }, perform: {})
+        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+            isPressed = pressing
+        }, perform: {})
+        .accessibilityLabel(training.name)
+        .accessibilityHint(isSelected ? "Currently selected custom activity" : "Tap to select \(training.name) as activity type")
+        .accessibilityValue(isSelected ? "Selected" : "Not selected")
+        .onTapGesture {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                showDeleteButton = false
+            }
+        }
+    }
+}
+
+// MARK: - Add Training Button Component
+struct AddTrainingButton: View {
+    let action: () -> Void
+    
+    @State private var isPressed = false
+    
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 12) {
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.white.opacity(0.15), Color.white.opacity(0.08)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 60, height: 60)
+                        .overlay(
+                            Circle()
+                                .stroke(
+                                    LinearGradient(
+                                        colors: [AppConstants.Design.electricBlue.opacity(0.4), AppConstants.Design.softPurple.opacity(0.2)],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    style: StrokeStyle(lineWidth: 2, dash: [5, 3])
+                                )
+                        )
+                    
+                    Image(systemName: "plus")
+                        .font(.system(size: 28, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                
+                Text("Agregar")
+                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white.opacity(0.7))
+                    .multilineTextAlignment(.center)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 100)
+            .background(
+                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.white.opacity(0.05), Color.white.opacity(0.02)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [AppConstants.Design.electricBlue.opacity(0.3), AppConstants.Design.softPurple.opacity(0.15)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                style: StrokeStyle(lineWidth: 2, dash: [8, 4])
+                            )
+                    )
+            )
+            .scaleEffect(isPressed ? 0.95 : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isPressed)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+            isPressed = pressing
+        }, perform: {})
+        .accessibilityLabel("Add custom training")
+        .accessibilityHint("Tap to create a new custom training activity")
     }
 }
 
