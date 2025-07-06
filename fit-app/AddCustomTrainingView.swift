@@ -73,13 +73,13 @@ struct AddCustomTrainingView: View {
     
     // Available SF Symbols for training activities
     private let availableIcons = [
-        "figure.run", "figure.walk", "bicycle", "figure.swimming",
-        "figure.strengthtraining.functional", "figure.yoga",
+        "figure.run", "figure.walk", "bicycle", "figure.pool.swim",
+        "dumbbell.fill", "figure.yoga",
         "figure.dance", "figure.boxing", "figure.climbing",
         "figure.tennis", "figure.basketball", "figure.soccer",
         "figure.volleyball", "figure.badminton", "figure.skating",
         "figure.snowboarding", "figure.surfing", "figure.sailing",
-        "dumbbell", "heart.circle", "flame", "bolt"
+        "dumbbell", "heart.circle.fill", "flame.fill", "bolt.fill"
     ]
     
     var body: some View {

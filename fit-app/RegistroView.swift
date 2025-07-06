@@ -12,8 +12,6 @@ struct ActivityType {
         ActivityType(name: "Yoga", icon: "figure.mind.and.body", color: .purple),
         ActivityType(name: "Caminata", icon: "figure.walk", color: .green),
         ActivityType(name: "Ciclismo", icon: "bicycle", color: .yellow),
-        ActivityType(name: "Natación", icon: "figure.pool.swim", color: .cyan),
-        ActivityType(name: "Striking", icon: "figure.boxing", color: .red),
         ActivityType(name: "Jiu Jitsu", icon: "figure.martial.arts", color: .purple)
     ]
 }
