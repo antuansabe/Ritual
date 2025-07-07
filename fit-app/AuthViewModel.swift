@@ -16,6 +16,11 @@ class AuthViewModel: ObservableObject {
     private let dummyPassword = "123456"
     
     init() {
+        print("🔐 Initializing AuthViewModel...")
+        
+        // Check for existing authentication first
+        checkForExistingAuthentication()
+        
         // Check both authentication methods on init
         checkAuthenticationStatus()
         
@@ -59,7 +64,7 @@ class AuthViewModel: ObservableObject {
             appleSignInManager.signOut()
         }
         
-        // Clear regular authentication
+        // Clear all authentication state
         isAuthenticated = false
         email = ""
         password = ""
@@ -70,6 +75,30 @@ class AuthViewModel: ObservableObject {
     }
     
     // MARK: - Authentication Status Check
+    
+    private func checkForExistingAuthentication() {
+        print("🔍 Checking for existing authentication...")
+        
+        // Check if user is already authenticated via AppStorage
+        if isAuthenticated {
+            print("   - User already authenticated via AppStorage")
+            return
+        }
+        
+        // Check for Apple Sign In auto-login
+        if appleSignInManager.isAppleUser && !appleSignInManager.userIdentifier.isEmpty {
+            print("   - Found existing Apple user credentials")
+            print("   - User ID: \(appleSignInManager.userIdentifier)")
+            print("   - Email: \(appleSignInManager.userEmail)")
+            print("   - Auto-logging in Apple user...")
+            
+            // Auto-login the Apple user
+            DispatchQueue.main.async {
+                self.isAuthenticated = true
+                print("✅ Apple user auto-logged in successfully")
+            }
+        }
+    }
     
     private func checkAuthenticationStatus() {
         print("🔍 Checking authentication status...")
@@ -94,11 +123,25 @@ class AuthViewModel: ObservableObject {
                         print("✅ Apple user authenticated - updating AuthViewModel")
                         self?.isAuthenticated = true
                     } else {
-                        print("❌ Apple user not authenticated")
+                        // Only log out if this was an Apple user previously
+                        if self?.appleSignInManager.isAppleUser == true {
+                            print("❌ Apple user lost authentication - logging out")
+                            self?.handleAppleSignOut()
+                        }
                     }
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    private func handleAppleSignOut() {
+        print("🚪 Handling Apple Sign Out...")
+        
+        // Only clear authentication if user was logged in via Apple
+        if appleSignInManager.isAppleUser {
+            isAuthenticated = false
+            print("✅ Apple user logged out from AuthViewModel")
+        }
     }
     
     // MARK: - Combine
