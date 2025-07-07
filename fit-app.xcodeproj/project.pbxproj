@@ -32,6 +32,8 @@
 		A9B8C7D5F7A640BBEF123456 /* WeeklyGoalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F2A9D8C4B5678901234567 /* WeeklyGoalManager.swift */; };
 		B4C9F2A8E6D740CCAB789DEF /* AddCustomTrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E8A3B5D2C6789012345678 /* AddCustomTrainingView.swift */; };
 		C5D8A6F9B3E740DDBC890123 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = G8F9B4C6E3D7890123456789 /* TimerView.swift */; };
+		D6E9C8F7A5B3740EEFABCDEF /* AppleSignInButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = H9G8C5F7B4E3890234567890 /* AppleSignInButtonView.swift */; };
+		E7F8D9A6B4C3741FFABCDEFG /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = I8H9D6F8C5E4901345678901 /* AppleSignInManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +65,8 @@
 		E3F2A9D8C4B5678901234567 /* WeeklyGoalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyGoalManager.swift; sourceTree = "<group>"; };
 		F7E8A3B5D2C6789012345678 /* AddCustomTrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomTrainingView.swift; sourceTree = "<group>"; };
 		G8F9B4C6E3D7890123456789 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		H9G8C5F7B4E3890234567890 /* AppleSignInButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInButtonView.swift; sourceTree = "<group>"; };
+		I8H9D6F8C5E4901345678901 /* AppleSignInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 				20A4EEE82E15EE0100AC8C57 /* AuthViewModel.swift */,
 				20A4EEE92E15EE0200AC8C57 /* LoginView.swift */,
 				20A4EEEA2E15EE0300AC8C57 /* RegisterView.swift */,
+				H9G8C5F7B4E3890234567890 /* AppleSignInButtonView.swift */,
+				I8H9D6F8C5E4901345678901 /* AppleSignInManager.swift */,
 				20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */,
 				20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
@@ -221,6 +227,8 @@
 				A9B8C7D5F7A640BBEF123456 /* WeeklyGoalManager.swift in Sources */,
 				B4C9F2A8E6D740CCAB789DEF /* AddCustomTrainingView.swift in Sources */,
 				C5D8A6F9B3E740DDBC890123 /* TimerView.swift in Sources */,
+				D6E9C8F7A5B3740EEFABCDEF /* AppleSignInButtonView.swift in Sources */,
+				E7F8D9A6B4C3741FFABCDEFG /* AppleSignInManager.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

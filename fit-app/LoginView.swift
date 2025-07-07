@@ -202,6 +202,9 @@ struct LoginView: View {
                     )
                     .shadow(color: AppConstants.Design.electricBlue.opacity(0.4), radius: 12, x: 0, y: 6)
             }
+            
+            // Apple Sign In Button
+            AppleSignInButtonView()
         }
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 30)
