@@ -313,7 +313,7 @@ struct TimerView: View {
     
     // MARK: - Configuration Section
     private var configurationSection: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 16) {
             HStack {
                 Text("Configuración")
                     .font(.system(size: 18, weight: .bold, design: .rounded))
@@ -321,7 +321,7 @@ struct TimerView: View {
                 Spacer()
             }
             
-            VStack(spacing: 16) {
+            VStack(spacing: 12) {
                 // Work Duration
                 CompactDurationCard(
                     title: "Trabajo",
@@ -352,7 +352,7 @@ struct TimerView: View {
                 }
             }
         }
-        .padding(20)
+        .padding(18)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(.ultraThinMaterial.opacity(0.4))
@@ -718,7 +718,7 @@ struct CompactTimerTypeButton: View {
     }
 }
 
-// MARK: - Compact Duration Config Card Component
+// MARK: - Optimized Duration Config Card Component
 struct CompactDurationCard: View {
     let title: String
     @Binding var duration: Int
@@ -730,111 +730,105 @@ struct CompactDurationCard: View {
     @State private var plusButtonPressed = false
     
     var body: some View {
-        HStack(spacing: 12) {
-            // Icon and title section
-            HStack(spacing: 10) {
-                ZStack {
-                    Circle()
-                        .fill(color.opacity(0.2))
-                        .frame(width: 32, height: 32)
-                    
-                    Image(systemName: icon)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(color)
-                }
+        VStack(spacing: 8) {
+            // Header with icon and title
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(color)
+                    .frame(width: 20, height: 20)
                 
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title)
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.white)
-                        .lineLimit(1)
-                    
-                    Text(formatDuration(duration))
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(.white.opacity(0.6))
-                        .lineLimit(1)
-                }
+                Text(title)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Text(formatDuration(duration))
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.white.opacity(0.7))
             }
             
-            Spacer()
-            
-            // Controls section with improved accessibility and design
-            HStack(spacing: 16) {
-                // Minus button
+            // Compact controls section
+            HStack(spacing: 12) {
+                // Minus button - smaller and more compact
                 Button(action: { decrementDuration() }) {
                     ZStack {
-                        RoundedRectangle(cornerRadius: 8)
+                        Circle()
                             .fill(duration > range.lowerBound ? Color.white.opacity(0.15) : Color.white.opacity(0.05))
-                            .frame(width: 44, height: 44)
+                            .frame(width: 36, height: 36)
                             .overlay(
-                                RoundedRectangle(cornerRadius: 8)
+                                Circle()
                                     .stroke(duration > range.lowerBound ? Color.white.opacity(0.3) : Color.white.opacity(0.1), lineWidth: 1)
                             )
                         
                         Image(systemName: "minus")
-                            .font(.system(size: 18, weight: .bold))
+                            .font(.system(size: 14, weight: .bold))
                             .foregroundColor(duration > range.lowerBound ? .white : .white.opacity(0.3))
                     }
                 }
                 .disabled(duration <= range.lowerBound)
                 .accessibilityLabel("Disminuir \(title.lowercased())")
                 .accessibilityHint("Toca para reducir el valor")
-                .scaleEffect(minusButtonPressed ? 0.95 : 1.0)
+                .scaleEffect(minusButtonPressed ? 0.9 : 1.0)
                 .animation(.easeInOut(duration: 0.1), value: minusButtonPressed)
                 .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
                     minusButtonPressed = pressing
                 }, perform: {})
                 
-                // Value display with background
+                Spacer()
+                
+                // Value display - centered and prominent
                 ZStack {
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.white.opacity(0.1))
-                        .frame(width: 60, height: 44)
+                    Capsule()
+                        .fill(color.opacity(0.2))
+                        .frame(width: 80, height: 36)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(color.opacity(0.4), lineWidth: 1)
+                            Capsule()
+                                .stroke(color.opacity(0.5), lineWidth: 1.5)
                         )
                     
                     Text("\(duration)")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
-                        .contentTransition(.numericText())
-                        .animation(.bouncy(duration: 0.3), value: duration)
+                        .animation(.easeInOut(duration: 0.3), value: duration)
                 }
                 
-                // Plus button
+                Spacer()
+                
+                // Plus button - smaller and more compact
                 Button(action: { incrementDuration() }) {
                     ZStack {
-                        RoundedRectangle(cornerRadius: 8)
+                        Circle()
                             .fill(duration < range.upperBound ? Color.white.opacity(0.15) : Color.white.opacity(0.05))
-                            .frame(width: 44, height: 44)
+                            .frame(width: 36, height: 36)
                             .overlay(
-                                RoundedRectangle(cornerRadius: 8)
+                                Circle()
                                     .stroke(duration < range.upperBound ? Color.white.opacity(0.3) : Color.white.opacity(0.1), lineWidth: 1)
                             )
                         
                         Image(systemName: "plus")
-                            .font(.system(size: 18, weight: .bold))
+                            .font(.system(size: 14, weight: .bold))
                             .foregroundColor(duration < range.upperBound ? .white : .white.opacity(0.3))
                     }
                 }
                 .disabled(duration >= range.upperBound)
                 .accessibilityLabel("Aumentar \(title.lowercased())")
                 .accessibilityHint("Toca para incrementar el valor")
-                .scaleEffect(plusButtonPressed ? 0.95 : 1.0)
+                .scaleEffect(plusButtonPressed ? 0.9 : 1.0)
                 .animation(.easeInOut(duration: 0.1), value: plusButtonPressed)
                 .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
                     plusButtonPressed = pressing
                 }, perform: {})
             }
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 10)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
         .background(
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: 12)
                 .fill(.ultraThinMaterial.opacity(0.3))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 12)
                         .stroke(color.opacity(0.3), lineWidth: 1)
                 )
         )

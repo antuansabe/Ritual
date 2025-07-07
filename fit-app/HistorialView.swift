@@ -78,6 +78,7 @@ struct HistorialView: View {
                         calendarSection
                         monthSummarySection
                         statsSection
+                        tipsSection
                     }
                 }
                 .padding(.horizontal, AppConstants.UI.spacingL)
@@ -327,6 +328,54 @@ struct HistorialView: View {
         .animation(.easeOut(duration: 0.6).delay(0.6), value: animateOnAppear)
     }
     
+    // MARK: - Tips Section
+    private var tipsSection: some View {
+        VStack(spacing: 16) {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Tips para mejorar")
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                    
+                    Text("Consejos personalizados")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                Spacer()
+            }
+            
+            VStack(spacing: 12) {
+                if uniqueWorkoutDays < 3 {
+                    TipCard(
+                        icon: "calendar.badge.plus",
+                        title: "Consistencia es clave",
+                        description: "Intenta entrenar al menos 3 días por semana para ver mejores resultados.",
+                        color: .blue
+                    )
+                }
+                
+                if yearStats.currentStreak < 2 {
+                    TipCard(
+                        icon: "flame",
+                        title: "Construye una racha",
+                        description: "Entrenar días consecutivos te ayudará a crear un hábito duradero.",
+                        color: .orange
+                    )
+                }
+                
+                TipCard(
+                    icon: "chart.line.uptrend.xyaxis",
+                    title: "Toca los días verdes",
+                    description: "Puedes tocar cualquier día con entrenamientos para ver los detalles.",
+                    color: .green
+                )
+            }
+        }
+        .opacity(animateOnAppear ? 1 : 0)
+        .offset(y: animateOnAppear ? 0 : 40)
+        .animation(.easeOut(duration: 0.6).delay(0.8), value: animateOnAppear)
+    }
+    
     // MARK: - Helper Functions
     private func calculateCurrentStreak() -> Int {
         let sortedWorkouts = workouts.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
@@ -438,22 +487,37 @@ struct HistorialCalendarView: View {
             return []
         }
         
+        // Fix: Calendar first weekday in Spanish should be Monday (2), not Sunday (1)
         let firstWeekday = calendar.component(.weekday, from: firstDayOfMonth)
-        let startingSpaces = (firstWeekday - calendar.firstWeekday + 7) % 7
+        // Convert from Sunday=1 to Monday=1 system
+        let adjustedFirstWeekday = firstWeekday == 1 ? 7 : firstWeekday - 1
+        let startingSpaces = (adjustedFirstWeekday - 1) % 7
         
         var days: [Date] = []
         
-        // Add empty dates for spacing
-        for _ in 0..<startingSpaces {
-            if let date = calendar.date(byAdding: .day, value: -(startingSpaces - days.count), to: firstDayOfMonth) {
+        // Add previous month days for spacing
+        for i in 0..<startingSpaces {
+            if let date = calendar.date(byAdding: .day, value: -(startingSpaces - i), to: firstDayOfMonth) {
                 days.append(date)
             }
         }
         
-        // Add all days of the month
+        // Add all days of the current month
         for day in monthRange {
             if let date = calendar.date(byAdding: .day, value: day - 1, to: firstDayOfMonth) {
                 days.append(date)
+            }
+        }
+        
+        // Add next month days to complete the grid (to have 42 days total for a complete 6-week view)
+        let totalCells = 42
+        let currentDaysCount = days.count
+        if currentDaysCount < totalCells {
+            let lastDayOfMonth = days.last ?? firstDayOfMonth
+            for i in 1...(totalCells - currentDaysCount) {
+                if let date = calendar.date(byAdding: .day, value: i, to: lastDayOfMonth) {
+                    days.append(date)
+                }
             }
         }
         
@@ -472,6 +536,12 @@ struct HistorialCalendarView: View {
     
     private func isToday(_ date: Date) -> Bool {
         calendar.isDateInToday(date)
+    }
+    
+    private func getWorkoutCount(for date: Date) -> Int {
+        return workouts.filter { workout in
+            calendar.isDate(workout.date ?? Date(), inSameDayAs: date)
+        }.count
     }
     
     var body: some View {
@@ -506,50 +576,42 @@ struct HistorialCalendarView: View {
             }
             
             VStack(spacing: 12) {
-                // Weekday headers
+                // Weekday headers - Fixed order starting with Sunday
                 HStack(spacing: 0) {
-                    ForEach(["L", "M", "M", "J", "V", "S", "D"], id: \.self) { day in
+                    ForEach(["D", "L", "M", "M", "J", "V", "S"], id: \.self) { day in
                         Text(day)
-                            .font(AppConstants.Design.captionFont)
-                            .foregroundColor(.gray)
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.white.opacity(0.6))
                             .frame(maxWidth: .infinity)
                     }
                 }
                 
-                // Calendar grid
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 7), spacing: 6) {
+                // Calendar grid - Improved layout
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 7), spacing: 8) {
                     ForEach(monthDays, id: \.self) { date in
-                        HistorialCalendarDayView(
+                        EnhancedCalendarDayView(
                             date: date,
                             hasWorkout: hasWorkout(on: date),
                             isCurrentMonth: isCurrentMonth(date),
                             isToday: isToday(date),
+                            isFuture: date > Date(),
+                            workoutCount: getWorkoutCount(for: date),
                             onTap: onDateTapped
                         )
                     }
                 }
             }
             
-            // Legend
-            HStack {
-                HStack(spacing: 8) {
-                    Circle()
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(width: 12, height: 12)
-                    Text("Sin entrenar")
-                        .font(AppConstants.Design.footnoteFont)
-                        .foregroundColor(.gray)
+            // Enhanced Legend
+            VStack(spacing: 8) {
+                HStack(spacing: 16) {
+                    LegendItem(color: .green, label: "Con entrenamientos")
+                    LegendItem(color: .blue, label: "Hoy")
                 }
                 
-                Spacer()
-                
-                HStack(spacing: 8) {
-                    Circle()
-                        .fill(Color.green)
-                        .frame(width: 12, height: 12)
-                    Text("Con entrenamiento")
-                        .font(AppConstants.Design.footnoteFont)
-                        .foregroundColor(.gray)
+                HStack(spacing: 16) {
+                    LegendItem(color: .white.opacity(0.1), label: "Sin entrenamientos")
+                    LegendItem(color: .white.opacity(0.05), label: "Días futuros")
                 }
             }
         }
@@ -564,12 +626,17 @@ struct HistorialCalendarView: View {
     }
 }
 
-struct HistorialCalendarDayView: View {
+// MARK: - Enhanced Calendar Day View
+struct EnhancedCalendarDayView: View {
     let date: Date
     let hasWorkout: Bool
     let isCurrentMonth: Bool
     let isToday: Bool
+    let isFuture: Bool
+    let workoutCount: Int
     let onTap: (Date) -> Void
+    
+    @State private var isPressed = false
     
     private var dayNumber: String {
         let formatter = DateFormatter()
@@ -578,49 +645,260 @@ struct HistorialCalendarDayView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 2) {
             Text(dayNumber)
-                .font(.system(size: 14, weight: isToday ? .bold : .medium))
+                .font(.system(size: 14, weight: fontWeight))
                 .foregroundColor(textColor)
-        }
-        .frame(width: 36, height: 36)
-        .background(backgroundColor)
-        .clipShape(Circle())
-        .overlay(
-            Circle()
-                .stroke(isToday ? Color.blue : Color.clear, lineWidth: 2)
-        )
-        .scaleEffect(isCurrentMonth ? 1.0 : 0.8)
-        .opacity(isCurrentMonth ? 1.0 : 0.3)
-        .animation(.easeInOut(duration: 0.2), value: hasWorkout)
-        .onTapGesture {
+            
+            // Workout indicator dots
             if hasWorkout && isCurrentMonth {
+                HStack(spacing: 2) {
+                    ForEach(0..<min(workoutCount, 3), id: \.self) { _ in
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 3, height: 3)
+                    }
+                    
+                    if workoutCount > 3 {
+                        Text("+")
+                            .font(.system(size: 8, weight: .bold))
+                            .foregroundColor(.white)
+                    }
+                }
+            }
+        }
+        .frame(width: 40, height: 40)
+        .background(backgroundColor)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(borderColor, lineWidth: borderWidth)
+        )
+        .scaleEffect(scaleEffect)
+        .opacity(opacityValue)
+        .animation(.easeInOut(duration: 0.2), value: hasWorkout)
+        .animation(.easeInOut(duration: 0.1), value: isPressed)
+        .onTapGesture {
+            if isCurrentMonth && (hasWorkout || !isFuture) {
+                // Haptic feedback
+                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                impactFeedback.impactOccurred()
                 onTap(date)
             }
         }
+        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+            if isCurrentMonth && (hasWorkout || !isFuture) {
+                isPressed = pressing
+            }
+        }, perform: {})
+        .accessibilityLabel(accessibilityLabel)
+        .accessibilityHint(accessibilityHint)
+    }
+    
+    private var fontWeight: Font.Weight {
+        if isToday { return .bold }
+        if hasWorkout { return .semibold }
+        return .medium
     }
     
     private var backgroundColor: Color {
-        if hasWorkout && isCurrentMonth {
-            return Color.green.opacity(0.8)
-        } else if isCurrentMonth {
-            return Color.gray.opacity(0.2)
-        } else {
-            return Color.clear
-        }
+        if !isCurrentMonth { return Color.clear }
+        if isFuture { return Color.white.opacity(0.05) }
+        if hasWorkout { return Color.green.opacity(0.8) }
+        if isToday { return Color.blue.opacity(0.3) }
+        return Color.white.opacity(0.1)
     }
     
     private var textColor: Color {
-        if hasWorkout && isCurrentMonth {
-            return .white
-        } else if isCurrentMonth {
-            return .white.opacity(0.8)
-        } else {
-            return .gray.opacity(0.5)
+        if !isCurrentMonth { return .gray.opacity(0.4) }
+        if isFuture { return .white.opacity(0.4) }
+        if hasWorkout { return .white }
+        if isToday { return .white }
+        return .white.opacity(0.7)
+    }
+    
+    private var borderColor: Color {
+        if isToday { return Color.blue }
+        if hasWorkout && isCurrentMonth { return Color.green.opacity(0.6) }
+        return Color.clear
+    }
+    
+    private var borderWidth: CGFloat {
+        if isToday || (hasWorkout && isCurrentMonth) { return 2 }
+        return 0
+    }
+    
+    private var scaleEffect: CGFloat {
+        if !isCurrentMonth { return 0.8 }
+        if isPressed { return 0.9 }
+        return 1.0
+    }
+    
+    private var opacityValue: Double {
+        if !isCurrentMonth { return 0.3 }
+        if isFuture { return 0.6 }
+        return 1.0
+    }
+    
+    private var accessibilityLabel: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.locale = Locale(identifier: "es_ES")
+        
+        var label = dateFormatter.string(from: date)
+        if isToday { label += ", hoy" }
+        if hasWorkout { 
+            label += ", \(workoutCount) entrenamiento\(workoutCount == 1 ? "" : "s")"
+        }
+        return label
+    }
+    
+    private var accessibilityHint: String {
+        if !isCurrentMonth { return "Día de otro mes" }
+        if isFuture { return "Día futuro" }
+        if hasWorkout { return "Toca para ver detalles del entrenamiento" }
+        return "Día sin entrenamientos"
+    }
+}
+
+// MARK: - Supporting Components
+
+struct LegendItem: View {
+    let color: Color
+    let label: String
+    
+    var body: some View {
+        HStack(spacing: 6) {
+            RoundedRectangle(cornerRadius: 4)
+                .fill(color)
+                .frame(width: 12, height: 12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(Color.white.opacity(0.3), lineWidth: 0.5)
+                )
+            
+            Text(label)
+                .font(.system(size: 11, weight: .medium))
+                .foregroundColor(.white.opacity(0.7))
         }
     }
 }
 
+
+struct WorkoutSummaryCard: View {
+    let workout: WorkoutEntity
+    
+    private var activityIcon: String {
+        switch workout.type?.lowercased() {
+        case "cardio": return "heart.circle.fill"
+        case "fuerza": return "dumbbell.fill"
+        case "yoga": return "figure.mind.and.body"
+        case "caminata": return "figure.walk"
+        case "ciclismo": return "bicycle"
+        case "jiu jitsu": return "figure.martial.arts"
+        default: return "figure.run"
+        }
+    }
+    
+    private var activityColor: Color {
+        switch workout.type?.lowercased() {
+        case "cardio": return .red
+        case "fuerza": return .blue
+        case "yoga": return .purple
+        case "caminata": return .green
+        case "ciclismo": return .yellow
+        case "jiu jitsu": return .purple
+        default: return .orange
+        }
+    }
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            ZStack {
+                Circle()
+                    .fill(activityColor.opacity(0.2))
+                    .frame(width: 40, height: 40)
+                
+                Image(systemName: activityIcon)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(activityColor)
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(workout.type ?? "Entrenamiento")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.white)
+                
+                HStack(spacing: 12) {
+                    Label("\(Int(workout.duration)) min", systemImage: "clock")
+                        .font(.system(size: 12))
+                        .foregroundColor(.white.opacity(0.7))
+                    
+                    if workout.calories > 0 {
+                        Label("\(Int(workout.calories)) cal", systemImage: "flame")
+                            .font(.system(size: 12))
+                            .foregroundColor(.white.opacity(0.7))
+                    }
+                }
+            }
+            
+            Spacer()
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white.opacity(0.1))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(activityColor.opacity(0.3), lineWidth: 1)
+                )
+        )
+    }
+}
+
+struct TipCard: View {
+    let icon: String
+    let title: String
+    let description: String
+    let color: Color
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            ZStack {
+                Circle()
+                    .fill(color.opacity(0.2))
+                    .frame(width: 40, height: 40)
+                
+                Image(systemName: icon)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(color)
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.white)
+                
+                Text(description)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.white.opacity(0.7))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            
+            Spacer()
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white.opacity(0.08))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(color.opacity(0.3), lineWidth: 1)
+                )
+        )
+        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+    }
+}
 
 #Preview {
     NavigationStack {
