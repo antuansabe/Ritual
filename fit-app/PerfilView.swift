@@ -11,6 +11,7 @@ struct PerfilView: View {
     @State private var showingCloudKitTest = false
     @State private var showingCloudKitConflicts = false
     @State private var showingWeeklyGoal = false
+    @State private var showingLogoutConfirmation = false
     
     private var weeklyGoal: Int {
         let defaultGoal = UserDefaults.standard.integer(forKey: "weeklyGoal")
@@ -86,6 +87,14 @@ struct PerfilView: View {
         }
         .sheet(isPresented: $showingWeeklyGoal) {
             WeeklyGoalView()
+        }
+        .alert("Cerrar sesión", isPresented: $showingLogoutConfirmation) {
+            Button("Cancelar", role: .cancel) { }
+            Button("Cerrar sesión", role: .destructive) {
+                authViewModel.signOut()
+            }
+        } message: {
+            Text("¿Estás seguro de que quieres cerrar sesión?")
         }
     }
     
@@ -495,18 +504,18 @@ struct PerfilView: View {
                     )
                 }
                 
-                // Logout Button
+                // Reset Welcome Button (for testing)
                 Button(action: {
-                    authViewModel.logout()
+                    authViewModel.resetWelcomeFlag()
                 }) {
                     HStack(spacing: 12) {
-                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                        Image(systemName: "arrow.clockwise.circle.fill")
                             .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.red)
+                            .foregroundColor(.yellow)
                         
-                        Text("Cerrar sesión")
+                        Text("Reset Welcome (Test)")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.red)
+                            .foregroundColor(.yellow)
                         
                         Spacer()
                     }
@@ -514,13 +523,16 @@ struct PerfilView: View {
                     .padding(.vertical, 16)
                     .background(
                         RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.red.opacity(0.1))
+                            .fill(Color.yellow.opacity(0.1))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color.red.opacity(0.3), lineWidth: 1)
+                                    .stroke(Color.yellow.opacity(0.3), lineWidth: 1)
                             )
                     )
                 }
+                
+                // Logout Button using reusable component
+                SignOutButton(style: .card)
             }
         }
     }

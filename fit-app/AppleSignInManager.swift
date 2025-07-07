@@ -218,6 +218,13 @@ class AppleSignInManager: NSObject, ObservableObject {
         UserDefaults.standard.set(userFullName, forKey: appleUserNameKey)
         UserDefaults.standard.set(true, forKey: isAppleUserKey)
         
+        // Create/Update user profile
+        UserProfileManager.shared.handleAppleSignIn(
+            userID: identifier,
+            fullName: fullName,
+            email: email
+        )
+        
         // Mark as authenticated
         isAuthenticated = true
         

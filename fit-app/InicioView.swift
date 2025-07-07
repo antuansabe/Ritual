@@ -143,11 +143,14 @@ struct InicioView: View {
     
     @ObservedObject private var offlineManager = OfflineManager.shared
     @ObservedObject private var networkMonitor = NetworkMonitor.shared
+    @ObservedObject private var userProfileManager = UserProfileManager.shared
+    @EnvironmentObject var authViewModel: AuthViewModel
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     @State private var animateOnAppear = false
     @State private var showingRegistro = false
     @State private var showingHistorial = false
+    @State private var showingLogoutConfirmation = false
     @Namespace private var heroAnimation
     
     
@@ -184,6 +187,14 @@ struct InicioView: View {
             withAnimation(.easeOut(duration: 1.0)) {
                 animateOnAppear = true
             }
+        }
+        .alert("Cerrar sesión", isPresented: $showingLogoutConfirmation) {
+            Button("Cancelar", role: .cancel) { }
+            Button("Cerrar sesión", role: .destructive) {
+                authViewModel.signOut()
+            }
+        } message: {
+            Text("¿Estás seguro de que quieres cerrar sesión?")
         }
     }
     
@@ -390,7 +401,7 @@ struct InicioView: View {
     
     // Computed properties for daily summary
     private var userName: String {
-        UserDefaults.standard.string(forKey: "userName") ?? "Antonio"
+        userProfileManager.formattedDisplayName
     }
     
     private var hasWorkoutToday: Bool {
@@ -444,10 +455,22 @@ struct InicioView: View {
             
             Spacer()
             
-            // Time of day icon
-            Image(systemName: timeOfDayIcon)
-                .font(.system(size: 24))
-                .foregroundColor(AppConstants.Design.lavender)
+            // User menu button
+            Menu {
+                Button("Perfil", action: {
+                    selectedTab = 3 // Navigate to Profile tab
+                })
+                
+                Divider()
+                
+                Button("Cerrar sesión", role: .destructive, action: {
+                    showingLogoutConfirmation = true
+                })
+            } label: {
+                Image(systemName: "person.circle.fill")
+                    .font(.system(size: 24))
+                    .foregroundColor(AppConstants.Design.lavender)
+            }
         }
     }
     

@@ -34,6 +34,9 @@
 		C5D8A6F9B3E740DDBC890123 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = G8F9B4C6E3D7890123456789 /* TimerView.swift */; };
 		D6E9C8F7A5B3740EEFABCDEF /* AppleSignInButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = H9G8C5F7B4E3890234567890 /* AppleSignInButtonView.swift */; };
 		E7F8D9A6B4C3741FFABCDEFG /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = I8H9D6F8C5E4901345678901 /* AppleSignInManager.swift */; };
+		F8G9E8H7C6E4742GGHBCDEFH /* UserProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = J9I8E7G8D6F5012456789012 /* UserProfileManager.swift */; };
+		G9H8F9I8D7F5743HHICDEFIJ /* SignOutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = K0J9F8I9E7G6123567890123 /* SignOutButton.swift */; };
+		H0I9G8J9F8G6744IIJDEFKL /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = L1K0G9J0F8H7234678901234 /* WelcomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +70,9 @@
 		G8F9B4C6E3D7890123456789 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		H9G8C5F7B4E3890234567890 /* AppleSignInButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInButtonView.swift; sourceTree = "<group>"; };
 		I8H9D6F8C5E4901345678901 /* AppleSignInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInManager.swift; sourceTree = "<group>"; };
+		J9I8E7G8D6F5012456789012 /* UserProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileManager.swift; sourceTree = "<group>"; };
+		K0J9F8I9E7G6123567890123 /* SignOutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutButton.swift; sourceTree = "<group>"; };
+		L1K0G9J0F8H7234678901234 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,9 @@
 				20A4EEEA2E15EE0300AC8C57 /* RegisterView.swift */,
 				H9G8C5F7B4E3890234567890 /* AppleSignInButtonView.swift */,
 				I8H9D6F8C5E4901345678901 /* AppleSignInManager.swift */,
+				J9I8E7G8D6F5012456789012 /* UserProfileManager.swift */,
+				K0J9F8I9E7G6123567890123 /* SignOutButton.swift */,
+				L1K0G9J0F8H7234678901234 /* WelcomeView.swift */,
 				20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */,
 				20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
@@ -229,6 +238,9 @@
 				C5D8A6F9B3E740DDBC890123 /* TimerView.swift in Sources */,
 				D6E9C8F7A5B3740EEFABCDEF /* AppleSignInButtonView.swift in Sources */,
 				E7F8D9A6B4C3741FFABCDEFG /* AppleSignInManager.swift in Sources */,
+				F8G9E8H7C6E4742GGHBCDEFH /* UserProfileManager.swift in Sources */,
+				G9H8F9I8D7F5743HHICDEFIJ /* SignOutButton.swift in Sources */,
+				H0I9G8J9F8G6744IIJDEFKL /* WelcomeView.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

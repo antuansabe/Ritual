@@ -11,6 +11,9 @@ class AuthViewModel: ObservableObject {
     // Apple Sign In Manager
     @ObservedObject private var appleSignInManager = AppleSignInManager.shared
     
+    // User Profile Manager
+    @ObservedObject private var userProfileManager = UserProfileManager.shared
+    
     // Dummy credentials
     private let dummyEmail = "test@test.com"
     private let dummyPassword = "123456"
@@ -33,6 +36,8 @@ class AuthViewModel: ObservableObject {
         
         if email == dummyEmail && password == dummyPassword {
             isAuthenticated = true
+            // Create user profile for regular login
+            userProfileManager.handleRegularSignIn(email: email)
         } else {
             errorMessage = "Email o contraseña incorrectos"
         }
@@ -53,6 +58,8 @@ class AuthViewModel: ObservableObject {
         
         // Simulate successful registration
         isAuthenticated = true
+        // Create user profile for new registration
+        userProfileManager.handleRegularSignIn(email: email)
     }
     
     func logout() {
@@ -64,6 +71,15 @@ class AuthViewModel: ObservableObject {
             appleSignInManager.signOut()
         }
         
+        // Sign out user profile
+        userProfileManager.signOut()
+        
+        // Clear UserDefaults (for legacy data) - but preserve welcome flag
+        UserDefaults.standard.removeObject(forKey: "userIdentifier")
+        UserDefaults.standard.removeObject(forKey: "userFullName")
+        UserDefaults.standard.removeObject(forKey: "userName")
+        // Note: We intentionally keep "hasSeenWelcome" so returning users don't see welcome again
+        
         // Clear all authentication state
         isAuthenticated = false
         email = ""
@@ -72,6 +88,18 @@ class AuthViewModel: ObservableObject {
         errorMessage = nil
         
         print("✅ User logged out successfully")
+    }
+    
+    func signOut() {
+        // Alias for logout to match the prompt requirements
+        logout()
+    }
+    
+    // MARK: - Welcome Flow Management
+    
+    func resetWelcomeFlag() {
+        UserDefaults.standard.removeObject(forKey: "hasSeenWelcome")
+        print("🔄 Welcome flag reset - next login will show welcome screen")
     }
     
     // MARK: - Authentication Status Check
