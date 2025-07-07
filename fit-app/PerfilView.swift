@@ -4,6 +4,7 @@ import CloudKit
 
 struct PerfilView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var userProfileManager: UserProfileManager
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
     @StateObject private var motivationalManager = MotivationalMessageManager()
@@ -13,9 +14,21 @@ struct PerfilView: View {
     @State private var showingWeeklyGoal = false
     @State private var showingLogoutConfirmation = false
     
+    // Name editing states
+    @State private var isEditingName = false
+    @State private var editingName = ""
+    @State private var showingNameUpdatedMessage = false
+    
     private var weeklyGoal: Int {
         let defaultGoal = UserDefaults.standard.integer(forKey: "weeklyGoal")
         return defaultGoal == 0 ? 3 : defaultGoal
+    }
+    
+    private var currentUserName: String {
+        if !userProfileManager.displayName.isEmpty && userProfileManager.displayName != "Atleta" {
+            return userProfileManager.displayName
+        }
+        return UserDefaults.standard.string(forKey: "userName") ?? "Usuario"
     }
     
     private var workoutsThisWeek: Int {
@@ -96,6 +109,41 @@ struct PerfilView: View {
         } message: {
             Text("¿Estás seguro de que quieres cerrar sesión?")
         }
+        .overlay(
+            // Name updated success message
+            Group {
+                if showingNameUpdatedMessage {
+                    VStack {
+                        Spacer()
+                        
+                        HStack(spacing: 12) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundColor(.green)
+                            
+                            Text("Nombre actualizado")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.white)
+                        }
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 16)
+                        .background(
+                            RoundedRectangle(cornerRadius: 25)
+                                .fill(Color.black.opacity(0.8))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .stroke(Color.green.opacity(0.6), lineWidth: 1.5)
+                                )
+                        )
+                        .shadow(color: .black.opacity(0.3), radius: 8, x: 0, y: 4)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        
+                        Spacer()
+                            .frame(height: 100)
+                    }
+                }
+            }
+        )
     }
     
     // MARK: - Header Section
@@ -137,11 +185,13 @@ struct PerfilView: View {
                         .foregroundColor(.white)
                 }
                 
-                // User info
+                // User info with editable name
                 VStack(spacing: 8) {
-                    Text("Antonio Dromundo")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
+                    if isEditingName {
+                        nameEditingView
+                    } else {
+                        nameDisplayView
+                    }
                     
                     Text("Miembro desde Enero 2024")
                         .font(.system(size: 16, weight: .medium))
@@ -584,6 +634,173 @@ struct PerfilView: View {
         }
         
         return streak
+    }
+    
+    // MARK: - Name Editing Views
+    
+    private var nameDisplayView: some View {
+        HStack(spacing: 12) {
+            Text(currentUserName)
+                .font(.system(size: 28, weight: .bold, design: .rounded))
+                .foregroundColor(.white)
+                .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+            
+            Button(action: {
+                editingName = currentUserName
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    isEditingName = true
+                }
+            }) {
+                Image(systemName: "pencil")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.white.opacity(0.8))
+                    .frame(width: 32, height: 32)
+                    .background(
+                        Circle()
+                            .fill(Color.white.opacity(0.2))
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+            }
+            .accessibilityLabel("Editar nombre")
+            .accessibilityHint("Toca para editar tu nombre de usuario")
+        }
+    }
+    
+    private var nameEditingView: some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 12) {
+                TextField("Tu nombre", text: $editingName)
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.white.opacity(0.2))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white.opacity(0.4), lineWidth: 1.5)
+                            )
+                    )
+                    .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+                    .onSubmit {
+                        saveNameChange()
+                    }
+            }
+            
+            HStack(spacing: 16) {
+                // Cancel button
+                Button(action: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        isEditingName = false
+                        editingName = ""
+                    }
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .semibold))
+                        Text("Cancelar")
+                            .font(.system(size: 16, weight: .semibold))
+                    }
+                    .foregroundColor(.white.opacity(0.9))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.red.opacity(0.3))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.red.opacity(0.5), lineWidth: 1)
+                            )
+                    )
+                }
+                
+                // Save button
+                Button(action: {
+                    saveNameChange()
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "checkmark")
+                            .font(.system(size: 14, weight: .semibold))
+                        Text("Guardar")
+                            .font(.system(size: 16, weight: .semibold))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(
+                                LinearGradient(
+                                    colors: [Color.green.opacity(0.8), Color.blue.opacity(0.6)],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.green.opacity(0.5), lineWidth: 1)
+                            )
+                    )
+                    .shadow(color: Color.green.opacity(0.3), radius: 4, x: 0, y: 2)
+                }
+                .disabled(editingName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || editingName.count > 30)
+                .opacity(editingName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || editingName.count > 30 ? 0.6 : 1.0)
+            }
+            
+            // Character limit indicator
+            if editingName.count > 25 {
+                Text("\(editingName.count)/30 caracteres")
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(editingName.count > 30 ? .red : .white.opacity(0.7))
+            }
+        }
+    }
+    
+    // MARK: - Name Editing Actions
+    
+    private func saveNameChange() {
+        let trimmedName = editingName.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Validation
+        guard !trimmedName.isEmpty else {
+            return
+        }
+        
+        guard trimmedName.count <= 30 else {
+            return
+        }
+        
+        // Update UserProfileManager
+        userProfileManager.updateDisplayName(trimmedName)
+        
+        // Also update UserDefaults for backwards compatibility
+        UserDefaults.standard.set(trimmedName, forKey: "userName")
+        
+        // Exit editing mode with animation
+        withAnimation(.easeInOut(duration: 0.3)) {
+            isEditingName = false
+            editingName = ""
+        }
+        
+        // Show success message
+        withAnimation(.easeInOut(duration: 0.3)) {
+            showingNameUpdatedMessage = true
+        }
+        
+        // Hide success message after delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                showingNameUpdatedMessage = false
+            }
+        }
+        
+        print("✅ User name updated to: \(trimmedName)")
     }
 }
 

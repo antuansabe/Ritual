@@ -199,6 +199,33 @@ class UserProfileManager: ObservableObject {
         print("✅ User signed out successfully")
     }
     
+    // MARK: - Name Management
+    
+    func updateDisplayName(_ newName: String) {
+        print("✏️ Updating display name to: \(newName)")
+        
+        // Update current user if exists
+        if let user = currentUser {
+            user.fullName = newName
+            user.lastUpdated = Date()
+            
+            do {
+                try context.save()
+                DispatchQueue.main.async {
+                    self.displayName = newName
+                }
+                print("✅ Display name updated successfully")
+            } catch {
+                print("❌ Error updating display name: \(error)")
+            }
+        } else {
+            // If no current user, just update the display name locally
+            DispatchQueue.main.async {
+                self.displayName = newName
+            }
+        }
+    }
+    
     // MARK: - Utility Methods
     
     var formattedDisplayName: String {
