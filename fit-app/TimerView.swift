@@ -1,4 +1,6 @@
 import SwiftUI
+import AudioToolbox
+import AVFoundation
 
 // MARK: - Timer Type Model
 enum TimerType: String, CaseIterable {
@@ -83,6 +85,10 @@ struct TimerView: View {
     @State private var currentRound: Int = 1
     @State private var showCompletionAlert = false
     
+    // Audio players for phase sounds
+    @State private var workAudioPlayer: AVAudioPlayer?
+    @State private var restAudioPlayer: AVAudioPlayer?
+    
     var body: some View {
         ZStack {
             // Background
@@ -118,6 +124,7 @@ struct TimerView: View {
             withAnimation(.easeOut(duration: 0.8)) {
                 animateOnAppear = true
             }
+            setupAudioPlayers()
         }
         .onChange(of: selectedTimerType) { newType in
             // Update durations when timer type changes only if not running
@@ -516,6 +523,7 @@ struct TimerView: View {
         if currentState == .ready {
             currentState = .work
             setTimerFor(duration: workDuration)
+            playWorkSound() // Play work sound when starting the timer
         }
         
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -573,6 +581,8 @@ struct TimerView: View {
                 completeTimer()
             } else {
                 // Switch to rest phase
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                playRestSound()
                 currentState = .rest
                 setTimerFor(duration: restDuration)
             }
@@ -583,6 +593,8 @@ struct TimerView: View {
                 completeTimer()
             } else {
                 // Move to next round
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                playWorkSound()
                 currentRound += 1
                 currentState = .work
                 setTimerFor(duration: workDuration)
@@ -604,6 +616,63 @@ struct TimerView: View {
         // Show completion alert after a brief delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             showCompletionAlert = true
+        }
+    }
+    
+    // MARK: - Audio Setup
+    private func setupAudioPlayers() {
+        // Setup work phase sound (beep)
+        if let workSoundURL = Bundle.main.url(forResource: "work-beep", withExtension: "wav") {
+            do {
+                workAudioPlayer = try AVAudioPlayer(contentsOf: workSoundURL)
+                workAudioPlayer?.prepareToPlay()
+                workAudioPlayer?.volume = 0.7
+            } catch {
+                print("❌ Error loading work sound: \(error.localizedDescription)")
+            }
+        }
+        
+        // Setup rest phase sound (bell)
+        if let restSoundURL = Bundle.main.url(forResource: "rest-bell", withExtension: "wav") {
+            do {
+                restAudioPlayer = try AVAudioPlayer(contentsOf: restSoundURL)
+                restAudioPlayer?.prepareToPlay()
+                restAudioPlayer?.volume = 0.5
+            } catch {
+                print("❌ Error loading rest sound: \(error.localizedDescription)")
+            }
+        }
+        
+        // Configure audio session
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("❌ Error setting up audio session: \(error.localizedDescription)")
+        }
+    }
+    
+    private func playWorkSound() {
+        // Play work phase sound (beep)
+        if let player = workAudioPlayer {
+            player.stop()
+            player.currentTime = 0
+            player.play()
+        } else {
+            // Fallback to system sound
+            AudioServicesPlaySystemSound(1054) // Ping sound
+        }
+    }
+    
+    private func playRestSound() {
+        // Play rest phase sound (bell)
+        if let player = restAudioPlayer {
+            player.stop()
+            player.currentTime = 0
+            player.play()
+        } else {
+            // Fallback to system sound
+            AudioServicesPlaySystemSound(1005) // New mail sound
         }
     }
     

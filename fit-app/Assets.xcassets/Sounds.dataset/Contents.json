@@ -1,0 +1,16 @@
+{
+  "data" : [
+    {
+      "filename" : "work-beep.wav",
+      "idiom" : "universal"
+    },
+    {
+      "filename" : "rest-bell.wav",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
