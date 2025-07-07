@@ -34,26 +34,37 @@ struct ContentView: View {
                 .tag(1)
                 
                 NavigationStack {
-                    HistorialView()
+                    TimerView()
                 }
                 .tabItem {
-                    Image(systemName: selectedTab == 2 ? "chart.bar.fill" : "chart.bar")
+                    Image(systemName: selectedTab == 2 ? "timer" : "timer")
                         .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
-                    Text("Historial")
+                    Text("Timer")
                         .font(AppConstants.Design.footnoteFont)
                 }
                 .tag(2)
                 
                 NavigationStack {
-                    PerfilView()
+                    HistorialView()
                 }
                 .tabItem {
-                    Image(systemName: selectedTab == 3 ? "person.crop.circle.fill" : "person.crop.circle")
+                    Image(systemName: selectedTab == 3 ? "chart.bar.fill" : "chart.bar")
                         .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
-                    Text("Perfil")
+                    Text("Historial")
                         .font(AppConstants.Design.footnoteFont)
                 }
                 .tag(3)
+                
+                NavigationStack {
+                    PerfilView()
+                }
+                .tabItem {
+                    Image(systemName: selectedTab == 4 ? "person.crop.circle.fill" : "person.crop.circle")
+                        .environment(\.symbolVariants, selectedTab == 4 ? .fill : .none)
+                    Text("Perfil")
+                        .font(AppConstants.Design.footnoteFont)
+                }
+                .tag(4)
             }
             .tint(AppConstants.Design.blue)
             .toolbarBackground(.ultraThinMaterial, for: .tabBar)

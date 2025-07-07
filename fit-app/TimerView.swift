@@ -96,7 +96,7 @@ struct TimerView: View {
                 .ignoresSafeArea()
             
             ScrollView {
-                VStack(spacing: 32) {
+                VStack(spacing: 24) {
                     headerSection
                     
                     if isTimerRunning || currentState != .ready {
@@ -109,8 +109,8 @@ struct TimerView: View {
                     startButtonSection
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 20)
-                .padding(.bottom, 100)
+                .padding(.top, 16)
+                .padding(.bottom, 80)
             }
         }
         .navigationBarHidden(true)
@@ -274,17 +274,17 @@ struct TimerView: View {
     
     // MARK: - Timer Type Section
     private var timerTypeSection: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 20) {
             HStack {
                 Text("Tipo de temporizador")
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                 Spacer()
             }
             
-            VStack(spacing: 16) {
+            VStack(spacing: 12) {
                 ForEach(TimerType.allCases, id: \.self) { timerType in
-                    TimerTypeButton(
+                    CompactTimerTypeButton(
                         timerType: timerType,
                         isSelected: selectedTimerType == timerType,
                         action: {
@@ -296,16 +296,16 @@ struct TimerView: View {
                 }
             }
         }
-        .padding(24)
+        .padding(20)
         .background(
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 16)
                 .fill(.ultraThinMaterial.opacity(0.4))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 20)
+                    RoundedRectangle(cornerRadius: 16)
                         .stroke(Color.white.opacity(0.2), lineWidth: 1)
                 )
         )
-        .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+        .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: 3)
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 30)
         .animation(.easeOut(duration: 0.6).delay(0.2), value: animateOnAppear)
@@ -313,17 +313,17 @@ struct TimerView: View {
     
     // MARK: - Configuration Section
     private var configurationSection: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 20) {
             HStack {
                 Text("Configuración")
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                 Spacer()
             }
             
-            VStack(spacing: 20) {
+            VStack(spacing: 16) {
                 // Work Duration
-                DurationConfigCard(
+                CompactDurationCard(
                     title: "Trabajo",
                     duration: $workDuration,
                     icon: "figure.run",
@@ -332,7 +332,7 @@ struct TimerView: View {
                 )
                 
                 // Rest Duration
-                DurationConfigCard(
+                CompactDurationCard(
                     title: "Descanso",
                     duration: $restDuration,
                     icon: "pause.circle",
@@ -342,7 +342,7 @@ struct TimerView: View {
                 
                 // Rounds (only for Tabata and HIIT)
                 if selectedTimerType != .custom {
-                    DurationConfigCard(
+                    CompactDurationCard(
                         title: "Rondas",
                         duration: $rounds,
                         icon: "repeat",
@@ -352,16 +352,16 @@ struct TimerView: View {
                 }
             }
         }
-        .padding(24)
+        .padding(20)
         .background(
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 16)
                 .fill(.ultraThinMaterial.opacity(0.4))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 20)
+                    RoundedRectangle(cornerRadius: 16)
                         .stroke(Color.white.opacity(0.2), lineWidth: 1)
                 )
         )
-        .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+        .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: 3)
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 30)
         .animation(.easeOut(duration: 0.6).delay(0.4), value: animateOnAppear)
@@ -369,49 +369,49 @@ struct TimerView: View {
     
     // MARK: - Start Button Section
     private var startButtonSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 20) {
             Button(action: toggleTimer) {
-                HStack(spacing: 16) {
+                HStack(spacing: 12) {
                     Image(systemName: buttonIcon)
-                        .font(.system(size: 24, weight: .bold))
+                        .font(.system(size: 20, weight: .bold))
                         .foregroundColor(.white)
                     
                     Text(buttonText)
-                        .font(.system(size: 22, weight: .bold, design: .rounded))
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                 }
                 .frame(maxWidth: .infinity)
-                .frame(height: 70)
+                .frame(height: 56)
                 .background(
-                    RoundedRectangle(cornerRadius: 35)
+                    RoundedRectangle(cornerRadius: 28)
                         .fill(buttonGradient)
                 )
-                .shadow(color: buttonShadowColor, radius: 12, x: 0, y: 6)
-                .scaleEffect(isTimerRunning ? 1.05 : 1.0)
+                .shadow(color: buttonShadowColor, radius: 8, x: 0, y: 4)
+                .scaleEffect(isTimerRunning ? 1.02 : 1.0)
                 .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isTimerRunning)
             }
             
-            // Timer summary
-            VStack(spacing: 8) {
+            // Timer summary - more compact layout
+            VStack(spacing: 12) {
                 Text("Resumen")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white.opacity(0.8))
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.white.opacity(0.7))
                 
-                HStack(spacing: 20) {
-                    TimerSummaryItem(
+                HStack(spacing: 16) {
+                    CompactSummaryItem(
                         icon: "clock.fill",
                         value: "\(workDuration)s",
                         label: "Trabajo"
                     )
                     
-                    TimerSummaryItem(
+                    CompactSummaryItem(
                         icon: "pause.fill",
                         value: "\(restDuration)s",
                         label: "Descanso"
                     )
                     
                     if selectedTimerType != .custom {
-                        TimerSummaryItem(
+                        CompactSummaryItem(
                             icon: "repeat",
                             value: "\(rounds)",
                             label: "Rondas"
@@ -419,7 +419,6 @@ struct TimerView: View {
                     }
                 }
             }
-            .padding(.top, 16)
         }
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 30)
@@ -631,8 +630,8 @@ struct TimerView: View {
     }
 }
 
-// MARK: - Timer Type Button Component
-struct TimerTypeButton: View {
+// MARK: - Compact Timer Type Button Component
+struct CompactTimerTypeButton: View {
     let timerType: TimerType
     let isSelected: Bool
     let action: () -> Void
@@ -641,39 +640,41 @@ struct TimerTypeButton: View {
     
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 16) {
+            HStack(spacing: 12) {
                 ZStack {
                     Circle()
                         .fill(isSelected ? timerType.color.opacity(0.3) : timerType.color.opacity(0.15))
-                        .frame(width: 50, height: 50)
+                        .frame(width: 40, height: 40)
                     
                     Image(systemName: timerType.icon)
-                        .font(.system(size: 24, weight: .semibold))
+                        .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(isSelected ? .white : timerType.color)
                 }
                 
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 2) {
                     Text(timerType.rawValue)
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
                         .foregroundColor(isSelected ? .white : .white.opacity(0.9))
+                        .lineLimit(1)
                     
                     Text(timerDescription(for: timerType))
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(isSelected ? .white.opacity(0.8) : .white.opacity(0.6))
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(isSelected ? .white.opacity(0.7) : .white.opacity(0.6))
+                        .lineLimit(1)
                 }
                 
                 Spacer()
                 
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 20, weight: .semibold))
+                        .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                 }
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
             .background(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 12)
                     .fill(
                         isSelected ? 
                             LinearGradient(
@@ -688,10 +689,10 @@ struct TimerTypeButton: View {
                             )
                     )
                     .overlay(
-                        RoundedRectangle(cornerRadius: 16)
+                        RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                isSelected ? timerType.color.opacity(0.6) : Color.white.opacity(0.1),
-                                lineWidth: isSelected ? 2 : 1
+                                isSelected ? timerType.color.opacity(0.5) : Color.white.opacity(0.1),
+                                lineWidth: isSelected ? 1.5 : 1
                             )
                     )
             )
@@ -717,92 +718,156 @@ struct TimerTypeButton: View {
     }
 }
 
-// MARK: - Duration Config Card Component
-struct DurationConfigCard: View {
+// MARK: - Compact Duration Config Card Component
+struct CompactDurationCard: View {
     let title: String
     @Binding var duration: Int
     let icon: String
     let color: Color
     let range: ClosedRange<Int>
     
+    @State private var minusButtonPressed = false
+    @State private var plusButtonPressed = false
+    
     var body: some View {
-        HStack(spacing: 16) {
-            ZStack {
-                Circle()
-                    .fill(color.opacity(0.2))
-                    .frame(width: 40, height: 40)
+        HStack(spacing: 12) {
+            // Icon and title section
+            HStack(spacing: 10) {
+                ZStack {
+                    Circle()
+                        .fill(color.opacity(0.2))
+                        .frame(width: 32, height: 32)
+                    
+                    Image(systemName: icon)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(color)
+                }
                 
-                Image(systemName: icon)
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(color)
-            }
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
-                
-                Text(formatDuration(duration))
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.white.opacity(0.7))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                    
+                    Text(formatDuration(duration))
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.white.opacity(0.6))
+                        .lineLimit(1)
+                }
             }
             
             Spacer()
             
-            HStack(spacing: 12) {
+            // Controls section with improved accessibility and design
+            HStack(spacing: 16) {
+                // Minus button
                 Button(action: { decrementDuration() }) {
-                    Image(systemName: "minus.circle.fill")
-                        .font(.system(size: 32, weight: .semibold))
-                        .foregroundColor(duration > range.lowerBound ? .white : .white.opacity(0.3))
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(duration > range.lowerBound ? Color.white.opacity(0.15) : Color.white.opacity(0.05))
+                            .frame(width: 44, height: 44)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(duration > range.lowerBound ? Color.white.opacity(0.3) : Color.white.opacity(0.1), lineWidth: 1)
+                            )
+                        
+                        Image(systemName: "minus")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(duration > range.lowerBound ? .white : .white.opacity(0.3))
+                    }
                 }
                 .disabled(duration <= range.lowerBound)
+                .accessibilityLabel("Disminuir \(title.lowercased())")
+                .accessibilityHint("Toca para reducir el valor")
+                .scaleEffect(minusButtonPressed ? 0.95 : 1.0)
+                .animation(.easeInOut(duration: 0.1), value: minusButtonPressed)
+                .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+                    minusButtonPressed = pressing
+                }, perform: {})
                 
-                Text("\(duration)")
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
-                    .frame(minWidth: 60)
-                    .multilineTextAlignment(.center)
+                // Value display with background
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.white.opacity(0.1))
+                        .frame(width: 60, height: 44)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(color.opacity(0.4), lineWidth: 1)
+                        )
+                    
+                    Text("\(duration)")
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                        .contentTransition(.numericText())
+                        .animation(.bouncy(duration: 0.3), value: duration)
+                }
                 
+                // Plus button
                 Button(action: { incrementDuration() }) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 32, weight: .semibold))
-                        .foregroundColor(duration < range.upperBound ? .white : .white.opacity(0.3))
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(duration < range.upperBound ? Color.white.opacity(0.15) : Color.white.opacity(0.05))
+                            .frame(width: 44, height: 44)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(duration < range.upperBound ? Color.white.opacity(0.3) : Color.white.opacity(0.1), lineWidth: 1)
+                            )
+                        
+                        Image(systemName: "plus")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(duration < range.upperBound ? .white : .white.opacity(0.3))
+                    }
                 }
                 .disabled(duration >= range.upperBound)
+                .accessibilityLabel("Aumentar \(title.lowercased())")
+                .accessibilityHint("Toca para incrementar el valor")
+                .scaleEffect(plusButtonPressed ? 0.95 : 1.0)
+                .animation(.easeInOut(duration: 0.1), value: plusButtonPressed)
+                .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+                    plusButtonPressed = pressing
+                }, perform: {})
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
         .background(
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 10)
                 .fill(.ultraThinMaterial.opacity(0.3))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(color.opacity(0.4), lineWidth: 1)
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(color.opacity(0.3), lineWidth: 1)
                 )
         )
     }
     
     private func incrementDuration() {
-        if duration < range.upperBound {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                if title == "Rondas" {
-                    duration += 1
-                } else {
-                    duration += 5
-                }
+        guard duration < range.upperBound else { return }
+        
+        // Haptic feedback
+        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+        impactFeedback.impactOccurred()
+        
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+            if title == "Rondas" {
+                duration += 1
+            } else {
+                duration += 5
             }
         }
     }
     
     private func decrementDuration() {
-        if duration > range.lowerBound {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                if title == "Rondas" {
-                    duration -= 1
-                } else {
-                    duration -= 5
-                }
+        guard duration > range.lowerBound else { return }
+        
+        // Haptic feedback
+        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+        impactFeedback.impactOccurred()
+        
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+            if title == "Rondas" {
+                duration -= 1
+            } else {
+                duration -= 5
             }
         }
     }
@@ -816,36 +881,49 @@ struct DurationConfigCard: View {
     }
 }
 
-// MARK: - Timer Summary Item Component
-struct TimerSummaryItem: View {
+// MARK: - Compact Summary Item Component
+struct CompactSummaryItem: View {
     let icon: String
     let value: String
     let label: String
     
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
             Image(systemName: icon)
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundColor(.white.opacity(0.8))
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.white.opacity(0.7))
             
             Text(value)
-                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .font(.system(size: 14, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
+                .lineLimit(1)
             
             Text(label)
-                .font(.system(size: 12, weight: .medium))
-                .foregroundColor(.white.opacity(0.6))
+                .font(.system(size: 10, weight: .medium))
+                .foregroundColor(.white.opacity(0.5))
+                .lineLimit(1)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 12)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 6)
         .background(
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 8)
                 .fill(.ultraThinMaterial.opacity(0.2))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 8)
                         .stroke(Color.white.opacity(0.1), lineWidth: 1)
                 )
         )
+    }
+}
+
+// MARK: - Previews
+struct TimerView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            TimerView()
+        }
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
 
@@ -853,4 +931,5 @@ struct TimerSummaryItem: View {
     NavigationStack {
         TimerView()
     }
+    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
