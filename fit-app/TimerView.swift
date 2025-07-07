@@ -89,6 +89,10 @@ struct TimerView: View {
     @State private var workAudioPlayer: AVAudioPlayer?
     @State private var restAudioPlayer: AVAudioPlayer?
     
+    // Validation states
+    @State private var showValidationAlert = false
+    @State private var validationMessage = ""
+    
     var body: some View {
         ZStack {
             // Background
@@ -140,6 +144,13 @@ struct TimerView: View {
             }
         } message: {
             Text("Has completado tu sesión de entrenamiento")
+        }
+        .alert("Configuración Inválida", isPresented: $showValidationAlert) {
+            Button("OK") {
+                showValidationAlert = false
+            }
+        } message: {
+            Text(validationMessage)
         }
         .onDisappear {
             stopTimer()
@@ -396,7 +407,10 @@ struct TimerView: View {
                 .shadow(color: buttonShadowColor, radius: 8, x: 0, y: 4)
                 .scaleEffect(isTimerRunning ? 1.02 : 1.0)
                 .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isTimerRunning)
+                .opacity(canStartTimer || isTimerRunning ? 1.0 : 0.6)
+                .animation(.easeInOut(duration: 0.2), value: canStartTimer)
             }
+            .disabled(!canStartTimer && !isTimerRunning)
             
             // Timer summary - more compact layout
             VStack(spacing: 12) {
@@ -454,7 +468,13 @@ struct TimerView: View {
     }
     
     private var buttonGradient: LinearGradient {
-        if !isTimerRunning {
+        if !canStartTimer && !isTimerRunning {
+            return LinearGradient(
+                colors: [.gray, .gray.opacity(0.8)],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        } else if !isTimerRunning {
             return LinearGradient(
                 colors: [.green, .blue],
                 startPoint: .leading,
@@ -476,7 +496,9 @@ struct TimerView: View {
     }
     
     private var buttonShadowColor: Color {
-        if !isTimerRunning || isPaused {
+        if !canStartTimer && !isTimerRunning {
+            return .gray.opacity(0.2)
+        } else if !isTimerRunning || isPaused {
             return .green.opacity(0.4)
         } else {
             return .orange.opacity(0.4)
@@ -486,6 +508,17 @@ struct TimerView: View {
     // MARK: - Computed Properties
     private var timeDisplayString: String {
         return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
+    private var isConfigurationValid: Bool {
+        let workValid = workDuration > 0
+        let restValid = restDuration > 0
+        let roundsValid = selectedTimerType == .custom || rounds > 0
+        return workValid && restValid && roundsValid
+    }
+    
+    private var canStartTimer: Bool {
+        return isConfigurationValid && !isTimerRunning
     }
     
     private var progressPercentage: Double {
@@ -676,8 +709,38 @@ struct TimerView: View {
         }
     }
     
+    // MARK: - Validation
+    private func validateConfiguration() -> Bool {
+        var issues: [String] = []
+        
+        if workDuration <= 0 {
+            issues.append("• El tiempo de trabajo debe ser mayor a 0 segundos")
+        }
+        
+        if restDuration <= 0 {
+            issues.append("• El tiempo de descanso debe ser mayor a 0 segundos")
+        }
+        
+        if selectedTimerType != .custom && rounds <= 0 {
+            issues.append("• El número de rondas debe ser mayor a 0")
+        }
+        
+        if !issues.isEmpty {
+            validationMessage = "Por favor corrige los siguientes problemas:\n\n" + issues.joined(separator: "\n")
+            showValidationAlert = true
+            return false
+        }
+        
+        return true
+    }
+    
     // MARK: - Actions
     private func toggleTimer() {
+        // Validate configuration before starting
+        if !isTimerRunning && !validateConfiguration() {
+            return
+        }
+        
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
             if !isTimerRunning {
                 // Start timer
