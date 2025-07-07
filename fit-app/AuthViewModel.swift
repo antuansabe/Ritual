@@ -7,6 +7,7 @@ class AuthViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     @Published var errorMessage: String?
+    @Published var showingGoodbye: Bool = false
     
     // Apple Sign In Manager
     @ObservedObject private var appleSignInManager = AppleSignInManager.shared
@@ -80,19 +81,28 @@ class AuthViewModel: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "userName")
         // Note: We intentionally keep "hasSeenWelcome" so returning users don't see welcome again
         
-        // Clear all authentication state
-        isAuthenticated = false
+        // Instead of going directly to login, show goodbye screen first
+        showingGoodbye = true
+        
+        // Clear authentication state but keep user logged in until goodbye is dismissed
         email = ""
         password = ""
         confirmPassword = ""
         errorMessage = nil
         
-        print("✅ User logged out successfully")
+        print("✅ User data cleared, showing goodbye screen")
     }
     
     func signOut() {
         // Alias for logout to match the prompt requirements
         logout()
+    }
+    
+    func completeLogout() {
+        print("🏠 Completing logout process...")
+        isAuthenticated = false
+        showingGoodbye = false
+        print("✅ User fully logged out, returning to login")
     }
     
     // MARK: - Welcome Flow Management

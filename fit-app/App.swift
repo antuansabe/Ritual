@@ -13,7 +13,14 @@ struct FitApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if authViewModel.isAuthenticated {
+                if authViewModel.showingGoodbye {
+                    // Show goodbye screen during logout process
+                    GoodbyeView()
+                        .environmentObject(authViewModel)
+                        .environmentObject(userProfileManager)
+                        .preferredColorScheme(.dark)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                } else if authViewModel.isAuthenticated {
                     if hasSeenWelcome {
                         // Returning user - go directly to main app
                         ZStack {
@@ -51,6 +58,7 @@ struct FitApp: App {
             }
             .animation(.easeInOut(duration: 0.5), value: authViewModel.isAuthenticated)
             .animation(.easeInOut(duration: 0.7), value: hasSeenWelcome)
+            .animation(.easeInOut(duration: 0.5), value: authViewModel.showingGoodbye)
         }
     }
 }

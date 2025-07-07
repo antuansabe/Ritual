@@ -37,6 +37,7 @@
 		F8G9E8H7C6E4742GGHBCDEFH /* UserProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = J9I8E7G8D6F5012456789012 /* UserProfileManager.swift */; };
 		G9H8F9I8D7F5743HHICDEFIJ /* SignOutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = K0J9F8I9E7G6123567890123 /* SignOutButton.swift */; };
 		H0I9G8J9F8G6744IIJDEFKL /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = L1K0G9J0F8H7234678901234 /* WelcomeView.swift */; };
+		I1J0H9K0G8H7755JJKDEFMN /* GoodbyeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = M2L1H0K1G8I8345789012345 /* GoodbyeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		J9I8E7G8D6F5012456789012 /* UserProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileManager.swift; sourceTree = "<group>"; };
 		K0J9F8I9E7G6123567890123 /* SignOutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutButton.swift; sourceTree = "<group>"; };
 		L1K0G9J0F8H7234678901234 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		M2L1H0K1G8I8345789012345 /* GoodbyeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodbyeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				J9I8E7G8D6F5012456789012 /* UserProfileManager.swift */,
 				K0J9F8I9E7G6123567890123 /* SignOutButton.swift */,
 				L1K0G9J0F8H7234678901234 /* WelcomeView.swift */,
+				M2L1H0K1G8I8345789012345 /* GoodbyeView.swift */,
 				20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */,
 				20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
@@ -241,6 +244,7 @@
 				F8G9E8H7C6E4742GGHBCDEFH /* UserProfileManager.swift in Sources */,
 				G9H8F9I8D7F5743HHICDEFIJ /* SignOutButton.swift in Sources */,
 				H0I9G8J9F8G6744IIJDEFKL /* WelcomeView.swift in Sources */,
+				I1J0H9K0G8H7755JJKDEFMN /* GoodbyeView.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
