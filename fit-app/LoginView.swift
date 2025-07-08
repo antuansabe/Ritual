@@ -5,6 +5,13 @@ struct LoginView: View {
     @State private var showRegister = false
     @State private var animateOnAppear = false
     
+    // Validation states
+    @State private var emailError: String? = nil
+    @State private var passwordError: String? = nil
+    @State private var showValidationAlert = false
+    
+    private let validator = InputValidator.shared
+    
     var body: some View {
         ZStack {
             Image("loginBackground")
@@ -46,6 +53,13 @@ struct LoginView: View {
             }
         } message: {
             Text(authViewModel.errorMessage ?? "")
+        }
+        .alert("Datos inválidos", isPresented: $showValidationAlert) {
+            Button("OK") {
+                showValidationAlert = false
+            }
+        } message: {
+            Text("Por favor corrige los errores en el formulario antes de continuar.")
         }
     }
     
@@ -135,12 +149,14 @@ struct LoginView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
                                     .stroke(
-                                        LinearGradient(
+                                        emailError != nil ? 
+                                        AnyShapeStyle(Color.red.opacity(0.6)) :
+                                        AnyShapeStyle(LinearGradient(
                                             colors: [Color.white.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
-                                        ),
-                                        lineWidth: 1
+                                        )),
+                                        lineWidth: emailError != nil ? 2 : 1
                                     )
                             )
                     )
@@ -149,6 +165,18 @@ struct LoginView: View {
                     .textContentType(.emailAddress)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
+                    .onChange(of: authViewModel.email) { _ in
+                        validateEmailField()
+                    }
+                
+                // Email error message
+                if let emailError = emailError {
+                    Text(emailError)
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.red.opacity(0.8))
+                        .padding(.leading, 4)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                }
             }
             
             // Password Field
@@ -166,17 +194,31 @@ struct LoginView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
                                     .stroke(
-                                        LinearGradient(
+                                        passwordError != nil ? 
+                                        AnyShapeStyle(Color.red.opacity(0.6)) :
+                                        AnyShapeStyle(LinearGradient(
                                             colors: [Color.white.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
-                                        ),
-                                        lineWidth: 1
+                                        )),
+                                        lineWidth: passwordError != nil ? 2 : 1
                                     )
                             )
                     )
                     .foregroundColor(.white)
                     .textContentType(.password)
+                    .onChange(of: authViewModel.password) { _ in
+                        validatePasswordField()
+                    }
+                
+                // Password error message
+                if let passwordError = passwordError {
+                    Text(passwordError)
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.red.opacity(0.8))
+                        .padding(.leading, 4)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                }
             }
         }
         .opacity(animateOnAppear ? 1 : 0)
@@ -189,7 +231,7 @@ struct LoginView: View {
         VStack(spacing: 16) {
             // Login Button
             Button(action: {
-                authViewModel.login()
+                handleLogin()
             }) {
                 Text("Iniciar sesión")
                     .font(.system(size: 18, weight: .semibold))
@@ -228,6 +270,54 @@ struct LoginView: View {
         }
         .opacity(animateOnAppear ? 1 : 0)
         .animation(.easeOut(duration: 0.8).delay(0.8), value: animateOnAppear)
+    }
+    
+    // MARK: - Validation Methods
+    
+    private func validateEmailField() {
+        let result = validator.isValidEmail(authViewModel.email)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            emailError = result.isValid ? nil : result.errorMessage
+        }
+    }
+    
+    private func validatePasswordField() {
+        // For login, we only check if password is not empty
+        // Full password validation is done during registration
+        if authViewModel.password.isEmpty {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                passwordError = "La contraseña es requerida"
+            }
+        } else {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                passwordError = nil
+            }
+        }
+    }
+    
+    private func validateForm() -> Bool {
+        validateEmailField()
+        validatePasswordField()
+        
+        return emailError == nil && passwordError == nil
+    }
+    
+    private func handleLogin() {
+        // Clear any previous auth errors
+        authViewModel.errorMessage = nil
+        
+        // Validate form first
+        guard validateForm() else {
+            showValidationAlert = true
+            return
+        }
+        
+        // Sanitize inputs before sending to auth
+        authViewModel.email = validator.sanitizeEmail(authViewModel.email)
+        authViewModel.password = authViewModel.password.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Proceed with login
+        authViewModel.login()
     }
 }
 

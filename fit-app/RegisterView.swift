@@ -6,6 +6,14 @@ struct RegisterView: View {
     @State private var animateOnAppear = false
     @Environment(\.dismiss) private var dismiss
     
+    // Validation states
+    @State private var emailError: String? = nil
+    @State private var passwordError: String? = nil
+    @State private var confirmPasswordError: String? = nil
+    @State private var showValidationAlert = false
+    
+    private let validator = InputValidator.shared
+    
     var body: some View {
         ZStack {
             Image("registroBackground")
@@ -50,6 +58,13 @@ struct RegisterView: View {
             }
         } message: {
             Text(authViewModel.errorMessage ?? "")
+        }
+        .alert("Datos inválidos", isPresented: $showValidationAlert) {
+            Button("OK") {
+                showValidationAlert = false
+            }
+        } message: {
+            Text("Por favor corrige los errores en el formulario antes de continuar.")
         }
     }
     
@@ -163,12 +178,14 @@ struct RegisterView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
                                     .stroke(
-                                        LinearGradient(
+                                        emailError != nil ? 
+                                        AnyShapeStyle(Color.red.opacity(0.6)) :
+                                        AnyShapeStyle(LinearGradient(
                                             colors: [Color.white.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
-                                        ),
-                                        lineWidth: 1
+                                        )),
+                                        lineWidth: emailError != nil ? 2 : 1
                                     )
                             )
                     )
@@ -177,6 +194,18 @@ struct RegisterView: View {
                     .textContentType(.emailAddress)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
+                    .onChange(of: authViewModel.email) { _ in
+                        validateEmailField()
+                    }
+                
+                // Email error message
+                if let emailError = emailError {
+                    Text(emailError)
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.red.opacity(0.8))
+                        .padding(.leading, 4)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                }
             }
             
             // Password Field
@@ -194,17 +223,32 @@ struct RegisterView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
                                     .stroke(
-                                        LinearGradient(
+                                        passwordError != nil ? 
+                                        AnyShapeStyle(Color.red.opacity(0.6)) :
+                                        AnyShapeStyle(LinearGradient(
                                             colors: [Color.white.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
-                                        ),
-                                        lineWidth: 1
+                                        )),
+                                        lineWidth: passwordError != nil ? 2 : 1
                                     )
                             )
                     )
                     .foregroundColor(.white)
                     .textContentType(.newPassword)
+                    .onChange(of: authViewModel.password) { _ in
+                        validatePasswordField()
+                        validateConfirmPasswordField() // Re-validate confirm password when password changes
+                    }
+                
+                // Password error message
+                if let passwordError = passwordError {
+                    Text(passwordError)
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.red.opacity(0.8))
+                        .padding(.leading, 4)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                }
             }
             
             // Confirm Password Field
@@ -222,23 +266,31 @@ struct RegisterView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
                                     .stroke(
-                                        passwordsMatch ? 
-                                        LinearGradient(
+                                        confirmPasswordError != nil ? 
+                                        AnyShapeStyle(Color.red.opacity(0.6)) :
+                                        AnyShapeStyle(LinearGradient(
                                             colors: [Color.white.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
-                                        ) :
-                                        LinearGradient(
-                                            colors: [Color.red.opacity(0.6), Color.red.opacity(0.3)],
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        ),
-                                        lineWidth: 1
+                                        )),
+                                        lineWidth: confirmPasswordError != nil ? 2 : 1
                                     )
                             )
                     )
                     .foregroundColor(.white)
                     .textContentType(.newPassword)
+                    .onChange(of: authViewModel.confirmPassword) { _ in
+                        validateConfirmPasswordField()
+                    }
+                
+                // Confirm password error message
+                if let confirmPasswordError = confirmPasswordError {
+                    Text(confirmPasswordError)
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.red.opacity(0.8))
+                        .padding(.leading, 4)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                }
             }
             
             // Password Requirements
@@ -273,10 +325,69 @@ struct RegisterView: View {
         .animation(.easeOut(duration: 0.8).delay(0.4), value: animateOnAppear)
     }
     
+    // MARK: - Validation Methods
+    
+    private func validateEmailField() {
+        let result = validator.isValidEmail(authViewModel.email)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            emailError = result.isValid ? nil : result.errorMessage
+        }
+    }
+    
+    private func validatePasswordField() {
+        let result = validator.isValidPassword(authViewModel.password)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            passwordError = result.isValid ? nil : result.errorMessage
+        }
+    }
+    
+    private func validateConfirmPasswordField() {
+        if authViewModel.confirmPassword.isEmpty {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                confirmPasswordError = nil
+            }
+        } else if authViewModel.password != authViewModel.confirmPassword {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                confirmPasswordError = "Las contraseñas no coinciden"
+            }
+        } else {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                confirmPasswordError = nil
+            }
+        }
+    }
+    
+    private func validateForm() -> Bool {
+        validateEmailField()
+        validatePasswordField()
+        validateConfirmPasswordField()
+        
+        return emailError == nil && passwordError == nil && confirmPasswordError == nil
+    }
+    
+    private func handleRegister() {
+        // Clear any previous auth errors
+        authViewModel.errorMessage = nil
+        
+        // Validate form first
+        guard validateForm() else {
+            showValidationAlert = true
+            return
+        }
+        
+        // Sanitize inputs before sending to auth
+        authViewModel.email = validator.sanitizeEmail(authViewModel.email)
+        authViewModel.password = authViewModel.password.trimmingCharacters(in: .whitespacesAndNewlines)
+        authViewModel.confirmPassword = authViewModel.confirmPassword.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Proceed with registration
+        authViewModel.register()
+    }
+    
     // MARK: - Button Section
     private var buttonSection: some View {
         Button(action: {
-            authViewModel.register()
+            handleRegister()
         }) {
             Text("Registrarse")
                 .font(.system(size: 18, weight: .semibold))

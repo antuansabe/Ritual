@@ -203,13 +203,18 @@ struct RegistroView: View {
     // Button press state for save button animation
     @State private var isSaveButtonPressed = false
     
+    // Validation states
+    @State private var durationError: String? = nil
+    @State private var typeError: String? = nil
+    @State private var showValidationAlert = false
+    
+    private let validator = InputValidator.shared
+    
     var isFormValid: Bool {
-        switch AppConstants.validateWorkoutDuration(duracion) {
-        case .success:
-            return true
-        case .failure:
-            return false
-        }
+        let durationResult = validator.isValidDuration(duracion)
+        let typeResult = validator.isValidWorkoutType(tipoSeleccionado)
+        
+        return durationResult.isValid && typeResult.isValid
     }
     
     var body: some View {
@@ -269,6 +274,13 @@ struct RegistroView: View {
             }
         } message: {
             Text(workoutViewModel.errorMessage ?? "")
+        }
+        .alert("Datos inválidos", isPresented: $showValidationAlert) {
+            Button("OK") {
+                showValidationAlert = false
+            }
+        } message: {
+            Text("Por favor corrige los errores en el formulario antes de continuar.")
         }
     }
     
@@ -461,6 +473,9 @@ struct RegistroView: View {
                         .keyboardType(.numberPad)
                         .frame(maxWidth: 120)
                         .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
+                        .onChange(of: duracion) { _ in
+                            validateDurationField()
+                        }
                     
                     Text("minutos")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
@@ -474,10 +489,25 @@ struct RegistroView: View {
                         .fill(AppConstants.Design.cardBackground(true))
                         .overlay(
                             RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                                .stroke(Color.blue.opacity(0.3), lineWidth: 2)
+                                .stroke(
+                                    durationError != nil ? 
+                                    Color.red.opacity(0.6) : 
+                                    Color.blue.opacity(0.3), 
+                                    lineWidth: durationError != nil ? 3 : 2
+                                )
                         )
                 )
                 .shadow(color: AppConstants.Design.cardShadow(), radius: 8, x: 0, y: 4)
+                
+                // Duration error message
+                if let durationError = durationError {
+                    Text(durationError)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.red.opacity(0.9))
+                        .padding(.horizontal, 16)
+                        .padding(.top, 8)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                }
                 
                 quickDurationButtons
             }
@@ -500,6 +530,7 @@ struct RegistroView: View {
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             duracion = "\(minutes)"
+                            validateDurationField()
                         }
                     }) {
                         Text("\(minutes)")
@@ -622,9 +653,42 @@ struct RegistroView: View {
     }
     
     
+    // MARK: - Validation Methods
+    
+    private func validateDurationField() {
+        let result = validator.isValidDuration(duracion)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            durationError = result.isValid ? nil : result.errorMessage
+        }
+    }
+    
+    private func validateTypeField() {
+        let result = validator.isValidWorkoutType(tipoSeleccionado)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            typeError = result.isValid ? nil : result.errorMessage
+        }
+    }
+    
+    private func validateForm() -> Bool {
+        validateDurationField()
+        validateTypeField()
+        
+        return durationError == nil && typeError == nil
+    }
+    
     // MARK: - Save Function
     private func saveWorkout() {
-        let validationResult = AppConstants.validateWorkoutDuration(duracion)
+        // Validate form first
+        guard validateForm() else {
+            showValidationAlert = true
+            return
+        }
+        
+        // Sanitize inputs before saving
+        let sanitizedDuration = validator.sanitizeInput(duracion)
+        let sanitizedType = validator.sanitizeInput(tipoSeleccionado)
+        
+        let validationResult = AppConstants.validateWorkoutDuration(sanitizedDuration)
         
         switch validationResult {
         case .success(let validDuration):
@@ -633,7 +697,7 @@ struct RegistroView: View {
             // Use basic Core Data saving with offline capability built into CloudKit
             Task {
                 await workoutViewModel.saveWorkout(
-                    type: tipoSeleccionado,
+                    type: sanitizedType,
                     duration: validDuration,
                     managedObjectContext: managedObjectContext
                 )
