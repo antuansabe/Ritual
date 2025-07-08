@@ -385,6 +385,66 @@ extension SecureStorage {
     }
 }
 
+// MARK: - Migration and Testing Helpers
+extension SecureStorage {
+    
+    /// Test secure storage functionality (for development/debugging)
+    func testSecureStorage() -> Bool {
+        print("🧪 Testing SecureStorage functionality...")
+        
+        let testKey = "test_secure_key"
+        let testValue = "test_secure_value_12345"
+        
+        // Test encryption storage
+        guard storeEncrypted(testValue, for: testKey) else {
+            print("❌ Failed to store encrypted test value")
+            return false
+        }
+        
+        // Test encryption retrieval
+        guard let retrievedValue = retrieveEncrypted(for: testKey),
+              retrievedValue == testValue else {
+            print("❌ Failed to retrieve or validate encrypted test value")
+            return false
+        }
+        
+        // Test deletion
+        guard delete(key: testKey) else {
+            print("❌ Failed to delete test value")
+            return false
+        }
+        
+        // Verify deletion
+        if retrieveEncrypted(for: testKey) != nil {
+            print("❌ Test value still exists after deletion")
+            return false
+        }
+        
+        print("✅ SecureStorage test passed successfully")
+        return true
+    }
+    
+    /// Verify migration status for sensitive keys
+    func verifyMigrationStatus() {
+        print("🔍 Verifying migration status...")
+        
+        let legacyKeys = ["userName", "userIdentifier", "userFullName", "AppleUserIdentifier", "AppleUserEmail", "AppleUserName"]
+        let secureKeys = [StorageKeys.userDisplayName, StorageKeys.userFullName, StorageKeys.appleUserID, StorageKeys.appleUserEmail, StorageKeys.appleUserName]
+        
+        for key in legacyKeys {
+            if UserDefaults.standard.string(forKey: key) != nil {
+                print("⚠️ Legacy data still exists in UserDefaults: \(key)")
+            }
+        }
+        
+        for key in secureKeys {
+            if exists(key: key) {
+                print("✅ Secure data found in Keychain: \(key)")
+            }
+        }
+    }
+}
+
 // MARK: - Core Data Encryption Helpers
 extension SecureStorage {
     

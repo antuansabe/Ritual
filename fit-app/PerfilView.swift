@@ -28,6 +28,10 @@ struct PerfilView: View {
         if !userProfileManager.displayName.isEmpty && userProfileManager.displayName != "Atleta" {
             return userProfileManager.displayName
         }
+        // Try to get from SecureStorage first, then fallback to UserDefaults for migration
+        if let secureUserName = SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName) {
+            return secureUserName
+        }
         return UserDefaults.standard.string(forKey: "userName") ?? "Usuario"
     }
     
@@ -779,7 +783,10 @@ struct PerfilView: View {
         // Update UserProfileManager
         userProfileManager.updateDisplayName(trimmedName)
         
-        // Also update UserDefaults for backwards compatibility
+        // Store securely in Keychain
+        _ = SecureStorage.shared.storeEncrypted(trimmedName, for: SecureStorage.StorageKeys.userDisplayName)
+        
+        // Also update UserDefaults for backwards compatibility (during migration period)
         UserDefaults.standard.set(trimmedName, forKey: "userName")
         
         // Exit editing mode with animation

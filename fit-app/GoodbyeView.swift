@@ -13,7 +13,8 @@ struct GoodbyeView: View {
         }
         
         // Fallback to UserDefaults
-        if let name = UserDefaults.standard.string(forKey: "userName"), !name.isEmpty {
+        if let name = SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName) ?? 
+                     UserDefaults.standard.string(forKey: "userName"), !name.isEmpty {
             return name
         }
         

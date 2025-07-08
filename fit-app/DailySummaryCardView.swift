@@ -12,6 +12,7 @@ struct DailySummaryCardView: View {
     
     // Computed properties
     private var userName: String {
+        SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName) ?? 
         UserDefaults.standard.string(forKey: "userName") ?? "Antonio"
     }
     

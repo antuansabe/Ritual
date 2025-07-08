@@ -18,6 +18,9 @@ class AuthViewModel: ObservableObject {
     // Secure Authentication Service
     private let secureAuth = SecureAuthService.shared
     
+    // Secure Storage for sensitive data
+    private let secureStorage = SecureStorage.shared
+    
     init() {
         print("🔐 Initializing AuthViewModel...")
         
@@ -29,6 +32,66 @@ class AuthViewModel: ObservableObject {
         
         // Always listen to Apple authentication changes (even for new users)
         setupAppleAuthListener()
+        
+        // Migrate any legacy sensitive data to secure storage
+        migrateLegacySensitiveData()
+        
+        // Test and verify secure storage (development)
+        #if DEBUG
+        _ = secureStorage.testSecureStorage()
+        secureStorage.verifyMigrationStatus()
+        #endif
+    }
+    
+    // MARK: - Legacy Data Migration
+    
+    /// Migrate sensitive data from UserDefaults to SecureStorage
+    private func migrateLegacySensitiveData() {
+        print("🔄 Checking for legacy sensitive data to migrate...")
+        
+        var migrationOccurred = false
+        
+        // Migrate userName if it exists
+        if let userName = UserDefaults.standard.string(forKey: "userName"), !userName.isEmpty {
+            print("🔄 Migrating userName to SecureStorage...")
+            if secureStorage.storeEncrypted(userName, for: SecureStorage.StorageKeys.userDisplayName) {
+                UserDefaults.standard.removeObject(forKey: "userName")
+                migrationOccurred = true
+                print("✅ Successfully migrated userName")
+            } else {
+                print("❌ Failed to migrate userName")
+            }
+        }
+        
+        // Migrate userIdentifier if it exists
+        if let userIdentifier = UserDefaults.standard.string(forKey: "userIdentifier"), !userIdentifier.isEmpty {
+            print("🔄 Migrating userIdentifier to SecureStorage...")
+            if secureStorage.storeEncrypted(userIdentifier, for: "user_identifier") {
+                UserDefaults.standard.removeObject(forKey: "userIdentifier")
+                migrationOccurred = true
+                print("✅ Successfully migrated userIdentifier")
+            } else {
+                print("❌ Failed to migrate userIdentifier")
+            }
+        }
+        
+        // Migrate userFullName if it exists
+        if let userFullName = UserDefaults.standard.string(forKey: "userFullName"), !userFullName.isEmpty {
+            print("🔄 Migrating userFullName to SecureStorage...")
+            if secureStorage.storeEncrypted(userFullName, for: SecureStorage.StorageKeys.userFullName) {
+                UserDefaults.standard.removeObject(forKey: "userFullName")
+                migrationOccurred = true
+                print("✅ Successfully migrated userFullName")
+            } else {
+                print("❌ Failed to migrate userFullName")
+            }
+        }
+        
+        if migrationOccurred {
+            print("✅ Legacy sensitive data migration completed")
+        } else {
+            print("ℹ️ No legacy sensitive data found to migrate")
+        }
     }
     
     func login() {
@@ -86,9 +149,15 @@ class AuthViewModel: ObservableObject {
         // Sign out user profile
         userProfileManager.signOut()
         
-        // Clear UserDefaults (for legacy data) - but preserve welcome flag
+        // Clear sensitive data from SecureStorage
+        _ = secureStorage.delete(key: SecureStorage.StorageKeys.userFullName)
+        _ = secureStorage.delete(key: SecureStorage.StorageKeys.userDisplayName)
+        _ = secureStorage.delete(key: SecureStorage.StorageKeys.userEmail)
+        _ = secureStorage.delete(key: SecureStorage.StorageKeys.userToken)
+        
+        // Clear legacy UserDefaults for migration (but preserve welcome flag)
         UserDefaults.standard.removeObject(forKey: "userIdentifier")
-        UserDefaults.standard.removeObject(forKey: "userFullName")
+        UserDefaults.standard.removeObject(forKey: "userFullName") 
         UserDefaults.standard.removeObject(forKey: "userName")
         // Note: We intentionally keep "hasSeenWelcome" so returning users don't see welcome again
         
