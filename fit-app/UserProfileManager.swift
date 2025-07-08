@@ -9,6 +9,7 @@ class UserProfileManager: ObservableObject {
     @Published var displayName: String = "Atleta"
     
     private let context = PersistenceController.shared.container.viewContext
+    private let encryptionHelper = DataEncryptionHelper.shared
     
     private init() {
         loadCurrentUser()
@@ -27,6 +28,9 @@ class UserProfileManager: ObservableObject {
         do {
             let users = try context.fetch(request)
             if let user = users.first {
+                // Decrypt sensitive fields after fetching
+                decryptUserProfileFields(user)
+                
                 print("✅ Found existing user: \(user.fullName ?? "Unknown")")
                 currentUser = user
                 displayName = user.fullName ?? "Atleta"
@@ -115,8 +119,14 @@ class UserProfileManager: ObservableObject {
     }
     
     private func saveUserProfile(_ user: UserProfile) {
+        // Encrypt sensitive fields before saving
+        encryptUserProfileFields(user)
+        
         do {
             try context.save()
+            
+            // Decrypt fields again for immediate use
+            decryptUserProfileFields(user)
             
             DispatchQueue.main.async {
                 self.currentUser = user
@@ -197,6 +207,57 @@ class UserProfileManager: ObservableObject {
         }
         
         print("✅ User signed out successfully")
+    }
+    
+    // MARK: - Data Encryption Methods
+    
+    /// Encrypt sensitive UserProfile fields before saving to Core Data
+    /// Fields encrypted: email, fullName, appleUserID
+    private func encryptUserProfileFields(_ user: UserProfile) {
+        let sensitiveFields = ["email", "fullName", "appleUserID"]
+        encryptionHelper.encryptEntityFields(user, sensitiveFields: sensitiveFields)
+    }
+    
+    /// Decrypt sensitive UserProfile fields after fetching from Core Data
+    /// Fields decrypted: email, fullName, appleUserID
+    private func decryptUserProfileFields(_ user: UserProfile) {
+        let sensitiveFields = ["email", "fullName", "appleUserID"]
+        encryptionHelper.decryptEntityFields(user, sensitiveFields: sensitiveFields)
+    }
+    
+    /// Migrate existing unencrypted user profiles to encrypted storage
+    /// Call this method during app updates to encrypt existing data
+    func migrateUserProfilesToEncrypted() {
+        print("🔄 Starting UserProfile encryption migration...")
+        
+        let request: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
+        
+        do {
+            let allUsers = try context.fetch(request)
+            var migratedCount = 0
+            
+            for user in allUsers {
+                // Check if any field needs encryption (not already prefixed with "encrypted_")
+                let needsEncryption = (user.email?.hasPrefix("encrypted_") == false && !user.email!.isEmpty) ||
+                                     (user.fullName?.hasPrefix("encrypted_") == false && !user.fullName!.isEmpty) ||
+                                     (user.appleUserID?.hasPrefix("encrypted_") == false && !user.appleUserID!.isEmpty)
+                
+                if needsEncryption {
+                    encryptUserProfileFields(user)
+                    migratedCount += 1
+                }
+            }
+            
+            if migratedCount > 0 {
+                try context.save()
+                print("✅ Successfully migrated \(migratedCount) user profiles to encrypted storage")
+            } else {
+                print("ℹ️ No user profiles needed encryption migration")
+            }
+            
+        } catch {
+            print("❌ Error migrating user profiles to encrypted storage: \(error)")
+        }
     }
     
     // MARK: - Name Management

@@ -40,6 +40,7 @@
 		I1J0H9K0G8H7755JJKDEFMN /* GoodbyeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = M2L1H0K1G8I8345789012345 /* GoodbyeView.swift */; };
 		J2K1I0L1H8I9866KKDEFOP /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = N3M2I1L2H9J9456890123456 /* SecureStorage.swift */; };
 		K3L2J1M2I9J0977LLDEFQR /* SecureAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = O4N3J2M3I0K0567901234567 /* SecureAuthService.swift */; };
+		L4M3K2N3J0K1A88MMDEFST /* DataEncryptionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = P5O4K3N4J1L1678912345678 /* DataEncryptionHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		M2L1H0K1G8I8345789012345 /* GoodbyeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodbyeView.swift; sourceTree = "<group>"; };
 		N3M2I1L2H9J9456890123456 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		O4N3J2M3I0K0567901234567 /* SecureAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureAuthService.swift; sourceTree = "<group>"; };
+		P5O4K3N4J1L1678912345678 /* DataEncryptionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEncryptionHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				M2L1H0K1G8I8345789012345 /* GoodbyeView.swift */,
 				N3M2I1L2H9J9456890123456 /* SecureStorage.swift */,
 				O4N3J2M3I0K0567901234567 /* SecureAuthService.swift */,
+				P5O4K3N4J1L1678912345678 /* DataEncryptionHelper.swift */,
 				20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */,
 				20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
@@ -253,6 +256,7 @@
 				I1J0H9K0G8H7755JJKDEFMN /* GoodbyeView.swift in Sources */,
 				J2K1I0L1H8I9866KKDEFOP /* SecureStorage.swift in Sources */,
 				K3L2J1M2I9J0977LLDEFQR /* SecureAuthService.swift in Sources */,
+				L4M3K2N3J0K1A88MMDEFST /* DataEncryptionHelper.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

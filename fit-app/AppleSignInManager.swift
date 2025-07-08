@@ -14,11 +14,8 @@ class AppleSignInManager: NSObject, ObservableObject {
     @Published var userEmail: String = ""
     @Published var userFullName: String = ""
     
-    // UserDefaults keys
-    private let appleUserIdKey = "AppleUserIdentifier"
-    private let appleUserEmailKey = "AppleUserEmail"
-    private let appleUserNameKey = "AppleUserName"
-    private let isAppleUserKey = "IsAppleUser"
+    // Secure storage reference
+    private let secureStorage = SecureStorage.shared
     
     // Keep reference to authorization controller
     private var currentAuthController: ASAuthorizationController?
@@ -171,11 +168,16 @@ class AppleSignInManager: NSObject, ObservableObject {
         userFullName = ""
         errorMessage = nil
         
-        // Clear UserDefaults
-        UserDefaults.standard.removeObject(forKey: appleUserIdKey)
-        UserDefaults.standard.removeObject(forKey: appleUserEmailKey)
-        UserDefaults.standard.removeObject(forKey: appleUserNameKey)
-        UserDefaults.standard.removeObject(forKey: isAppleUserKey)
+        // Clear encrypted storage
+        _ = secureStorage.delete(key: SecureStorage.StorageKeys.appleUserID)
+        _ = secureStorage.delete(key: SecureStorage.StorageKeys.appleUserEmail)
+        _ = secureStorage.delete(key: SecureStorage.StorageKeys.appleUserName)
+        
+        // Clear legacy UserDefaults for migration
+        UserDefaults.standard.removeObject(forKey: "AppleUserIdentifier")
+        UserDefaults.standard.removeObject(forKey: "AppleUserEmail")
+        UserDefaults.standard.removeObject(forKey: "AppleUserName")
+        UserDefaults.standard.removeObject(forKey: "IsAppleUser")
         
         print("✅ Apple user signed out successfully")
     }
@@ -183,23 +185,74 @@ class AppleSignInManager: NSObject, ObservableObject {
     // MARK: - Private Methods
     
     private func loadStoredAppleUser() {
-        let storedId = UserDefaults.standard.string(forKey: appleUserIdKey) ?? ""
-        let storedEmail = UserDefaults.standard.string(forKey: appleUserEmailKey) ?? ""
-        let storedName = UserDefaults.standard.string(forKey: appleUserNameKey) ?? ""
-        let isAppleUser = UserDefaults.standard.bool(forKey: isAppleUserKey)
+        print("🍎 Loading stored Apple user data...")
         
-        if !storedId.isEmpty && isAppleUser {
+        // Try to load from secure storage first
+        let storedId = secureStorage.retrieveEncrypted(for: SecureStorage.StorageKeys.appleUserID) ?? ""
+        let storedEmail = secureStorage.retrieveEncrypted(for: SecureStorage.StorageKeys.appleUserEmail) ?? ""
+        let storedName = secureStorage.retrieveEncrypted(for: SecureStorage.StorageKeys.appleUserName) ?? ""
+        
+        // If secure storage is empty, try to migrate from legacy UserDefaults
+        if storedId.isEmpty {
+            migrateLegacyAppleUserData()
+            return
+        }
+        
+        if !storedId.isEmpty {
             userIdentifier = storedId
             userEmail = storedEmail
             userFullName = storedName
             
-            print("🍎 Loaded stored Apple user:")
+            print("🍎 Loaded stored Apple user from secure storage:")
             print("   - ID: \(userIdentifier)")
-            print("   - Email: \(userEmail)")
-            print("   - Name: \(userFullName)")
+            print("   - Email: \(userEmail.isEmpty ? "Not provided" : "***@***.***")")
+            print("   - Name: \(userFullName.isEmpty ? "Not provided" : userFullName)")
             
             // Check if still authorized with Apple
             checkAppleSignInStatus()
+        }
+    }
+    
+    /// Migrate legacy Apple user data from UserDefaults to secure encrypted storage
+    private func migrateLegacyAppleUserData() {
+        print("🔄 Attempting to migrate legacy Apple user data...")
+        
+        let legacyId = UserDefaults.standard.string(forKey: "AppleUserIdentifier") ?? ""
+        let legacyEmail = UserDefaults.standard.string(forKey: "AppleUserEmail") ?? ""
+        let legacyName = UserDefaults.standard.string(forKey: "AppleUserName") ?? ""
+        let isAppleUser = UserDefaults.standard.bool(forKey: "IsAppleUser")
+        
+        if !legacyId.isEmpty && isAppleUser {
+            print("🔄 Found legacy Apple user data, migrating to secure storage...")
+            
+            // Store in secure encrypted storage
+            let success = secureStorage.storeEncrypted(legacyId, for: SecureStorage.StorageKeys.appleUserID) &&
+                         secureStorage.storeEncrypted(legacyEmail, for: SecureStorage.StorageKeys.appleUserEmail) &&
+                         secureStorage.storeEncrypted(legacyName, for: SecureStorage.StorageKeys.appleUserName)
+            
+            if success {
+                print("✅ Successfully migrated Apple user data to secure storage")
+                
+                // Update current properties
+                userIdentifier = legacyId
+                userEmail = legacyEmail
+                userFullName = legacyName
+                
+                // Clear legacy UserDefaults after successful migration
+                UserDefaults.standard.removeObject(forKey: "AppleUserIdentifier")
+                UserDefaults.standard.removeObject(forKey: "AppleUserEmail")
+                UserDefaults.standard.removeObject(forKey: "AppleUserName")
+                UserDefaults.standard.removeObject(forKey: "IsAppleUser")
+                
+                print("🗑️ Cleared legacy UserDefaults after migration")
+                
+                // Check if still authorized with Apple
+                checkAppleSignInStatus()
+            } else {
+                print("❌ Failed to migrate Apple user data to secure storage")
+            }
+        } else {
+            print("ℹ️ No legacy Apple user data found to migrate")
         }
     }
     
@@ -212,11 +265,16 @@ class AppleSignInManager: NSObject, ObservableObject {
         let lastName = fullName?.familyName ?? ""
         userFullName = "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
         
-        // Save to UserDefaults
-        UserDefaults.standard.set(identifier, forKey: appleUserIdKey)
-        UserDefaults.standard.set(userEmail, forKey: appleUserEmailKey)
-        UserDefaults.standard.set(userFullName, forKey: appleUserNameKey)
-        UserDefaults.standard.set(true, forKey: isAppleUserKey)
+        // Save to secure encrypted storage
+        let success = secureStorage.storeEncrypted(identifier, for: SecureStorage.StorageKeys.appleUserID) &&
+                     secureStorage.storeEncrypted(userEmail, for: SecureStorage.StorageKeys.appleUserEmail) &&
+                     secureStorage.storeEncrypted(userFullName, for: SecureStorage.StorageKeys.appleUserName)
+        
+        if success {
+            print("🔐 Apple user data saved securely with encryption")
+        } else {
+            print("❌ Failed to save Apple user data securely")
+        }
         
         // Create/Update user profile
         UserProfileManager.shared.handleAppleSignIn(
@@ -230,8 +288,8 @@ class AppleSignInManager: NSObject, ObservableObject {
         
         print("✅ Apple user saved successfully:")
         print("   - ID: \(userIdentifier)")
-        print("   - Email: \(userEmail)")
-        print("   - Name: \(userFullName)")
+        print("   - Email: \(userEmail.isEmpty ? "Not provided" : "***@***.***")")
+        print("   - Name: \(userFullName.isEmpty ? "Not provided" : userFullName)")
     }
     
     private func handleAppleSignInError(_ error: Error) {
@@ -363,7 +421,13 @@ extension AppleSignInManager: ASAuthorizationControllerPresentationContextProvid
 extension AppleSignInManager {
     
     var isAppleUser: Bool {
-        return UserDefaults.standard.bool(forKey: isAppleUserKey)
+        // Check if we have encrypted Apple user data
+        let hasAppleUserID = secureStorage.retrieveEncrypted(for: SecureStorage.StorageKeys.appleUserID) != nil
+        
+        // Also check legacy UserDefaults for migration
+        let hasLegacyAppleUser = UserDefaults.standard.bool(forKey: "IsAppleUser")
+        
+        return hasAppleUserID || hasLegacyAppleUser
     }
     
     func clearError() {

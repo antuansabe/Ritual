@@ -220,8 +220,8 @@ class SecureAuthService {
             passwordHash: storedCredentials.passwordHash
         )
         
-        // Store current session
-        _ = storage.store(sanitizedEmail, for: SecureStorage.StorageKeys.userEmail)
+        // Store current session with encryption
+        _ = storage.storeEncrypted(sanitizedEmail, for: SecureStorage.StorageKeys.userEmail)
         
         print("🔐 SecureAuth: User login successful")
         return .success(user: updatedCredentials)
@@ -241,7 +241,7 @@ class SecureAuthService {
             let jsonString = String(data: data, encoding: .utf8) ?? ""
             
             let key = "user_\(credentials.email)"
-            return storage.store(jsonString, for: key)
+            return storage.storeEncrypted(jsonString, for: key)
         } catch {
             print("🔐 SecureAuth: Failed to encode user credentials: \(error)")
             return false
@@ -252,7 +252,7 @@ class SecureAuthService {
     private func getUserCredentials(email: String) -> UserCredentials? {
         let key = "user_\(email)"
         
-        guard let jsonString = storage.retrieve(for: key),
+        guard let jsonString = storage.retrieveEncrypted(for: key),
               let data = jsonString.data(using: .utf8) else {
             return nil
         }
@@ -267,7 +267,7 @@ class SecureAuthService {
     
     /// Get current logged in user
     func getCurrentUser() -> String? {
-        return storage.retrieve(for: SecureStorage.StorageKeys.userEmail)
+        return storage.retrieveEncrypted(for: SecureStorage.StorageKeys.userEmail)
     }
     
     /// Check if user is currently logged in
