@@ -479,7 +479,7 @@ struct AppConstants {
             if let secureUserName = SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName) {
                 return secureUserName
             }
-            return UserDefaults.standard.string(forKey: "userName") ?? AppConstants.User.defaultName
+            return AppConstants.User.defaultName
         }
     }
 }

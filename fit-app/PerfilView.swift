@@ -31,11 +31,11 @@ struct PerfilView: View {
         if !userProfileManager.displayName.isEmpty && userProfileManager.displayName != "Atleta" {
             return userProfileManager.displayName
         }
-        // Try to get from SecureStorage first, then fallback to UserDefaults for migration
+        // Get from SecureStorage only
         if let secureUserName = SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName) {
             return secureUserName
         }
-        return UserDefaults.standard.string(forKey: "userName") ?? "Usuario"
+        return "Usuario"
     }
     
     private var workoutsThisWeek: Int {
@@ -812,8 +812,7 @@ struct PerfilView: View {
         // Store securely in Keychain
         _ = SecureStorage.shared.storeEncrypted(sanitizedName, for: SecureStorage.StorageKeys.userDisplayName)
         
-        // Also update UserDefaults for backwards compatibility (during migration period)
-        UserDefaults.standard.set(sanitizedName, forKey: "userName")
+        // UserDefaults removed - using SecureStorage only for security
         
         // Exit editing mode with animation
         withAnimation(.easeInOut(duration: 0.3)) {

@@ -34,11 +34,9 @@ struct FitApp: App {
                                 .environmentObject(weeklyGoalManager)
                         }
                         .onAppear {
-                            // Set default username if not already set in either storage
-                            if SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName) == nil &&
-                               UserDefaults.standard.string(forKey: "userName") == nil {
+                            // Set default username if not already set in secure storage
+                            if SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName) == nil {
                                 _ = SecureStorage.shared.storeEncrypted("Antonio", for: SecureStorage.StorageKeys.userDisplayName)
-                                UserDefaults.standard.set("Antonio", forKey: "userName")
                             }
                         }
                         .transition(.move(edge: .bottom).combined(with: .opacity))

@@ -12,9 +12,8 @@ struct GoodbyeView: View {
             return userProfileManager.formattedDisplayName
         }
         
-        // Fallback to UserDefaults
-        if let name = SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName) ?? 
-                     UserDefaults.standard.string(forKey: "userName"), !name.isEmpty {
+        // Get name from secure storage only
+        if let name = SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName), !name.isEmpty {
             return name
         }
         
