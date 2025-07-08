@@ -15,9 +15,8 @@ class AuthViewModel: ObservableObject {
     // User Profile Manager
     @ObservedObject private var userProfileManager = UserProfileManager.shared
     
-    // Dummy credentials
-    private let dummyEmail = "test@test.com"
-    private let dummyPassword = "123456"
+    // Secure Authentication Service
+    private let secureAuth = SecureAuthService.shared
     
     init() {
         print("🔐 Initializing AuthViewModel...")
@@ -33,34 +32,43 @@ class AuthViewModel: ObservableObject {
     }
     
     func login() {
+        print("🔐 AuthViewModel: Starting secure login process")
         errorMessage = nil
         
-        if email == dummyEmail && password == dummyPassword {
+        // Use secure authentication service
+        let result = secureAuth.login(email: email, password: password)
+        
+        switch result {
+        case .success(let user):
+            print("🔐 AuthViewModel: Login successful for user: \(user.email)")
             isAuthenticated = true
-            // Create user profile for regular login
-            userProfileManager.handleRegularSignIn(email: email)
-        } else {
-            errorMessage = "Email o contraseña incorrectos"
+            // Create user profile for secure login
+            userProfileManager.handleRegularSignIn(email: user.email)
+            
+        case .failure(let error):
+            print("🔐 AuthViewModel: Login failed - \(error.localizedDescription)")
+            errorMessage = error.localizedDescription
         }
     }
     
     func register() {
+        print("🔐 AuthViewModel: Starting secure registration process")
         errorMessage = nil
         
-        if email.isEmpty {
-            errorMessage = "El email no puede estar vacío"
-            return
-        }
+        // Use secure authentication service for registration
+        let result = secureAuth.register(email: email, password: password, confirmPassword: confirmPassword)
         
-        if password != confirmPassword {
-            errorMessage = "Las contraseñas no coinciden"
-            return
+        switch result {
+        case .success(let user):
+            print("🔐 AuthViewModel: Registration successful for user: \(user.email)")
+            isAuthenticated = true
+            // Create user profile for new registration
+            userProfileManager.handleRegularSignIn(email: user.email)
+            
+        case .failure(let error):
+            print("🔐 AuthViewModel: Registration failed - \(error.localizedDescription)")
+            errorMessage = error.localizedDescription
         }
-        
-        // Simulate successful registration
-        isAuthenticated = true
-        // Create user profile for new registration
-        userProfileManager.handleRegularSignIn(email: email)
     }
     
     func logout() {
@@ -70,6 +78,9 @@ class AuthViewModel: ObservableObject {
         if appleSignInManager.isAppleUser {
             print("   - Signing out Apple user")
             appleSignInManager.signOut()
+        } else {
+            // Use secure authentication service for regular logout
+            _ = secureAuth.logout()
         }
         
         // Sign out user profile
@@ -134,6 +145,18 @@ class AuthViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.isAuthenticated = true
                 print("✅ Apple user auto-logged in successfully")
+            }
+        } else if secureAuth.isUserLoggedIn() {
+            // Check for secure authentication session
+            if let currentUser = secureAuth.getCurrentUser() {
+                print("   - Found existing secure user session for: \(currentUser)")
+                print("   - Auto-logging in secure user...")
+                
+                DispatchQueue.main.async {
+                    self.isAuthenticated = true
+                    self.email = currentUser
+                    print("✅ Secure user auto-logged in successfully")
+                }
             }
         }
     }

@@ -38,6 +38,8 @@
 		G9H8F9I8D7F5743HHICDEFIJ /* SignOutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = K0J9F8I9E7G6123567890123 /* SignOutButton.swift */; };
 		H0I9G8J9F8G6744IIJDEFKL /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = L1K0G9J0F8H7234678901234 /* WelcomeView.swift */; };
 		I1J0H9K0G8H7755JJKDEFMN /* GoodbyeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = M2L1H0K1G8I8345789012345 /* GoodbyeView.swift */; };
+		J2K1I0L1H8I9866KKDEFOP /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = N3M2I1L2H9J9456890123456 /* SecureStorage.swift */; };
+		K3L2J1M2I9J0977LLDEFQR /* SecureAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = O4N3J2M3I0K0567901234567 /* SecureAuthService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +77,8 @@
 		K0J9F8I9E7G6123567890123 /* SignOutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutButton.swift; sourceTree = "<group>"; };
 		L1K0G9J0F8H7234678901234 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		M2L1H0K1G8I8345789012345 /* GoodbyeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodbyeView.swift; sourceTree = "<group>"; };
+		N3M2I1L2H9J9456890123456 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
+		O4N3J2M3I0K0567901234567 /* SecureAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureAuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +139,8 @@
 				K0J9F8I9E7G6123567890123 /* SignOutButton.swift */,
 				L1K0G9J0F8H7234678901234 /* WelcomeView.swift */,
 				M2L1H0K1G8I8345789012345 /* GoodbyeView.swift */,
+				N3M2I1L2H9J9456890123456 /* SecureStorage.swift */,
+				O4N3J2M3I0K0567901234567 /* SecureAuthService.swift */,
 				20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */,
 				20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
@@ -245,6 +251,8 @@
 				G9H8F9I8D7F5743HHICDEFIJ /* SignOutButton.swift in Sources */,
 				H0I9G8J9F8G6744IIJDEFKL /* WelcomeView.swift in Sources */,
 				I1J0H9K0G8H7755JJKDEFMN /* GoodbyeView.swift in Sources */,
+				J2K1I0L1H8I9866KKDEFOP /* SecureStorage.swift in Sources */,
+				K3L2J1M2I9J0977LLDEFQR /* SecureAuthService.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
