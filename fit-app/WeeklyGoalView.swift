@@ -453,7 +453,15 @@ struct WeeklyGoalView: View {
     
     // MARK: - Functions
     private func saveGoal() {
-        UserDefaults.standard.set(weeklyGoal, forKey: "weeklyGoal")
+        // Validate weekly goal range (1-7 workouts per week is reasonable)
+        let validatedGoal = max(1, min(weeklyGoal, 7))
+        
+        // Update the state if validation changed the value
+        if validatedGoal != weeklyGoal {
+            weeklyGoal = validatedGoal
+        }
+        
+        UserDefaults.standard.set(validatedGoal, forKey: "weeklyGoal")
         
         // Notify WeeklyGoalManager about the goal change
         NotificationCenter.default.post(name: .weeklyGoalChanged, object: weeklyGoal)

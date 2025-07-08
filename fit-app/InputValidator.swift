@@ -18,7 +18,7 @@ class InputValidator {
         let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Remove potentially dangerous characters for injection prevention
-        let sanitized = trimmed
+        var sanitized = trimmed
             .replacingOccurrences(of: "<", with: "")          // HTML tags
             .replacingOccurrences(of: ">", with: "")          // HTML tags
             .replacingOccurrences(of: "\"", with: "")         // Double quotes
@@ -45,6 +45,22 @@ class InputValidator {
             .replacingOccurrences(of: "]", with: "")          // Brackets
             .replacingOccurrences(of: "{", with: "")          // Braces
             .replacingOccurrences(of: "}", with: "")          // Braces
+        
+        // Remove dangerous SQL injection patterns
+        let sqlPatterns = ["DROP", "DELETE", "INSERT", "UPDATE", "SELECT", "UNION", "EXEC", "SCRIPT", "ALERT", "PROMPT"]
+        for pattern in sqlPatterns {
+            sanitized = sanitized.replacingOccurrences(of: pattern, with: "", options: .caseInsensitive)
+        }
+        
+        // Remove suspicious URL patterns and protocols
+        let urlPatterns = ["javascript:", "data:", "vbscript:", "file:", "http://", "https://", "ftp://"]
+        for pattern in urlPatterns {
+            sanitized = sanitized.replacingOccurrences(of: pattern, with: "", options: .caseInsensitive)
+        }
+        
+        // Remove null bytes and control characters
+        sanitized = sanitized.replacingOccurrences(of: "\\0", with: "")
+        sanitized = sanitized.components(separatedBy: .controlCharacters).joined()
         
         // Normalize multiple spaces to single space
         let normalized = sanitized.replacingOccurrences(
@@ -112,16 +128,38 @@ class InputValidator {
             return ValidationResult(isValid: false, errorMessage: "El email es demasiado largo")
         }
         
-        // Comprehensive email regex pattern
-        let emailRegex = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"
+        // More strict and realistic email regex pattern
+        // This pattern validates:
+        // - Local part: 1-64 characters, alphanumeric, dots, hyphens, underscores
+        // - No consecutive dots, no dots at start/end of local part
+        // - Domain: valid domain format with proper TLD (2-6 characters)
+        let emailRegex = "^[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?@[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?\\.[a-zA-Z]{2,6}$"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         
         guard emailPredicate.evaluate(with: sanitizedEmail) else {
             return ValidationResult(isValid: false, errorMessage: "Formato de email inválido")
         }
         
-        // Additional security checks
-        if sanitizedEmail.contains("..") || sanitizedEmail.hasPrefix(".") || sanitizedEmail.hasSuffix(".") {
+        // Additional strict security checks
+        if sanitizedEmail.contains("..") || 
+           sanitizedEmail.hasPrefix(".") || 
+           sanitizedEmail.hasSuffix(".") ||
+           sanitizedEmail.contains("@.") ||
+           sanitizedEmail.contains(".@") {
+            return ValidationResult(isValid: false, errorMessage: "Formato de email inválido")
+        }
+        
+        // Check for suspicious domains and patterns
+        let suspiciousDomains = ["test.com", "example.com", "localhost", "temp-mail", "10minutemail", "guerrillamail"]
+        let domain = String(sanitizedEmail.split(separator: "@").last ?? "")
+        
+        if suspiciousDomains.contains(where: domain.lowercased().contains) {
+            return ValidationResult(isValid: false, errorMessage: "Dominio de email no válido")
+        }
+        
+        // Check local part length (before @)
+        let localPart = String(sanitizedEmail.split(separator: "@").first ?? "")
+        guard localPart.count >= 1 && localPart.count <= 64 else {
             return ValidationResult(isValid: false, errorMessage: "Formato de email inválido")
         }
         
@@ -171,13 +209,146 @@ class InputValidator {
             return ValidationResult(isValid: false, errorMessage: "La contraseña debe contener al menos una letra minúscula")
         }
         
-        // Check for common weak passwords
-        let weakPasswords = ["12345678", "password", "password1", "123456789", "qwerty123", "abc123456"]
+        // Check for special characters (more secure passwords)
+        let specialCharRegex = ".*[!@#$%^&*(),.?\":{}|<>\\-_+=\\[\\]\\\\;'~/`]+.*"
+        let hasSpecialChar = NSPredicate(format: "SELF MATCHES %@", specialCharRegex).evaluate(with: password)
+        
+        if !hasSpecialChar {
+            return ValidationResult(isValid: false, errorMessage: "La contraseña debe contener al menos un carácter especial (!@#$%^&*)")
+        }
+        
+        // Check for sequential characters (123, abc, etc.)
+        let sequentialPatterns = ["123", "234", "345", "456", "567", "678", "789", "abc", "bcd", "cde", "def", "efg", "fgh", "ghi"]
+        for pattern in sequentialPatterns {
+            if password.lowercased().contains(pattern) || password.lowercased().contains(String(pattern.reversed())) {
+                return ValidationResult(isValid: false, errorMessage: "La contraseña no puede contener secuencias obvias")
+            }
+        }
+        
+        // Check for repeated characters (aaa, 111, etc.)
+        let repeatedPattern = ".*([a-zA-Z0-9])\\1{2,}.*"
+        if NSPredicate(format: "SELF MATCHES %@", repeatedPattern).evaluate(with: password) {
+            return ValidationResult(isValid: false, errorMessage: "La contraseña no puede tener más de 2 caracteres iguales consecutivos")
+        }
+        
+        // Expanded list of common weak passwords
+        let weakPasswords = [
+            "12345678", "password", "password1", "123456789", "qwerty123", "abc123456",
+            "password123", "admin123", "letmein", "welcome", "monkey", "dragon",
+            "qwerty", "123123", "111111", "654321", "superman", "iloveyou",
+            "trustno1", "sunshine", "master", "123qwe", "welcome123", "admin",
+            "qwerty12", "password12", "123abc", "test123", "user123", "pass123"
+        ]
+        
         if weakPasswords.contains(password.lowercased()) {
             return ValidationResult(isValid: false, errorMessage: "Esta contraseña es demasiado común. Usa una más segura")
         }
         
+        // Check for personal information patterns (common names, dates)
+        let personalPatterns = ["antonio", "maria", "juan", "ana", "carlos", "luis", "jose", "2023", "2024", "2025"]
+        for pattern in personalPatterns {
+            if password.lowercased().contains(pattern) {
+                return ValidationResult(isValid: false, errorMessage: "La contraseña no debe contener información personal obvia")
+            }
+        }
+        
         return ValidationResult(isValid: true, errorMessage: nil)
+    }
+    
+    /// Enhanced password validation with suggestions
+    /// - Parameter password: Password string to validate
+    /// - Returns: EnhancedValidationResult with suggestions for improvement
+    func validatePasswordWithSuggestions(_ password: String) -> EnhancedValidationResult {
+        var suggestions: [String] = []
+        var severity: EnhancedValidationResult.ValidationSeverity = .error
+        
+        // Don't sanitize passwords as it might affect legitimate characters
+        guard !password.isEmpty else {
+            return EnhancedValidationResult.failure("La contraseña es requerida", severity: .error)
+        }
+        
+        // Check minimum length
+        if password.count < 8 {
+            suggestions.append("Agrega más caracteres (mínimo 8)")
+            return EnhancedValidationResult.failure("La contraseña debe tener al menos 8 caracteres", severity: .error, suggestions: suggestions)
+        }
+        
+        // Check maximum length
+        if password.count > 128 {
+            return EnhancedValidationResult.failure("La contraseña es demasiado larga", severity: .error)
+        }
+        
+        // Check for character type requirements
+        let hasUppercase = NSPredicate(format: "SELF MATCHES %@", ".*[A-Z]+.*").evaluate(with: password)
+        let hasLowercase = NSPredicate(format: "SELF MATCHES %@", ".*[a-z]+.*").evaluate(with: password)
+        let hasNumber = NSPredicate(format: "SELF MATCHES %@", ".*[0-9]+.*").evaluate(with: password)
+        let hasSpecialChar = NSPredicate(format: "SELF MATCHES %@", ".*[!@#$%^&*(),.?\":{}|<>\\-_+=\\[\\]\\\\;'~/`]+.*").evaluate(with: password)
+        
+        if !hasUppercase {
+            suggestions.append("Agrega al menos una letra mayúscula")
+        }
+        if !hasLowercase {
+            suggestions.append("Agrega al menos una letra minúscula")
+        }
+        if !hasNumber {
+            suggestions.append("Agrega al menos un número")
+        }
+        if !hasSpecialChar {
+            suggestions.append("Agrega al menos un carácter especial (!@#$%^&*)")
+        }
+        
+        // Return early if basic requirements not met
+        if !hasUppercase || !hasLowercase || !hasNumber || !hasSpecialChar {
+            let missingRequirements = suggestions.joined(separator: ", ")
+            return EnhancedValidationResult.failure("Faltan requisitos: \(missingRequirements)", severity: .error, suggestions: suggestions)
+        }
+        
+        // Advanced security checks
+        var warnings: [String] = []
+        
+        // Check for sequential characters
+        let sequentialPatterns = ["123", "234", "345", "456", "567", "678", "789", "abc", "bcd", "cde", "def", "efg", "fgh", "ghi"]
+        for pattern in sequentialPatterns {
+            if password.lowercased().contains(pattern) || password.lowercased().contains(String(pattern.reversed())) {
+                warnings.append("Evita secuencias obvias como '123' o 'abc'")
+                severity = .warning
+                break
+            }
+        }
+        
+        // Check for repeated characters
+        if NSPredicate(format: "SELF MATCHES %@", ".*([a-zA-Z0-9])\\1{2,}.*").evaluate(with: password) {
+            warnings.append("Evita repetir el mismo carácter más de 2 veces")
+            severity = .warning
+        }
+        
+        // Check for common weak patterns
+        let weakPasswords = [
+            "12345678", "password", "password1", "123456789", "qwerty123", "abc123456",
+            "password123", "admin123", "letmein", "welcome", "monkey", "dragon"
+        ]
+        
+        if weakPasswords.contains(password.lowercased()) {
+            return EnhancedValidationResult.failure("Esta contraseña es demasiado común", severity: .critical, suggestions: ["Usa una combinación única de caracteres"])
+        }
+        
+        // Check for personal information
+        let personalPatterns = ["antonio", "maria", "juan", "ana", "carlos", "luis", "jose", "2023", "2024", "2025"]
+        for pattern in personalPatterns {
+            if password.lowercased().contains(pattern) {
+                warnings.append("Evita usar información personal en tu contraseña")
+                severity = .warning
+                break
+            }
+        }
+        
+        // Strong password achieved
+        if warnings.isEmpty {
+            return EnhancedValidationResult.success()
+        } else {
+            // Password is valid but has warnings
+            return EnhancedValidationResult(isValid: true, errorMessage: warnings.first, severity: severity, suggestions: warnings)
+        }
     }
     
     // MARK: - Name Validation
@@ -445,6 +616,39 @@ class InputValidator {
 struct ValidationResult {
     let isValid: Bool
     let errorMessage: String?
+    
+    /// Create a successful validation result
+    static func success() -> ValidationResult {
+        return ValidationResult(isValid: true, errorMessage: nil)
+    }
+    
+    /// Create a failed validation result with error message
+    static func failure(_ message: String) -> ValidationResult {
+        return ValidationResult(isValid: false, errorMessage: message)
+    }
+}
+
+/// Enhanced validation result with severity levels
+struct EnhancedValidationResult {
+    let isValid: Bool
+    let errorMessage: String?
+    let severity: ValidationSeverity
+    let suggestions: [String]
+    
+    enum ValidationSeverity {
+        case info       // Informational message
+        case warning    // Warning that doesn't prevent submission
+        case error      // Critical error that prevents submission
+        case critical   // Security-related critical error
+    }
+    
+    static func success() -> EnhancedValidationResult {
+        return EnhancedValidationResult(isValid: true, errorMessage: nil, severity: .info, suggestions: [])
+    }
+    
+    static func failure(_ message: String, severity: ValidationSeverity = .error, suggestions: [String] = []) -> EnhancedValidationResult {
+        return EnhancedValidationResult(isValid: false, errorMessage: message, severity: severity, suggestions: suggestions)
+    }
 }
 
 /// Form validation result for login
@@ -469,4 +673,197 @@ struct WorkoutValidationResult {
     let typeError: String?
     let durationError: String?
     let caloriesError: String?
+}
+
+// MARK: - Validation UI Components
+extension InputValidator {
+    /// Create a standardized validation error view
+    /// - Parameters:
+    ///   - errorMessage: The error message to display
+    ///   - severity: The severity level of the error
+    /// - Returns: A SwiftUI view for displaying the error
+    static func createErrorView(errorMessage: String, severity: EnhancedValidationResult.ValidationSeverity = .error) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: severity.iconName)
+                .font(.system(size: 12, weight: .medium))
+                .foregroundColor(severity.color)
+            
+            Text(errorMessage)
+                .font(.system(size: 12, weight: .medium))
+                .foregroundColor(severity.color)
+            
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(severity.backgroundColor)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(severity.color.opacity(0.3), lineWidth: 1)
+                )
+        )
+        .transition(.opacity.combined(with: .move(edge: .top)))
+    }
+}
+
+extension EnhancedValidationResult.ValidationSeverity {
+    var iconName: String {
+        switch self {
+        case .info: return "info.circle"
+        case .warning: return "exclamationmark.triangle"
+        case .error: return "xmark.circle"
+        case .critical: return "exclamationmark.triangle.fill"
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .info: return .blue
+        case .warning: return .orange
+        case .error: return .red
+        case .critical: return .red
+        }
+    }
+    
+    var backgroundColor: Color {
+        switch self {
+        case .info: return .blue.opacity(0.1)
+        case .warning: return .orange.opacity(0.1)
+        case .error: return .red.opacity(0.1)
+        case .critical: return .red.opacity(0.15)
+        }
+    }
+}
+
+// MARK: - Testing and Validation Verification
+extension InputValidator {
+    
+    /// Comprehensive testing of all validation functions
+    /// - Returns: True if all tests pass, false otherwise
+    func runValidationTests() -> Bool {
+        print("🧪 Running comprehensive validation tests...")
+        
+        var testsPassedCount = 0
+        var totalTests = 0
+        
+        // Test email validation
+        let emailTests = [
+            ("test@example.com", true),
+            ("invalid.email", false),
+            ("user@domain.co", true),
+            ("", false),
+            ("test@.com", false),
+            ("test@domain.", false),
+            ("test@@domain.com", false),
+            ("test@test.com", false), // Should fail due to suspicious domain
+        ]
+        
+        print("📧 Testing email validation...")
+        for (email, shouldPass) in emailTests {
+            totalTests += 1
+            let result = isValidEmail(email)
+            if result.isValid == shouldPass {
+                testsPassedCount += 1
+                print("✅ Email test passed: '\(email)' -> \(result.isValid)")
+            } else {
+                print("❌ Email test failed: '\(email)' expected \(shouldPass), got \(result.isValid)")
+            }
+        }
+        
+        // Test password validation
+        let passwordTests = [
+            ("MyPassw0rd!", true),
+            ("weak", false),
+            ("NoNumbers!", false),
+            ("nonumbersupper!", false),
+            ("NOLOWERCASE123!", false),
+            ("NoSpecialChars123", false),
+            ("password123", false), // Common password
+            ("MyStr0ng#Pass", true),
+        ]
+        
+        print("🔒 Testing password validation...")
+        for (password, shouldPass) in passwordTests {
+            totalTests += 1
+            let result = isValidPassword(password)
+            if result.isValid == shouldPass {
+                testsPassedCount += 1
+                print("✅ Password test passed: '\(password.prefix(3))***' -> \(result.isValid)")
+            } else {
+                print("❌ Password test failed: '\(password.prefix(3))***' expected \(shouldPass), got \(result.isValid)")
+            }
+        }
+        
+        // Test input sanitization
+        let sanitizationTests = [
+            ("<script>alert('xss')</script>", "scriptalert'xss'script"),
+            ("Normal text", "Normal text"),
+            ("Text with <tags>", "Text with tags"),
+            ("Multiple    spaces", "Multiple spaces"),
+            ("  Leading and trailing  ", "Leading and trailing"),
+        ]
+        
+        print("🧽 Testing input sanitization...")
+        for (input, expected) in sanitizationTests {
+            totalTests += 1
+            let result = sanitizeInput(input)
+            if result == expected {
+                testsPassedCount += 1
+                print("✅ Sanitization test passed: '\(input)' -> '\(result)'")
+            } else {
+                print("❌ Sanitization test failed: '\(input)' expected '\(expected)', got '\(result)'")
+            }
+        }
+        
+        // Test name validation
+        let nameTests = [
+            ("Juan Carlos", true),
+            ("María José", true),
+            ("", false),
+            ("A", false), // Too short
+            ("John123", false), // Numbers not allowed
+            ("José-María", true),
+            ("VeryLongNameThatExceedsTheMaximumAllowedCharacterLimit", false),
+        ]
+        
+        print("👤 Testing name validation...")
+        for (name, shouldPass) in nameTests {
+            totalTests += 1
+            let result = isValidName(name)
+            if result.isValid == shouldPass {
+                testsPassedCount += 1
+                print("✅ Name test passed: '\(name)' -> \(result.isValid)")
+            } else {
+                print("❌ Name test failed: '\(name)' expected \(shouldPass), got \(result.isValid)")
+            }
+        }
+        
+        // Summary
+        let successRate = Double(testsPassedCount) / Double(totalTests) * 100
+        print("\n📊 Validation Test Summary:")
+        print("✅ Tests passed: \(testsPassedCount)/\(totalTests)")
+        print("📈 Success rate: \(String(format: "%.1f", successRate))%")
+        
+        let allTestsPassed = testsPassedCount == totalTests
+        if allTestsPassed {
+            print("🎉 All validation tests passed!")
+        } else {
+            print("⚠️ Some validation tests failed. Please review implementation.")
+        }
+        
+        return allTestsPassed
+    }
+    
+    /// Quick validation test for debugging
+    /// - Returns: True if basic validations work
+    func quickValidationTest() -> Bool {
+        let emailTest = isValidEmail("test@valid.com").isValid
+        let passwordTest = isValidPassword("MyStr0ng#Pass").isValid
+        let nameTest = isValidName("Juan Carlos").isValid
+        
+        print("🔍 Quick validation test: Email=\(emailTest), Password=\(passwordTest), Name=\(nameTest)")
+        return emailTest && passwordTest && nameTest
+    }
 }

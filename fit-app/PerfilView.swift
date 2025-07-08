@@ -17,6 +17,9 @@ struct PerfilView: View {
     // Name editing states
     @State private var isEditingName = false
     @State private var editingName = ""
+    @State private var nameError: String? = nil
+    
+    private let validator = InputValidator.shared
     @State private var showingNameUpdatedMessage = false
     
     private var weeklyGoal: Int {
@@ -688,13 +691,28 @@ struct PerfilView: View {
                             .fill(Color.white.opacity(0.2))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.white.opacity(0.4), lineWidth: 1.5)
+                                    .stroke(
+                                        nameError != nil ? Color.red.opacity(0.8) : Color.white.opacity(0.4), 
+                                        lineWidth: nameError != nil ? 2 : 1.5
+                                    )
                             )
                     )
                     .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+                    .onChange(of: editingName) { _ in
+                        validateNameField()
+                    }
                     .onSubmit {
                         saveNameChange()
                     }
+            }
+            
+            // Name error message
+            if let nameError = nameError {
+                Text(nameError)
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.red.opacity(0.9))
+                    .padding(.horizontal, 16)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
             }
             
             HStack(spacing: 16) {
@@ -768,26 +786,34 @@ struct PerfilView: View {
     
     // MARK: - Name Editing Actions
     
+    private func validateNameField() {
+        let result = validator.isValidName(editingName)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            nameError = result.isValid ? nil : result.errorMessage
+        }
+    }
+    
     private func saveNameChange() {
-        let trimmedName = editingName.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        // Validation
-        guard !trimmedName.isEmpty else {
+        // Validate first
+        let validationResult = validator.isValidName(editingName)
+        guard validationResult.isValid else {
+            nameError = validationResult.errorMessage
             return
         }
+        // Sanitize the input
+        let sanitizedName = validator.sanitizeInput(editingName)
         
-        guard trimmedName.count <= 30 else {
-            return
-        }
+        // Clear any existing error
+        nameError = nil
         
         // Update UserProfileManager
-        userProfileManager.updateDisplayName(trimmedName)
+        userProfileManager.updateDisplayName(sanitizedName)
         
         // Store securely in Keychain
-        _ = SecureStorage.shared.storeEncrypted(trimmedName, for: SecureStorage.StorageKeys.userDisplayName)
+        _ = SecureStorage.shared.storeEncrypted(sanitizedName, for: SecureStorage.StorageKeys.userDisplayName)
         
         // Also update UserDefaults for backwards compatibility (during migration period)
-        UserDefaults.standard.set(trimmedName, forKey: "userName")
+        UserDefaults.standard.set(sanitizedName, forKey: "userName")
         
         // Exit editing mode with animation
         withAnimation(.easeInOut(duration: 0.3)) {
@@ -807,7 +833,7 @@ struct PerfilView: View {
             }
         }
         
-        print("✅ User name updated to: \(trimmedName)")
+        print("✅ User name updated to: \(sanitizedName)")
     }
 }
 

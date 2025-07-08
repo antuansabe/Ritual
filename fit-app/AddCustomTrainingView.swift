@@ -67,6 +67,9 @@ struct AddCustomTrainingView: View {
     @State private var trainingName: String = ""
     @State private var selectedIcon: String = "figure.run"
     @State private var animateOnAppear = false
+    @State private var nameError: String? = nil
+    
+    private let validator = InputValidator.shared
     @State private var showSuccess = false
     @State private var showError = false
     @State private var errorMessage = ""
@@ -242,11 +245,29 @@ struct AddCustomTrainingView: View {
                             .fill(.ultraThinMaterial.opacity(0.3))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
-                                    .stroke(AppConstants.Design.electricBlue.opacity(0.4), lineWidth: 2)
+                                    .stroke(
+                                        nameError != nil ? Color.red.opacity(0.8) : AppConstants.Design.electricBlue.opacity(0.4), 
+                                        lineWidth: nameError != nil ? 3 : 2
+                                    )
                             )
                     )
+                    .onChange(of: trainingName) { _ in
+                        validateTrainingName()
+                    }
                     .textInputAutocapitalization(.words)
                     .autocorrectionDisabled()
+                
+                // Training name error message
+                if let nameError = nameError {
+                    HStack {
+                        Text(nameError)
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(.red.opacity(0.9))
+                            .padding(.horizontal, 20)
+                        Spacer()
+                    }
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+                }
                 
                 HStack {
                     Image(systemName: "info.circle")
@@ -396,18 +417,34 @@ struct AddCustomTrainingView: View {
     }
     
     // MARK: - Helper Functions
+    
+    private func validateTrainingName() {
+        let result = validator.isValidWorkoutType(trainingName)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            nameError = result.isValid ? nil : result.errorMessage
+        }
+    }
+    
     private func isFormValid() -> Bool {
-        return !trainingName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        let result = validator.isValidWorkoutType(trainingName)
+        return result.isValid
     }
     
     private func saveCustomTraining() {
-        let trimmedName = trainingName.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        guard !trimmedName.isEmpty else {
-            errorMessage = "Por favor, ingresa un nombre para el entrenamiento"
+        // Validate first
+        let validationResult = validator.isValidWorkoutType(trainingName)
+        guard validationResult.isValid else {
+            nameError = validationResult.errorMessage
+            errorMessage = validationResult.errorMessage ?? "Nombre de entrenamiento inválido"
             showError = true
             return
         }
+        
+        // Sanitize the input
+        let sanitizedName = validator.sanitizeInput(trainingName)
+        
+        // Clear any errors
+        nameError = nil
         
         guard customTrainingManager.canAddMoreTrainings() else {
             errorMessage = "Ya tienes el máximo de entrenamientos personalizados (4)"
@@ -416,13 +453,13 @@ struct AddCustomTrainingView: View {
         }
         
         // Check for duplicate names
-        if customTrainingManager.customTrainings.contains(where: { $0.name.lowercased() == trimmedName.lowercased() }) {
+        if customTrainingManager.customTrainings.contains(where: { $0.name.lowercased() == sanitizedName.lowercased() }) {
             errorMessage = "Ya existe un entrenamiento con ese nombre"
             showError = true
             return
         }
         
-        let newTraining = CustomTraining(name: trimmedName, iconName: selectedIcon)
+        let newTraining = CustomTraining(name: sanitizedName, iconName: selectedIcon)
         
         if customTrainingManager.addCustomTraining(newTraining) {
             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
