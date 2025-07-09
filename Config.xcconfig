@@ -1,0 +1,8 @@
+// Configuration for RELEASE builds
+// Environment variables should be set in the CI/CD pipeline or production environment
+
+API_KEY = $(API_KEY)
+DATABASE_URL = $(DATABASE_URL)
+ENCRYPTION_KEY = $(ENCRYPTION_KEY)
+CLOUDKIT_CONTAINER = $(CLOUDKIT_CONTAINER)
+APPLE_SIGNIN_CLIENT_ID = $(APPLE_SIGNIN_CLIENT_ID)

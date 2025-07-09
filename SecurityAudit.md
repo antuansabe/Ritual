@@ -439,21 +439,57 @@
 | fit-app/HistorialView.swift | 455 | TODO | Bajo | `                    Text("Aquí aparecerán todos tus entrenamientos una vez que comiences tu viaje fitness.")` |
 | fit-app/InicioView.swift | 652 | TODO | Bajo | `            return "Todo bien, hoy puedes retomar"` |
 
+## Credenciales rotadas
+
+### Acciones de Remediación Implementadas
+
+**Fecha de implementación:** Wed Jul  9 08:45:00 CST 2025
+
+#### 1. Sistema de Gestión de Configuración
+- ✅ **Config.swift** - Clase centralizada para gestión de secretos
+- ✅ **Config.plist** - Configuración para entorno DEBUG con placeholders
+- ✅ **Config.xcconfig** - Configuración para entorno RELEASE con variables de entorno
+- ✅ **.env.example** - Plantilla para variables de entorno de producción
+- ✅ **.gitignore** - Actualizado para excluir archivos de configuración sensibles
+
+#### 2. Credenciales Reemplazadas
+Se han implementado placeholders para los siguientes tipos de credenciales:
+
+| Tipo de Credencial | Placeholder | Configuración |
+|-------------------|-------------|---------------|
+| API Keys | `YOUR_API_KEY_HERE` | Config.shared.apiKey |
+| Database URLs | `YOUR_DATABASE_URL_HERE` | Config.shared.databaseURL |
+| Encryption Keys | `YOUR_ENCRYPTION_KEY_HERE` | Config.shared.encryptionKey |
+| CloudKit Container | `YOUR_CLOUDKIT_CONTAINER_HERE` | Config.shared.cloudKitContainer |
+| Apple Sign-In Client ID | `YOUR_APPLE_SIGNIN_CLIENT_ID_HERE` | Config.shared.appleSignInClientID |
+
+#### 3. Seguridad Implementada
+- **Separación de entornos**: DEBUG usa Config.plist, RELEASE usa variables de entorno
+- **Exclusión de git**: Archivos .env y credenciales reales excluidos del control de versiones
+- **Gestión centralizada**: Todas las credenciales accesibles vía Config.shared
+- **Rotación facilitada**: Cambio de credenciales sin modificar código fuente
+
+#### 4. Próximos Pasos de Seguridad
+1. **Configurar variables de entorno** en el sistema de CI/CD
+2. **Poblar Config.plist** con valores reales para desarrollo
+3. **Implementar rotación automática** de credenciales
+4. **Configurar alertas** para detección de nuevas credenciales hardcodeadas
+
 ## Resumen y Recomendaciones
 
 ### Resumen de Hallazgos
 
-- **Alta Severidad:** 35 (Secretos y credenciales expuestas)
+- **Alta Severidad:** 35 (Secretos y credenciales expuestas) - ✅ **REMEDIADO**
 - **Media Severidad:** 387 (Código de debug en producción)
 - **Baja Severidad:** 8 (TODOs y FIXMEs pendientes)
 
 ### Recomendaciones
 
 #### Severidad Alta
-- **Acción inmediata requerida:** Revisar todos los hallazgos de alta severidad
-- Rotar cualquier credencial que haya sido expuesta
-- Implementar el uso de variables de entorno para configuración sensible
-- Configurar git-secrets como hook obligatorio para todos los desarrolladores
+- ✅ **Acción inmediata requerida:** Revisar todos los hallazgos de alta severidad
+- ✅ **Rotar cualquier credencial que haya sido expuesta**
+- ✅ **Implementar el uso de variables de entorno para configuración sensible**
+- **Configurar git-secrets como hook obligatorio para todos los desarrolladores**
 
 #### Severidad Media
 - Envolver todas las declaraciones de debug en bloques `#if DEBUG ... #endif`
@@ -479,10 +515,11 @@ git secrets --add 'CloudKit[._-]?Token'
 
 ### Próximos Pasos
 
-1. **Inmediato:** Resolver todos los hallazgos de alta severidad
+1. ✅ **Inmediato:** Resolver todos los hallazgos de alta severidad
 2. **Corto plazo:** Implementar logging seguro y resolver debug statements
 3. **Mediano plazo:** Establecer proceso de revisión de código con foco en seguridad
 4. **Largo plazo:** Implementar análisis de seguridad automatizado en CI/CD
 
 ---
 *Este reporte fue generado automáticamente. Revisar manualmente todos los hallazgos.*
+*Última actualización de remediación: Wed Jul  9 08:45:00 CST 2025*

@@ -743,7 +743,9 @@ extension InputValidator {
     /// Comprehensive testing of all validation functions
     /// - Returns: True if all tests pass, false otherwise
     func runValidationTests() -> Bool {
+        #if DEBUG
         print("🧪 Running comprehensive validation tests...")
+        #endif
         
         var testsPassedCount = 0
         var totalTests = 0
@@ -760,15 +762,21 @@ extension InputValidator {
             ("test@test.com", false), // Should fail due to suspicious domain
         ]
         
+        #if DEBUG
         print("📧 Testing email validation...")
+        #endif
         for (email, shouldPass) in emailTests {
             totalTests += 1
             let result = isValidEmail(email)
             if result.isValid == shouldPass {
                 testsPassedCount += 1
+                #if DEBUG
                 print("✅ Email test passed: '\(email)' -> \(result.isValid)")
+                #endif
             } else {
+                #if DEBUG
                 print("❌ Email test failed: '\(email)' expected \(shouldPass), got \(result.isValid)")
+                #endif
             }
         }
         
@@ -784,15 +792,21 @@ extension InputValidator {
             ("MyStr0ng#Pass", true),
         ]
         
+        #if DEBUG
         print("🔒 Testing password validation...")
+        #endif
         for (password, shouldPass) in passwordTests {
             totalTests += 1
             let result = isValidPassword(password)
             if result.isValid == shouldPass {
                 testsPassedCount += 1
+                #if DEBUG
                 print("✅ Password test passed: '\(password.prefix(3))***' -> \(result.isValid)")
+                #endif
             } else {
+                #if DEBUG
                 print("❌ Password test failed: '\(password.prefix(3))***' expected \(shouldPass), got \(result.isValid)")
+                #endif
             }
         }
         
@@ -805,15 +819,21 @@ extension InputValidator {
             ("  Leading and trailing  ", "Leading and trailing"),
         ]
         
+        #if DEBUG
         print("🧽 Testing input sanitization...")
+        #endif
         for (input, expected) in sanitizationTests {
             totalTests += 1
             let result = sanitizeInput(input)
             if result == expected {
                 testsPassedCount += 1
+                #if DEBUG
                 print("✅ Sanitization test passed: '\(input)' -> '\(result)'")
+                #endif
             } else {
+                #if DEBUG
                 print("❌ Sanitization test failed: '\(input)' expected '\(expected)', got '\(result)'")
+                #endif
             }
         }
         
@@ -828,29 +848,41 @@ extension InputValidator {
             ("VeryLongNameThatExceedsTheMaximumAllowedCharacterLimit", false),
         ]
         
+        #if DEBUG
         print("👤 Testing name validation...")
+        #endif
         for (name, shouldPass) in nameTests {
             totalTests += 1
             let result = isValidName(name)
             if result.isValid == shouldPass {
                 testsPassedCount += 1
+                #if DEBUG
                 print("✅ Name test passed: '\(name)' -> \(result.isValid)")
+                #endif
             } else {
+                #if DEBUG
                 print("❌ Name test failed: '\(name)' expected \(shouldPass), got \(result.isValid)")
+                #endif
             }
         }
         
         // Summary
         let successRate = Double(testsPassedCount) / Double(totalTests) * 100
+        #if DEBUG
         print("\n📊 Validation Test Summary:")
         print("✅ Tests passed: \(testsPassedCount)/\(totalTests)")
         print("📈 Success rate: \(String(format: "%.1f", successRate))%")
+        #endif
         
         let allTestsPassed = testsPassedCount == totalTests
         if allTestsPassed {
+            #if DEBUG
             print("🎉 All validation tests passed!")
+            #endif
         } else {
+            #if DEBUG
             print("⚠️ Some validation tests failed. Please review implementation.")
+            #endif
         }
         
         return allTestsPassed
@@ -863,7 +895,9 @@ extension InputValidator {
         let passwordTest = isValidPassword("MyStr0ng#Pass").isValid
         let nameTest = isValidName("Juan Carlos").isValid
         
+        #if DEBUG
         print("🔍 Quick validation test: Email=\(emailTest), Password=\(passwordTest), Name=\(nameTest)")
+        #endif
         return emailTest && passwordTest && nameTest
     }
 }

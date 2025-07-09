@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>API_KEY</key>
+    <string>debug_api_key_placeholder</string>
+    <key>DATABASE_URL</key>
+    <string>debug_database_url_placeholder</string>
+    <key>ENCRYPTION_KEY</key>
+    <string>debug_encryption_key_placeholder</string>
+    <key>CLOUDKIT_CONTAINER</key>
+    <string>debug_cloudkit_container_placeholder</string>
+    <key>APPLE_SIGNIN_CLIENT_ID</key>
+    <string>debug_apple_signin_client_id_placeholder</string>
+</dict>
+</plist>

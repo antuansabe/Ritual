@@ -22,23 +22,31 @@ class SecureStorage {
     func encrypt(value: String) -> String? {
         guard let masterKey = getOrCreateEncryptionKey(),
               let data = value.data(using: .utf8) else {
+            #if DEBUG
             print("🔐 SecureStorage: Failed to prepare data for encryption")
+            #endif
             return nil
         }
         
         do {
             let sealedBox = try AES.GCM.seal(data, using: masterKey)
             guard let encryptedData = sealedBox.combined else {
+                #if DEBUG
                 print("🔐 SecureStorage: Failed to get combined encrypted data")
+                #endif
                 return nil
             }
             
             let base64Encrypted = encryptedData.base64EncodedString()
+            #if DEBUG
             print("🔐 SecureStorage: Successfully encrypted data (length: \(base64Encrypted.count))")
+            #endif
             return base64Encrypted
             
         } catch {
+            #if DEBUG
             print("🔐 SecureStorage: Encryption failed - \(error.localizedDescription)")
+            #endif
             return nil
         }
     }
@@ -49,7 +57,9 @@ class SecureStorage {
     func decrypt(value encryptedValue: String) -> String? {
         guard let masterKey = getOrCreateEncryptionKey(),
               let encryptedData = Data(base64Encoded: encryptedValue) else {
+            #if DEBUG
             print("🔐 SecureStorage: Failed to prepare encrypted data for decryption")
+            #endif
             return nil
         }
         
@@ -58,15 +68,21 @@ class SecureStorage {
             let decryptedData = try AES.GCM.open(sealedBox, using: masterKey)
             
             guard let decryptedString = String(data: decryptedData, encoding: .utf8) else {
+                #if DEBUG
                 print("🔐 SecureStorage: Failed to convert decrypted data to string")
+                #endif
                 return nil
             }
             
+            #if DEBUG
             print("🔐 SecureStorage: Successfully decrypted data")
+            #endif
             return decryptedString
             
         } catch {
+            #if DEBUG
             print("🔐 SecureStorage: Decryption failed - \(error.localizedDescription)")
+            #endif
             return nil
         }
     }
@@ -76,7 +92,9 @@ class SecureStorage {
     private func getOrCreateEncryptionKey() -> SymmetricKey? {
         // Try to retrieve existing key
         if let existingKeyData = retrieveRawKeyData(for: encryptionKeyAlias) {
+            #if DEBUG
             print("🔐 SecureStorage: Retrieved existing encryption key")
+            #endif
             return SymmetricKey(data: existingKeyData)
         }
         
@@ -86,10 +104,14 @@ class SecureStorage {
         
         // Store the new key securely in Keychain
         if storeRawKeyData(keyData, for: encryptionKeyAlias) {
+            #if DEBUG
             print("🔐 SecureStorage: Generated and stored new encryption key")
+            #endif
             return newKey
         } else {
+            #if DEBUG
             print("🔐 SecureStorage: Failed to store new encryption key")
+            #endif
             return nil
         }
     }
@@ -161,7 +183,9 @@ class SecureStorage {
     /// - Returns: True if successful, false otherwise
     func storeEncrypted(_ value: String, for key: String) -> Bool {
         guard let encryptedValue = encrypt(value: value) else {
+            #if DEBUG
             print("🔐 SecureStorage: Failed to encrypt value for key: \(key)")
+            #endif
             return false
         }
         
@@ -193,7 +217,9 @@ class SecureStorage {
         delete(key: key)
         
         guard let data = value.data(using: .utf8) else {
+            #if DEBUG
             print("🔐 SecureStorage: Failed to convert value to data for key: \(key)")
+            #endif
             return false
         }
         
@@ -208,10 +234,14 @@ class SecureStorage {
         let status = SecItemAdd(query as CFDictionary, nil)
         
         if status == errSecSuccess {
+            #if DEBUG
             print("🔐 SecureStorage: Successfully stored data for key: \(key)")
+            #endif
             return true
         } else {
+            #if DEBUG
             print("🔐 SecureStorage: Failed to store data for key: \(key). Status: \(status)")
+            #endif
             return false
         }
     }
@@ -235,11 +265,15 @@ class SecureStorage {
         if status == errSecSuccess,
            let data = result as? Data,
            let value = String(data: data, encoding: .utf8) {
+            #if DEBUG
             print("🔐 SecureStorage: Successfully retrieved data for key: \(key)")
+            #endif
             return value
         } else {
             if status != errSecItemNotFound {
+                #if DEBUG
                 print("🔐 SecureStorage: Failed to retrieve data for key: \(key). Status: \(status)")
+                #endif
             }
             return nil
         }
@@ -256,10 +290,14 @@ class SecureStorage {
         let status = SecItemDelete(query as CFDictionary)
         
         if status == errSecSuccess || status == errSecItemNotFound {
+            #if DEBUG
             print("🔐 SecureStorage: Successfully deleted data for key: \(key)")
+            #endif
             return true
         } else {
+            #if DEBUG
             print("🔐 SecureStorage: Failed to delete data for key: \(key). Status: \(status)")
+            #endif
             return false
         }
     }
@@ -279,7 +317,9 @@ class SecureStorage {
     
     /// Clear all stored credentials (for logout)
     func clearAllCredentials() -> Bool {
+        #if DEBUG
         print("🔐 SecureStorage: Clearing all stored credentials")
+        #endif
         
         let success = delete(key: StorageKeys.userEmail) &&
                      delete(key: StorageKeys.hashedPassword) &&
@@ -289,9 +329,13 @@ class SecureStorage {
                      delete(key: StorageKeys.appleUserName)
         
         if success {
+            #if DEBUG
             print("🔐 SecureStorage: All credentials cleared successfully")
+            #endif
         } else {
+            #if DEBUG
             print("🔐 SecureStorage: Failed to clear some credentials")
+            #endif
         }
         
         return success
@@ -390,56 +434,74 @@ extension SecureStorage {
     
     /// Test secure storage functionality (for development/debugging)
     func testSecureStorage() -> Bool {
+        #if DEBUG
         print("🧪 Testing SecureStorage functionality...")
+        #endif
         
         let testKey = "test_secure_key"
         let testValue = "test_secure_value_12345"
         
         // Test encryption storage
         guard storeEncrypted(testValue, for: testKey) else {
+            #if DEBUG
             print("❌ Failed to store encrypted test value")
+            #endif
             return false
         }
         
         // Test encryption retrieval
         guard let retrievedValue = retrieveEncrypted(for: testKey),
               retrievedValue == testValue else {
+            #if DEBUG
             print("❌ Failed to retrieve or validate encrypted test value")
+            #endif
             return false
         }
         
         // Test deletion
         guard delete(key: testKey) else {
+            #if DEBUG
             print("❌ Failed to delete test value")
+            #endif
             return false
         }
         
         // Verify deletion
         if retrieveEncrypted(for: testKey) != nil {
+            #if DEBUG
             print("❌ Test value still exists after deletion")
+            #endif
             return false
         }
         
+        #if DEBUG
         print("✅ SecureStorage test passed successfully")
+        #endif
         return true
     }
     
     /// Verify migration status for sensitive keys
     func verifyMigrationStatus() {
+        #if DEBUG
         print("🔍 Verifying migration status...")
+        #endif
         
         let legacyKeys = ["userName", "userIdentifier", "userFullName", "AppleUserIdentifier", "AppleUserEmail", "AppleUserName"]
         let secureKeys = [StorageKeys.userDisplayName, StorageKeys.userFullName, StorageKeys.appleUserID, StorageKeys.appleUserEmail, StorageKeys.appleUserName]
         
         for key in legacyKeys {
             if UserDefaults.standard.string(forKey: key) != nil {
+                #if DEBUG
                 print("⚠️ Legacy data still exists in UserDefaults: \(key)")
+                #endif
             }
         }
         
         for key in secureKeys {
             if exists(key: key) {
+                #if DEBUG
                 print("✅ Secure data found in Keychain: \(key)")
+                #endif
             }
         }
     }
