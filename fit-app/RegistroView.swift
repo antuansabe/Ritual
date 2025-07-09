@@ -207,6 +207,7 @@ struct RegistroView: View {
     @State private var durationError: String? = nil
     @State private var typeError: String? = nil
     @State private var showValidationAlert = false
+    @State private var validationAlertMessage = "Por favor corrige los errores en el formulario"
     
     private let validator = InputValidator.shared
     
@@ -280,7 +281,7 @@ struct RegistroView: View {
                 showValidationAlert = false
             }
         } message: {
-            Text("Por favor corrige los errores en el formulario antes de continuar.")
+            Text(validationAlertMessage)
         }
     }
     
@@ -676,10 +677,33 @@ struct RegistroView: View {
         return durationError == nil && typeError == nil
     }
     
+    private func validateCompleteWorkout() -> Bool {
+        // Use the same validation pattern as the form
+        let durationValid = validator.isValidDuration(duracion).isValid
+        let typeValid = validator.isValidWorkoutType(tipoSeleccionado).isValid
+        
+        // Additional validation for calculated calories
+        if let durationInt = Int(duracion) {
+            let calories = AppConstants.calculateCalories(for: durationInt)
+            let caloriesValid = validator.isValidCalories(calories).isValid
+            return durationValid && typeValid && caloriesValid
+        }
+        
+        return false
+    }
+    
     // MARK: - Save Function
     private func saveWorkout() {
-        // Validate form first
+        // Validate form fields first
         guard validateForm() else {
+            validationAlertMessage = "Por favor corrige los errores en el formulario antes de continuar."
+            showValidationAlert = true
+            return
+        }
+        
+        // Validate complete workout data including calories
+        guard validateCompleteWorkout() else {
+            validationAlertMessage = "Los datos del entrenamiento no son válidos. Revisa la duración y el tipo de ejercicio."
             showValidationAlert = true
             return
         }
