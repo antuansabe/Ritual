@@ -502,7 +502,7 @@ struct InicioView: View {
             Spacer()
             
             if hasWorkoutToday {
-                Text("✅")
+                Text("[OK]")
                     .font(.title2)
             }
         }
@@ -525,7 +525,7 @@ struct InicioView: View {
             
             Spacer()
             
-            Text("🔥")
+            Text("[U+1F525]")
                 .font(.title3)
         }
         .padding(12)
@@ -619,16 +619,16 @@ struct InicioView: View {
     // Computed Properties for Daily Summary UI
     private var dailyMessage: String {
         if hasWorkoutToday {
-            return "¡Excelente trabajo hoy! 💪"
+            return "¡Excelente trabajo hoy! [U+1F4AA]"
         } else {
             let hour = Calendar.current.component(.hour, from: Date())
             switch hour {
             case 6..<12:
-                return "Hoy es un gran día para moverte 🌅"
+                return "Hoy es un gran día para moverte [U+1F305]"
             case 12..<18:
-                return "Aún puedes regalarte unos minutos 🧘‍♂️"
+                return "Aún puedes regalarte unos minutos [U+1F9D8]‍♂️"
             default:
-                return "Relájate, mañana es otro día 🌙"
+                return "Relájate, mañana es otro día [U+1F319]"
             }
         }
     }
@@ -675,33 +675,33 @@ struct InicioView: View {
     
     private func getMotivationalQuote() -> String {
         let quotes = getMotivationalQuotes()
-        return quotes.randomElement() ?? "Cada paso cuenta 🌟"
+        return quotes.randomElement() ?? "Cada paso cuenta [U+1F31F]"
     }
     
     private func getMotivationalQuotes() -> [String] {
         if hasWorkoutToday {
             return [
-                "¡Qué bien te has cuidado hoy! Tu cuerpo te lo agradece 💙",
-                "Cada movimiento fue un acto de amor propio 🤗",
-                "Has plantado una semilla de bienestar hoy 🌻",
+                "¡Qué bien te has cuidado hoy! Tu cuerpo te lo agradece [U+1F499]",
+                "Cada movimiento fue un acto de amor propio [U+1F917]",
+                "Has plantado una semilla de bienestar hoy [U+1F33B]",
                 "Tu energía positiva se nota desde aquí ⚡",
-                "Completaste algo hermoso para ti mismo 🌈"
+                "Completaste algo hermoso para ti mismo [U+1F308]"
             ]
         } else if calculateCurrentStreak() > 0 {
             return [
-                "Cada día que eliges cuidarte construyes algo hermoso 🏗️",
-                "Tu constancia es tu superpoder silencioso 💫",
-                "Paso a paso, estás creando la mejor versión de ti 🦋",
-                "Tu dedicación se nota, sigue escribiendo tu historia 📖",
-                "Cada entrenamiento es una carta de amor a tu futuro yo 💌"
+                "Cada día que eliges cuidarte construyes algo hermoso [U+1F3D7]️",
+                "Tu constancia es tu superpoder silencioso [U+1F4AB]",
+                "Paso a paso, estás creando la mejor versión de ti [U+1F98B]",
+                "Tu dedicación se nota, sigue escribiendo tu historia [U+1F4D6]",
+                "Cada entrenamiento es una carta de amor a tu futuro yo [U+1F48C]"
             ]
         } else {
             return [
-                "Descansar también es entrenar tu constancia 🧘‍♂️",
-                "Tu cuerpo sabe cuándo necesita una pausa, escúchalo 🎵",
+                "Descansar también es entrenar tu constancia [U+1F9D8]‍♂️",
+                "Tu cuerpo sabe cuándo necesita una pausa, escúchalo [U+1F3B5]",
                 "Mañana será otro día para brillar ⭐",
-                "A veces el mejor entrenamiento es cuidar tu mente 🌙",
-                "No hay prisa, tu bienestar es un viaje, no una carrera 🛤️"
+                "A veces el mejor entrenamiento es cuidar tu mente [U+1F319]",
+                "No hay prisa, tu bienestar es un viaje, no una carrera [U+1F6E4]️"
             ]
         }
     }
@@ -891,7 +891,7 @@ struct CloudKitStatusCard: View {
     }
     
     private func testCloudKitSync() {
-        print("🔄 Iniciando test de sincronización CloudKit...")
+        print("[SYNC] Iniciando test de sincronización CloudKit...")
         syncStatus = .syncing
         
         // Simulate checking CloudKit
@@ -900,7 +900,7 @@ struct CloudKitStatusCard: View {
             CKContainer.default().accountStatus { status, error in
                 DispatchQueue.main.async {
                     if let error = error {
-                        print("🔴 CloudKit Error: \(error.localizedDescription)")
+                        print("[U+1F534] CloudKit Error: \(error.localizedDescription)")
                         self.syncStatus = .failed
                         self.errorMessage = error.localizedDescription
                         self.showingAlert = true
@@ -909,16 +909,16 @@ struct CloudKitStatusCard: View {
                     
                     switch status {
                     case .available:
-                        print("✅ CloudKit disponible - datos sincronizados")
+                        print("[OK] CloudKit disponible - datos sincronizados")
                         self.syncStatus = .success
                         self.lastSyncDate = Date()
                     case .noAccount:
-                        print("❌ No hay cuenta iCloud")
+                        print("[ERR] No hay cuenta iCloud")
                         self.syncStatus = .failed
                         self.errorMessage = "No hay cuenta iCloud configurada"
                         self.showingAlert = true
                     default:
-                        print("⚠️ CloudKit no disponible")
+                        print("[WARN]️ CloudKit no disponible")
                         self.syncStatus = .failed
                         self.errorMessage = "iCloud no está disponible"
                         self.showingAlert = true

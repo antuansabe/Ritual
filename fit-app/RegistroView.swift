@@ -730,9 +730,9 @@ struct RegistroView: View {
                 await MainActor.run {
                     if workoutViewModel.showSuccess {
                         // Enhanced logging for offline detection
-                        print("🏃‍♂️ Entrenamiento guardado - CloudKit manejará sync automáticamente")
-                        print("📊 Tipo: \(tipoSeleccionado), Duración: \(validDuration) min")
-                        print("💾 Core Data + CloudKit: Funciona offline y sync cuando hay red")
+                        print("[U+1F3C3]‍♂️ Entrenamiento guardado - CloudKit manejará sync automáticamente")
+                        print("[U+1F4CA] Tipo: \(tipoSeleccionado), Duración: \(validDuration) min")
+                        print("[U+1F4BE] Core Data + CloudKit: Funciona offline y sync cuando hay red")
                         
                         // Show success overlay
                         withAnimation(.easeInOut(duration: 0.3)) {

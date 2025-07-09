@@ -78,7 +78,7 @@ class CloudKitSyncMonitor: ObservableObject {
         CKContainer.default().accountStatus { [weak self] status, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    print("🔴 CloudKit Account Error: \(error.localizedDescription)")
+                    print("[U+1F534] CloudKit Account Error: \(error.localizedDescription)")
                     self?.syncStatus = .failed("Error de cuenta iCloud")
                     self?.showError("Error de cuenta iCloud: \(error.localizedDescription)")
                     return
@@ -86,26 +86,26 @@ class CloudKitSyncMonitor: ObservableObject {
                 
                 switch status {
                 case .available:
-                    print("✅ CloudKit Account: Available")
+                    print("[OK] CloudKit Account: Available")
                     self?.testCloudKitSync()
                 case .noAccount:
-                    print("🔴 CloudKit Account: No iCloud account")
+                    print("[U+1F534] CloudKit Account: No iCloud account")
                     self?.syncStatus = .failed("No hay cuenta iCloud")
                     self?.showError("No se encontró cuenta iCloud. Inicia sesión en Configuración > iCloud")
                 case .restricted:
-                    print("🔴 CloudKit Account: Restricted")
+                    print("[U+1F534] CloudKit Account: Restricted")
                     self?.syncStatus = .failed("Cuenta iCloud restringida")
                     self?.showError("La cuenta iCloud está restringida")
                 case .couldNotDetermine:
-                    print("🔴 CloudKit Account: Could not determine")
+                    print("[U+1F534] CloudKit Account: Could not determine")
                     self?.syncStatus = .failed("No se pudo determinar estado iCloud")
                     self?.showError("No se pudo determinar el estado de iCloud")
                 case .temporarilyUnavailable:
-                    print("🟡 CloudKit Account: Temporarily unavailable")
+                    print("[U+1F7E1] CloudKit Account: Temporarily unavailable")
                     self?.syncStatus = .failed("iCloud temporalmente no disponible")
                     self?.showError("iCloud temporalmente no disponible")
                 @unknown default:
-                    print("🔴 CloudKit Account: Unknown status")
+                    print("[U+1F534] CloudKit Account: Unknown status")
                     self?.syncStatus = .failed("Estado iCloud desconocido")
                 }
             }
@@ -114,7 +114,7 @@ class CloudKitSyncMonitor: ObservableObject {
     
     // MARK: - CloudKit Sync Testing
     func testCloudKitSync() {
-        print("🔄 Iniciando test de sincronización CloudKit...")
+        print("[SYNC] Iniciando test de sincronización CloudKit...")
         syncStatus = .syncing
         
         // Fetch workouts to test sync
@@ -124,7 +124,7 @@ class CloudKitSyncMonitor: ObservableObject {
         
         do {
             let workouts = try context.fetch(request)
-            print("📊 Entrenamientos locales encontrados: \(workouts.count)")
+            print("[U+1F4CA] Entrenamientos locales encontrados: \(workouts.count)")
             
             // Log each workout for debugging
             for (index, workout) in workouts.prefix(5).enumerated() {
@@ -135,7 +135,7 @@ class CloudKitSyncMonitor: ObservableObject {
             checkCloudKitMetadata(for: workouts)
             
         } catch {
-            print("🔴 Error fetching workouts: \(error.localizedDescription)")
+            print("[U+1F534] Error fetching workouts: \(error.localizedDescription)")
             syncStatus = .failed("Error al obtener entrenamientos")
             showError("Error al obtener entrenamientos: \(error.localizedDescription)")
         }
@@ -158,16 +158,16 @@ class CloudKitSyncMonitor: ObservableObject {
             }
         }
         
-        print("📤 Entrenamientos sincronizados: \(syncedCount)")
+        print("[U+1F4E4] Entrenamientos sincronizados: \(syncedCount)")
         print("⏳ Entrenamientos pendientes: \(pendingCount)")
         
         if pendingCount == 0 && syncedCount > 0 {
             syncStatus = .success
             lastSyncDate = Date()
-            print("✅ Sincronización CloudKit exitosa")
+            print("[OK] Sincronización CloudKit exitosa")
         } else if pendingCount > 0 {
             syncStatus = .syncing
-            print("🔄 Sincronización en progreso...")
+            print("[SYNC] Sincronización en progreso...")
         } else {
             syncStatus = .unknown
             print("❓ Estado de sincronización desconocido")
@@ -176,12 +176,12 @@ class CloudKitSyncMonitor: ObservableObject {
     
     // MARK: - Notification Handlers
     private func handleRemoteChange(_ notification: Notification) {
-        print("📡 CloudKit: Cambios remotos detectados")
-        print("📡 Notification: \(notification.name.rawValue)")
+        print("[U+1F4E1] CloudKit: Cambios remotos detectados")
+        print("[U+1F4E1] Notification: \(notification.name.rawValue)")
         
         // Log the store that changed
         if let store = notification.object as? NSPersistentStore {
-            print("📡 Store afectado: \(store.identifier ?? "Unknown")")
+            print("[U+1F4E1] Store afectado: \(store.identifier ?? "Unknown")")
         }
         
         // Refresh data after remote changes
@@ -196,40 +196,40 @@ class CloudKitSyncMonitor: ObservableObject {
             return
         }
         
-        print("🌩️ CloudKit Event: \(event.type.description)")
+        print("[U+1F329]️ CloudKit Event: \(event.type.description)")
         
         switch event.type {
         case .setup:
-            print("🌩️ CloudKit: Configuración")
+            print("[U+1F329]️ CloudKit: Configuración")
         case .import:
-            print("🌩️ CloudKit: Importación desde iCloud")
+            print("[U+1F329]️ CloudKit: Importación desde iCloud")
             if let error = event.error {
-                print("🔴 CloudKit Import Error: \(error.localizedDescription)")
+                print("[U+1F534] CloudKit Import Error: \(error.localizedDescription)")
                 syncStatus = .failed("Error de importación")
                 showError("Error al importar de iCloud: \(error.localizedDescription)")
             } else {
-                print("✅ CloudKit: Importación exitosa")
+                print("[OK] CloudKit: Importación exitosa")
                 testCloudKitSync()
             }
         case .export:
-            print("🌩️ CloudKit: Exportación a iCloud")
+            print("[U+1F329]️ CloudKit: Exportación a iCloud")
             if let error = event.error {
-                print("🔴 CloudKit Export Error: \(error.localizedDescription)")
+                print("[U+1F534] CloudKit Export Error: \(error.localizedDescription)")
                 syncStatus = .failed("Error de exportación")
                 showError("Error al exportar a iCloud: \(error.localizedDescription)")
             } else {
-                print("✅ CloudKit: Exportación exitosa")
+                print("[OK] CloudKit: Exportación exitosa")
                 syncStatus = .success
                 lastSyncDate = Date()
             }
         @unknown default:
-            print("🌩️ CloudKit: Evento desconocido")
+            print("[U+1F329]️ CloudKit: Evento desconocido")
         }
     }
     
     // MARK: - Manual Sync Trigger
     func triggerManualSync() {
-        print("🔄 Iniciando sincronización manual...")
+        print("[SYNC] Iniciando sincronización manual...")
         syncStatus = .syncing
         
         // Save context to trigger CloudKit sync
@@ -237,9 +237,9 @@ class CloudKitSyncMonitor: ObservableObject {
         if context.hasChanges {
             do {
                 try context.save()
-                print("💾 Contexto guardado - sincronización iniciada")
+                print("[U+1F4BE] Contexto guardado - sincronización iniciada")
             } catch {
-                print("🔴 Error saving context: \(error.localizedDescription)")
+                print("[U+1F534] Error saving context: \(error.localizedDescription)")
                 syncStatus = .failed("Error al guardar")
                 showError("Error al guardar: \(error.localizedDescription)")
             }

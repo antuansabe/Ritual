@@ -832,7 +832,7 @@ struct PerfilView: View {
             }
         }
         
-        print("✅ User name updated to: \(sanitizedName)")
+        print("[OK] User name updated to: \(sanitizedName)")
     }
 }
 
@@ -1051,7 +1051,7 @@ struct SimpleCloudKitTestView: View {
             }
         }
         .onAppear {
-            addTestResult("📱 Vista de testing CloudKit iniciada")
+            addTestResult("[U+1F4F1] Vista de testing CloudKit iniciada")
         }
     }
     
@@ -1204,29 +1204,29 @@ struct SimpleCloudKitTestView: View {
     
     private func testCloudKitAccount() {
         isRunningTest = true
-        addTestResult("🔍 Verificando cuenta iCloud...")
+        addTestResult("[U+1F50D] Verificando cuenta iCloud...")
         
         CKContainer.default().accountStatus { status, error in
             DispatchQueue.main.async {
                 self.isRunningTest = false
                 
                 if let error = error {
-                    self.addTestResult("❌ Error: \(error.localizedDescription)")
+                    self.addTestResult("[ERR] Error: \(error.localizedDescription)")
                     return
                 }
                 
                 switch status {
                 case .available:
-                    self.addTestResult("✅ Cuenta iCloud disponible")
-                    self.addTestResult("📊 Entrenamientos locales: \(self.workouts.count)")
+                    self.addTestResult("[OK] Cuenta iCloud disponible")
+                    self.addTestResult("[U+1F4CA] Entrenamientos locales: \(self.workouts.count)")
                 case .noAccount:
-                    self.addTestResult("❌ No hay cuenta iCloud configurada")
+                    self.addTestResult("[ERR] No hay cuenta iCloud configurada")
                 case .restricted:
-                    self.addTestResult("❌ Cuenta iCloud restringida")
+                    self.addTestResult("[ERR] Cuenta iCloud restringida")
                 case .couldNotDetermine:
-                    self.addTestResult("❌ No se pudo determinar estado iCloud")
+                    self.addTestResult("[ERR] No se pudo determinar estado iCloud")
                 case .temporarilyUnavailable:
-                    self.addTestResult("⚠️ iCloud temporalmente no disponible")
+                    self.addTestResult("[WARN]️ iCloud temporalmente no disponible")
                 @unknown default:
                     self.addTestResult("❓ Estado iCloud desconocido")
                 }
@@ -1236,7 +1236,7 @@ struct SimpleCloudKitTestView: View {
     
     private func createTestWorkout() {
         isRunningTest = true
-        addTestResult("🏋️‍♂️ Creando entrenamiento de prueba...")
+        addTestResult("[U+1F3CB]️‍♂️ Creando entrenamiento de prueba...")
         
         let context = managedObjectContext
         let testWorkout = WorkoutEntity(context: context)
@@ -1248,20 +1248,20 @@ struct SimpleCloudKitTestView: View {
         
         do {
             try context.save()
-            addTestResult("✅ Entrenamiento de prueba creado")
-            addTestResult("📤 Sincronización CloudKit iniciada automáticamente")
-            print("🏃‍♂️ Nuevo entrenamiento Test CloudKit guardado - iniciando sincronización CloudKit")
-            print("📊 Tipo: Test CloudKit, Duración: \(testWorkout.duration) min")
+            addTestResult("[OK] Entrenamiento de prueba creado")
+            addTestResult("[U+1F4E4] Sincronización CloudKit iniciada automáticamente")
+            print("[U+1F3C3]‍♂️ Nuevo entrenamiento Test CloudKit guardado - iniciando sincronización CloudKit")
+            print("[U+1F4CA] Tipo: Test CloudKit, Duración: \(testWorkout.duration) min")
             isRunningTest = false
         } catch {
-            addTestResult("❌ Error al crear entrenamiento: \(error.localizedDescription)")
+            addTestResult("[ERR] Error al crear entrenamiento: \(error.localizedDescription)")
             isRunningTest = false
         }
     }
     
     private func clearTestResults() {
         testResults.removeAll()
-        addTestResult("🧹 Logs limpiados")
+        addTestResult("[U+1F9F9] Logs limpiados")
     }
     
     private func addTestResult(_ message: String) {

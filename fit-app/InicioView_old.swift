@@ -5,7 +5,7 @@ struct InicioView: View {
         VStack(spacing: 40) {
             Spacer()
             
-            Text("Hola, Antonio 👋")
+            Text("Hola, Antonio [U+1F44B]")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.white)

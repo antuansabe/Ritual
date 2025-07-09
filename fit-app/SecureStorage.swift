@@ -25,7 +25,7 @@ class SecureStorage {
               let data = value.data(using: .utf8) else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Failed to prepare data for encryption")
+            Logger.storage.debug("[U+1F510] SecureStorage: Failed to prepare data for encryption")
             #endif
             #endif
             return nil
@@ -36,7 +36,7 @@ class SecureStorage {
             guard let encryptedData = sealedBox.combined else {
                 #if DEBUG
                 #if DEBUG
-                Logger.storage.debug("🔐 SecureStorage: Failed to get combined encrypted data")
+                Logger.storage.debug("[U+1F510] SecureStorage: Failed to get combined encrypted data")
                 #endif
                 #endif
                 return nil
@@ -45,7 +45,7 @@ class SecureStorage {
             let base64Encrypted = encryptedData.base64EncodedString()
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Successfully encrypted data (length: \(base64Encrypted.count))")
+            Logger.storage.debug("[U+1F510] SecureStorage: Successfully encrypted data (length: \(base64Encrypted.count))")
             #endif
             #endif
             return base64Encrypted
@@ -53,7 +53,7 @@ class SecureStorage {
         } catch {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Encryption failed - \(error.localizedDescription)")
+            Logger.storage.debug("[U+1F510] SecureStorage: Encryption failed - \(error.localizedDescription)")
             #endif
             #endif
             return nil
@@ -68,7 +68,7 @@ class SecureStorage {
               let encryptedData = Data(base64Encoded: encryptedValue) else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Failed to prepare encrypted data for decryption")
+            Logger.storage.debug("[U+1F510] SecureStorage: Failed to prepare encrypted data for decryption")
             #endif
             #endif
             return nil
@@ -81,7 +81,7 @@ class SecureStorage {
             guard let decryptedString = String(data: decryptedData, encoding: .utf8) else {
                 #if DEBUG
                 #if DEBUG
-                Logger.storage.debug("🔐 SecureStorage: Failed to convert decrypted data to string")
+                Logger.storage.debug("[U+1F510] SecureStorage: Failed to convert decrypted data to string")
                 #endif
                 #endif
                 return nil
@@ -89,7 +89,7 @@ class SecureStorage {
             
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Successfully decrypted data")
+            Logger.storage.debug("[U+1F510] SecureStorage: Successfully decrypted data")
             #endif
             #endif
             return decryptedString
@@ -97,7 +97,7 @@ class SecureStorage {
         } catch {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Decryption failed - \(error.localizedDescription)")
+            Logger.storage.debug("[U+1F510] SecureStorage: Decryption failed - \(error.localizedDescription)")
             #endif
             #endif
             return nil
@@ -111,7 +111,7 @@ class SecureStorage {
         if let existingKeyData = retrieveRawKeyData(for: encryptionKeyAlias) {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Retrieved existing encryption key")
+            Logger.storage.debug("[U+1F510] SecureStorage: Retrieved existing encryption key")
             #endif
             #endif
             return SymmetricKey(data: existingKeyData)
@@ -125,14 +125,14 @@ class SecureStorage {
         if storeRawKeyData(keyData, for: encryptionKeyAlias) {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Generated and stored new encryption key")
+            Logger.storage.debug("[U+1F510] SecureStorage: Generated and stored new encryption key")
             #endif
             #endif
             return newKey
         } else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Failed to store new encryption key")
+            Logger.storage.debug("[U+1F510] SecureStorage: Failed to store new encryption key")
             #endif
             #endif
             return nil
@@ -208,7 +208,7 @@ class SecureStorage {
         guard let encryptedValue = encrypt(value: value) else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Failed to encrypt value for key: \(key)")
+            Logger.storage.debug("[U+1F510] SecureStorage: Failed to encrypt value for key: \(key)")
             #endif
             #endif
             return false
@@ -244,7 +244,7 @@ class SecureStorage {
         guard let data = value.data(using: .utf8) else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Failed to convert value to data for key: \(key)")
+            Logger.storage.debug("[U+1F510] SecureStorage: Failed to convert value to data for key: \(key)")
             #endif
             #endif
             return false
@@ -263,14 +263,14 @@ class SecureStorage {
         if status == errSecSuccess {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Successfully stored data for key: \(key)")
+            Logger.storage.debug("[U+1F510] SecureStorage: Successfully stored data for key: \(key)")
             #endif
             #endif
             return true
         } else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Failed to store data for key: \(key). Status: \(status)")
+            Logger.storage.debug("[U+1F510] SecureStorage: Failed to store data for key: \(key). Status: \(status)")
             #endif
             #endif
             return false
@@ -298,7 +298,7 @@ class SecureStorage {
            let value = String(data: data, encoding: .utf8) {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Successfully retrieved data for key: \(key)")
+            Logger.storage.debug("[U+1F510] SecureStorage: Successfully retrieved data for key: \(key)")
             #endif
             #endif
             return value
@@ -306,7 +306,7 @@ class SecureStorage {
             if status != errSecItemNotFound {
                 #if DEBUG
                 #if DEBUG
-                Logger.storage.debug("🔐 SecureStorage: Failed to retrieve data for key: \(key). Status: \(status)")
+                Logger.storage.debug("[U+1F510] SecureStorage: Failed to retrieve data for key: \(key). Status: \(status)")
                 #endif
                 #endif
             }
@@ -327,14 +327,14 @@ class SecureStorage {
         if status == errSecSuccess || status == errSecItemNotFound {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Successfully deleted data for key: \(key)")
+            Logger.storage.debug("[U+1F510] SecureStorage: Successfully deleted data for key: \(key)")
             #endif
             #endif
             return true
         } else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Failed to delete data for key: \(key). Status: \(status)")
+            Logger.storage.debug("[U+1F510] SecureStorage: Failed to delete data for key: \(key). Status: \(status)")
             #endif
             #endif
             return false
@@ -358,7 +358,7 @@ class SecureStorage {
     func clearAllCredentials() -> Bool {
         #if DEBUG
         #if DEBUG
-        Logger.storage.debug("🔐 SecureStorage: Clearing all stored credentials")
+        Logger.storage.debug("[U+1F510] SecureStorage: Clearing all stored credentials")
         #endif
         #endif
         
@@ -372,13 +372,13 @@ class SecureStorage {
         if success {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: All credentials cleared successfully")
+            Logger.storage.debug("[U+1F510] SecureStorage: All credentials cleared successfully")
             #endif
             #endif
         } else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("🔐 SecureStorage: Failed to clear some credentials")
+            Logger.storage.debug("[U+1F510] SecureStorage: Failed to clear some credentials")
             #endif
             #endif
         }
@@ -481,7 +481,7 @@ extension SecureStorage {
     func testSecureStorage() -> Bool {
         #if DEBUG
         #if DEBUG
-        Logger.storage.debug("🧪 Testing SecureStorage functionality...")
+        Logger.storage.debug("[U+1F9EA] Testing SecureStorage functionality...")
         #endif
         #endif
         
@@ -492,7 +492,7 @@ extension SecureStorage {
         guard storeEncrypted(testValue, for: testKey) else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("❌ Failed to store encrypted test value")
+            Logger.storage.debug("[ERR] Failed to store encrypted test value")
             #endif
             #endif
             return false
@@ -503,7 +503,7 @@ extension SecureStorage {
               retrievedValue == testValue else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("❌ Failed to retrieve or validate encrypted test value")
+            Logger.storage.debug("[ERR] Failed to retrieve or validate encrypted test value")
             #endif
             #endif
             return false
@@ -513,7 +513,7 @@ extension SecureStorage {
         guard delete(key: testKey) else {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("❌ Failed to delete test value")
+            Logger.storage.debug("[ERR] Failed to delete test value")
             #endif
             #endif
             return false
@@ -523,7 +523,7 @@ extension SecureStorage {
         if retrieveEncrypted(for: testKey) != nil {
             #if DEBUG
             #if DEBUG
-            Logger.storage.debug("❌ Test value still exists after deletion")
+            Logger.storage.debug("[ERR] Test value still exists after deletion")
             #endif
             #endif
             return false
@@ -531,7 +531,7 @@ extension SecureStorage {
         
         #if DEBUG
         #if DEBUG
-        Logger.storage.debug("✅ SecureStorage test passed successfully")
+        Logger.storage.debug("[OK] SecureStorage test passed successfully")
         #endif
         #endif
         return true
@@ -541,7 +541,7 @@ extension SecureStorage {
     func verifyMigrationStatus() {
         #if DEBUG
         #if DEBUG
-        Logger.storage.debug("🔍 Verifying migration status...")
+        Logger.storage.debug("[U+1F50D] Verifying migration status...")
         #endif
         #endif
         
@@ -552,7 +552,7 @@ extension SecureStorage {
             if UserDefaults.standard.string(forKey: key) != nil {
                 #if DEBUG
                 #if DEBUG
-                Logger.storage.debug("⚠️ Legacy data still exists in UserDefaults: \(key)")
+                Logger.storage.debug("[WARN]️ Legacy data still exists in UserDefaults: \(key)")
                 #endif
                 #endif
             }
@@ -562,7 +562,7 @@ extension SecureStorage {
             if exists(key: key) {
                 #if DEBUG
                 #if DEBUG
-                Logger.storage.debug("✅ Secure data found in Keychain: \(key)")
+                Logger.storage.debug("[OK] Secure data found in Keychain: \(key)")
                 #endif
                 #endif
             }

@@ -24,7 +24,7 @@ class AuthViewModel: ObservableObject {
     
     init() {
         #if DEBUG
-        print("🔐 Initializing AuthViewModel...")
+        print("[U+1F510] Initializing AuthViewModel...")
         #endif
         
         // Check for existing authentication first
@@ -51,7 +51,7 @@ class AuthViewModel: ObservableObject {
     /// Migrate sensitive data from UserDefaults to SecureStorage
     private func migrateLegacySensitiveData() {
         #if DEBUG
-        print("🔄 Checking for legacy sensitive data to migrate...")
+        print("[SYNC] Checking for legacy sensitive data to migrate...")
         #endif
         
         var migrationOccurred = false
@@ -59,17 +59,17 @@ class AuthViewModel: ObservableObject {
         // Migrate userName if it exists
         if let userName = UserDefaults.standard.string(forKey: "userName"), !userName.isEmpty {
             #if DEBUG
-            print("🔄 Migrating userName to SecureStorage...")
+            print("[SYNC] Migrating userName to SecureStorage...")
             #endif
             if secureStorage.storeEncrypted(userName, for: SecureStorage.StorageKeys.userDisplayName) {
                 UserDefaults.standard.removeObject(forKey: "userName")
                 migrationOccurred = true
                 #if DEBUG
-                print("✅ Successfully migrated userName")
+                print("[OK] Successfully migrated userName")
                 #endif
             } else {
                 #if DEBUG
-                print("❌ Failed to migrate userName")
+                print("[ERR] Failed to migrate userName")
                 #endif
             }
         }
@@ -77,17 +77,17 @@ class AuthViewModel: ObservableObject {
         // Migrate userIdentifier if it exists
         if let userIdentifier = UserDefaults.standard.string(forKey: "userIdentifier"), !userIdentifier.isEmpty {
             #if DEBUG
-            print("🔄 Migrating userIdentifier to SecureStorage...")
+            print("[SYNC] Migrating userIdentifier to SecureStorage...")
             #endif
             if secureStorage.storeEncrypted(userIdentifier, for: "user_identifier") {
                 UserDefaults.standard.removeObject(forKey: "userIdentifier")
                 migrationOccurred = true
                 #if DEBUG
-                print("✅ Successfully migrated userIdentifier")
+                print("[OK] Successfully migrated userIdentifier")
                 #endif
             } else {
                 #if DEBUG
-                print("❌ Failed to migrate userIdentifier")
+                print("[ERR] Failed to migrate userIdentifier")
                 #endif
             }
         }
@@ -95,24 +95,24 @@ class AuthViewModel: ObservableObject {
         // Migrate userFullName if it exists
         if let userFullName = UserDefaults.standard.string(forKey: "userFullName"), !userFullName.isEmpty {
             #if DEBUG
-            print("🔄 Migrating userFullName to SecureStorage...")
+            print("[SYNC] Migrating userFullName to SecureStorage...")
             #endif
             if secureStorage.storeEncrypted(userFullName, for: SecureStorage.StorageKeys.userFullName) {
                 UserDefaults.standard.removeObject(forKey: "userFullName")
                 migrationOccurred = true
                 #if DEBUG
-                print("✅ Successfully migrated userFullName")
+                print("[OK] Successfully migrated userFullName")
                 #endif
             } else {
                 #if DEBUG
-                print("❌ Failed to migrate userFullName")
+                print("[ERR] Failed to migrate userFullName")
                 #endif
             }
         }
         
         if migrationOccurred {
             #if DEBUG
-            print("✅ Legacy sensitive data migration completed")
+            print("[OK] Legacy sensitive data migration completed")
             #endif
         } else {
             #if DEBUG
@@ -123,7 +123,7 @@ class AuthViewModel: ObservableObject {
     
     func login() {
         #if DEBUG
-        print("🔐 AuthViewModel: Starting secure login process")
+        print("[U+1F510] AuthViewModel: Starting secure login process")
         #endif
         errorMessage = nil
         
@@ -133,7 +133,7 @@ class AuthViewModel: ObservableObject {
         switch result {
         case .success(let user):
             #if DEBUG
-            print("🔐 AuthViewModel: Login successful for user: \(user.email)")
+            print("[U+1F510] AuthViewModel: Login successful for user: \(user.email)")
             #endif
             isAuthenticated = true
             // Create user profile for secure login
@@ -141,7 +141,7 @@ class AuthViewModel: ObservableObject {
             
         case .failure(let error):
             #if DEBUG
-            print("🔐 AuthViewModel: Login failed - \(error.localizedDescription)")
+            print("[U+1F510] AuthViewModel: Login failed - \(error.localizedDescription)")
             #endif
             errorMessage = error.localizedDescription
         }
@@ -149,7 +149,7 @@ class AuthViewModel: ObservableObject {
     
     func register() {
         #if DEBUG
-        print("🔐 AuthViewModel: Starting secure registration process")
+        print("[U+1F510] AuthViewModel: Starting secure registration process")
         #endif
         errorMessage = nil
         
@@ -159,7 +159,7 @@ class AuthViewModel: ObservableObject {
         switch result {
         case .success(let user):
             #if DEBUG
-            print("🔐 AuthViewModel: Registration successful for user: \(user.email)")
+            print("[U+1F510] AuthViewModel: Registration successful for user: \(user.email)")
             #endif
             isAuthenticated = true
             // Create user profile for new registration
@@ -167,7 +167,7 @@ class AuthViewModel: ObservableObject {
             
         case .failure(let error):
             #if DEBUG
-            print("🔐 AuthViewModel: Registration failed - \(error.localizedDescription)")
+            print("[U+1F510] AuthViewModel: Registration failed - \(error.localizedDescription)")
             #endif
             errorMessage = error.localizedDescription
         }
@@ -175,7 +175,7 @@ class AuthViewModel: ObservableObject {
     
     func logout() {
         #if DEBUG
-        print("🚪 Logging out user...")
+        print("[U+1F6AA] Logging out user...")
         #endif
         
         // Check if user is signed in with Apple and sign them out
@@ -214,7 +214,7 @@ class AuthViewModel: ObservableObject {
         errorMessage = nil
         
         #if DEBUG
-        print("✅ User data cleared, showing goodbye screen")
+        print("[OK] User data cleared, showing goodbye screen")
         #endif
     }
     
@@ -225,12 +225,12 @@ class AuthViewModel: ObservableObject {
     
     func completeLogout() {
         #if DEBUG
-        print("🏠 Completing logout process...")
+        print("[U+1F3E0] Completing logout process...")
         #endif
         isAuthenticated = false
         showingGoodbye = false
         #if DEBUG
-        print("✅ User fully logged out, returning to login")
+        print("[OK] User fully logged out, returning to login")
         #endif
     }
     
@@ -239,7 +239,7 @@ class AuthViewModel: ObservableObject {
     func resetWelcomeFlag() {
         UserDefaults.standard.removeObject(forKey: "hasSeenWelcome")
         #if DEBUG
-        print("🔄 Welcome flag reset - next login will show welcome screen")
+        print("[SYNC] Welcome flag reset - next login will show welcome screen")
         #endif
     }
     
@@ -247,7 +247,7 @@ class AuthViewModel: ObservableObject {
     
     private func checkForExistingAuthentication() {
         #if DEBUG
-        print("🔍 Checking for existing authentication...")
+        print("[U+1F50D] Checking for existing authentication...")
         #endif
         
         // Check if user is already authenticated via AppStorage
@@ -271,7 +271,7 @@ class AuthViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.isAuthenticated = true
                 #if DEBUG
-                print("✅ Apple user auto-logged in successfully")
+                print("[OK] Apple user auto-logged in successfully")
                 #endif
             }
         } else if secureAuth.isUserLoggedIn() {
@@ -286,7 +286,7 @@ class AuthViewModel: ObservableObject {
                     self.isAuthenticated = true
                     self.email = currentUser
                     #if DEBUG
-                    print("✅ Secure user auto-logged in successfully")
+                    print("[OK] Secure user auto-logged in successfully")
                     #endif
                 }
             }
@@ -295,7 +295,7 @@ class AuthViewModel: ObservableObject {
     
     private func checkAuthenticationStatus() {
         #if DEBUG
-        print("🔍 Checking authentication status...")
+        print("[U+1F50D] Checking authentication status...")
         #endif
         
         // Check Apple Sign In status for existing users
@@ -313,7 +313,7 @@ class AuthViewModel: ObservableObject {
     
     private func setupAppleAuthListener() {
         #if DEBUG
-        print("🔗 Setting up Apple authentication listener...")
+        print("[U+1F517] Setting up Apple authentication listener...")
         #endif
         
         // Listen to Apple authentication changes (for both existing and new users)
@@ -322,14 +322,14 @@ class AuthViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     if isAppleAuthenticated {
                         #if DEBUG
-                        print("✅ Apple user authenticated - updating AuthViewModel")
+                        print("[OK] Apple user authenticated - updating AuthViewModel")
                         #endif
                         self?.isAuthenticated = true
                     } else {
                         // Only log out if this was an Apple user previously
                         if self?.appleSignInManager.isAppleUser == true {
                             #if DEBUG
-                            print("❌ Apple user lost authentication - logging out")
+                            print("[ERR] Apple user lost authentication - logging out")
                             #endif
                             self?.handleAppleSignOut()
                         }
@@ -341,14 +341,14 @@ class AuthViewModel: ObservableObject {
     
     private func handleAppleSignOut() {
         #if DEBUG
-        print("🚪 Handling Apple Sign Out...")
+        print("[U+1F6AA] Handling Apple Sign Out...")
         #endif
         
         // Only clear authentication if user was logged in via Apple
         if appleSignInManager.isAppleUser {
             isAuthenticated = false
             #if DEBUG
-            print("✅ Apple user logged out from AuthViewModel")
+            print("[OK] Apple user logged out from AuthViewModel")
             #endif
         }
     }

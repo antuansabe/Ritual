@@ -661,7 +661,7 @@ struct TimerView: View {
                 workAudioPlayer?.prepareToPlay()
                 workAudioPlayer?.volume = 0.7
             } catch {
-                print("❌ Error loading work sound: \(error.localizedDescription)")
+                print("[ERR] Error loading work sound: \(error.localizedDescription)")
             }
         }
         
@@ -672,7 +672,7 @@ struct TimerView: View {
                 restAudioPlayer?.prepareToPlay()
                 restAudioPlayer?.volume = 0.5
             } catch {
-                print("❌ Error loading rest sound: \(error.localizedDescription)")
+                print("[ERR] Error loading rest sound: \(error.localizedDescription)")
             }
         }
         
@@ -681,7 +681,7 @@ struct TimerView: View {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
-            print("❌ Error setting up audio session: \(error.localizedDescription)")
+            print("[ERR] Error setting up audio session: \(error.localizedDescription)")
         }
     }
     

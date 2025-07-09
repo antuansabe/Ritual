@@ -31,10 +31,10 @@ class NetworkMonitor: ObservableObject {
         
         var emoji: String {
             switch self {
-            case .wifi: return "📶"
-            case .cellular: return "📱"
-            case .ethernet: return "🌐"
-            case .none: return "❌"
+            case .wifi: return "[U+1F4F6]"
+            case .cellular: return "[U+1F4F1]"
+            case .ethernet: return "[U+1F310]"
+            case .none: return "[ERR]"
             }
         }
     }
@@ -77,7 +77,7 @@ class NetworkMonitor: ObservableObject {
         
         monitor.start(queue: queue)
         #if DEBUG
-        Logger.network.debug("🌐 NetworkMonitor: Monitoreo de red iniciado")
+        Logger.network.debug("[U+1F310] NetworkMonitor: Monitoreo de red iniciado")
         #endif
     }
     
@@ -86,24 +86,24 @@ class NetworkMonitor: ObservableObject {
         
         if !wasConnected && isCurrentlyConnected {
             #if DEBUG
-            Logger.network.debug("🌐 ✅ Red CONECTADA - Tipo: \(connectionType.emoji) \(connectionType.description)")
-            Logger.network.debug("🔄 Iniciando sincronización automática CloudKit...")
+            Logger.network.debug("[U+1F310] [OK] Red CONECTADA - Tipo: \(connectionType.emoji) \(connectionType.description)")
+            Logger.network.debug("[SYNC] Iniciando sincronización automática CloudKit...")
             #endif
         } else if wasConnected && !isCurrentlyConnected {
             #if DEBUG
-            Logger.network.debug("🌐 ❌ Red DESCONECTADA - Modo offline activado")
-            Logger.network.debug("💾 Los datos se guardarán localmente hasta reconectar")
+            Logger.network.debug("[U+1F310] [ERR] Red DESCONECTADA - Modo offline activado")
+            Logger.network.debug("[U+1F4BE] Los datos se guardarán localmente hasta reconectar")
             #endif
         } else if isCurrentlyConnected {
             #if DEBUG
-            Logger.network.debug("🌐 📡 Cambio de red - Tipo: \(connectionType.emoji) \(connectionType.description)")
+            Logger.network.debug("[U+1F310] [U+1F4E1] Cambio de red - Tipo: \(connectionType.emoji) \(connectionType.description)")
             #endif
         }
     }
     
     private func handleConnectionRestored() {
         #if DEBUG
-        Logger.network.debug("🔄 CONEXIÓN RESTAURADA - Iniciando sincronización CloudKit")
+        Logger.network.debug("[SYNC] CONEXIÓN RESTAURADA - Iniciando sincronización CloudKit")
         #endif
         
         // Trigger CloudKit sync

@@ -160,7 +160,7 @@ struct DailySummaryCardView: View {
             Spacer()
             
             if hasWorkoutToday {
-                Text("✅")
+                Text("[OK]")
                     .font(.title2)
             }
         }
@@ -184,7 +184,7 @@ struct DailySummaryCardView: View {
             
             Spacer()
             
-            Text("🔥")
+            Text("[U+1F525]")
                 .font(.title3)
         }
         .padding(12)
@@ -284,16 +284,16 @@ struct DailySummaryCardView: View {
     
     private var dayMessage: String {
         if hasWorkoutToday {
-            return "¡Excelente trabajo hoy! 💪"
+            return "¡Excelente trabajo hoy! [U+1F4AA]"
         } else {
             let hour = Calendar.current.component(.hour, from: Date())
             switch hour {
             case 6..<12:
-                return "Hoy es un gran día para moverte 🌅"
+                return "Hoy es un gran día para moverte [U+1F305]"
             case 12..<18:
-                return "Aún puedes regalarte unos minutos 🧘‍♂️"
+                return "Aún puedes regalarte unos minutos [U+1F9D8]‍♂️"
             default:
-                return "Relájate, mañana es otro día 🌙"
+                return "Relájate, mañana es otro día [U+1F319]"
             }
         }
     }
@@ -341,7 +341,7 @@ struct DailySummaryCardView: View {
     // MARK: - Helper Functions
     private func selectRandomQuote() {
         let quotes = MotivationalQuotes.getDailyQuote(hasWorkoutToday: hasWorkoutToday, streak: currentStreak)
-        currentMotivationalQuote = quotes.randomElement() ?? "Cada paso cuenta 🌟"
+        currentMotivationalQuote = quotes.randomElement() ?? "Cada paso cuenta [U+1F31F]"
     }
 }
 
@@ -390,35 +390,35 @@ struct QuickActionButton: View {
 // MARK: - Motivational Quotes Structure
 struct MotivationalQuotes {
     static let welcomeQuotes = [
-        "Tu bienestar es un regalo que te das cada día 🎁",
-        "Aquí estás, y eso ya es un logro 🌱",
+        "Tu bienestar es un regalo que te das cada día [U+1F381]",
+        "Aquí estás, y eso ya es un logro [U+1F331]",
         "Cada momento que dedicas a ti mismo vale oro ✨",
-        "Tu ritmo es perfecto, no hay prisa 🍃",
-        "Hoy es una nueva oportunidad de cuidarte 🌅"
+        "Tu ritmo es perfecto, no hay prisa [U+1F343]",
+        "Hoy es una nueva oportunidad de cuidarte [U+1F305]"
     ]
     
     static let postWorkoutQuotes = [
-        "¡Qué bien te has cuidado hoy! Tu cuerpo te lo agradece 💙",
-        "Cada movimiento fue un acto de amor propio 🤗",
-        "Has plantado una semilla de bienestar hoy 🌻",
+        "¡Qué bien te has cuidado hoy! Tu cuerpo te lo agradece [U+1F499]",
+        "Cada movimiento fue un acto de amor propio [U+1F917]",
+        "Has plantado una semilla de bienestar hoy [U+1F33B]",
         "Tu energía positiva se nota desde aquí ⚡",
-        "Completaste algo hermoso para ti mismo 🌈"
+        "Completaste algo hermoso para ti mismo [U+1F308]"
     ]
     
     static let restDayQuotes = [
-        "Descansar también es entrenar tu constancia 🧘‍♂️",
-        "Tu cuerpo sabe cuándo necesita una pausa, escúchalo 🎵",
+        "Descansar también es entrenar tu constancia [U+1F9D8]‍♂️",
+        "Tu cuerpo sabe cuándo necesita una pausa, escúchalo [U+1F3B5]",
         "Mañana será otro día para brillar ⭐",
-        "A veces el mejor entrenamiento es cuidar tu mente 🌙",
-        "No hay prisa, tu bienestar es un viaje, no una carrera 🛤️"
+        "A veces el mejor entrenamiento es cuidar tu mente [U+1F319]",
+        "No hay prisa, tu bienestar es un viaje, no una carrera [U+1F6E4]️"
     ]
     
     static let streakQuotes = [
-        "Cada día que eliges cuidarte construyes algo hermoso 🏗️",
-        "Tu constancia es tu superpoder silencioso 💫",
-        "Paso a paso, estás creando la mejor versión de ti 🦋",
-        "Tu dedicación se nota, sigue escribiendo tu historia 📖",
-        "Cada entrenamiento es una carta de amor a tu futuro yo 💌"
+        "Cada día que eliges cuidarte construyes algo hermoso [U+1F3D7]️",
+        "Tu constancia es tu superpoder silencioso [U+1F4AB]",
+        "Paso a paso, estás creando la mejor versión de ti [U+1F98B]",
+        "Tu dedicación se nota, sigue escribiendo tu historia [U+1F4D6]",
+        "Cada entrenamiento es una carta de amor a tu futuro yo [U+1F48C]"
     ]
     
     static func getDailyQuote(hasWorkoutToday: Bool, streak: Int) -> [String] {

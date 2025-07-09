@@ -1,6 +1,6 @@
 # Security Audit Report
 
-**Generated on:** Wed Jul  9 17:22:18 CST 2025
+**Generated on:** Wed Jul  9 17:55:32 CST 2025
 **Repository:** fit-app
 **Branch:** main
 
@@ -8,14 +8,14 @@
 
 | Archivo | Línea | Tipo | Severidad | Snippet |
 |---------|-------|------|-----------|---------|
-| fit-app/AppConstants.swift | 47 | TODO | Bajo | `        MotivationalMessage(text: "Todo bien, puedes volver a empezar", emoji: "🌱", context: .longBreak),` |
-| fit-app/AppConstants.swift | 463 | TODO | Bajo | `            "Tu energía positiva transforma todo 🌟",` |
+| fit-app/AppConstants.swift | 47 | TODO | Bajo | `        MotivationalMessage(text: "Todo bien, puedes volver a empezar", emoji: "[U+1F331]", context: .longBreak),` |
+| fit-app/AppConstants.swift | 463 | TODO | Bajo | `            "Tu energía positiva transforma todo [U+1F31F]",` |
 | fit-app/DailySummaryCardView.swift | 317 | TODO | Bajo | `            return "Todo bien, hoy puedes retomar"` |
-| fit-app/PerfilView.swift | 397 | TODO | Bajo | `                        Text("Ver todo")` |
-| fit-app/MotivationalMessageManager.swift | 47 | TODO | Bajo | `        MotivationalMessage(text: "Todo bien, puedes volver a empezar", emoji: "🌱", context: .longBreak),` |
-| fit-app/InicioView.swift | 652 | TODO | Bajo | `            return "Todo bien, hoy puedes retomar"` |
+| fit-app/MotivationalMessageManager.swift | 47 | TODO | Bajo | `        MotivationalMessage(text: "Todo bien, puedes volver a empezar", emoji: "[U+1F331]", context: .longBreak),` |
 | fit-app/HistorialView.swift | 455 | TODO | Bajo | `                    Text("Aquí aparecerán todos tus entrenamientos una vez que comiences tu viaje fitness.")` |
 | fit-app/CloudKitConflictView.swift | 192 | TODO | Bajo | `                        Text("Limpiar Todos los Eventos")` |
+| fit-app/InicioView.swift | 652 | TODO | Bajo | `            return "Todo bien, hoy puedes retomar"` |
+| fit-app/PerfilView.swift | 397 | TODO | Bajo | `                        Text("Ver todo")` |
 
 ## Resumen y Recomendaciones
 

@@ -268,7 +268,7 @@ struct GoalAchievementPopupContent: View {
             
             // Motivational message
             VStack(spacing: 8) {
-                Text("🌟 Tu constancia es inspiradora 🌟")
+                Text("[U+1F31F] Tu constancia es inspiradora [U+1F31F]")
                     .font(.system(size: 15, weight: .medium))
                     .foregroundColor(.yellow)
                 

@@ -38,7 +38,7 @@ struct CloudKitTestView: View {
             }
         }
         .onAppear {
-            addTestResult("📱 Vista de testing CloudKit iniciada")
+            addTestResult("[U+1F4F1] Vista de testing CloudKit iniciada")
             syncMonitor.checkCloudKitAccountStatus()
         }
     }
@@ -236,28 +236,28 @@ struct CloudKitTestView: View {
     // MARK: - Test Actions
     private func testCloudKitAccount() {
         isRunningTest = true
-        addTestResult("🔍 Verificando cuenta iCloud...")
+        addTestResult("[U+1F50D] Verificando cuenta iCloud...")
         
         CKContainer.default().accountStatus { status, error in
             DispatchQueue.main.async {
                 self.isRunningTest = false
                 
                 if let error = error {
-                    self.addTestResult("❌ Error: \(error.localizedDescription)")
+                    self.addTestResult("[ERR] Error: \(error.localizedDescription)")
                     return
                 }
                 
                 switch status {
                 case .available:
-                    self.addTestResult("✅ Cuenta iCloud disponible")
+                    self.addTestResult("[OK] Cuenta iCloud disponible")
                 case .noAccount:
-                    self.addTestResult("❌ No hay cuenta iCloud configurada")
+                    self.addTestResult("[ERR] No hay cuenta iCloud configurada")
                 case .restricted:
-                    self.addTestResult("❌ Cuenta iCloud restringida")
+                    self.addTestResult("[ERR] Cuenta iCloud restringida")
                 case .couldNotDetermine:
-                    self.addTestResult("❌ No se pudo determinar estado iCloud")
+                    self.addTestResult("[ERR] No se pudo determinar estado iCloud")
                 case .temporarilyUnavailable:
-                    self.addTestResult("⚠️ iCloud temporalmente no disponible")
+                    self.addTestResult("[WARN]️ iCloud temporalmente no disponible")
                 @unknown default:
                     self.addTestResult("❓ Estado iCloud desconocido")
                 }
@@ -267,7 +267,7 @@ struct CloudKitTestView: View {
     
     private func createTestWorkout() {
         isRunningTest = true
-        addTestResult("🏋️‍♂️ Creando entrenamiento de prueba...")
+        addTestResult("[U+1F3CB]️‍♂️ Creando entrenamiento de prueba...")
         
         let context = managedObjectContext
         let testWorkout = WorkoutEntity(context: context)
@@ -279,34 +279,34 @@ struct CloudKitTestView: View {
         
         do {
             try context.save()
-            addTestResult("✅ Entrenamiento de prueba creado")
-            addTestResult("📤 Sincronización CloudKit iniciada automáticamente")
+            addTestResult("[OK] Entrenamiento de prueba creado")
+            addTestResult("[U+1F4E4] Sincronización CloudKit iniciada automáticamente")
             isRunningTest = false
         } catch {
-            addTestResult("❌ Error al crear entrenamiento: \(error.localizedDescription)")
+            addTestResult("[ERR] Error al crear entrenamiento: \(error.localizedDescription)")
             isRunningTest = false
         }
     }
     
     private func forceSyncData() {
         isRunningTest = true
-        addTestResult("🔄 Forzando sincronización...")
+        addTestResult("[SYNC] Forzando sincronización...")
         
         let context = managedObjectContext
         
         // Force save to trigger CloudKit sync
         do {
             try context.save()
-            addTestResult("💾 Contexto guardado - sincronización iniciada")
+            addTestResult("[U+1F4BE] Contexto guardado - sincronización iniciada")
             
             // Monitor sync using our sync monitor
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.syncMonitor.triggerManualSync()
                 self.isRunningTest = false
-                self.addTestResult("📡 Sincronización manual activada")
+                self.addTestResult("[U+1F4E1] Sincronización manual activada")
             }
         } catch {
-            addTestResult("❌ Error al forzar sincronización: \(error.localizedDescription)")
+            addTestResult("[ERR] Error al forzar sincronización: \(error.localizedDescription)")
             isRunningTest = false
         }
     }
@@ -327,7 +327,7 @@ struct CloudKitTestView: View {
                 self.isRunningTest = false
                 
                 if let error = error {
-                    self.addTestResult("❌ Error consultando CloudKit: \(error.localizedDescription)")
+                    self.addTestResult("[ERR] Error consultando CloudKit: \(error.localizedDescription)")
                     return
                 }
                 
@@ -346,7 +346,7 @@ struct CloudKitTestView: View {
     
     private func clearTestResults() {
         testResults.removeAll()
-        addTestResult("🧹 Logs limpiados")
+        addTestResult("[U+1F9F9] Logs limpiados")
     }
     
     // MARK: - Helper Methods

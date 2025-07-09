@@ -63,10 +63,10 @@ struct PersistenceController {
         
         // Add CloudKit conflict monitoring logging
         #if DEBUG
-        Logger.cloudkit.debug("🔧 Configurando monitoreo de conflictos CloudKit...")
-        Logger.cloudkit.debug("✅ automaticallyMergesChangesFromParent = true")
-        Logger.cloudkit.debug("✅ mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy")
-        Logger.cloudkit.debug("✅ CloudKit conflict monitor iniciado")
+        Logger.cloudkit.debug("[U+1F527] Configurando monitoreo de conflictos CloudKit...")
+        Logger.cloudkit.debug("[OK] automaticallyMergesChangesFromParent = true")
+        Logger.cloudkit.debug("[OK] mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy")
+        Logger.cloudkit.debug("[OK] CloudKit conflict monitor iniciado")
         #endif
         
         // Enable query generation tokens for consistent reads

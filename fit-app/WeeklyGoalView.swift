@@ -276,7 +276,7 @@ struct WeeklyGoalView: View {
                             .foregroundColor(.white.opacity(0.9))
                         
                         if isGoalCompleted {
-                            Text("✅")
+                            Text("[OK]")
                                 .font(.system(size: 18))
                         }
                     }
@@ -341,7 +341,7 @@ struct WeeklyGoalView: View {
                             .foregroundColor(.yellow)
                     }
                     
-                    Text("¡Increíble trabajo! Has alcanzado tu meta semanal. Tu constancia es inspiradora. 🌟")
+                    Text("¡Increíble trabajo! Has alcanzado tu meta semanal. Tu constancia es inspiradora. [U+1F31F]")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white.opacity(0.9))
                         .multilineTextAlignment(.center)
@@ -377,8 +377,8 @@ struct WeeklyGoalView: View {
                     }
                     
                     Text(remaining == 1 ? 
-                        "Solo te falta 1 entrenamiento más para completar tu meta semanal. ¡Tú puedes! 💪" :
-                        "Te faltan \(remaining) entrenamientos para completar tu meta. Cada paso cuenta hacia tu bienestar. 🌱"
+                        "Solo te falta 1 entrenamiento más para completar tu meta semanal. ¡Tú puedes! [U+1F4AA]" :
+                        "Te faltan \(remaining) entrenamientos para completar tu meta. Cada paso cuenta hacia tu bienestar. [U+1F331]"
                     )
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white.opacity(0.9))
