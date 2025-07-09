@@ -1,8 +1,8 @@
 # Security Audit Report
 
-**Generated on:** Wed Jul  9 17:11:00 CST 2025
+**Generated on:** Wed Jul  9 17:22:18 CST 2025
 **Repository:** fit-app
-**Branch:** chore/security-audit
+**Branch:** main
 
 ## Findings
 
@@ -13,9 +13,9 @@
 | fit-app/DailySummaryCardView.swift | 317 | TODO | Bajo | `            return "Todo bien, hoy puedes retomar"` |
 | fit-app/PerfilView.swift | 397 | TODO | Bajo | `                        Text("Ver todo")` |
 | fit-app/MotivationalMessageManager.swift | 47 | TODO | Bajo | `        MotivationalMessage(text: "Todo bien, puedes volver a empezar", emoji: "🌱", context: .longBreak),` |
-| fit-app/CloudKitConflictView.swift | 192 | TODO | Bajo | `                        Text("Limpiar Todos los Eventos")` |
 | fit-app/InicioView.swift | 652 | TODO | Bajo | `            return "Todo bien, hoy puedes retomar"` |
 | fit-app/HistorialView.swift | 455 | TODO | Bajo | `                    Text("Aquí aparecerán todos tus entrenamientos una vez que comiences tu viaje fitness.")` |
+| fit-app/CloudKitConflictView.swift | 192 | TODO | Bajo | `                        Text("Limpiar Todos los Eventos")` |
 
 ## Resumen y Recomendaciones
 
@@ -61,24 +61,6 @@ git secrets --add 'CloudKit[._-]?Token'
 2. **Corto plazo:** Implementar logging seguro y resolver debug statements
 3. **Mediano plazo:** Establecer proceso de revisión de código con foco en seguridad
 4. **Largo plazo:** Implementar análisis de seguridad automatizado en CI/CD
-
-## Reglas de Exclusión
-
-El escáner de seguridad ha sido configurado para ignorar automáticamente los siguientes patrones que no representan riesgos de seguridad en producción:
-
-### Patrones de Logger
-- Se ignora automáticamente cualquier línea que contenga `Logger.<categoría>.debug()` dentro de bloques `#if DEBUG`, ya que estos no se ejecutan en producción y no representan riesgo de seguridad.
-
-### Patrones de Credenciales Legítimas
-- Uso legítimo de palabras clave sensibles en comentarios y código de autorización estándar
-- Referencias a controladores de autorización (authorizationController, credentialState)
-- Funciones de almacenamiento y recuperación de credenciales que forman parte de la arquitectura de seguridad del sistema
-- Inicialización de variables de password (password = "")
-- Codificación de credenciales para almacenamiento seguro (JSONEncoder.encode)
-
-### Patrones de Debug
-- Declaraciones print() que son parte del sistema de logging controlado por compilación condicional
-- Estas declaraciones están envueltas en bloques `#if DEBUG` y no se incluyen en builds de producción
 
 ---
 *Este reporte fue generado automáticamente. Revisar manualmente todos los hallazgos.*

@@ -2,43 +2,18 @@ import Foundation
 import os.log
 
 @available(iOS 14.0, *)
-struct Logger {
-    private static let subsystem = "com.antonio.fit-app"
+extension Logger {
+    private static let subsystem = Bundle.main.bundleIdentifier ?? "com.antonio.fit-app"
     
     // MARK: - Logger Categories
-    static let auth = os.Logger(subsystem: subsystem, category: "Authentication")
-    static let network = os.Logger(subsystem: subsystem, category: "Network")
-    static let storage = os.Logger(subsystem: subsystem, category: "Storage")
-    static let cloudkit = os.Logger(subsystem: subsystem, category: "CloudKit")
-    static let encryption = os.Logger(subsystem: subsystem, category: "Encryption")
-    static let validation = os.Logger(subsystem: subsystem, category: "Validation")
-    static let workout = os.Logger(subsystem: subsystem, category: "Workout")
-    static let profile = os.Logger(subsystem: subsystem, category: "Profile")
-    static let ui = os.Logger(subsystem: subsystem, category: "UI")
-    static let general = os.Logger(subsystem: subsystem, category: "General")
-    
-    // MARK: - Convenience Methods
-    static func debug(_ message: String, category: os.Logger = .general) {
-        #if DEBUG
-        category.debug("\(message)")
-        #endif
-    }
-    
-    static func info(_ message: String, category: os.Logger = .general) {
-        #if DEBUG
-        category.info("\(message)")
-        #endif
-    }
-    
-    static func error(_ message: String, category: os.Logger = .general) {
-        #if DEBUG
-        category.error("\(message)")
-        #endif
-    }
-    
-    static func warning(_ message: String, category: os.Logger = .general) {
-        #if DEBUG
-        category.notice("\(message)")
-        #endif
-    }
+    static let auth = Logger(subsystem: subsystem, category: "auth")
+    static let network = Logger(subsystem: subsystem, category: "network")
+    static let storage = Logger(subsystem: subsystem, category: "storage")
+    static let cloudkit = Logger(subsystem: subsystem, category: "cloudkit")
+    static let encryption = Logger(subsystem: subsystem, category: "encryption")
+    static let validation = Logger(subsystem: subsystem, category: "validation")
+    static let workout = Logger(subsystem: subsystem, category: "workout")
+    static let profile = Logger(subsystem: subsystem, category: "profile")
+    static let ui = Logger(subsystem: subsystem, category: "ui")
+    static let general = Logger(subsystem: subsystem, category: "general")
 }
