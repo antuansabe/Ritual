@@ -1,6 +1,7 @@
 import SwiftUI
 import CoreData
 import Combine
+import os.log
 
 // MARK: - Weekly Goal Manager
 class WeeklyGoalManager: ObservableObject {
@@ -49,7 +50,9 @@ class WeeklyGoalManager: ObservableObject {
             let workouts = try context.fetch(request)
             checkWorkoutCompleted(workouts: workouts)
         } catch {
-            print("Error fetching workouts for goal check: \(error)")
+            #if DEBUG
+            Logger.general.debug("Error fetching workouts for goal check: \(error)")
+            #endif
         }
     }
     

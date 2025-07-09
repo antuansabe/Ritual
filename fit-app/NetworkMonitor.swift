@@ -1,6 +1,7 @@
 import SwiftUI
 import Network
 import Combine
+import os.log
 
 // MARK: - Network Monitor
 class NetworkMonitor: ObservableObject {
@@ -75,25 +76,35 @@ class NetworkMonitor: ObservableObject {
         }
         
         monitor.start(queue: queue)
-        print("🌐 NetworkMonitor: Monitoreo de red iniciado")
+        #if DEBUG
+        Logger.network.debug("🌐 NetworkMonitor: Monitoreo de red iniciado")
+        #endif
     }
     
     private func logNetworkChange(wasConnected: Bool, currentStatus: NWPath.Status) {
         let isCurrentlyConnected = currentStatus == .satisfied
         
         if !wasConnected && isCurrentlyConnected {
-            print("🌐 ✅ Red CONECTADA - Tipo: \(connectionType.emoji) \(connectionType.description)")
-            print("🔄 Iniciando sincronización automática CloudKit...")
+            #if DEBUG
+            Logger.network.debug("🌐 ✅ Red CONECTADA - Tipo: \(connectionType.emoji) \(connectionType.description)")
+            Logger.network.debug("🔄 Iniciando sincronización automática CloudKit...")
+            #endif
         } else if wasConnected && !isCurrentlyConnected {
-            print("🌐 ❌ Red DESCONECTADA - Modo offline activado")
-            print("💾 Los datos se guardarán localmente hasta reconectar")
+            #if DEBUG
+            Logger.network.debug("🌐 ❌ Red DESCONECTADA - Modo offline activado")
+            Logger.network.debug("💾 Los datos se guardarán localmente hasta reconectar")
+            #endif
         } else if isCurrentlyConnected {
-            print("🌐 📡 Cambio de red - Tipo: \(connectionType.emoji) \(connectionType.description)")
+            #if DEBUG
+            Logger.network.debug("🌐 📡 Cambio de red - Tipo: \(connectionType.emoji) \(connectionType.description)")
+            #endif
         }
     }
     
     private func handleConnectionRestored() {
-        print("🔄 CONEXIÓN RESTAURADA - Iniciando sincronización CloudKit")
+        #if DEBUG
+        Logger.network.debug("🔄 CONEXIÓN RESTAURADA - Iniciando sincronización CloudKit")
+        #endif
         
         // Trigger CloudKit sync
         NotificationCenter.default.post(

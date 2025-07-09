@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import os.log
 
 /// Comprehensive input validation and sanitization class
 /// Provides security validation for all user inputs in the fitness app
@@ -744,7 +745,9 @@ extension InputValidator {
     /// - Returns: True if all tests pass, false otherwise
     func runValidationTests() -> Bool {
         #if DEBUG
-        print("🧪 Running comprehensive validation tests...")
+        #if DEBUG
+        Logger.validation.debug("🧪 Running comprehensive validation tests...")
+        #endif
         #endif
         
         var testsPassedCount = 0
@@ -763,7 +766,9 @@ extension InputValidator {
         ]
         
         #if DEBUG
-        print("📧 Testing email validation...")
+        #if DEBUG
+        Logger.validation.debug("📧 Testing email validation...")
+        #endif
         #endif
         for (email, shouldPass) in emailTests {
             totalTests += 1
@@ -771,11 +776,15 @@ extension InputValidator {
             if result.isValid == shouldPass {
                 testsPassedCount += 1
                 #if DEBUG
-                print("✅ Email test passed: '\(email)' -> \(result.isValid)")
+                #if DEBUG
+                Logger.validation.debug("✅ Email test passed: '\(email)' -> \(result.isValid)")
+                #endif
                 #endif
             } else {
                 #if DEBUG
-                print("❌ Email test failed: '\(email)' expected \(shouldPass), got \(result.isValid)")
+                #if DEBUG
+                Logger.validation.debug("❌ Email test failed: '\(email)' expected \(shouldPass), got \(result.isValid)")
+                #endif
                 #endif
             }
         }
@@ -793,7 +802,9 @@ extension InputValidator {
         ]
         
         #if DEBUG
-        print("🔒 Testing password validation...")
+        #if DEBUG
+        Logger.validation.debug("🔒 Testing password validation...")
+        #endif
         #endif
         for (password, shouldPass) in passwordTests {
             totalTests += 1
@@ -801,11 +812,15 @@ extension InputValidator {
             if result.isValid == shouldPass {
                 testsPassedCount += 1
                 #if DEBUG
-                print("✅ Password test passed: '\(password.prefix(3))***' -> \(result.isValid)")
+                #if DEBUG
+                Logger.validation.debug("✅ Password test passed: '\(password.prefix(3))***' -> \(result.isValid)")
+                #endif
                 #endif
             } else {
                 #if DEBUG
-                print("❌ Password test failed: '\(password.prefix(3))***' expected \(shouldPass), got \(result.isValid)")
+                #if DEBUG
+                Logger.validation.debug("❌ Password test failed: '\(password.prefix(3))***' expected \(shouldPass), got \(result.isValid)")
+                #endif
                 #endif
             }
         }
@@ -820,7 +835,7 @@ extension InputValidator {
         ]
         
         #if DEBUG
-        print("🧽 Testing input sanitization...")
+        Logger.validation.debug("🧽 Testing input sanitization...")
         #endif
         for (input, expected) in sanitizationTests {
             totalTests += 1
@@ -828,11 +843,15 @@ extension InputValidator {
             if result == expected {
                 testsPassedCount += 1
                 #if DEBUG
-                print("✅ Sanitization test passed: '\(input)' -> '\(result)'")
+                #if DEBUG
+                Logger.validation.debug("✅ Sanitization test passed: '\(input)' -> '\(result)'")
+                #endif
                 #endif
             } else {
                 #if DEBUG
-                print("❌ Sanitization test failed: '\(input)' expected '\(expected)', got '\(result)'")
+                #if DEBUG
+                Logger.validation.debug("❌ Sanitization test failed: '\(input)' expected '\(expected)', got '\(result)'")
+                #endif
                 #endif
             }
         }
@@ -849,7 +868,9 @@ extension InputValidator {
         ]
         
         #if DEBUG
-        print("👤 Testing name validation...")
+        #if DEBUG
+        Logger.validation.debug("👤 Testing name validation...")
+        #endif
         #endif
         for (name, shouldPass) in nameTests {
             totalTests += 1
@@ -857,11 +878,15 @@ extension InputValidator {
             if result.isValid == shouldPass {
                 testsPassedCount += 1
                 #if DEBUG
-                print("✅ Name test passed: '\(name)' -> \(result.isValid)")
+                #if DEBUG
+                Logger.validation.debug("✅ Name test passed: '\(name)' -> \(result.isValid)")
+                #endif
                 #endif
             } else {
                 #if DEBUG
-                print("❌ Name test failed: '\(name)' expected \(shouldPass), got \(result.isValid)")
+                #if DEBUG
+                Logger.validation.debug("❌ Name test failed: '\(name)' expected \(shouldPass), got \(result.isValid)")
+                #endif
                 #endif
             }
         }
@@ -869,19 +894,25 @@ extension InputValidator {
         // Summary
         let successRate = Double(testsPassedCount) / Double(totalTests) * 100
         #if DEBUG
-        print("\n📊 Validation Test Summary:")
-        print("✅ Tests passed: \(testsPassedCount)/\(totalTests)")
-        print("📈 Success rate: \(String(format: "%.1f", successRate))%")
+        #if DEBUG
+        Logger.validation.debug("\n📊 Validation Test Summary:")
+        Logger.validation.debug("✅ Tests passed: \(testsPassedCount)/\(totalTests)")
+        Logger.validation.debug("📈 Success rate: \(String(format: "%.1f", successRate))%")
+        #endif
         #endif
         
         let allTestsPassed = testsPassedCount == totalTests
         if allTestsPassed {
             #if DEBUG
-            print("🎉 All validation tests passed!")
+            #if DEBUG
+            Logger.validation.debug("🎉 All validation tests passed!")
+            #endif
             #endif
         } else {
             #if DEBUG
-            print("⚠️ Some validation tests failed. Please review implementation.")
+            #if DEBUG
+            Logger.validation.debug("⚠️ Some validation tests failed. Please review implementation.")
+            #endif
             #endif
         }
         
@@ -896,7 +927,9 @@ extension InputValidator {
         let nameTest = isValidName("Juan Carlos").isValid
         
         #if DEBUG
-        print("🔍 Quick validation test: Email=\(emailTest), Password=\(passwordTest), Name=\(nameTest)")
+        #if DEBUG
+        Logger.validation.debug("🔍 Quick validation test: Email=\(emailTest), Password=\(passwordTest), Name=\(nameTest)")
+        #endif
         #endif
         return emailTest && passwordTest && nameTest
     }

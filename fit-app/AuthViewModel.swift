@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import os.log
 
 class AuthViewModel: ObservableObject {
     @AppStorage("isAuthenticated") var isAuthenticated: Bool = false

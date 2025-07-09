@@ -2,6 +2,7 @@ import SwiftUI
 import CoreData
 import CloudKit
 import Combine
+import os.log
 
 // MARK: - CloudKit Conflict Monitor
 class CloudKitConflictMonitor: ObservableObject {
@@ -113,7 +114,9 @@ class CloudKitConflictMonitor: ObservableObject {
     // MARK: - CloudKit Monitoring Setup
     private func setupCloudKitMonitoring() {
         isMonitoring = true
-        print("🔧 Configurando monitoreo avanzado de CloudKit...")
+        #if DEBUG
+        Logger.cloudkit.debug("🔧 Configurando monitoreo avanzado de CloudKit...")
+        #endif
         
         // Monitor CloudKit container events
         NotificationCenter.default.publisher(for: .NSPersistentCloudKitContainerEventChangedNotification)
@@ -143,7 +146,9 @@ class CloudKitConflictMonitor: ObservableObject {
             }
             .store(in: &cancellables)
         
-        print("✅ Monitoreo CloudKit configurado exitosamente")
+        #if DEBUG
+        Logger.cloudkit.debug("✅ Monitoreo CloudKit configurado exitosamente")
+        #endif
     }
     
     // MARK: - Event Handlers
@@ -170,7 +175,9 @@ class CloudKitConflictMonitor: ObservableObject {
                 details: "Configuración inicial de CloudKit completada"
             )
             addSyncEvent(syncEvent)
-            print("⚙️ CloudKit Setup: Configuración inicial completada")
+            #if DEBUG
+            Logger.cloudkit.debug("⚙️ CloudKit Setup: Configuración inicial completada")
+            #endif
             
         case .import:
             handleImportEvent(event, timestamp: timestamp)
@@ -179,7 +186,9 @@ class CloudKitConflictMonitor: ObservableObject {
             handleExportEvent(event, timestamp: timestamp)
             
         @unknown default:
-            print("❓ CloudKit Event desconocido: \(event.type)")
+            #if DEBUG
+            Logger.cloudkit.debug("❓ CloudKit Event desconocido: \(event.type)")
+            #endif
         }
         
         // Check for errors in any event
@@ -190,7 +199,9 @@ class CloudKitConflictMonitor: ObservableObject {
     
     private func handleImportEvent(_ event: NSPersistentCloudKitContainer.Event, timestamp: Date) {
         if let error = event.error {
-            print("❌ CloudKit Import Error: \(error.localizedDescription)")
+            #if DEBUG
+            Logger.cloudkit.debug("❌ CloudKit Import Error: \(error.localizedDescription)")
+            #endif
             handleCloudKitError(error, eventType: .import, timestamp: timestamp)
         } else {
             let syncEvent = SyncEvent(
@@ -200,7 +211,9 @@ class CloudKitConflictMonitor: ObservableObject {
                 details: "Sincronización entrante completada exitosamente"
             )
             addSyncEvent(syncEvent)
-            print("📥 CloudKit Import: Datos nuevos recibidos desde iCloud")
+            #if DEBUG
+            Logger.cloudkit.debug("📥 CloudKit Import: Datos nuevos recibidos desde iCloud")
+            #endif
             
             // Check for potential conflicts during import
             detectImportConflicts(event)
@@ -209,7 +222,9 @@ class CloudKitConflictMonitor: ObservableObject {
     
     private func handleExportEvent(_ event: NSPersistentCloudKitContainer.Event, timestamp: Date) {
         if let error = event.error {
-            print("❌ CloudKit Export Error: \(error.localizedDescription)")
+            #if DEBUG
+            Logger.cloudkit.debug("❌ CloudKit Export Error: \(error.localizedDescription)")
+            #endif
             handleCloudKitError(error, eventType: .export, timestamp: timestamp)
         } else {
             let syncEvent = SyncEvent(
@@ -219,7 +234,9 @@ class CloudKitConflictMonitor: ObservableObject {
                 details: "Sincronización saliente completada exitosamente"
             )
             addSyncEvent(syncEvent)
-            print("📤 CloudKit Export: Datos locales enviados a iCloud exitosamente")
+            #if DEBUG
+            Logger.cloudkit.debug("📤 CloudKit Export: Datos locales enviados a iCloud exitosamente")
+            #endif
         }
     }
     
@@ -232,7 +249,9 @@ class CloudKitConflictMonitor: ObservableObject {
                 details: "Datos modificados en otro dispositivo"
             )
             self.addSyncEvent(syncEvent)
-            print("☁️ Remote Change: Cambios detectados desde otro dispositivo")
+            #if DEBUG
+            Logger.cloudkit.debug("☁️ Remote Change: Cambios detectados desde otro dispositivo")
+            #endif
             
             // Analyze the remote changes for conflicts
             self.analyzeRemoteChanges(notification)
@@ -244,7 +263,9 @@ class CloudKitConflictMonitor: ObservableObject {
         
         // Only monitor the view context saves
         if context == container.viewContext {
-            print("💾 Context Save: Datos guardados localmente")
+            #if DEBUG
+            Logger.cloudkit.debug("💾 Context Save: Datos guardados localmente")
+            #endif
             
             // Check for potential conflicts before save
             detectPreSaveConflicts(context, notification: notification)
@@ -253,7 +274,9 @@ class CloudKitConflictMonitor: ObservableObject {
     
     private func handleContextMerge(_ notification: Notification) {
         DispatchQueue.main.async {
-            print("🔄 Context Merge: Fusionando cambios automáticamente")
+            #if DEBUG
+            Logger.cloudkit.debug("🔄 Context Merge: Fusionando cambios automáticamente")
+            #endif
             
             if let userInfo = notification.userInfo {
                 self.analyzeContextMerge(userInfo)
@@ -265,7 +288,9 @@ class CloudKitConflictMonitor: ObservableObject {
     private func detectImportConflicts(_ event: NSPersistentCloudKitContainer.Event) {
         // Simulate conflict detection during import
         // In a real implementation, you would analyze the imported data
-        print("🔍 Analizando posibles conflictos en datos importados...")
+        #if DEBUG
+        Logger.cloudkit.debug("🔍 Analizando posibles conflictos en datos importados...")
+        #endif
         
         // Example: Check for timestamp conflicts
         let context = container.viewContext
@@ -291,7 +316,9 @@ class CloudKitConflictMonitor: ObservableObject {
                     )
                     
                     addConflict(conflict)
-                    print("⚡ Conflicto detectado: Ediciones simultáneas en \(workout.type ?? "Unknown")")
+                    #if DEBUG
+                    Logger.cloudkit.debug("⚡ Conflicto detectado: Ediciones simultáneas en \(workout.type ?? "Unknown")")
+                    #endif
                 }
             }
         } catch {

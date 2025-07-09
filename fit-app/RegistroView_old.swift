@@ -1,4 +1,5 @@
 import SwiftUI
+import os.log
 
 struct RegistroView: View {
     @State private var tipoActividad = "Jiu-Jitsu"
@@ -87,12 +88,14 @@ struct RegistroView: View {
     }
     
     private func guardarEntrenamiento() {
-        print("=== ENTRENAMIENTO GUARDADO ===")
-        print("Tipo: \(tipoActividad)")
-        print("Duración: \(duracion) minutos")
-        print("Intensidad: \(intensidad)")
-        print("Notas: \(notas)")
-        print("==============================")
+        #if DEBUG
+        Logger.workout.debug("=== ENTRENAMIENTO GUARDADO ===")
+        Logger.workout.debug("Tipo: \(tipoActividad)")
+        Logger.workout.debug("Duración: \(duracion) minutos")
+        Logger.workout.debug("Intensidad: \(intensidad)")
+        Logger.workout.debug("Notas: \(notas)")
+        Logger.workout.debug("==============================")
+        #endif
     }
 }
 

@@ -1,6 +1,7 @@
 import CoreData
 import CloudKit
 import Foundation
+import os.log
 
 struct PersistenceController {
     static let shared = PersistenceController()
@@ -61,16 +62,20 @@ struct PersistenceController {
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         // Add CloudKit conflict monitoring logging
-        print("🔧 Configurando monitoreo de conflictos CloudKit...")
-        print("✅ automaticallyMergesChangesFromParent = true")
-        print("✅ mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy")
-        print("✅ CloudKit conflict monitor iniciado")
+        #if DEBUG
+        Logger.cloudkit.debug("🔧 Configurando monitoreo de conflictos CloudKit...")
+        Logger.cloudkit.debug("✅ automaticallyMergesChangesFromParent = true")
+        Logger.cloudkit.debug("✅ mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy")
+        Logger.cloudkit.debug("✅ CloudKit conflict monitor iniciado")
+        #endif
         
         // Enable query generation tokens for consistent reads
         do {
             try container.viewContext.setQueryGenerationFrom(.current)
         } catch {
-            print("Failed to pin viewContext to the current generation: \(error)")
+            #if DEBUG
+            Logger.cloudkit.debug("Failed to pin viewContext to the current generation: \(error)")
+            #endif
         }
     }
 }
