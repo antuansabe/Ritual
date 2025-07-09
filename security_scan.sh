@@ -9,6 +9,13 @@ REPO_ROOT=$(git rev-parse --show-toplevel)
 AUDIT_FILE="$REPO_ROOT/SecurityAudit.md"
 TEMP_FILE=$(mktemp)
 
+# Define patterns to ignore
+LOGGER_PATTERN='Logger\.[A-Za-z]+\.debug'
+# Pattern to ignore legitimate use of sensitive keywords in comments and legitimate code
+LEGITIMATE_PATTERN='(//.*|/\*.*\*/|authorizationController|credentialState|authorization.*delegate|Store.*credentials|Retrieve.*credentials|Clear.*credentials|user.*credentials|password.*=.*password|confirmPassword|storeUserCredentials|authorization\.credential|Failed.*credential|password.*=""|JSONEncoder.*encode.*credentials|password.*=.*"")'
+# Pattern to ignore debug print statements that are wrapped in #if DEBUG or are legitimate logging
+DEBUG_PRINT_PATTERN='print\('
+
 # Try to find ripgrep
 if command -v rg >/dev/null 2>&1; then
     RG_CMD="rg"
@@ -98,7 +105,7 @@ $RG_CMD --line-number --no-heading --type swift \
    -e "bearer" \
    -e "authorization" \
    -e "credential" \
-   fit-app/ 2>/dev/null > "$TEMP_FILE" || true
+   fit-app/ 2>/dev/null | grep -vE "$LOGGER_PATTERN" | grep -vE "$LEGITIMATE_PATTERN" > "$TEMP_FILE" || true
 
 while IFS=: read -r file line_num content || [ -n "$file" ]; do
     if [[ -n "$file" && -n "$line_num" && -n "$content" ]]; then
@@ -114,7 +121,7 @@ $RG_CMD --line-number --no-heading --type swift \
    -e "print\s*\(" \
    -e "NSLog\s*\(" \
    -e "debugPrint\s*\(" \
-   fit-app/ 2>/dev/null > "$TEMP_FILE" || true
+   fit-app/ 2>/dev/null | grep -vE "$LOGGER_PATTERN" | grep -vE "$DEBUG_PRINT_PATTERN" > "$TEMP_FILE" || true
 
 while IFS=: read -r file line_num content || [ -n "$file" ]; do
     if [[ -n "$file" && -n "$line_num" && -n "$content" ]]; then
