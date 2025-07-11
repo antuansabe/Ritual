@@ -3,12 +3,12 @@ import CloudKit
 import Foundation
 import os.log
 
-struct PersistenceController {
-    static let shared = PersistenceController()
+struct GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx {
+    static let DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX = GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx()
 
-    static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
-        let viewContext = result.container.viewContext
+    static var WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF: GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx = {
+        let result = GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx(inMemory: true)
+        let viewContext = result.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext
         
         // Add sample data for previews
         let sampleWorkout = WorkoutEntity(context: viewContext)
@@ -27,20 +27,20 @@ struct PersistenceController {
         return result
     }()
 
-    let container: NSPersistentCloudKitContainer
+    let FU31nOsXzkAu3ssDTzwUVmAnypmtztob: NSPersistentCloudKitContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "WorkoutHeroModel")
+        FU31nOsXzkAu3ssDTzwUVmAnypmtztob = NSPersistentCloudKitContainer(name: "WorkoutHeroModel")
         
         if inMemory {
             // Configure for preview/testing with in-memory store
-            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+            FU31nOsXzkAu3ssDTzwUVmAnypmtztob.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
             // Disable CloudKit for preview mode
-            container.persistentStoreDescriptions.first!.setOption(true as NSNumber, 
+            FU31nOsXzkAu3ssDTzwUVmAnypmtztob.persistentStoreDescriptions.first!.setOption(true as NSNumber, 
                                                                   forKey: NSPersistentHistoryTrackingKey)
         } else {
             // Configure for production with CloudKit synchronization
-            guard let description = container.persistentStoreDescriptions.first else {
+            guard let description = FU31nOsXzkAu3ssDTzwUVmAnypmtztob.persistentStoreDescriptions.first else {
                 fatalError("Failed to retrieve a persistent store description.")
             }
             
@@ -51,30 +51,30 @@ struct PersistenceController {
             description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
         }
         
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        FU31nOsXzkAu3ssDTzwUVmAnypmtztob.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
         
         // Configure view context for optimal CloudKit synchronization
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext.automaticallyMergesChangesFromParent = true
+        FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         // Add CloudKit conflict monitoring logging
         #if DEBUG
-        Logger.cloudkit.debug("🔧 Configurando monitoreo de conflictos CloudKit...")
-        Logger.cloudkit.debug("✅ automaticallyMergesChangesFromParent = true")
-        Logger.cloudkit.debug("✅ mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy")
-        Logger.cloudkit.debug("✅ CloudKit conflict monitor iniciado")
+        Logger.uJ64CEAapWCbqsNEGRmfxsCkTN5OcuF8.debug("🔧 Configurando monitoreo de conflictos CloudKit...")
+        Logger.uJ64CEAapWCbqsNEGRmfxsCkTN5OcuF8.debug("✅ automaticallyMergesChangesFromParent = true")
+        Logger.uJ64CEAapWCbqsNEGRmfxsCkTN5OcuF8.debug("✅ mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy")
+        Logger.uJ64CEAapWCbqsNEGRmfxsCkTN5OcuF8.debug("✅ CloudKit conflict monitor iniciado")
         #endif
         
         // Enable query generation tokens for consistent reads
         do {
-            try container.viewContext.setQueryGenerationFrom(.current)
+            try FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext.setQueryGenerationFrom(.current)
         } catch {
             #if DEBUG
-            Logger.cloudkit.debug("Failed to pin viewContext to the current generation: \(error)")
+            Logger.uJ64CEAapWCbqsNEGRmfxsCkTN5OcuF8.debug("Failed to pin viewContext to the current generation: \(error)")
             #endif
         }
     }

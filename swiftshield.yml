@@ -1,0 +1,48 @@
+##
+## SwiftShield Configuration
+## Protección de símbolos para Release builds
+##
+
+# Directorios de entrada a obfuscar
+inputs: 
+  - "fit-app"
+
+# Obfuscar símbolos privados/internos
+obfuscate_private: true
+
+# Obfuscar propiedades públicas también
+obfuscate_public: true
+
+# Módulos y frameworks que NO deben ser obfuscados
+ignore:
+  - SwiftUI
+  - Combine
+  - Foundation
+  - UIKit
+  - CoreData
+  - Security
+  - CommonCrypto
+  - os.log
+  - XCTest
+
+# Archivos específicos a ignorar (opcional)
+ignore_files:
+  - "fit-app/Generated/"
+  - "fit-app/DerivedSources/"
+
+# Símbolos específicos que no deben obfuscarse
+ignore_symbols:
+  - "main"
+  - "App"
+  - "ContentView"
+  - "SceneDelegate"
+  - "AppDelegate"
+
+# Habilitar logs detallados
+verbose: true
+
+# Mantener archivo de mapeo para debugging
+keep_map: true
+
+# Archivo de salida para el mapeo de símbolos
+map_file: "obfuscation_map.json"

@@ -43,6 +43,9 @@
 		L4M3K2N3J0K1A88MMDEFST /* DataEncryptionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = P5O4K3N4J1L1678912345678 /* DataEncryptionHelper.swift */; };
 		M5N4L3O4K1M2B99NNDEFUV /* InputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = Q6P5L4O5K2M2789023456789 /* InputValidator.swift */; };
 		N6O5M4P5L3N3C99OODEFWX /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = R7Q6M5P6L4N4890134567890 /* Logger.swift */; };
+		O7P6N5Q6M4O5D00PPDEFYZ /* LoginRateLimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = S8R7N6Q7M5P5901245678901 /* LoginRateLimiter.swift */; };
+		P8Q7O6R7N5Q6E11QQDEFZA /* PinnedSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = T9S8O7R8N6Q6012356789012 /* PinnedSessionDelegate.swift */; };
+		Q9R8P7S8O6R7F22RRDEFAB /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = U0T9P8S9O7R7123467890123 /* NetworkLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +88,10 @@
 		P5O4K3N4J1L1678912345678 /* DataEncryptionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEncryptionHelper.swift; sourceTree = "<group>"; };
 		Q6P5L4O5K2M2789023456789 /* InputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidator.swift; sourceTree = "<group>"; };
 		R7Q6M5P6L4N4890134567890 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		S8R7N6Q7M5P5901245678901 /* LoginRateLimiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRateLimiter.swift; sourceTree = "<group>"; };
+		T9S8O7R8N6Q6012356789012 /* PinnedSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedSessionDelegate.swift; sourceTree = "<group>"; };
+		U0T9P8S9O7R7123467890123 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
+		V1U0Q9T0P8S8234578901234 /* TLSPinningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSPinningTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +157,10 @@
 				P5O4K3N4J1L1678912345678 /* DataEncryptionHelper.swift */,
 				Q6P5L4O5K2M2789023456789 /* InputValidator.swift */,
 				R7Q6M5P6L4N4890134567890 /* Logger.swift */,
+				S8R7N6Q7M5P5901245678901 /* LoginRateLimiter.swift */,
+				T9S8O7R8N6Q6012356789012 /* PinnedSessionDelegate.swift */,
+				U0T9P8S9O7R7123467890123 /* NetworkLayer.swift */,
+				V1U0Q9T0P8S8234578901234 /* TLSPinningTests.swift */,
 				20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */,
 				20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
@@ -169,6 +180,7 @@
 				A1B2C3D4E5F5FFFC /* Sources */,
 				A1B2C3D4E5F5FFFD /* Frameworks */,
 				A1B2C3D4E5F5FFFE /* Resources */,
+				5F8E9A2B4C3D1E0F8A7B9C1D /* SwiftShield Obfuscation */,
 			);
 			buildRules = (
 			);
@@ -265,17 +277,42 @@
 				L4M3K2N3J0K1A88MMDEFST /* DataEncryptionHelper.swift in Sources */,
 				M5N4L3O4K1M2B99NNDEFUV /* InputValidator.swift in Sources */,
 				N6O5M4P5L3N3C99OODEFWX /* Logger.swift in Sources */,
+				O7P6N5Q6M4O5D00PPDEFYZ /* LoginRateLimiter.swift in Sources */,
+				P8Q7O6R7N5Q6E11QQDEFZA /* PinnedSessionDelegate.swift in Sources */,
+				Q9R8P7S8O6R7F22RRDEFAB /* NetworkLayer.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5F8E9A2B4C3D1E0F8A7B9C1D /* SwiftShield Obfuscation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftShield Obfuscation";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# SwiftShield Obfuscation - Only run in Release configuration\nif [ \"$CONFIGURATION\" = \"Release\" ]; then\n    echo \"🛡️ Running SwiftShield obfuscation for Release build...\"\n    \n    # Check if SwiftShield tool exists\n    if [ ! -f \"$PROJECT_DIR/swift-shield-tool\" ]; then\n        echo \"❌ SwiftShield tool not found at $PROJECT_DIR/swift-shield-tool\"\n        exit 1\n    fi\n    \n    # Change to project directory and run SwiftShield\n    cd \"$PROJECT_DIR\"\n    \n    # Run SwiftShield with proper arguments\n    \"$PROJECT_DIR/swift-shield-tool\" obfuscate \\\n        --project-file \"$PROJECT_DIR/fit-app.xcodeproj\" \\\n        --scheme \"fit-app\" \\\n        --ignore-targets \"\" \\\n        --ignore-names \"SwiftUI,Combine,Foundation,UIKit,CoreData,Security,CommonCrypto,main,App,ContentView,SceneDelegate,AppDelegate\" \\\n        --ignore-public \\\n        --verbose\n    \n    echo \"✅ SwiftShield obfuscation completed\"\nelse\n    echo \"ℹ️ Skipping SwiftShield obfuscation - Debug configuration\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin XCBuildConfiguration section */
 		A1B2C3D4E5F60009 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+		
+SWIFTSHIELDED = true;		ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -338,7 +375,8 @@
 		A1B2C3D4E5F6000A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+		
+SWIFTSHIELDED = true;		ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -394,7 +432,8 @@
 		A1B2C3D4E5F6000B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+		
+SWIFTSHIELDED = true;		ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "fit-app/fit-app.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -424,7 +463,8 @@
 		A1B2C3D4E5F6000C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+		
+SWIFTSHIELDED = true;		ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "fit-app/fit-app.entitlements";
 				CODE_SIGN_STYLE = Automatic;

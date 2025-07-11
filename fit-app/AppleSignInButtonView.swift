@@ -1,14 +1,14 @@
 import SwiftUI
 import AuthenticationServices
 
-struct AppleSignInButtonView: View {
-    @StateObject private var appleSignInManager = AppleSignInManager.shared
+struct kUUx8S7NdyM5CPSTtv4aW8j7aBf037UH: View {
+    @StateObject private var appleSignInManager = Lx00e402Z63gwc4vKEC97NhbZVDDCOfA.shared
     
     var body: some View {
         SignInWithAppleButton(
             onRequest: { request in
                 print("🍎 Apple Sign In button tapped - preparing request...")
-                appleSignInManager.signInWithApple()
+                appleSignInManager.jniddSZKEoGcms9So9T3uUpuM55PjT8X()
             },
             onCompletion: { result in
                 print("🍎 Apple Sign In button completion called")
@@ -42,6 +42,6 @@ struct AppleSignInButtonView: View {
 }
 
 #Preview {
-    AppleSignInButtonView()
+    kUUx8S7NdyM5CPSTtv4aW8j7aBf037UH()
         .preferredColorScheme(.dark)
 }

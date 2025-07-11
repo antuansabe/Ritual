@@ -2,95 +2,95 @@ import Foundation
 import SwiftUI
 
 // MARK: - Motivational Message Model
-struct MotivationalMessage {
-    let text: String
-    let emoji: String
-    let context: MessageContext
+struct O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0 {
+    let OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: String
+    let i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: String
+    let LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: zkAXLU0LGXXGsfNirBbGgtLsRAmyhtqV
     
-    enum MessageContext {
-        case profile
-        case historyEmpty
-        case workoutStart
-        case longBreak
-        case streak
-        case general
+    enum zkAXLU0LGXXGsfNirBbGgtLsRAmyhtqV {
+        case NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1
+        case Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX
+        case W4xT37bzA7MscseBmyFwXeMAQ1f5kXam
+        case LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr
+        case QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN
+        case Ob4SnetCO7LMPevIhjhaA06irglkRYx7
     }
 }
 
 // MARK: - Motivational Message Manager
-class MotivationalMessageManager: ObservableObject {
+class XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5: ObservableObject {
     
     // MARK: - Message Collections
-    private let profileMessages = [
-        MotivationalMessage(text: "Hoy puedes darte un regalo de movimiento", emoji: "[U+1F9D8]‍♂️", context: .profile),
-        MotivationalMessage(text: "Tu bienestar merece estos momentos", emoji: "[U+1F49A]", context: .profile),
-        MotivationalMessage(text: "Cada día es una nueva oportunidad", emoji: "[U+1F305]", context: .profile),
-        MotivationalMessage(text: "Tu cuerpo te agradece este cuidado", emoji: "✨", context: .profile),
-        MotivationalMessage(text: "Pequeños pasos, grandes cambios", emoji: "[U+1F463]", context: .profile)
+    private let M6w5mg9zhmFNSHCKlqV0B0v4X5euSSi9 = [
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Hoy puedes darte un regalo de movimiento", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F9D8]‍♂️", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu bienestar merece estos momentos", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F49A]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada día es una nueva oportunidad", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F305]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu cuerpo te agradece este cuidado", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "✨", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Pequeños pasos, grandes cambios", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F463]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1)
     ]
     
-    private let historyEmptyMessages = [
-        MotivationalMessage(text: "Tu primer entrenamiento te está esperando", emoji: "[U+1F331]", context: .historyEmpty),
-        MotivationalMessage(text: "Cada gran viaje comienza con un paso", emoji: "[U+1F680]", context: .historyEmpty),
-        MotivationalMessage(text: "Hoy puede ser el día perfecto para empezar", emoji: "[U+1F31F]", context: .historyEmpty),
-        MotivationalMessage(text: "Tu historia fitness está por comenzar", emoji: "[U+1F4D6]", context: .historyEmpty)
+    private let lKdGbnZuOra0mRYYFOIiLfjmiZdkviUv = [
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu primer entrenamiento te está esperando", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F331]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada gran viaje comienza con un paso", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F680]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Hoy puede ser el día perfecto para empezar", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F31F]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu historia fitness está por comenzar", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F4D6]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX)
     ]
     
-    private let workoutStartMessages = [
-        MotivationalMessage(text: "¿Qué tipo de energía quieres crear hoy?", emoji: "⚡", context: .workoutStart),
-        MotivationalMessage(text: "Tu cuerpo está listo para este momento", emoji: "[U+1F4AA]", context: .workoutStart),
-        MotivationalMessage(text: "Conecta con tu fuerza interior", emoji: "[U+1F525]", context: .workoutStart),
-        MotivationalMessage(text: "Este momento es tuyo", emoji: "[U+1F3AF]", context: .workoutStart)
+    private let LkfDTCybFldHzttiVoegvGMK1yHU71QL = [
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¿Qué tipo de energía quieres crear hoy?", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "⚡", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu cuerpo está listo para este momento", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F4AA]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Conecta con tu fuerza interior", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F525]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Este momento es tuyo", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F3AF]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam)
     ]
     
-    private let longBreakMessages = [
-        MotivationalMessage(text: "Todo bien, puedes volver a empezar", emoji: "[U+1F331]", context: .longBreak),
-        MotivationalMessage(text: "El descanso también es parte del proceso", emoji: "[U+1F33F]", context: .longBreak),
-        MotivationalMessage(text: "Si descansaste, hoy puedes regresar con calma", emoji: "[U+1F54A]️", context: .longBreak),
-        MotivationalMessage(text: "Cada regreso es una nueva oportunidad", emoji: "[U+1F308]", context: .longBreak)
+    private let YHW1PAdnIUlAEFyBimTTwBKBd9d7GzDn = [
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Todo bien, puedes volver a empezar", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F331]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "El descanso también es parte del proceso", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F33F]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Si descansaste, hoy puedes regresar con calma", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F54A]️", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada regreso es una nueva oportunidad", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F308]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr)
     ]
     
-    private let streakMessages = [
-        MotivationalMessage(text: "¡Tu constancia inspira!", emoji: "[U+1F525]", context: .streak),
-        MotivationalMessage(text: "Mira lo lejos que has llegado", emoji: "⭐", context: .streak),
-        MotivationalMessage(text: "Tu disciplina está dando frutos", emoji: "[U+1F338]", context: .streak),
-        MotivationalMessage(text: "Eres más fuerte de lo que crees", emoji: "[U+1F48E]", context: .streak)
+    private let T6IP6V80TouYevyJ0uGDkxRQS9bKJrVd = [
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¡Tu constancia inspira!", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F525]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Mira lo lejos que has llegado", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "⭐", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu disciplina está dando frutos", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F338]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Eres más fuerte de lo que crees", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F48E]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN)
     ]
     
     // MARK: - Public Methods
-    func getMessage(for context: MotivationalMessage.MessageContext, daysSinceLastWorkout: Int = 0, currentStreak: Int = 0) -> MotivationalMessage {
+    func Ybk5XOhw1M7TunRE3Dn538FHOpTonv3u(for context: O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0.zkAXLU0LGXXGsfNirBbGgtLsRAmyhtqV, daysSinceLastWorkout: Int = 0, currentStreak: Int = 0) -> O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0 {
         
         // Lógica adaptativa basada en patrones de entrenamiento
         if daysSinceLastWorkout > 3 {
-            return longBreakMessages.randomElement() ?? getDefaultMessage(for: context)
+            return YHW1PAdnIUlAEFyBimTTwBKBd9d7GzDn.randomElement() ?? wOOUN9jCad0XDXIgh1hRbg5aejSyOfjY(for: context)
         }
         
         if currentStreak >= 3 {
-            return streakMessages.randomElement() ?? getDefaultMessage(for: context)
+            return T6IP6V80TouYevyJ0uGDkxRQS9bKJrVd.randomElement() ?? wOOUN9jCad0XDXIgh1hRbg5aejSyOfjY(for: context)
         }
         
-        return getDefaultMessage(for: context)
+        return wOOUN9jCad0XDXIgh1hRbg5aejSyOfjY(for: context)
     }
     
-    private func getDefaultMessage(for context: MotivationalMessage.MessageContext) -> MotivationalMessage {
+    private func wOOUN9jCad0XDXIgh1hRbg5aejSyOfjY(for context: O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0.zkAXLU0LGXXGsfNirBbGgtLsRAmyhtqV) -> O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0 {
         switch context {
-        case .profile:
-            return profileMessages.randomElement() ?? MotivationalMessage(text: "Hoy es tu día", emoji: "✨", context: .profile)
-        case .historyEmpty:
-            return historyEmptyMessages.randomElement() ?? MotivationalMessage(text: "Tu primer paso te espera", emoji: "[U+1F331]", context: .historyEmpty)
-        case .workoutStart:
-            return workoutStartMessages.randomElement() ?? MotivationalMessage(text: "¡A por ello!", emoji: "[U+1F4AA]", context: .workoutStart)
-        case .longBreak:
-            return longBreakMessages.randomElement() ?? MotivationalMessage(text: "Vuelve cuando estés listo", emoji: "[U+1F33F]", context: .longBreak)
-        case .streak:
-            return streakMessages.randomElement() ?? MotivationalMessage(text: "¡Increíble progreso!", emoji: "[U+1F525]", context: .streak)
-        case .general:
-            return MotivationalMessage(text: "Cada momento cuenta", emoji: "⭐", context: .general)
+        case .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1:
+            return M6w5mg9zhmFNSHCKlqV0B0v4X5euSSi9.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Hoy es tu día", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "✨", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1)
+        case .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX:
+            return lKdGbnZuOra0mRYYFOIiLfjmiZdkviUv.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu primer paso te espera", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F331]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX)
+        case .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam:
+            return LkfDTCybFldHzttiVoegvGMK1yHU71QL.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¡A por ello!", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F4AA]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam)
+        case .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr:
+            return YHW1PAdnIUlAEFyBimTTwBKBd9d7GzDn.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Vuelve cuando estés listo", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F33F]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr)
+        case .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN:
+            return T6IP6V80TouYevyJ0uGDkxRQS9bKJrVd.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¡Increíble progreso!", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F525]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN)
+        case .Ob4SnetCO7LMPevIhjhaA06irglkRYx7:
+            return O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada momento cuenta", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "⭐", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Ob4SnetCO7LMPevIhjhaA06irglkRYx7)
         }
     }
     
     // MARK: - Workout Analysis Methods
-    func calculateDaysSinceLastWorkout(workouts: [WorkoutEntity]) -> Int {
+    func XpXjs2s0i38zzDWZ3PBpGos6nHfcnQ9A(workouts: [WorkoutEntity]) -> Int {
         guard let lastWorkout = workouts.first else { return Int.max }
         
         let calendar = Calendar.current
@@ -100,7 +100,7 @@ class MotivationalMessageManager: ObservableObject {
         return calendar.dateComponents([.day], from: lastWorkoutDate, to: today).day ?? 0
     }
     
-    func calculateCurrentStreak(workouts: [WorkoutEntity]) -> Int {
+    func ES0BZT8uITuIRS240cz0GJ4YC02PSyRU(workouts: [WorkoutEntity]) -> Int {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
         
@@ -127,12 +127,12 @@ class MotivationalMessageManager: ObservableObject {
 }
 
 // MARK: - Motivational Card View
-struct MotivationalCardView: View {
-    let message: MotivationalMessage
-    let style: CardStyle
+struct F86UW67ccAWVKtMzac7t2afh26jfxsLy: View {
+    let message: O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0
+    let style: xZpVohFt6DxMi1cpfQOyhLvICabeCuRD
     @State private var animateOnAppear = false
     
-    enum CardStyle {
+    enum xZpVohFt6DxMi1cpfQOyhLvICabeCuRD {
         case prominent      // Para pantallas principales como Perfil
         case subtle         // Para pantallas con más contenido
         case minimal        // Para espacios reducidos
@@ -145,20 +145,20 @@ struct MotivationalCardView: View {
                 Circle()
                     .fill(
                         LinearGradient(
-                            colors: [AppConstants.Design.lavender.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
+                            colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR.opacity(0.2), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.1)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
                     .frame(width: emojiSize, height: emojiSize)
                 
-                Text(message.emoji)
+                Text(message.i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB)
                     .font(.system(size: emojiFontSize))
             }
             
             // Message content
             VStack(alignment: .leading, spacing: 4) {
-                Text(message.text)
+                Text(message.OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC)
                     .font(textFont)
                     .foregroundColor(.white.opacity(0.9))
                     .multilineTextAlignment(.leading)
@@ -230,9 +230,9 @@ struct MotivationalCardView: View {
     
     private var cornerRadius: CGFloat {
         switch style {
-        case .prominent: return AppConstants.UI.cornerRadiusL
-        case .subtle: return AppConstants.UI.cornerRadiusM
-        case .minimal: return AppConstants.UI.cornerRadiusS
+        case .prominent: return pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ
+        case .subtle: return pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.LN3B4n9YFxSm5ylLDbkTP1ORcAc8zVlA
+        case .minimal: return pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.drEz2aTU4wuyafcRik6r81dFj2b4GDPU
         }
     }
     
@@ -241,9 +241,9 @@ struct MotivationalCardView: View {
         case .prominent:
             return LinearGradient(
                 colors: [
-                    AppConstants.Design.lavender.opacity(0.15),
-                    AppConstants.Design.electricBlue.opacity(0.08),
-                    AppConstants.Design.softPurple.opacity(0.05)
+                    pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR.opacity(0.15),
+                    pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.08),
+                    pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.05)
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -267,7 +267,7 @@ struct MotivationalCardView: View {
         switch style {
         case .prominent:
             return LinearGradient(
-                colors: [AppConstants.Design.lavender.opacity(0.3), AppConstants.Design.electricBlue.opacity(0.2)],
+                colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR.opacity(0.3), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.2)],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -282,7 +282,7 @@ struct MotivationalCardView: View {
     
     private var cardShadow: Color {
         switch style {
-        case .prominent: return AppConstants.Design.lavender.opacity(0.2)
+        case .prominent: return pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR.opacity(0.2)
         case .subtle: return .black.opacity(0.1)
         case .minimal: return .black.opacity(0.05)
         }
@@ -306,153 +306,153 @@ struct MotivationalCardView: View {
 }
 
 // MARK: - App Configuration
-struct AppConstants {
+struct pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc {
     
     // MARK: - Workout Configuration
-    struct Workout {
-        static let minDuration = 1
-        static let maxDuration = 480 // 8 hours
-        static let caloriesPerMinute = 8
-        static let maxWorkoutsPerDay = 10
+    struct qnTieLH0NmrFeqrEeovMwdRnTEZpaNwl {
+        static let t4U1KVTYzBRzNbGbkCA2woYSBdnO0pDd = 1
+        static let d0YjvPLYYMopHYgv8lqRevkbyUvxYstr = 480 // 8 hours
+        static let KHII9oFJy1efArOPYoyujmSlrJmGg4hE = 8
+        static let zzAwp7sdCChrHmApSJocoS9XxLuTXmnr = 10
     }
     
     // MARK: - UI Constants
-    struct UI {
+    struct k137TNijvZD3w1DkCOx9VDgHKsSa6IOU {
         // Spacing System
-        static let spacingXS: CGFloat = 4
-        static let spacingS: CGFloat = 8
-        static let spacingM: CGFloat = 12
-        static let spacingL: CGFloat = 16
-        static let spacingXL: CGFloat = 24
-        static let spacingXXL: CGFloat = 32
+        static let GPTIMVzXVhYLFkeR151yq7JxB8fmAAgB: CGFloat = 4
+        static let WGScMqI3Q6T0pZ22WIc8o7hkW683p3YO: CGFloat = 8
+        static let eolKpLnBV18B5zFVYquf59EJN7NQGzrX: CGFloat = 12
+        static let cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX: CGFloat = 16
+        static let MClncXuDMA0DqsjaIRrg0bNnW3Yqs1En: CGFloat = 24
+        static let MkbMEpa9IH7R7J9jTnV7YPvr0gddVDJ6: CGFloat = 32
         
         // Corner Radius
-        static let cornerRadiusS: CGFloat = 8
-        static let cornerRadiusM: CGFloat = 12
-        static let cornerRadiusL: CGFloat = 16
-        static let cornerRadiusXL: CGFloat = 20
+        static let drEz2aTU4wuyafcRik6r81dFj2b4GDPU: CGFloat = 8
+        static let LN3B4n9YFxSm5ylLDbkTP1ORcAc8zVlA: CGFloat = 12
+        static let EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ: CGFloat = 16
+        static let Zq3b1BoOpRmP4c9NStPkYbwXAq26H8mD: CGFloat = 20
         
         // Touch Targets
-        static let minTouchTarget: CGFloat = 44
-        static let fabSize: CGFloat = 56
+        static let ZPiJx0tqo8n2DtmG0CeHsdjOg2YoQqZx: CGFloat = 44
+        static let uexaD6eU3CQ9v69jTfIbPzg5LvhPQnR7: CGFloat = 56
         
         // Card Sizes
-        static let metricCardWidth: CGFloat = 120
-        static let metricCardHeight: CGFloat = 100
-        static let activityButtonHeight: CGFloat = 80
+        static let SxoUrSX4QmQNbRnEujsdDDEMs3GSFJ5U: CGFloat = 120
+        static let ATDkx7nKjKVtQ0Cvu2ef4zVXjg01Gunl: CGFloat = 100
+        static let v2jqhogX06ZprFHFch7PBJ847QR9ozoH: CGFloat = 80
         
         // Shadow
-        static let shadowRadius: CGFloat = 4
-        static let shadowOpacity: Double = 0.1
+        static let bTCtL4JJ6s6CZeDy20yfXlv4bGc83wHJ: CGFloat = 4
+        static let HrtzegbgMuKdidePUw028cdK36WihLgp: Double = 0.1
         
         // Border
-        static let borderWidth: CGFloat = 1
-        static let borderOpacity: Double = 0.1
+        static let kEdPhJbe9pFfxc6GmcCjsIcLRnkyRurM: CGFloat = 1
+        static let NcS0I4EeQd3s9KSmkbvlnsjmfX4SYsF6: Double = 0.1
     }
     
     // MARK: - Design System
-    struct Design {
+    struct Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX {
         // Main Colors
-        static let primaryGradient = LinearGradient(
+        static let O0xxDmFPmWoygqPhSwC2l9rylpEUpzcR = LinearGradient(
             colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.6)],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
         
-        static let backgroundGradient = LinearGradient(
+        static let P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu = LinearGradient(
             colors: [Color.black, Color(.systemGray6).opacity(0.1)],
             startPoint: .top,
             endPoint: .bottom
         )
         
-        static let cardGradient = LinearGradient(
+        static let HqQ9oTQd9DkBYOQcMLFgJxqtbYUuMD3z = LinearGradient(
             colors: [Color.white.opacity(0.3), Color.white.opacity(0.1)],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
         
         // Accent Colors
-        static let blue = Color.blue
-        static let purple = Color.purple
-        static let green = Color.green
-        static let orange = Color.orange
-        static let red = Color.red
-        static let yellow = Color.yellow
+        static let rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr = Color.blue
+        static let rsibz5I2SjWSnQtXIVYXeJSSTPA4PXES = Color.purple
+        static let g6ulfCjB9tr2kTlC98jkNt7lvCVu3BSH = Color.green
+        static let i9Btbpx6SXx3wCBzgvibxTMApdzogGgA = Color.orange
+        static let W5fP262GEt7LMhJmtusSbqGkrdnR3RV8 = Color.red
+        static let lHJvES9mbg8sNWLtjidfARg40wnISDWc = Color.yellow
         
         // Modern Auth Colors
-        static let lavender = Color(red: 0.8, green: 0.8, blue: 1.0)
-        static let electricBlue = Color(red: 0.0, green: 0.7, blue: 1.0)
-        static let softPurple = Color(red: 0.6, green: 0.5, blue: 0.8)
-        static let moonlight = Color(red: 0.95, green: 0.95, blue: 1.0)
+        static let iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR = Color(red: 0.8, green: 0.8, blue: 1.0)
+        static let su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT = Color(red: 0.0, green: 0.7, blue: 1.0)
+        static let DRvlvbJhxV7mCrFqbBkEol95863hAZF0 = Color(red: 0.6, green: 0.5, blue: 0.8)
+        static let pfmjowVfLLdwmIFvy86thx6YHe6khrWx = Color(red: 0.95, green: 0.95, blue: 1.0)
         
         // Typography
-        static let titleFont = Font.system(size: 28, weight: .bold, design: .rounded)
-        static let headerFont = Font.system(size: 22, weight: .bold, design: .rounded)
-        static let subheaderFont = Font.system(size: 18, weight: .semibold, design: .rounded)
-        static let bodyFont = Font.system(size: 16, weight: .medium, design: .default)
-        static let captionFont = Font.system(size: 14, weight: .medium, design: .default)
-        static let footnoteFont = Font.system(size: 12, weight: .medium, design: .default)
+        static let KutyKJnrzMIeJfHPOGVXGpm6Xaeq933I = Font.system(size: 28, weight: .bold, design: .rounded)
+        static let VbiaN8et3V1H9i33HGvaIjSMOPgfM5UL = Font.system(size: 22, weight: .bold, design: .rounded)
+        static let qginztZrG8YowoNdoaXjEAcxXYyyjnlT = Font.system(size: 18, weight: .semibold, design: .rounded)
+        static let qnotkIGWtshhYry4tQS0eVmv25ZankxQ = Font.system(size: 16, weight: .medium, design: .default)
+        static let lsQGPy4QxpSwRnN9acKxlHS7hUYKqnmg = Font.system(size: 14, weight: .medium, design: .default)
+        static let zOhE8MtN0Z8xUsj1pwHJeEuvzmgf7tYr = Font.system(size: 12, weight: .medium, design: .default)
         
         // Card Styles
-        static func cardBackground(_ isHighlighted: Bool = false) -> some ShapeStyle {
+        static func XTqZhA1aMezwggsTNkLgubp1vTdAYrgg(_ isHighlighted: Bool = false) -> some ShapeStyle {
             Color.white.opacity(isHighlighted ? 0.1 : 0.05)
         }
         
-        static func cardBorder(_ color: Color = .white) -> some ShapeStyle {
+        static func hEHvnuhquOEbu91QYcb2ngjX1eTkwuVb(_ color: Color = .white) -> some ShapeStyle {
             color.opacity(0.1)
         }
         
-        static func cardShadow() -> Color {
+        static func s06S6l2jYXUPYG94fTRPPLQQdZkx2hYz() -> Color {
             Color.black.opacity(0.1)
         }
         
         // Button Styles
-        static let primaryButtonGradient = LinearGradient(
+        static let BRZumEEKLDNhpWlIssXSSHs7tRJDkiWk = LinearGradient(
             colors: [Color.blue, Color.purple],
             startPoint: .leading,
             endPoint: .trailing
         )
         
-        static let secondaryButtonBackground = Color.white.opacity(0.1)
+        static let NIppP3m7WMCekAa01n0fAXB3yFI6ggv7 = Color.white.opacity(0.1)
         
         // Auth Gradients
-        static let authHeroGradient = LinearGradient(
+        static let lM6Dni1hX9BIMnRYa0zk4NTfnO6mbNqU = LinearGradient(
             colors: [Color.white.opacity(0.1), Color.blue.opacity(0.05), Color.purple.opacity(0.03)],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
         
-        static let fieldGradient = LinearGradient(
+        static let x8kMOs8TbaTU9EZVNGGkCbO7acJpUphq = LinearGradient(
             colors: [Color.white.opacity(0.08), Color.blue.opacity(0.05)],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
         
-        static let modernButtonGradient = LinearGradient(
-            colors: [electricBlue.opacity(0.8), softPurple.opacity(0.7)],
+        static let Jaqu2AaPnNe3jLsCKOSG0k8b0RZSs8Ez = LinearGradient(
+            colors: [su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.8), DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.7)],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
     }
     
     // MARK: - Animation
-    struct Animation {
-        static let quick: Double = 0.2
-        static let standard: Double = 0.3
-        static let slow: Double = 0.6
-        static let entrance: Double = 0.8
+    struct TY7ZW5houGPwMVFGImNlC3I3EcEAN4GI {
+        static let eQrY7uZii3BvIyPPrmomfzmbSEaoNqRH: Double = 0.2
+        static let sQsLf2gWD1XKaVeZdLt6EsiQtd7ZYHBL: Double = 0.3
+        static let Jzp6vUF76XKG8moj1JEPCtJghJ500XvM: Double = 0.6
+        static let Z7xsdjw2hnYbjHVMQnLaw3tNvHBSqyDS: Double = 0.8
     }
     
     // MARK: - Default User
-    struct User {
-        static let defaultName = "Usuario"
-        static let greeting = "Hola"
-        static let welcomeEmoji = "[U+1F44B]"
+    struct DlHLlMeyuOHeFBIO58NGuiSSD5Z2YKSj {
+        static let Bqc0PbT10QXG2oXLLc6yrDvpET6lFrbp = "Usuario"
+        static let ruflLvfLM14XVvXO4CjrMWh1e3PSX8XK = "Hola"
+        static let DMRfI3fjpKVF41BZFkHpCOSNe2xHUQrs = "[U+1F44B]"
     }
     
     // MARK: - Daily Motivational Phrases
-    struct DailyMotivation {
-        static let phrases = [
+    struct qZG15ZFGuYDd5FpaQeRKOxJz7vSXlxzL {
+        static let qDIaLqInPT8ZWCwY5v0cFgHTjk3TPdHj = [
             "Hoy puedes darte un regalo de movimiento [U+1F9D8]‍♂️",
             "Tu bienestar merece estos momentos [U+1F49A]",
             "Cada día es una nueva oportunidad [U+1F305]",
@@ -470,78 +470,78 @@ struct AppConstants {
             "Hoy es un lienzo en blanco lleno de posibilidades [U+1F3A8]"
         ]
         
-        static func randomPhrase() -> String {
-            return phrases.randomElement() ?? "Hoy es tu día para brillar ✨"
+        static func W8dpI3lFmaeZTnurvJabtvAQFRaWZ2tW() -> String {
+            return qDIaLqInPT8ZWCwY5v0cFgHTjk3TPdHj.randomElement() ?? "Hoy es tu día para brillar ✨"
         }
         
-        static func getUserName() -> String {
+        static func BZSWPiEO0MeOPKVTrzLSfAQTVIO4Xo9i() -> String {
             // Try SecureStorage first, then fallback to UserDefaults for migration
-            if let secureUserName = SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName) {
+            if let secureUserName = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.YhyL54l7qYGd78Z7egtPFzCWzLff1uDd) {
                 return secureUserName
             }
-            return AppConstants.User.defaultName
+            return pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.DlHLlMeyuOHeFBIO58NGuiSSD5Z2YKSj.Bqc0PbT10QXG2oXLLc6yrDvpET6lFrbp
         }
     }
 }
 
 // MARK: - App Errors
-enum AppError: LocalizedError {
-    case invalidDuration
-    case durationTooShort
-    case durationTooLong
-    case saveFailed
-    case loadFailed
+enum fGsTSzPpELfPriTNhXgvgjffTuQ1eb9H: LocalizedError {
+    case athOIbobOehkIRGjdieBaiKVsA4MGARQ
+    case LgEjzIw78hdhr4ONUeOUJoaVskDoXIrn
+    case QFxkSn0NarevhGt0c2hF60WI7bJMdWUI
+    case hiNCTxD5IB37rTmJ8FEa3sxEZ304nBQl
+    case J95y5YdF4aUR6aL5ONOAQHrGaoh2cNPI
     
     var errorDescription: String? {
         switch self {
-        case .invalidDuration:
+        case .athOIbobOehkIRGjdieBaiKVsA4MGARQ:
             return "Duración inválida. Ingresa un número válido."
-        case .durationTooShort:
-            return "La duración mínima es \(AppConstants.Workout.minDuration) minuto."
-        case .durationTooLong:
-            return "La duración máxima es \(AppConstants.Workout.maxDuration) minutos."
-        case .saveFailed:
+        case .LgEjzIw78hdhr4ONUeOUJoaVskDoXIrn:
+            return "La duración mínima es \(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.qnTieLH0NmrFeqrEeovMwdRnTEZpaNwl.t4U1KVTYzBRzNbGbkCA2woYSBdnO0pDd) minuto."
+        case .QFxkSn0NarevhGt0c2hF60WI7bJMdWUI:
+            return "La duración máxima es \(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.qnTieLH0NmrFeqrEeovMwdRnTEZpaNwl.d0YjvPLYYMopHYgv8lqRevkbyUvxYstr) minutos."
+        case .hiNCTxD5IB37rTmJ8FEa3sxEZ304nBQl:
             return "Error al guardar el entrenamiento. Inténtalo de nuevo."
-        case .loadFailed:
+        case .J95y5YdF4aUR6aL5ONOAQHrGaoh2cNPI:
             return "Error al cargar los datos."
         }
     }
 }
 
 // MARK: - Validation Helpers
-extension AppConstants {
-    static func validateWorkoutDuration(_ duration: String) -> Result<Int, AppError> {
+extension pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc {
+    static func r394gO8EYYjBidmh5QxY475XdYckv2xp(_ duration: String) -> Result<Int, fGsTSzPpELfPriTNhXgvgjffTuQ1eb9H> {
         let trimmed = duration.trimmingCharacters(in: .whitespacesAndNewlines)
         
         guard let durationInt = Int(trimmed) else {
-            return .failure(.invalidDuration)
+            return .failure(.athOIbobOehkIRGjdieBaiKVsA4MGARQ)
         }
         
-        guard durationInt >= Workout.minDuration else {
-            return .failure(.durationTooShort)
+        guard durationInt >= qnTieLH0NmrFeqrEeovMwdRnTEZpaNwl.t4U1KVTYzBRzNbGbkCA2woYSBdnO0pDd else {
+            return .failure(.LgEjzIw78hdhr4ONUeOUJoaVskDoXIrn)
         }
         
-        guard durationInt <= Workout.maxDuration else {
-            return .failure(.durationTooLong)
+        guard durationInt <= qnTieLH0NmrFeqrEeovMwdRnTEZpaNwl.d0YjvPLYYMopHYgv8lqRevkbyUvxYstr else {
+            return .failure(.QFxkSn0NarevhGt0c2hF60WI7bJMdWUI)
         }
         
         return .success(durationInt)
     }
     
-    static func calculateCalories(for duration: Int) -> Int {
-        return duration * Workout.caloriesPerMinute
+    static func macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for duration: Int) -> Int {
+        return duration * qnTieLH0NmrFeqrEeovMwdRnTEZpaNwl.KHII9oFJy1efArOPYoyujmSlrJmGg4hE
     }
 }
 
 // MARK: - Motivational Phrase View Component
-struct MotivationalPhraseView: View {
+struct om15Jvsg84ivdDdMag8SIylK1uDB5JNJ: View {
     @State private var animateOnAppear = false
     private let userName: String
     private let motivationalPhrase: String
     
     init() {
-        self.userName = AppConstants.DailyMotivation.getUserName()
-        self.motivationalPhrase = AppConstants.DailyMotivation.randomPhrase()
+        self.userName = pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.qZG15ZFGuYDd5FpaQeRKOxJz7vSXlxzL.BZSWPiEO0MeOPKVTrzLSfAQTVIO4Xo9i()
+        self.motivationalPhrase = pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.qZG15ZFGuYDd5FpaQeRKOxJz7vSXlxzL.W8dpI3lFmaeZTnurvJabtvAQFRaWZ2tW()
     }
     
     var body: some View {
@@ -580,7 +580,7 @@ struct MotivationalPhraseView: View {
 }
 
 // MARK: - Training Detail Popup View Component
-struct TrainingDetailPopupView: View {
+struct nXGgxr19LIpVKcd4cUEVl275ihvhFfMi: View {
     let workouts: [WorkoutEntity]
     let selectedDate: Date
     @Binding var isPresented: Bool
@@ -593,7 +593,7 @@ struct TrainingDetailPopupView: View {
         return formatter
     }()
     
-    private func getWorkoutIcon(for type: String) -> String {
+    private func yABx61qWD7PwWueiyg0PAv2nhCa3HW7b(for type: String) -> String {
         switch type {
         case "Cardio": return "heart.circle.fill"
         case "Fuerza": return "dumbbell.fill"
@@ -607,7 +607,7 @@ struct TrainingDetailPopupView: View {
         }
     }
     
-    private func getWorkoutColor(for type: String) -> Color {
+    private func pHqJYdyeSs1Bb7xNvO3B8rgRJtiXBSN8(for type: String) -> Color {
         switch type {
         case "Cardio": return .red
         case "Fuerza": return .blue
@@ -627,7 +627,7 @@ struct TrainingDetailPopupView: View {
             Color.black.opacity(0.4)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    dismissPopup()
+                    iSwvwIR1ECPW7Q9WvcFq3vb42IbDnJVO()
                 }
             
             VStack(spacing: 0) {
@@ -646,7 +646,7 @@ struct TrainingDetailPopupView: View {
                         
                         Spacer()
                         
-                        Button(action: dismissPopup) {
+                        Button(action: iSwvwIR1ECPW7Q9WvcFq3vb42IbDnJVO) {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.system(size: 28))
                                 .foregroundColor(.white.opacity(0.8))
@@ -666,7 +666,7 @@ struct TrainingDetailPopupView: View {
                 ScrollView {
                     LazyVStack(spacing: 16) {
                         ForEach(Array(workouts.enumerated()), id: \.element.objectID) { index, workout in
-                            WorkoutDetailCard(workout: workout)
+                            tTsmCR8xIHugcoeUnSSGvzmBbmdomLrR(workout: workout)
                                 .opacity(animateOnAppear ? 1 : 0)
                                 .offset(y: animateOnAppear ? 0 : 30)
                                 .animation(.easeOut(duration: 0.4).delay(Double(index) * 0.1), value: animateOnAppear)
@@ -678,7 +678,7 @@ struct TrainingDetailPopupView: View {
                 .frame(maxHeight: 400)
                 
                 // Close button
-                Button(action: dismissPopup) {
+                Button(action: iSwvwIR1ECPW7Q9WvcFq3vb42IbDnJVO) {
                     Text("Entendido")
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.white)
@@ -686,9 +686,9 @@ struct TrainingDetailPopupView: View {
                         .frame(height: 50)
                         .background(
                             RoundedRectangle(cornerRadius: 25)
-                                .fill(AppConstants.Design.primaryButtonGradient)
+                                .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.BRZumEEKLDNhpWlIssXSSHs7tRJDkiWk)
                         )
-                        .shadow(color: AppConstants.Design.blue.opacity(0.3), radius: 8, x: 0, y: 4)
+                        .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr.opacity(0.3), radius: 8, x: 0, y: 4)
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 32)
@@ -713,7 +713,7 @@ struct TrainingDetailPopupView: View {
         }
     }
     
-    private func dismissPopup() {
+    private func iSwvwIR1ECPW7Q9WvcFq3vb42IbDnJVO() {
         withAnimation(.easeInOut(duration: 0.2)) {
             animateOnAppear = false
         }
@@ -724,10 +724,10 @@ struct TrainingDetailPopupView: View {
 }
 
 // MARK: - Workout Detail Card Component
-struct WorkoutDetailCard: View {
+struct tTsmCR8xIHugcoeUnSSGvzmBbmdomLrR: View {
     let workout: WorkoutEntity
     
-    private func getWorkoutIcon(for type: String) -> String {
+    private func yABx61qWD7PwWueiyg0PAv2nhCa3HW7b(for type: String) -> String {
         switch type {
         case "Cardio": return "heart.circle.fill"
         case "Fuerza": return "dumbbell.fill"
@@ -741,7 +741,7 @@ struct WorkoutDetailCard: View {
         }
     }
     
-    private func getWorkoutColor(for type: String) -> Color {
+    private func pHqJYdyeSs1Bb7xNvO3B8rgRJtiXBSN8(for type: String) -> Color {
         switch type {
         case "Cardio": return .red
         case "Fuerza": return .blue
@@ -766,16 +766,16 @@ struct WorkoutDetailCard: View {
             // Workout icon
             ZStack {
                 Circle()
-                    .fill(getWorkoutColor(for: workout.type ?? "").opacity(0.2))
+                    .fill(pHqJYdyeSs1Bb7xNvO3B8rgRJtiXBSN8(for: workout.type ?? "").opacity(0.2))
                     .frame(width: 80, height: 80)
                     .overlay(
                         Circle()
-                            .stroke(getWorkoutColor(for: workout.type ?? "").opacity(0.3), lineWidth: 2)
+                            .stroke(pHqJYdyeSs1Bb7xNvO3B8rgRJtiXBSN8(for: workout.type ?? "").opacity(0.3), lineWidth: 2)
                     )
                 
-                Image(systemName: getWorkoutIcon(for: workout.type ?? ""))
+                Image(systemName: yABx61qWD7PwWueiyg0PAv2nhCa3HW7b(for: workout.type ?? ""))
                     .font(.system(size: 36, weight: .semibold))
-                    .foregroundColor(getWorkoutColor(for: workout.type ?? ""))
+                    .foregroundColor(pHqJYdyeSs1Bb7xNvO3B8rgRJtiXBSN8(for: workout.type ?? ""))
             }
             
             // Workout details
@@ -822,7 +822,7 @@ struct WorkoutDetailCard: View {
                 .fill(Color.white.opacity(0.08))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(getWorkoutColor(for: workout.type ?? "").opacity(0.3), lineWidth: 1)
+                        .stroke(pHqJYdyeSs1Bb7xNvO3B8rgRJtiXBSN8(for: workout.type ?? "").opacity(0.3), lineWidth: 1)
                 )
         )
         .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)

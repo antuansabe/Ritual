@@ -1,7 +1,7 @@
 import SwiftUI
 
 // MARK: - Custom Training Model
-struct CustomTraining: Codable, Identifiable, Equatable {
+struct Rwq5UG4rvo7IhqKrt5SQ38RnUcfGPsYD: Codable, Identifiable, Equatable {
     let id = UUID()
     let name: String
     let iconName: String
@@ -17,59 +17,59 @@ struct CustomTraining: Codable, Identifiable, Equatable {
 }
 
 // MARK: - Custom Training Manager
-class CustomTrainingManager: ObservableObject {
-    @Published var customTrainings: [CustomTraining] = []
-    private let userDefaultsKey = "customTrainings"
-    private let maxCustomTrainings = 4
+class MquKYa6zIelLCz6Z4AhDl5XrdYZqIIR1: ObservableObject {
+    @Published var zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW: [Rwq5UG4rvo7IhqKrt5SQ38RnUcfGPsYD] = []
+    private let HjnTcQQd1UpvO7YKonsSenkkDkxebyDv = "customTrainings"
+    private let HKIYyG5h1qWkKJgBGidoQtxq6wgL0DQx = 4
     
     init() {
-        loadCustomTrainings()
+        ki4ZXPi1Z2byEqa78QRCbEZU2s1bIsYN()
     }
     
-    func addCustomTraining(_ training: CustomTraining) -> Bool {
-        guard customTrainings.count < maxCustomTrainings else { return false }
-        customTrainings.append(training)
-        saveCustomTrainings()
+    func tatAVl0SfmOnpZgUZu9SsCCdbzyQBfqs(_ training: Rwq5UG4rvo7IhqKrt5SQ38RnUcfGPsYD) -> Bool {
+        guard zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.count < HKIYyG5h1qWkKJgBGidoQtxq6wgL0DQx else { return false }
+        zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.append(training)
+        J1R4QiEXiI9hT7p5bHqUG09dRFLAPj3M()
         return true
     }
     
-    func removeCustomTraining(_ training: CustomTraining) {
-        customTrainings.removeAll { $0.id == training.id }
-        saveCustomTrainings()
+    func Q6TViouC2E7V78xd81Ta8gTk6xvC5rB8(_ training: Rwq5UG4rvo7IhqKrt5SQ38RnUcfGPsYD) {
+        zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.removeAll { $0.id == training.id }
+        J1R4QiEXiI9hT7p5bHqUG09dRFLAPj3M()
     }
     
-    func canAddMoreTrainings() -> Bool {
-        return customTrainings.count < maxCustomTrainings
+    func PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu() -> Bool {
+        return zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.count < HKIYyG5h1qWkKJgBGidoQtxq6wgL0DQx
     }
     
-    func remainingSlots() -> Int {
-        return maxCustomTrainings - customTrainings.count
+    func Zod5aZfh5sFHKxjgRq8HNiYMJy0IC2yH() -> Int {
+        return HKIYyG5h1qWkKJgBGidoQtxq6wgL0DQx - zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.count
     }
     
-    private func loadCustomTrainings() {
-        if let data = UserDefaults.standard.data(forKey: userDefaultsKey),
-           let trainings = try? JSONDecoder().decode([CustomTraining].self, from: data) {
-            customTrainings = trainings
+    private func ki4ZXPi1Z2byEqa78QRCbEZU2s1bIsYN() {
+        if let data = UserDefaults.standard.data(forKey: HjnTcQQd1UpvO7YKonsSenkkDkxebyDv),
+           let trainings = try? JSONDecoder().decode([Rwq5UG4rvo7IhqKrt5SQ38RnUcfGPsYD].self, from: data) {
+            zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW = trainings
         }
     }
     
-    private func saveCustomTrainings() {
-        if let data = try? JSONEncoder().encode(customTrainings) {
-            UserDefaults.standard.set(data, forKey: userDefaultsKey)
+    private func J1R4QiEXiI9hT7p5bHqUG09dRFLAPj3M() {
+        if let data = try? JSONEncoder().encode(zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW) {
+            UserDefaults.standard.set(data, forKey: HjnTcQQd1UpvO7YKonsSenkkDkxebyDv)
         }
     }
 }
 
 // MARK: - Add Custom Training View
-struct AddCustomTrainingView: View {
+struct JwEMHAOLFU3QoFmE4JdeO2opAnNjRZ5X: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var customTrainingManager: CustomTrainingManager
+    @EnvironmentObject var customTrainingManager: MquKYa6zIelLCz6Z4AhDl5XrdYZqIIR1
     @State private var trainingName: String = ""
     @State private var selectedIcon: String = "figure.run"
     @State private var animateOnAppear = false
     @State private var nameError: String? = nil
     
-    private let validator = InputValidator.shared
+    private let validator = VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     @State private var showSuccess = false
     @State private var showError = false
     @State private var errorMessage = ""
@@ -93,7 +93,7 @@ struct AddCustomTrainingView: View {
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
             
-            AppConstants.Design.backgroundGradient
+            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
                 .opacity(0.7)
                 .ignoresSafeArea()
             
@@ -117,7 +117,7 @@ struct AddCustomTrainingView: View {
         }
         .overlay {
             if showSuccess {
-                TrainingSuccessOverlayView()
+                TGRfER7VLrGaK4NE9LQ4uRaPaeJjDY0v()
                     .transition(.scale.combined(with: .opacity))
                     .zIndex(1)
             }
@@ -161,7 +161,7 @@ struct AddCustomTrainingView: View {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [AppConstants.Design.electricBlue.opacity(0.3), AppConstants.Design.softPurple.opacity(0.2)],
+                                colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.3), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.2)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -187,7 +187,7 @@ struct AddCustomTrainingView: View {
                 }
                 
                 // Remaining slots indicator
-                if !customTrainingManager.canAddMoreTrainings() {
+                if !customTrainingManager.PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu() {
                     Text("Máximo de entrenamientos alcanzado (4/4)")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.orange)
@@ -202,7 +202,7 @@ struct AddCustomTrainingView: View {
                                 )
                         )
                 } else {
-                    let remaining = customTrainingManager.remainingSlots()
+                    let remaining = customTrainingManager.Zod5aZfh5sFHKxjgRq8HNiYMJy0IC2yH()
                     Text("Puedes crear \(remaining) entrenamiento\(remaining == 1 ? "" : "s") más")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.green)
@@ -246,13 +246,13 @@ struct AddCustomTrainingView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
                                     .stroke(
-                                        nameError != nil ? Color.red.opacity(0.8) : AppConstants.Design.electricBlue.opacity(0.4), 
+                                        nameError != nil ? Color.red.opacity(0.8) : pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), 
                                         lineWidth: nameError != nil ? 3 : 2
                                     )
                             )
                     )
                     .onChange(of: trainingName) { _ in
-                        validateTrainingName()
+                        ZVJEf5dJ8Kj5mw77v0bEfB96bWRUDQQ2()
                     }
                     .textInputAutocapitalization(.words)
                     .autocorrectionDisabled()
@@ -318,13 +318,13 @@ struct AddCustomTrainingView: View {
                         Circle()
                             .fill(
                                 LinearGradient(
-                                    colors: [AppConstants.Design.electricBlue, AppConstants.Design.softPurple],
+                                    colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
                             )
                             .frame(width: 80, height: 80)
-                            .shadow(color: AppConstants.Design.electricBlue.opacity(0.4), radius: 12, x: 0, y: 6)
+                            .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), radius: 12, x: 0, y: 6)
                         
                         Image(systemName: selectedIcon)
                             .font(.system(size: 32, weight: .semibold))
@@ -350,7 +350,7 @@ struct AddCustomTrainingView: View {
                 // Icon grid
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 4), spacing: 12) {
                     ForEach(availableIcons, id: \.self) { iconName in
-                        IconSelectionButton(
+                        b9qXfg0ZVc9dNTSmRxuPhyGDjFiNg85h(
                             iconName: iconName,
                             isSelected: selectedIcon == iconName,
                             action: {
@@ -381,7 +381,7 @@ struct AddCustomTrainingView: View {
     // MARK: - Save Button Section
     private var saveButtonSection: some View {
         VStack(spacing: 16) {
-            Button(action: saveCustomTraining) {
+            Button(action: nC2RwCpTNuS4cFHBteSRn9oBLg1rXC9o) {
                 HStack(spacing: 12) {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: 20, weight: .semibold))
@@ -396,15 +396,15 @@ struct AddCustomTrainingView: View {
                 .background(
                     RoundedRectangle(cornerRadius: 30)
                         .fill(
-                            isFormValid() && customTrainingManager.canAddMoreTrainings() ?
-                                AppConstants.Design.primaryButtonGradient :
+                            dc5HT7nwriNcXlnyUwYH6d1CBkoY2CqE() && customTrainingManager.PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu() ?
+                                pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.BRZumEEKLDNhpWlIssXSSHs7tRJDkiWk :
                                 LinearGradient(colors: [.gray.opacity(0.5)], startPoint: .leading, endPoint: .trailing)
                         )
                 )
-                .shadow(color: isFormValid() && customTrainingManager.canAddMoreTrainings() ? AppConstants.Design.blue.opacity(0.4) : .clear,
+                .shadow(color: dc5HT7nwriNcXlnyUwYH6d1CBkoY2CqE() && customTrainingManager.PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu() ? pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr.opacity(0.4) : .clear,
                        radius: 10, x: 0, y: 5)
             }
-            .disabled(!isFormValid() || !customTrainingManager.canAddMoreTrainings())
+            .disabled(!dc5HT7nwriNcXlnyUwYH6d1CBkoY2CqE() || !customTrainingManager.PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu())
             
             Text("El entrenamiento aparecerá en tu lista de actividades")
                 .font(.system(size: 14, weight: .medium))
@@ -418,50 +418,50 @@ struct AddCustomTrainingView: View {
     
     // MARK: - Helper Functions
     
-    private func validateTrainingName() {
-        let result = validator.isValidWorkoutType(trainingName)
+    private func ZVJEf5dJ8Kj5mw77v0bEfB96bWRUDQQ2() {
+        let result = validator.yQTfzeSq7UapiEXhlhx81yO5cHtgXaYD(trainingName)
         withAnimation(.easeInOut(duration: 0.3)) {
-            nameError = result.isValid ? nil : result.errorMessage
+            nameError = result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP ? nil : result.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
         }
     }
     
-    private func isFormValid() -> Bool {
-        let result = validator.isValidWorkoutType(trainingName)
-        return result.isValid
+    private func dc5HT7nwriNcXlnyUwYH6d1CBkoY2CqE() -> Bool {
+        let result = validator.yQTfzeSq7UapiEXhlhx81yO5cHtgXaYD(trainingName)
+        return result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
     }
     
-    private func saveCustomTraining() {
+    private func nC2RwCpTNuS4cFHBteSRn9oBLg1rXC9o() {
         // Validate first
-        let validationResult = validator.isValidWorkoutType(trainingName)
-        guard validationResult.isValid else {
-            nameError = validationResult.errorMessage
-            errorMessage = validationResult.errorMessage ?? "Nombre de entrenamiento inválido"
+        let validationResult = validator.yQTfzeSq7UapiEXhlhx81yO5cHtgXaYD(trainingName)
+        guard validationResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP else {
+            nameError = validationResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
+            errorMessage = validationResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy ?? "Nombre de entrenamiento inválido"
             showError = true
             return
         }
         
         // Sanitize the input
-        let sanitizedName = validator.sanitizeInput(trainingName)
+        let sanitizedName = validator.S1FcBW204dzhY83hyyJGO8udFCyY9l66(trainingName)
         
         // Clear any errors
         nameError = nil
         
-        guard customTrainingManager.canAddMoreTrainings() else {
+        guard customTrainingManager.PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu() else {
             errorMessage = "Ya tienes el máximo de entrenamientos personalizados (4)"
             showError = true
             return
         }
         
         // Check for duplicate names
-        if customTrainingManager.customTrainings.contains(where: { $0.name.lowercased() == sanitizedName.lowercased() }) {
+        if customTrainingManager.zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.contains(where: { $0.name.lowercased() == sanitizedName.lowercased() }) {
             errorMessage = "Ya existe un entrenamiento con ese nombre"
             showError = true
             return
         }
         
-        let newTraining = CustomTraining(name: sanitizedName, iconName: selectedIcon)
+        let newTraining = Rwq5UG4rvo7IhqKrt5SQ38RnUcfGPsYD(name: sanitizedName, iconName: selectedIcon)
         
-        if customTrainingManager.addCustomTraining(newTraining) {
+        if customTrainingManager.tatAVl0SfmOnpZgUZu9SsCCdbzyQBfqs(newTraining) {
             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                 showSuccess = true
             }
@@ -477,7 +477,7 @@ struct AddCustomTrainingView: View {
 }
 
 // MARK: - Icon Selection Button Component
-struct IconSelectionButton: View {
+struct b9qXfg0ZVc9dNTSmRxuPhyGDjFiNg85h: View {
     let iconName: String
     let isSelected: Bool
     let action: () -> Void
@@ -491,7 +491,7 @@ struct IconSelectionButton: View {
                     .fill(
                         isSelected ?
                             LinearGradient(
-                                colors: [AppConstants.Design.electricBlue, AppConstants.Design.softPurple],
+                                colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ) :
@@ -507,7 +507,7 @@ struct IconSelectionButton: View {
                             .stroke(
                                 isSelected ?
                                     LinearGradient(
-                                        colors: [AppConstants.Design.electricBlue.opacity(0.6), AppConstants.Design.softPurple.opacity(0.4)],
+                                        colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.6), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.4)],
                                         startPoint: .topLeading,
                                         endPoint: .bottomTrailing
                                     ) :
@@ -520,7 +520,7 @@ struct IconSelectionButton: View {
                             )
                     )
                     .shadow(
-                        color: isSelected ? AppConstants.Design.electricBlue.opacity(0.4) : .black.opacity(0.15),
+                        color: isSelected ? pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4) : .black.opacity(0.15),
                         radius: isSelected ? 8 : 4,
                         x: 0,
                         y: isSelected ? 4 : 2
@@ -546,7 +546,7 @@ struct IconSelectionButton: View {
 }
 
 // MARK: - Success Overlay View
-struct TrainingSuccessOverlayView: View {
+struct TGRfER7VLrGaK4NE9LQ4uRaPaeJjDY0v: View {
     @State private var animate = false
     
     var body: some View {
@@ -605,7 +605,7 @@ struct TrainingSuccessOverlayView: View {
 
 #Preview {
     NavigationStack {
-        AddCustomTrainingView()
-            .environmentObject(CustomTrainingManager())
+        JwEMHAOLFU3QoFmE4JdeO2opAnNjRZ5X()
+            .environmentObject(MquKYa6zIelLCz6Z4AhDl5XrdYZqIIR1())
     }
 }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct OverlaySuccessView: View {
+struct wWSZ1770xFoHrYLOXIX3QK1M31SV1wMj: View {
     let title: String
     let subtitle: String
     @Binding var isVisible: Bool
@@ -68,19 +68,19 @@ struct OverlaySuccessView: View {
         .opacity(opacity)
         .onChange(of: isVisible) { visible in
             if visible {
-                showSuccess()
+                XBKRsaOVB7IubKbKig2RNYsBUWknczOR()
             } else {
-                hideSuccess()
+                qvEAPFg3nnMJNsSlfoeqYYPPwHzzkuHi()
             }
         }
         .onAppear {
             if isVisible {
-                showSuccess()
+                XBKRsaOVB7IubKbKig2RNYsBUWknczOR()
             }
         }
     }
     
-    private func showSuccess() {
+    private func XBKRsaOVB7IubKbKig2RNYsBUWknczOR() {
         withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
             opacity = 1
             scale = 1
@@ -92,11 +92,11 @@ struct OverlaySuccessView: View {
         
         // Auto-hide after 2 seconds
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            hideSuccess()
+            qvEAPFg3nnMJNsSlfoeqYYPPwHzzkuHi()
         }
     }
     
-    private func hideSuccess() {
+    private func qvEAPFg3nnMJNsSlfoeqYYPPwHzzkuHi() {
         withAnimation(.easeInOut(duration: 0.4)) {
             opacity = 0
             scale = 0.8
@@ -118,7 +118,7 @@ struct OverlaySuccessView: View {
     ZStack {
         Color.black.ignoresSafeArea()
         
-        OverlaySuccessView(
+        wWSZ1770xFoHrYLOXIX3QK1M31SV1wMj(
             title: "¡Entrenamiento guardado!",
             subtitle: "Sigue así y alcanza tus metas",
             isVisible: .constant(true)

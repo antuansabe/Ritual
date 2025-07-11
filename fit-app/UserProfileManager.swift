@@ -2,22 +2,22 @@ import Foundation
 import CoreData
 import SwiftUI
 
-class UserProfileManager: ObservableObject {
-    static let shared = UserProfileManager()
+class gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm: ObservableObject {
+    static let DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX = gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm()
     
-    @Published var currentUser: UserProfile?
-    @Published var displayName: String = "Atleta"
+    @Published var d9dQusQ5q74vqBDR4S2x6ngkHlz4Fq84: UserProfile?
+    @Published var YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8: String = "Atleta"
     
-    private let context = PersistenceController.shared.container.viewContext
-    private let encryptionHelper = DataEncryptionHelper.shared
+    private let LxRQFrCsbBQtFCOyayxupkzFJLlXJonD = GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext
+    private let mU9gHEuxcn7VLdocTIGS2xdQ3QLbe8G9 = vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     
     private init() {
-        loadCurrentUser()
+        vqiJRYE0o7JnbzD0bp73RIznfxd8bsB9()
     }
     
     // MARK: - User Profile Management
     
-    func loadCurrentUser() {
+    func vqiJRYE0o7JnbzD0bp73RIznfxd8bsB9() {
         print("👤 Loading current user profile...")
         
         let request: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
@@ -26,14 +26,14 @@ class UserProfileManager: ObservableObject {
         request.fetchLimit = 1
         
         do {
-            let users = try context.fetch(request)
+            let users = try LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.fetch(request)
             if let user = users.first {
                 // Decrypt sensitive fields after fetching
-                decryptUserProfileFields(user)
+                ls6wDJGux7rJUmLBmzH2diFiZnhfU8br(user)
                 
                 print("✅ Found existing user: \(user.fullName ?? "Unknown")")
-                currentUser = user
-                displayName = user.fullName ?? "Atleta"
+                d9dQusQ5q74vqBDR4S2x6ngkHlz4Fq84 = user
+                YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 = user.fullName ?? "Atleta"
             } else {
                 print("ℹ️ No active user found")
                 // Don't create default user here - wait for authentication
@@ -43,7 +43,7 @@ class UserProfileManager: ObservableObject {
         }
     }
     
-    func createOrUpdateUserProfile(
+    func sx4erNyLwKClHxc8yV0biEQC4ympLRwL(
         fullName: String?,
         email: String?,
         appleUserID: String? = nil,
@@ -60,10 +60,10 @@ class UserProfileManager: ObservableObject {
             request.predicate = NSPredicate(format: "appleUserID == %@", appleID)
             
             do {
-                let existingUsers = try context.fetch(request)
+                let existingUsers = try LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.fetch(request)
                 if let existingUser = existingUsers.first {
                     print("✅ Updating existing Apple user")
-                    updateExistingUser(existingUser, fullName: fullName, email: email)
+                    gBeGai4FXv9tNz73CKWSoNsRZ39qmLT5(existingUser, fullName: fullName, email: email)
                     return
                 }
             } catch {
@@ -72,10 +72,10 @@ class UserProfileManager: ObservableObject {
         }
         
         // Deactivate previous users
-        deactivateAllUsers()
+        qULoZZGD09tPhCCLeOkbUPpBOeuFuaF1()
         
         // Create new user
-        let newUser = UserProfile(context: context)
+        let newUser = UserProfile(context: LxRQFrCsbBQtFCOyayxupkzFJLlXJonD)
         newUser.id = UUID()
         newUser.fullName = fullName ?? ""
         newUser.email = email ?? ""
@@ -85,10 +85,10 @@ class UserProfileManager: ObservableObject {
         newUser.createdDate = Date()
         newUser.lastUpdated = Date()
         
-        saveUserProfile(newUser)
+        buUsQKESD8YPoXMtIE6NnjSd8LZRc7Oh(newUser)
     }
     
-    private func updateExistingUser(_ user: UserProfile, fullName: String?, email: String?) {
+    private func gBeGai4FXv9tNz73CKWSoNsRZ39qmLT5(_ user: UserProfile, fullName: String?, email: String?) {
         // Update user info if provided
         if let name = fullName, !name.isEmpty {
             user.fullName = name
@@ -101,15 +101,15 @@ class UserProfileManager: ObservableObject {
         user.isActive = true
         user.lastUpdated = Date()
         
-        saveUserProfile(user)
+        buUsQKESD8YPoXMtIE6NnjSd8LZRc7Oh(user)
     }
     
-    private func deactivateAllUsers() {
+    private func qULoZZGD09tPhCCLeOkbUPpBOeuFuaF1() {
         let request: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         request.predicate = NSPredicate(format: "isActive == YES")
         
         do {
-            let activeUsers = try context.fetch(request)
+            let activeUsers = try LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.fetch(request)
             for user in activeUsers {
                 user.isActive = false
             }
@@ -118,19 +118,19 @@ class UserProfileManager: ObservableObject {
         }
     }
     
-    private func saveUserProfile(_ user: UserProfile) {
+    private func buUsQKESD8YPoXMtIE6NnjSd8LZRc7Oh(_ user: UserProfile) {
         // Encrypt sensitive fields before saving
-        encryptUserProfileFields(user)
+        JE96dRWgGatCJyNhppjBJyVIG0rifx9g(user)
         
         do {
-            try context.save()
+            try LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.save()
             
             // Decrypt fields again for immediate use
-            decryptUserProfileFields(user)
+            ls6wDJGux7rJUmLBmzH2diFiZnhfU8br(user)
             
             DispatchQueue.main.async {
-                self.currentUser = user
-                self.displayName = user.fullName ?? "Atleta"
+                self.d9dQusQ5q74vqBDR4S2x6ngkHlz4Fq84 = user
+                self.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 = user.fullName ?? "Atleta"
                 print("✅ User profile saved: \(user.fullName ?? "Unknown")")
             }
         } catch {
@@ -140,12 +140,12 @@ class UserProfileManager: ObservableObject {
     
     // MARK: - Apple Sign In Integration
     
-    func handleAppleSignIn(userID: String, fullName: PersonNameComponents?, email: String?) {
+    func XLsAtoDzYFzjbxLIJRLTXbnfXX8oyrg8(userID: String, fullName: PersonNameComponents?, email: String?) {
         print("🍎 Handling Apple Sign In for user profile...")
         
-        let name = formatAppleFullName(fullName)
+        let name = GWM3cyoi4veEgaYkitb8A5BfFqbiRjOe(fullName)
         
-        createOrUpdateUserProfile(
+        sx4erNyLwKClHxc8yV0biEQC4ympLRwL(
             fullName: name,
             email: email,
             appleUserID: userID,
@@ -153,7 +153,7 @@ class UserProfileManager: ObservableObject {
         )
     }
     
-    private func formatAppleFullName(_ nameComponents: PersonNameComponents?) -> String? {
+    private func GWM3cyoi4veEgaYkitb8A5BfFqbiRjOe(_ nameComponents: PersonNameComponents?) -> String? {
         guard let nameComponents = nameComponents else { return nil }
         
         let firstName = nameComponents.givenName ?? ""
@@ -165,20 +165,20 @@ class UserProfileManager: ObservableObject {
     
     // MARK: - Regular Authentication Integration
     
-    func handleRegularSignIn(email: String) {
+    func vjYKdXVeyxIwMaRLPlJSwWYiL1A4pB5D(email: String) {
         print("📧 Handling regular sign in for user profile...")
         
         // Extract name from email or use default
-        let name = extractNameFromEmail(email)
+        let name = Uo3nbpu47rPSh1adNPuoJNkw177gUMin(email)
         
-        createOrUpdateUserProfile(
+        sx4erNyLwKClHxc8yV0biEQC4ympLRwL(
             fullName: name,
             email: email,
             authType: "email"
         )
     }
     
-    private func extractNameFromEmail(_ email: String) -> String {
+    private func Uo3nbpu47rPSh1adNPuoJNkw177gUMin(_ email: String) -> String {
         // Simple name extraction from email
         let components = email.components(separatedBy: "@")
         guard let username = components.first else { return "Usuario" }
@@ -193,17 +193,17 @@ class UserProfileManager: ObservableObject {
     
     // MARK: - User Management
     
-    func signOut() {
+    func xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y() {
         print("🛚 Signing out user profile...")
         
-        if let user = currentUser {
+        if let user = d9dQusQ5q74vqBDR4S2x6ngkHlz4Fq84 {
             user.isActive = false
-            try? context.save()
+            try? LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.save()
         }
         
         DispatchQueue.main.async {
-            self.currentUser = nil
-            self.displayName = "Atleta"
+            self.d9dQusQ5q74vqBDR4S2x6ngkHlz4Fq84 = nil
+            self.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 = "Atleta"
         }
         
         print("✅ User signed out successfully")
@@ -213,27 +213,27 @@ class UserProfileManager: ObservableObject {
     
     /// Encrypt sensitive UserProfile fields before saving to Core Data
     /// Fields encrypted: email, fullName, appleUserID
-    private func encryptUserProfileFields(_ user: UserProfile) {
+    private func JE96dRWgGatCJyNhppjBJyVIG0rifx9g(_ user: UserProfile) {
         let sensitiveFields = ["email", "fullName", "appleUserID"]
-        encryptionHelper.encryptEntityFields(user, sensitiveFields: sensitiveFields)
+        mU9gHEuxcn7VLdocTIGS2xdQ3QLbe8G9.Branog4ORGjtEDKucIDJWHR5zjzkdtNF(user, sensitiveFields: sensitiveFields)
     }
     
     /// Decrypt sensitive UserProfile fields after fetching from Core Data
     /// Fields decrypted: email, fullName, appleUserID
-    private func decryptUserProfileFields(_ user: UserProfile) {
+    private func ls6wDJGux7rJUmLBmzH2diFiZnhfU8br(_ user: UserProfile) {
         let sensitiveFields = ["email", "fullName", "appleUserID"]
-        encryptionHelper.decryptEntityFields(user, sensitiveFields: sensitiveFields)
+        mU9gHEuxcn7VLdocTIGS2xdQ3QLbe8G9.P5gsNJ8awglJCaUzUFohz3s7w9tvoPXT(user, sensitiveFields: sensitiveFields)
     }
     
     /// Migrate existing unencrypted user profiles to encrypted storage
     /// Call this method during app updates to encrypt existing data
-    func migrateUserProfilesToEncrypted() {
+    func HtJbuUsUL4vbpuWz0U4pwmCShyqjpYN3() {
         print("🔄 Starting UserProfile encryption migration...")
         
         let request: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         
         do {
-            let allUsers = try context.fetch(request)
+            let allUsers = try LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.fetch(request)
             var migratedCount = 0
             
             for user in allUsers {
@@ -243,13 +243,13 @@ class UserProfileManager: ObservableObject {
                                      (user.appleUserID?.hasPrefix("encrypted_") == false && !user.appleUserID!.isEmpty)
                 
                 if needsEncryption {
-                    encryptUserProfileFields(user)
+                    JE96dRWgGatCJyNhppjBJyVIG0rifx9g(user)
                     migratedCount += 1
                 }
             }
             
             if migratedCount > 0 {
-                try context.save()
+                try LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.save()
                 print("✅ Successfully migrated \(migratedCount) user profiles to encrypted storage")
             } else {
                 print("ℹ️ No user profiles needed encryption migration")
@@ -262,18 +262,18 @@ class UserProfileManager: ObservableObject {
     
     // MARK: - Name Management
     
-    func updateDisplayName(_ newName: String) {
+    func wFHSixC97l4MCTtHzG1HCsCLxkuaU2Tl(_ newName: String) {
         print("✏️ Updating display name to: \(newName)")
         
         // Update current user if exists
-        if let user = currentUser {
+        if let user = d9dQusQ5q74vqBDR4S2x6ngkHlz4Fq84 {
             user.fullName = newName
             user.lastUpdated = Date()
             
             do {
-                try context.save()
+                try LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.save()
                 DispatchQueue.main.async {
-                    self.displayName = newName
+                    self.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 = newName
                 }
                 print("✅ Display name updated successfully")
             } catch {
@@ -282,24 +282,24 @@ class UserProfileManager: ObservableObject {
         } else {
             // If no current user, just update the display name locally
             DispatchQueue.main.async {
-                self.displayName = newName
+                self.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 = newName
             }
         }
     }
     
     // MARK: - Utility Methods
     
-    var formattedDisplayName: String {
-        if displayName.isEmpty || displayName == "Atleta" {
+    var XBRN83PxWbEPMDPcnWx7eC9WBTmYZNbu: String {
+        if YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8.isEmpty || YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 == "Atleta" {
             return "Atleta"
         }
         
         // Return first name only for cleaner display
-        let components = displayName.components(separatedBy: " ")
-        return components.first ?? displayName
+        let components = YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8.components(separatedBy: " ")
+        return components.first ?? YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8
     }
     
-    var hasValidUser: Bool {
-        return currentUser != nil && !displayName.isEmpty && displayName != "Atleta"
+    var zolFB6D2RRsnAPNjPUICYnSvwRRmyaza: Bool {
+        return d9dQusQ5q74vqBDR4S2x6ngkHlz4Fq84 != nil && !YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8.isEmpty && YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 != "Atleta"
     }
 }

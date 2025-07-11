@@ -1,7 +1,7 @@
 import SwiftUI
 import CoreData
 
-struct WeeklyGoalView: View {
+struct Xj3WJQIjdqYVZ7GRqNsGGOF8t6wx845J: View {
     @Environment(\.dismiss) private var dismiss
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
@@ -41,7 +41,7 @@ struct WeeklyGoalView: View {
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
             
-            AppConstants.Design.backgroundGradient
+            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
                 .opacity(0.7)
                 .ignoresSafeArea()
             
@@ -66,7 +66,7 @@ struct WeeklyGoalView: View {
         }
         .overlay {
             if showSuccessAnimation {
-                SuccessOverlayView()
+                JYG4Zkb3ba6hcnjtBVfs2KQZFTjUki2q()
                     .transition(.scale.combined(with: .opacity))
                     .zIndex(1)
             }
@@ -105,7 +105,7 @@ struct WeeklyGoalView: View {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [AppConstants.Design.electricBlue.opacity(0.3), AppConstants.Design.softPurple.opacity(0.2)],
+                                colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.3), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.2)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -166,7 +166,7 @@ struct WeeklyGoalView: View {
                         .fill(.ultraThinMaterial.opacity(0.3))
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(AppConstants.Design.electricBlue.opacity(0.4), lineWidth: 2)
+                                .stroke(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), lineWidth: 2)
                         )
                 )
                 
@@ -178,7 +178,7 @@ struct WeeklyGoalView: View {
                     
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: 2), spacing: 20) {
                         ForEach(1...6, id: \.self) { goal in
-                            GoalSelectionButton(
+                            wp3MVpi2FPti7HpLzk3imnmHuYR0APUo(
                                 goal: goal,
                                 isSelected: weeklyGoal == goal,
                                 action: {
@@ -193,7 +193,7 @@ struct WeeklyGoalView: View {
                     // Centered button for goal 7
                     HStack {
                         Spacer()
-                        GoalSelectionButton(
+                        wp3MVpi2FPti7HpLzk3imnmHuYR0APUo(
                             goal: 7,
                             isSelected: weeklyGoal == 7,
                             action: {
@@ -247,7 +247,7 @@ struct WeeklyGoalView: View {
                             LinearGradient(
                                 colors: isGoalCompleted ? 
                                     [.green, .blue] : 
-                                    [AppConstants.Design.electricBlue, AppConstants.Design.softPurple],
+                                    [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
@@ -293,7 +293,7 @@ struct WeeklyGoalView: View {
                                     LinearGradient(
                                         colors: isGoalCompleted ? 
                                             [.green, .blue] : 
-                                            [AppConstants.Design.electricBlue, AppConstants.Design.softPurple],
+                                            [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0],
                                         startPoint: .leading,
                                         endPoint: .trailing
                                     )
@@ -390,14 +390,14 @@ struct WeeklyGoalView: View {
                     RoundedRectangle(cornerRadius: 16)
                         .fill(
                             LinearGradient(
-                                colors: [AppConstants.Design.lavender.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
+                                colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR.opacity(0.2), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.1)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(AppConstants.Design.lavender.opacity(0.3), lineWidth: 1)
+                                .stroke(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR.opacity(0.3), lineWidth: 1)
                         )
                 )
             }
@@ -410,7 +410,7 @@ struct WeeklyGoalView: View {
     // MARK: - Save Button Section
     private var saveButtonSection: some View {
         VStack(spacing: 16) {
-            Button(action: saveGoal) {
+            Button(action: cS3qZBSANJAGCoRhkH1IxMGYPNjMMlMz) {
                 HStack(spacing: 12) {
                     if savedGoal {
                         Image(systemName: "checkmark.circle.fill")
@@ -432,10 +432,10 @@ struct WeeklyGoalView: View {
                     RoundedRectangle(cornerRadius: 30)
                         .fill(savedGoal ? 
                             LinearGradient(colors: [.green, .blue], startPoint: .leading, endPoint: .trailing) :
-                            AppConstants.Design.primaryButtonGradient
+                            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.BRZumEEKLDNhpWlIssXSSHs7tRJDkiWk
                         )
                 )
-                .shadow(color: savedGoal ? .green.opacity(0.4) : AppConstants.Design.blue.opacity(0.4), 
+                .shadow(color: savedGoal ? .green.opacity(0.4) : pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr.opacity(0.4), 
                        radius: 10, x: 0, y: 5)
                 .scaleEffect(savedGoal ? 1.05 : 1.0)
                 .animation(.spring(response: 0.3, dampingFraction: 0.7), value: savedGoal)
@@ -452,7 +452,7 @@ struct WeeklyGoalView: View {
     }
     
     // MARK: - Functions
-    private func saveGoal() {
+    private func cS3qZBSANJAGCoRhkH1IxMGYPNjMMlMz() {
         // Validate weekly goal range (1-7 workouts per week is reasonable)
         let validatedGoal = max(1, min(weeklyGoal, 7))
         
@@ -464,7 +464,7 @@ struct WeeklyGoalView: View {
         UserDefaults.standard.set(validatedGoal, forKey: "weeklyGoal")
         
         // Notify WeeklyGoalManager about the goal change
-        NotificationCenter.default.post(name: .weeklyGoalChanged, object: weeklyGoal)
+        NotificationCenter.default.post(name: .PNqxq0lAjFsRRnIb7XoCcURRETBAHPqh, object: weeklyGoal)
         
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
             savedGoal = true
@@ -492,7 +492,7 @@ struct WeeklyGoalView: View {
 }
 
 // MARK: - Success Overlay View
-struct SuccessOverlayView: View {
+struct JYG4Zkb3ba6hcnjtBVfs2KQZFTjUki2q: View {
     @State private var animate = false
     
     var body: some View {
@@ -550,7 +550,7 @@ struct SuccessOverlayView: View {
 }
 
 // MARK: - Goal Selection Button Component
-struct GoalSelectionButton: View {
+struct wp3MVpi2FPti7HpLzk3imnmHuYR0APUo: View {
     let goal: Int
     let isSelected: Bool
     let action: () -> Void
@@ -566,7 +566,7 @@ struct GoalSelectionButton: View {
                         Circle()
                             .fill(
                                 LinearGradient(
-                                    colors: [AppConstants.Design.electricBlue.opacity(0.4), AppConstants.Design.softPurple.opacity(0.2)],
+                                    colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.2)],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -580,7 +580,7 @@ struct GoalSelectionButton: View {
                         .fill(
                             isSelected ? 
                                 LinearGradient(
-                                    colors: [AppConstants.Design.electricBlue, AppConstants.Design.softPurple],
+                                    colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ) :
@@ -596,7 +596,7 @@ struct GoalSelectionButton: View {
                                 .stroke(
                                     isSelected ? 
                                         LinearGradient(
-                                            colors: [AppConstants.Design.electricBlue.opacity(0.6), AppConstants.Design.softPurple.opacity(0.4)],
+                                            colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.6), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.4)],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
                                         ) :
@@ -609,7 +609,7 @@ struct GoalSelectionButton: View {
                                 )
                         )
                         .shadow(
-                            color: isSelected ? AppConstants.Design.electricBlue.opacity(0.4) : .black.opacity(0.15),
+                            color: isSelected ? pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4) : .black.opacity(0.15),
                             radius: isSelected ? 12 : 6,
                             x: 0,
                             y: isSelected ? 6 : 3
@@ -644,7 +644,7 @@ struct GoalSelectionButton: View {
 
 #Preview {
     NavigationStack {
-        WeeklyGoalView()
+        Xj3WJQIjdqYVZ7GRqNsGGOF8t6wx845J()
     }
-    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
 }

@@ -3,73 +3,73 @@ import AudioToolbox
 import AVFoundation
 
 // MARK: - Timer Type Model
-enum TimerType: String, CaseIterable {
-    case tabata = "Tabata"
-    case hiit = "HIIT"
-    case custom = "Personalizado"
+enum wj1PITNF50YDIsWEj4a7OZgroyUqjcTI: String, CaseIterable {
+    case VfceYO5YMYBgFqLP4wZ9RM5QpLNKdjH8 = "Tabata"
+    case ynrpfZ0cPrSfOMMXYlva6OqaxORS2n72 = "HIIT"
+    case P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 = "Personalizado"
     
-    var defaultWorkDuration: Int {
+    var gT3QPVtHL1YVcRO1v0Kevo1tMC2N1kja: Int {
         switch self {
-        case .tabata: return 20
-        case .hiit: return 30
-        case .custom: return 45
+        case .VfceYO5YMYBgFqLP4wZ9RM5QpLNKdjH8: return 20
+        case .ynrpfZ0cPrSfOMMXYlva6OqaxORS2n72: return 30
+        case .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9: return 45
         }
     }
     
-    var defaultRestDuration: Int {
+    var pigV3hi0my7eS2KVEeKoMKTTUxGCMo5s: Int {
         switch self {
-        case .tabata: return 10
-        case .hiit: return 30
-        case .custom: return 15
+        case .VfceYO5YMYBgFqLP4wZ9RM5QpLNKdjH8: return 10
+        case .ynrpfZ0cPrSfOMMXYlva6OqaxORS2n72: return 30
+        case .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9: return 15
         }
     }
     
-    var icon: String {
+    var QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: String {
         switch self {
-        case .tabata: return "timer"
-        case .hiit: return "stopwatch"
-        case .custom: return "gear"
+        case .VfceYO5YMYBgFqLP4wZ9RM5QpLNKdjH8: return "timer"
+        case .ynrpfZ0cPrSfOMMXYlva6OqaxORS2n72: return "stopwatch"
+        case .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9: return "gear"
         }
     }
     
-    var color: Color {
+    var QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: Color {
         switch self {
-        case .tabata: return .red
-        case .hiit: return .orange
-        case .custom: return .blue
+        case .VfceYO5YMYBgFqLP4wZ9RM5QpLNKdjH8: return .red
+        case .ynrpfZ0cPrSfOMMXYlva6OqaxORS2n72: return .orange
+        case .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9: return .blue
         }
     }
 }
 
 // MARK: - Timer State Enum
-enum TimerState {
-    case ready
-    case work
-    case rest
-    case finished
+enum QCxXT2kSPIbWvflUyClOkikKBvurCtBx {
+    case VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC
+    case fJb3AnvLQe202gy6jmQwrRF0z8W3JER1
+    case M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x
+    case zxy98ghKsmaUyShNoZ5jOB5kHpma0LT5
     
-    var title: String {
+    var FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: String {
         switch self {
-        case .ready: return "Listo para empezar"
-        case .work: return "¡TRABAJA!"
-        case .rest: return "Descansa"
-        case .finished: return "¡Completado!"
+        case .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC: return "Listo para empezar"
+        case .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1: return "¡TRABAJA!"
+        case .M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x: return "Descansa"
+        case .zxy98ghKsmaUyShNoZ5jOB5kHpma0LT5: return "¡Completado!"
         }
     }
     
-    var color: Color {
+    var QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: Color {
         switch self {
-        case .ready: return .blue
-        case .work: return .green
-        case .rest: return .orange
-        case .finished: return .purple
+        case .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC: return .blue
+        case .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1: return .green
+        case .M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x: return .orange
+        case .zxy98ghKsmaUyShNoZ5jOB5kHpma0LT5: return .purple
         }
     }
 }
 
 // MARK: - Timer View
-struct TimerView: View {
-    @State private var selectedTimerType: TimerType = .tabata
+struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
+    @State private var selectedTimerType: wj1PITNF50YDIsWEj4a7OZgroyUqjcTI = .VfceYO5YMYBgFqLP4wZ9RM5QpLNKdjH8
     @State private var workDuration: Int = 20
     @State private var restDuration: Int = 10
     @State private var rounds: Int = 8
@@ -81,7 +81,7 @@ struct TimerView: View {
     @State private var minutes: Int = 0
     @State private var seconds: Int = 20
     @State private var timer: Timer?
-    @State private var currentState: TimerState = .ready
+    @State private var currentState: QCxXT2kSPIbWvflUyClOkikKBvurCtBx = .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC
     @State private var currentRound: Int = 1
     @State private var showCompletionAlert = false
     
@@ -101,7 +101,7 @@ struct TimerView: View {
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
             
-            AppConstants.Design.backgroundGradient
+            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
                 .opacity(0.7)
                 .ignoresSafeArea()
             
@@ -109,7 +109,7 @@ struct TimerView: View {
                 VStack(spacing: 24) {
                     headerSection
                     
-                    if isTimerRunning || currentState != .ready {
+                    if isTimerRunning || currentState != .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC {
                         timerDisplaySection
                     } else {
                         timerTypeSection
@@ -128,19 +128,19 @@ struct TimerView: View {
             withAnimation(.easeOut(duration: 0.8)) {
                 animateOnAppear = true
             }
-            setupAudioPlayers()
+            wffOZMhKbHhIlUhbGMDAVr4uZzWUug8h()
         }
         .onChange(of: selectedTimerType) { newType in
             // Update durations when timer type changes only if not running
             if !isTimerRunning {
-                workDuration = newType.defaultWorkDuration
-                restDuration = newType.defaultRestDuration
-                resetTimer()
+                workDuration = newType.gT3QPVtHL1YVcRO1v0Kevo1tMC2N1kja
+                restDuration = newType.pigV3hi0my7eS2KVEeKoMKTTUxGCMo5s
+                WBhY2jIg4Te0thaSqDrimCq7YvMQgV27()
             }
         }
         .alert("¡Tiempo Completo!", isPresented: $showCompletionAlert) {
             Button("OK") {
-                resetToInitialState()
+                hAadxrPjJk0FI96VqhXr8cnvHPWltRo2()
             }
         } message: {
             Text("Has completado tu sesión de entrenamiento")
@@ -153,7 +153,7 @@ struct TimerView: View {
             Text(validationMessage)
         }
         .onDisappear {
-            stopTimer()
+            CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
         }
     }
     
@@ -162,16 +162,16 @@ struct TimerView: View {
         VStack(spacing: 32) {
             // Current State and Round Info
             VStack(spacing: 12) {
-                if selectedTimerType != .custom && rounds > 1 {
+                if selectedTimerType != .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 && rounds > 1 {
                     Text("Ronda \(currentRound) de \(rounds)")
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.white.opacity(0.8))
                 }
                 
-                Text(currentState.title)
+                Text(currentState.FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf)
                     .font(.system(size: 24, weight: .bold, design: .rounded))
-                    .foregroundColor(currentState.color)
-                    .shadow(color: currentState.color.opacity(0.4), radius: 4, x: 0, y: 2)
+                    .foregroundColor(currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA)
+                    .shadow(color: currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.4), radius: 4, x: 0, y: 2)
             }
             
             // Main Timer Display
@@ -187,7 +187,7 @@ struct TimerView: View {
                         .trim(from: 0, to: progressPercentage)
                         .stroke(
                             LinearGradient(
-                                colors: [currentState.color, currentState.color.opacity(0.6)],
+                                colors: [currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA, currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.6)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
@@ -240,10 +240,10 @@ struct TimerView: View {
                 .fill(.ultraThinMaterial.opacity(0.4))
                 .overlay(
                     RoundedRectangle(cornerRadius: 24)
-                        .stroke(currentState.color.opacity(0.4), lineWidth: 2)
+                        .stroke(currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.4), lineWidth: 2)
                 )
         )
-        .shadow(color: currentState.color.opacity(0.2), radius: 12, x: 0, y: 6)
+        .shadow(color: currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.2), radius: 12, x: 0, y: 6)
         .opacity(animateOnAppear ? 1 : 0)
         .scaleEffect(animateOnAppear ? 1 : 0.9)
         .animation(.spring(response: 0.6, dampingFraction: 0.8), value: animateOnAppear)
@@ -259,7 +259,7 @@ struct TimerView: View {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [AppConstants.Design.electricBlue.opacity(0.3), AppConstants.Design.softPurple.opacity(0.2)],
+                                colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.3), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.2)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -301,8 +301,8 @@ struct TimerView: View {
             }
             
             VStack(spacing: 12) {
-                ForEach(TimerType.allCases, id: \.self) { timerType in
-                    CompactTimerTypeButton(
+                ForEach(wj1PITNF50YDIsWEj4a7OZgroyUqjcTI.allCases, id: \.self) { timerType in
+                    f0DbJBjrfl3d7nEf6UST5ZGjHjQ5Y2Am(
                         timerType: timerType,
                         isSelected: selectedTimerType == timerType,
                         action: {
@@ -341,7 +341,7 @@ struct TimerView: View {
             
             VStack(spacing: 12) {
                 // Work Duration
-                CompactDurationCard(
+                cqL4x6Penm19Hqf0x0SS2z22P2GQIB8a(
                     title: "Trabajo",
                     duration: $workDuration,
                     icon: "figure.run",
@@ -350,7 +350,7 @@ struct TimerView: View {
                 )
                 
                 // Rest Duration
-                CompactDurationCard(
+                cqL4x6Penm19Hqf0x0SS2z22P2GQIB8a(
                     title: "Descanso",
                     duration: $restDuration,
                     icon: "pause.circle",
@@ -359,8 +359,8 @@ struct TimerView: View {
                 )
                 
                 // Rounds (only for Tabata and HIIT)
-                if selectedTimerType != .custom {
-                    CompactDurationCard(
+                if selectedTimerType != .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 {
+                    cqL4x6Penm19Hqf0x0SS2z22P2GQIB8a(
                         title: "Rondas",
                         duration: $rounds,
                         icon: "repeat",
@@ -388,7 +388,7 @@ struct TimerView: View {
     // MARK: - Start Button Section
     private var startButtonSection: some View {
         VStack(spacing: 20) {
-            Button(action: toggleTimer) {
+            Button(action: XJNBD3EZW3l5RDSxNyiOXpK6uMPI7hFl) {
                 HStack(spacing: 12) {
                     Image(systemName: buttonIcon)
                         .font(.system(size: 20, weight: .bold))
@@ -419,20 +419,20 @@ struct TimerView: View {
                     .foregroundColor(.white.opacity(0.7))
                 
                 HStack(spacing: 16) {
-                    CompactSummaryItem(
+                    Ar2rt9Q88PYVOw7e2UhhKEciUJEpXGg4(
                         icon: "clock.fill",
                         value: "\(workDuration)s",
                         label: "Trabajo"
                     )
                     
-                    CompactSummaryItem(
+                    Ar2rt9Q88PYVOw7e2UhhKEciUJEpXGg4(
                         icon: "pause.fill",
                         value: "\(restDuration)s",
                         label: "Descanso"
                     )
                     
-                    if selectedTimerType != .custom {
-                        CompactSummaryItem(
+                    if selectedTimerType != .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 {
+                        Ar2rt9Q88PYVOw7e2UhhKEciUJEpXGg4(
                             icon: "repeat",
                             value: "\(rounds)",
                             label: "Rondas"
@@ -513,7 +513,7 @@ struct TimerView: View {
     private var isConfigurationValid: Bool {
         let workValid = workDuration > 0
         let restValid = restDuration > 0
-        let roundsValid = selectedTimerType == .custom || rounds > 0
+        let roundsValid = selectedTimerType == .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 || rounds > 0
         return workValid && restValid && roundsValid
     }
     
@@ -522,7 +522,7 @@ struct TimerView: View {
     }
     
     private var progressPercentage: Double {
-        let totalSeconds = getCurrentPhaseDuration()
+        let totalSeconds = WFGETVOWnMN64lVQEUGFarR0toadHaqq()
         let remainingSeconds = minutes * 60 + seconds
         let elapsedSeconds = totalSeconds - remainingSeconds
         return totalSeconds > 0 ? Double(elapsedSeconds) / Double(totalSeconds) : 0
@@ -530,13 +530,13 @@ struct TimerView: View {
     
     private var nextPhaseText: String {
         switch currentState {
-        case .work:
-            if selectedTimerType == .custom {
+        case .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1:
+            if selectedTimerType == .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 {
                 return "Fin del entrenamiento"
             } else {
                 return currentRound >= rounds ? "Fin del entrenamiento" : "Descanso (\(restDuration)s)"
             }
-        case .rest:
+        case .M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x:
             return currentRound >= rounds ? "Fin del entrenamiento" : "Trabajo (\(workDuration)s)"
         default:
             return ""
@@ -544,55 +544,55 @@ struct TimerView: View {
     }
     
     // MARK: - Timer Logic
-    private func getCurrentPhaseDuration() -> Int {
+    private func WFGETVOWnMN64lVQEUGFarR0toadHaqq() -> Int {
         switch currentState {
-        case .work: return workDuration
-        case .rest: return restDuration
+        case .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1: return workDuration
+        case .M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x: return restDuration
         default: return workDuration
         }
     }
     
-    private func startTimer() {
-        if currentState == .ready {
-            currentState = .work
-            setTimerFor(duration: workDuration)
-            playWorkSound() // Play work sound when starting the timer
+    private func gLfTqhzhxcpWliKCrGouhmG1S8JLJfOi() {
+        if currentState == .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC {
+            currentState = .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1
+            h3Hn95d5lCBPY4upMqLWGaBF1MLPn4v3(duration: workDuration)
+            o0DtSpQEFMLog3HFDD93CzuVjZ9mj5dv() // Play work sound when starting the timer
         }
         
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            decrementTime()
+            VjdFUbOlyluDmaVgNduXHjfptHlzXE37()
         }
     }
     
-    private func stopTimer() {
+    private func CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH() {
         timer?.invalidate()
         timer = nil
     }
     
-    private func resetTimer() {
+    private func WBhY2jIg4Te0thaSqDrimCq7YvMQgV27() {
         minutes = workDuration / 60
         seconds = workDuration % 60
-        currentState = .ready
+        currentState = .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC
         currentRound = 1
     }
     
-    private func resetToInitialState() {
+    private func hAadxrPjJk0FI96VqhXr8cnvHPWltRo2() {
         withAnimation(.easeInOut(duration: 0.5)) {
             isTimerRunning = false
             isPaused = false
-            currentState = .ready
+            currentState = .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC
             currentRound = 1
-            stopTimer()
-            setTimerFor(duration: workDuration)
+            CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
+            h3Hn95d5lCBPY4upMqLWGaBF1MLPn4v3(duration: workDuration)
         }
     }
     
-    private func setTimerFor(duration: Int) {
+    private func h3Hn95d5lCBPY4upMqLWGaBF1MLPn4v3(duration: Int) {
         minutes = duration / 60
         seconds = duration % 60
     }
     
-    private func decrementTime() {
+    private func VjdFUbOlyluDmaVgNduXHjfptHlzXE37() {
         guard isTimerRunning && !isPaused else { return }
         
         if seconds > 0 {
@@ -602,35 +602,35 @@ struct TimerView: View {
             seconds = 59
         } else {
             // Time reached zero
-            handlePhaseCompletion()
+            JyHU0PT2U16JlZvUjyAeeHKT7ts0IwDp()
         }
     }
     
-    private func handlePhaseCompletion() {
+    private func JyHU0PT2U16JlZvUjyAeeHKT7ts0IwDp() {
         switch currentState {
-        case .work:
-            if selectedTimerType == .custom {
+        case .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1:
+            if selectedTimerType == .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 {
                 // Custom timer completes after work phase
-                completeTimer()
+                Wd6nud7woxh12cA1fv3iYNGB1FddQZi4()
             } else {
                 // Switch to rest phase
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                playRestSound()
-                currentState = .rest
-                setTimerFor(duration: restDuration)
+                UBsTfngp7a1kR0prHENzBpwznAAg35vv()
+                currentState = .M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x
+                h3Hn95d5lCBPY4upMqLWGaBF1MLPn4v3(duration: restDuration)
             }
             
-        case .rest:
+        case .M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x:
             if currentRound >= rounds {
                 // All rounds completed
-                completeTimer()
+                Wd6nud7woxh12cA1fv3iYNGB1FddQZi4()
             } else {
                 // Move to next round
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                playWorkSound()
+                o0DtSpQEFMLog3HFDD93CzuVjZ9mj5dv()
                 currentRound += 1
-                currentState = .work
-                setTimerFor(duration: workDuration)
+                currentState = .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1
+                h3Hn95d5lCBPY4upMqLWGaBF1MLPn4v3(duration: workDuration)
             }
             
         default:
@@ -638,9 +638,9 @@ struct TimerView: View {
         }
     }
     
-    private func completeTimer() {
-        stopTimer()
-        currentState = .finished
+    private func Wd6nud7woxh12cA1fv3iYNGB1FddQZi4() {
+        CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
+        currentState = .zxy98ghKsmaUyShNoZ5jOB5kHpma0LT5
         withAnimation(.easeInOut(duration: 0.3)) {
             isTimerRunning = false
             isPaused = false
@@ -653,7 +653,7 @@ struct TimerView: View {
     }
     
     // MARK: - Audio Setup
-    private func setupAudioPlayers() {
+    private func wffOZMhKbHhIlUhbGMDAVr4uZzWUug8h() {
         // Setup work phase sound (beep)
         if let workSoundURL = Bundle.main.url(forResource: "work-beep", withExtension: "wav") {
             do {
@@ -685,7 +685,7 @@ struct TimerView: View {
         }
     }
     
-    private func playWorkSound() {
+    private func o0DtSpQEFMLog3HFDD93CzuVjZ9mj5dv() {
         // Play work phase sound (beep)
         if let player = workAudioPlayer {
             player.stop()
@@ -697,7 +697,7 @@ struct TimerView: View {
         }
     }
     
-    private func playRestSound() {
+    private func UBsTfngp7a1kR0prHENzBpwznAAg35vv() {
         // Play rest phase sound (bell)
         if let player = restAudioPlayer {
             player.stop()
@@ -710,7 +710,7 @@ struct TimerView: View {
     }
     
     // MARK: - Validation
-    private func validateConfiguration() -> Bool {
+    private func ATJ101GLyuaLHQe6JL2sHfBxIwFUCkGa() -> Bool {
         var issues: [String] = []
         
         if workDuration <= 0 {
@@ -721,7 +721,7 @@ struct TimerView: View {
             issues.append("• El tiempo de descanso debe ser mayor a 0 segundos")
         }
         
-        if selectedTimerType != .custom && rounds <= 0 {
+        if selectedTimerType != .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 && rounds <= 0 {
             issues.append("• El número de rondas debe ser mayor a 0")
         }
         
@@ -735,9 +735,9 @@ struct TimerView: View {
     }
     
     // MARK: - Actions
-    private func toggleTimer() {
+    private func XJNBD3EZW3l5RDSxNyiOXpK6uMPI7hFl() {
         // Validate configuration before starting
-        if !isTimerRunning && !validateConfiguration() {
+        if !isTimerRunning && !ATJ101GLyuaLHQe6JL2sHfBxIwFUCkGa() {
             return
         }
         
@@ -746,25 +746,25 @@ struct TimerView: View {
                 // Start timer
                 isTimerRunning = true
                 isPaused = false
-                startTimer()
+                gLfTqhzhxcpWliKCrGouhmG1S8JLJfOi()
             } else if isPaused {
                 // Resume timer
                 isPaused = false
                 if timer == nil {
-                    startTimer()
+                    gLfTqhzhxcpWliKCrGouhmG1S8JLJfOi()
                 }
             } else {
                 // Pause timer
                 isPaused = true
-                stopTimer()
+                CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
             }
         }
     }
 }
 
 // MARK: - Compact Timer Type Button Component
-struct CompactTimerTypeButton: View {
-    let timerType: TimerType
+struct f0DbJBjrfl3d7nEf6UST5ZGjHjQ5Y2Am: View {
+    let timerType: wj1PITNF50YDIsWEj4a7OZgroyUqjcTI
     let isSelected: Bool
     let action: () -> Void
     
@@ -775,12 +775,12 @@ struct CompactTimerTypeButton: View {
             HStack(spacing: 12) {
                 ZStack {
                     Circle()
-                        .fill(isSelected ? timerType.color.opacity(0.3) : timerType.color.opacity(0.15))
+                        .fill(isSelected ? timerType.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.3) : timerType.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.15))
                         .frame(width: 40, height: 40)
                     
-                    Image(systemName: timerType.icon)
+                    Image(systemName: timerType.QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj)
                         .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(isSelected ? .white : timerType.color)
+                        .foregroundColor(isSelected ? .white : timerType.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA)
                 }
                 
                 VStack(alignment: .leading, spacing: 2) {
@@ -789,7 +789,7 @@ struct CompactTimerTypeButton: View {
                         .foregroundColor(isSelected ? .white : .white.opacity(0.9))
                         .lineLimit(1)
                     
-                    Text(timerDescription(for: timerType))
+                    Text(lWYN5MqGaSGHpReLdNm55XfCSRUKL3NE(for: timerType))
                         .font(.system(size: 12, weight: .medium))
                         .foregroundColor(isSelected ? .white.opacity(0.7) : .white.opacity(0.6))
                         .lineLimit(1)
@@ -810,7 +810,7 @@ struct CompactTimerTypeButton: View {
                     .fill(
                         isSelected ? 
                             LinearGradient(
-                                colors: [timerType.color.opacity(0.4), timerType.color.opacity(0.2)],
+                                colors: [timerType.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.4), timerType.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.2)],
                                 startPoint: .leading,
                                 endPoint: .trailing
                             ) :
@@ -823,7 +823,7 @@ struct CompactTimerTypeButton: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                isSelected ? timerType.color.opacity(0.5) : Color.white.opacity(0.1),
+                                isSelected ? timerType.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.5) : Color.white.opacity(0.1),
                                 lineWidth: isSelected ? 1.5 : 1
                             )
                     )
@@ -838,20 +838,20 @@ struct CompactTimerTypeButton: View {
         }, perform: {})
     }
     
-    private func timerDescription(for type: TimerType) -> String {
+    private func lWYN5MqGaSGHpReLdNm55XfCSRUKL3NE(for type: wj1PITNF50YDIsWEj4a7OZgroyUqjcTI) -> String {
         switch type {
-        case .tabata:
+        case .VfceYO5YMYBgFqLP4wZ9RM5QpLNKdjH8:
             return "20s trabajo, 10s descanso"
-        case .hiit:
+        case .ynrpfZ0cPrSfOMMXYlva6OqaxORS2n72:
             return "30s trabajo, 30s descanso"
-        case .custom:
+        case .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9:
             return "Configura tus propios tiempos"
         }
     }
 }
 
 // MARK: - Optimized Duration Config Card Component
-struct CompactDurationCard: View {
+struct cqL4x6Penm19Hqf0x0SS2z22P2GQIB8a: View {
     let title: String
     @Binding var duration: Int
     let icon: String
@@ -876,7 +876,7 @@ struct CompactDurationCard: View {
                 
                 Spacer()
                 
-                Text(formatDuration(duration))
+                Text(HaCQgkXuZK3BrMdYpHm2jmUW7qHn33AB(duration))
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(.white.opacity(0.7))
             }
@@ -884,7 +884,7 @@ struct CompactDurationCard: View {
             // Compact controls section
             HStack(spacing: 12) {
                 // Minus button - smaller and more compact
-                Button(action: { decrementDuration() }) {
+                Button(action: { whoMiJLT9Ee2cjI0oM8DMhMjTXg3akKI() }) {
                     ZStack {
                         Circle()
                             .fill(duration > range.lowerBound ? Color.white.opacity(0.15) : Color.white.opacity(0.05))
@@ -929,7 +929,7 @@ struct CompactDurationCard: View {
                 Spacer()
                 
                 // Plus button - smaller and more compact
-                Button(action: { incrementDuration() }) {
+                Button(action: { du2B91k4HqA38OtJygbTkZfZKXoCCnh3() }) {
                     ZStack {
                         Circle()
                             .fill(duration < range.upperBound ? Color.white.opacity(0.15) : Color.white.opacity(0.05))
@@ -966,7 +966,7 @@ struct CompactDurationCard: View {
         )
     }
     
-    private func incrementDuration() {
+    private func du2B91k4HqA38OtJygbTkZfZKXoCCnh3() {
         guard duration < range.upperBound else { return }
         
         // Haptic feedback
@@ -982,7 +982,7 @@ struct CompactDurationCard: View {
         }
     }
     
-    private func decrementDuration() {
+    private func whoMiJLT9Ee2cjI0oM8DMhMjTXg3akKI() {
         guard duration > range.lowerBound else { return }
         
         // Haptic feedback
@@ -998,7 +998,7 @@ struct CompactDurationCard: View {
         }
     }
     
-    private func formatDuration(_ seconds: Int) -> String {
+    private func HaCQgkXuZK3BrMdYpHm2jmUW7qHn33AB(_ seconds: Int) -> String {
         if title == "Rondas" {
             return seconds == 1 ? "1 ronda" : "\(seconds) rondas"
         } else {
@@ -1008,7 +1008,7 @@ struct CompactDurationCard: View {
 }
 
 // MARK: - Compact Summary Item Component
-struct CompactSummaryItem: View {
+struct Ar2rt9Q88PYVOw7e2UhhKEciUJEpXGg4: View {
     let icon: String
     let value: String
     let label: String
@@ -1044,18 +1044,18 @@ struct CompactSummaryItem: View {
 }
 
 // MARK: - Previews
-struct TimerView_Previews: PreviewProvider {
+struct pgN5eDuvPlrGGhquZojsthEyiF7jC0Gx: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            TimerView()
+            dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl()
         }
-        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
     }
 }
 
 #Preview {
     NavigationStack {
-        TimerView()
+        dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl()
     }
-    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
 }

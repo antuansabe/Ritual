@@ -1,37 +1,37 @@
 import Foundation
 
-class EntrenamientoViewModel: ObservableObject {
-    @Published var entrenamientos: [Entrenamiento] = []
-    @Published var isLoading = false
-    @Published var errorMessage: String?
+class SqUH6kIq89jGG11s48KgotGWrfuMNHR6: ObservableObject {
+    @Published var EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A: [GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd] = []
+    @Published var YSuY2aW2PCZkKwq4ph5miIoJ2ncJmCdo = false
+    @Published var TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: String?
     
-    private let userDefaults = UserDefaults.standard
-    private let workoutsKey = "SavedWorkouts"
+    private let gRuPw7Hk8VHJi7kbT5U4CF66LMecaGGF = UserDefaults.standard
+    private let LIEER1PHveFs0DalGE5vWSqQtszO96dG = "SavedWorkouts"
     
-    var entrenamientosOrdenados: [Entrenamiento] {
-        entrenamientos.sorted { $0.fecha > $1.fecha }
+    var vYZ4fa2ghsr2dElueiVCgbtZdm6mhFpZ: [GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd] {
+        EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A.sorted { $0.fecha > $1.fecha }
     }
     
-    var totalWorkouts: Int {
-        entrenamientos.count
+    var dtSAhjsInADv7EcOxyP7uQFwtXZctHQx: Int {
+        EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A.count
     }
     
-    var totalMinutes: Int {
-        entrenamientos.reduce(0) { $0 + $1.duracion }
+    var ggax5PJg8tx0gaA3Z3bEvYumPoiafIdG: Int {
+        EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A.reduce(0) { $0 + $1.duracion }
     }
     
-    var totalCalories: Int {
-        entrenamientos.reduce(0) { $0 + AppConstants.calculateCalories(for: $1.duracion) }
+    var YdMLPUVsFr9j15lAvC2Au5g786i7VRsk: Int {
+        EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A.reduce(0) { $0 + pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for: $1.duracion) }
     }
     
-    var currentStreak: Int {
-        guard !entrenamientos.isEmpty else { return 0 }
+    var GP2LD8OEZ1Q7Tw3WzF5PNuAoKLky42wd: Int {
+        guard !EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A.isEmpty else { return 0 }
         
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
         
         // Agrupar entrenamientos por día
-        let workoutDays = Set(entrenamientos.map { calendar.startOfDay(for: $0.fecha) })
+        let workoutDays = Set(EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A.map { calendar.startOfDay(for: $0.fecha) })
         let sortedDays = Array(workoutDays).sorted(by: >)
         
         var streak = 0
@@ -49,76 +49,76 @@ class EntrenamientoViewModel: ObservableObject {
         return streak
     }
     
-    var todayWorkouts: [Entrenamiento] {
+    var ZbMus1cX3lQlgvAtmOkaaRCqgFywUhhu: [GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd] {
         let calendar = Calendar.current
         let today = Date()
-        return entrenamientos.filter { calendar.isDate($0.fecha, inSameDayAs: today) }
+        return EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A.filter { calendar.isDate($0.fecha, inSameDayAs: today) }
     }
     
-    var thisWeekWorkouts: [Entrenamiento] {
+    var kEWp9gx151xU7eavGFVtcNg9YOiLqnmu: [GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd] {
         let calendar = Calendar.current
         let today = Date()
         let weekAgo = calendar.date(byAdding: .day, value: -7, to: today) ?? today
-        return entrenamientos.filter { $0.fecha >= weekAgo }
+        return EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A.filter { $0.fecha >= weekAgo }
     }
     
-    func agregarEntrenamiento(tipo: String, duracion: Int) async {
-        isLoading = true
-        errorMessage = nil
+    func kZ2egx2BUExWEHUTF4kcHI14M4Df36J8(tipo: String, duracion: Int) async {
+        YSuY2aW2PCZkKwq4ph5miIoJ2ncJmCdo = true
+        TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = nil
         
         do {
-            let nuevoEntrenamiento = Entrenamiento(tipo: tipo, duracion: duracion, fecha: Date())
-            entrenamientos.append(nuevoEntrenamiento)
-            try await saveWorkouts()
+            let nuevoEntrenamiento = GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd(tipo: tipo, duracion: duracion, fecha: Date())
+            EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A.append(nuevoEntrenamiento)
+            try await wU2QE5Z7TfbmEnkD3Gzk3jQqK4PpkQzF()
         } catch {
-            errorMessage = AppError.saveFailed.localizedDescription
+            TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = fGsTSzPpELfPriTNhXgvgjffTuQ1eb9H.hiNCTxD5IB37rTmJ8FEa3sxEZ304nBQl.localizedDescription
         }
         
-        isLoading = false
+        YSuY2aW2PCZkKwq4ph5miIoJ2ncJmCdo = false
     }
     
     init() {
-        loadWorkouts()
+        C1JQm2KATAfhNvD1Gk2aBtFsRHPiAnaB()
     }
     
-    private func loadWorkouts() {
-        guard let data = userDefaults.data(forKey: workoutsKey) else {
-            loadSampleData()
+    private func C1JQm2KATAfhNvD1Gk2aBtFsRHPiAnaB() {
+        guard let data = gRuPw7Hk8VHJi7kbT5U4CF66LMecaGGF.data(forKey: LIEER1PHveFs0DalGE5vWSqQtszO96dG) else {
+            MDlDw06KqQOscZpV6zwc6mPZBYfEiDwL()
             return
         }
         
         do {
-            self.entrenamientos = try JSONDecoder().decode([Entrenamiento].self, from: data)
+            self.EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A = try JSONDecoder().decode([GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd].self, from: data)
         } catch {
             print("Error loading workouts: \(error.localizedDescription)")
-            errorMessage = AppError.loadFailed.localizedDescription
-            loadSampleData()
+            TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = fGsTSzPpELfPriTNhXgvgjffTuQ1eb9H.J95y5YdF4aUR6aL5ONOAQHrGaoh2cNPI.localizedDescription
+            MDlDw06KqQOscZpV6zwc6mPZBYfEiDwL()
         }
     }
     
-    private func saveWorkouts() async throws {
+    private func wU2QE5Z7TfbmEnkD3Gzk3jQqK4PpkQzF() async throws {
         let encoder = JSONEncoder()
-        let data = try encoder.encode(entrenamientos)
-        userDefaults.set(data, forKey: workoutsKey)
+        let data = try encoder.encode(EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A)
+        gRuPw7Hk8VHJi7kbT5U4CF66LMecaGGF.set(data, forKey: LIEER1PHveFs0DalGE5vWSqQtszO96dG)
     }
     
-    private func loadSampleData() {
+    private func MDlDw06KqQOscZpV6zwc6mPZBYfEiDwL() {
         let calendar = Calendar.current
         let today = Date()
         
         let sampleData = [
-            Entrenamiento(tipo: "Cardio", duracion: 30, fecha: today),
-            Entrenamiento(tipo: "Yoga", duracion: 45, fecha: calendar.date(byAdding: .hour, value: -3, to: today) ?? today),
-            Entrenamiento(tipo: "Fuerza", duracion: 60, fecha: calendar.date(byAdding: .day, value: -1, to: today) ?? today),
-            Entrenamiento(tipo: "Caminata", duracion: 25, fecha: calendar.date(byAdding: .day, value: -1, to: today) ?? today),
-            Entrenamiento(tipo: "Ciclismo", duracion: 40, fecha: calendar.date(byAdding: .day, value: -2, to: today) ?? today),
-            Entrenamiento(tipo: "Natación", duracion: 35, fecha: calendar.date(byAdding: .day, value: -3, to: today) ?? today),
-            Entrenamiento(tipo: "Striking", duracion: 50, fecha: calendar.date(byAdding: .day, value: -4, to: today) ?? today),
+            GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd(tipo: "Cardio", duracion: 30, fecha: today),
+            GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd(tipo: "Yoga", duracion: 45, fecha: calendar.date(byAdding: .hour, value: -3, to: today) ?? today),
+            GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd(tipo: "Fuerza", duracion: 60, fecha: calendar.date(byAdding: .day, value: -1, to: today) ?? today),
+            GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd(tipo: "Caminata", duracion: 25, fecha: calendar.date(byAdding: .day, value: -1, to: today) ?? today),
+            GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd(tipo: "Ciclismo", duracion: 40, fecha: calendar.date(byAdding: .day, value: -2, to: today) ?? today),
+            GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd(tipo: "Natación", duracion: 35, fecha: calendar.date(byAdding: .day, value: -3, to: today) ?? today),
+            GwUTKTnqAiCG48OZaptDYJhnVzb8Rggd(tipo: "Striking", duracion: 50, fecha: calendar.date(byAdding: .day, value: -4, to: today) ?? today),
         ]
-        entrenamientos = sampleData
+        EdFdnkp5UuMy3VJCNfbNQVbqtJ3R0f7A = sampleData
     }
     
-    func clearError() {
-        errorMessage = nil
+    func EYA1lT4kx4ae526Okh9jsZgBxFHUOAsZ() {
+        TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = nil
     }
 }

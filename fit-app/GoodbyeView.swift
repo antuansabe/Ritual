@@ -1,19 +1,19 @@
 import SwiftUI
 
-struct GoodbyeView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
-    @EnvironmentObject var userProfileManager: UserProfileManager
+struct ApJ08JFGfVrR1tOMiHbVWMDwIafd73iX: View {
+    @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
+    @EnvironmentObject var userProfileManager: gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm
     @State private var animateContent = false
     @State private var showButton = false
     
     private var userName: String {
         // Try to get name from UserProfileManager first
-        if !userProfileManager.displayName.isEmpty && userProfileManager.displayName != "Atleta" {
-            return userProfileManager.formattedDisplayName
+        if !userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8.isEmpty && userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 != "Atleta" {
+            return userProfileManager.XBRN83PxWbEPMDPcnWx7eC9WBTmYZNbu
         }
         
         // Get name from secure storage only
-        if let name = SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName), !name.isEmpty {
+        if let name = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.YhyL54l7qYGd78Z7egtPFzCWzLff1uDd), !name.isEmpty {
             return name
         }
         
@@ -45,7 +45,7 @@ struct GoodbyeView: View {
             .padding(.horizontal, 32)
         }
         .onAppear {
-            startAnimations()
+            d7HgIV9FgJHiFpzRNEYuKEhOXIrjilkO()
         }
     }
     
@@ -153,7 +153,7 @@ struct GoodbyeView: View {
     // MARK: - Return Button
     private var returnButton: some View {
         Button(action: {
-            handleReturnToLogin()
+            AmLhUYJYwG4J77oV0J1VDvw8Iy2IDoOz()
         }) {
             HStack(spacing: 12) {
                 Image(systemName: "house.fill")
@@ -170,15 +170,15 @@ struct GoodbyeView: View {
                     .fill(
                         LinearGradient(
                             colors: [
-                                AppConstants.Design.electricBlue,
-                                AppConstants.Design.softPurple
+                                pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT,
+                                pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0
                             ],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
                     )
             )
-            .shadow(color: AppConstants.Design.electricBlue.opacity(0.4), radius: 12, x: 0, y: 6)
+            .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), radius: 12, x: 0, y: 6)
         }
         .scaleEffect(showButton ? 1.0 : 0.8)
         .opacity(showButton ? 1.0 : 0.0)
@@ -186,7 +186,7 @@ struct GoodbyeView: View {
     }
     
     // MARK: - Actions
-    private func startAnimations() {
+    private func d7HgIV9FgJHiFpzRNEYuKEhOXIrjilkO() {
         // Start content animation immediately
         withAnimation {
             animateContent = true
@@ -201,24 +201,24 @@ struct GoodbyeView: View {
         
         // Auto-navigate to login after 4 seconds if user doesn't interact
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-            if authViewModel.showingGoodbye {
-                handleReturnToLogin()
+            if authViewModel.ZcyV56DImmWj4Y96j2b459YI8SvPQpMA {
+                AmLhUYJYwG4J77oV0J1VDvw8Iy2IDoOz()
             }
         }
     }
     
-    private func handleReturnToLogin() {
+    private func AmLhUYJYwG4J77oV0J1VDvw8Iy2IDoOz() {
         print("🏠 Returning to login from goodbye screen")
         
         withAnimation(.easeInOut(duration: 0.5)) {
-            authViewModel.completeLogout()
+            authViewModel.WclnnxV7r3qvqAkYbmZKSt0rHWBOFLp7()
         }
     }
 }
 
 // MARK: - Previews
 #Preview {
-    GoodbyeView()
-        .environmentObject(AuthViewModel())
-        .environmentObject(UserProfileManager.shared)
+    ApJ08JFGfVrR1tOMiHbVWMDwIafd73iX()
+        .environmentObject(M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB())
+        .environmentObject(gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX)
 }

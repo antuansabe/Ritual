@@ -4,8 +4,8 @@ import os.log
 
 /// Comprehensive input validation and sanitization class
 /// Provides security validation for all user inputs in the fitness app
-class InputValidator {
-    static let shared = InputValidator()
+class VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z {
+    static let DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX = VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z()
     
     private init() {}
     
@@ -14,7 +14,7 @@ class InputValidator {
     /// Sanitize user input to remove dangerous characters and normalize whitespace
     /// - Parameter input: Raw user input string
     /// - Returns: Sanitized string safe for storage and processing
-    func sanitizeInput(_ input: String) -> String {
+    func S1FcBW204dzhY83hyyJGO8udFCyY9l66(_ input: String) -> String {
         // Remove leading/trailing whitespace and newlines
         let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -76,7 +76,7 @@ class InputValidator {
     /// Sanitize email input (preserves @ and . for email format)
     /// - Parameter email: Raw email input
     /// - Returns: Sanitized email string
-    func sanitizeEmail(_ email: String) -> String {
+    func dqcp23UnWaxuvyXm8KbQld90HimugLmK(_ email: String) -> String {
         let trimmed = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         
         // Remove dangerous characters but preserve email-specific ones
@@ -112,21 +112,21 @@ class InputValidator {
     /// Validate email format with comprehensive regex
     /// - Parameter email: Email string to validate
     /// - Returns: ValidationResult with success/failure and error message
-    func isValidEmail(_ email: String) -> ValidationResult {
-        let sanitizedEmail = sanitizeEmail(email)
+    func gqOgORpeH2M06vs7BMVtxLbptITBiYZ6(_ email: String) -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
+        let sanitizedEmail = dqcp23UnWaxuvyXm8KbQld90HimugLmK(email)
         
         // Check if empty
         guard !sanitizedEmail.isEmpty else {
-            return ValidationResult(isValid: false, errorMessage: "El email es requerido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El email es requerido")
         }
         
         // Check length constraints
         guard sanitizedEmail.count >= 5 else {
-            return ValidationResult(isValid: false, errorMessage: "El email es demasiado corto")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El email es demasiado corto")
         }
         
         guard sanitizedEmail.count <= 254 else {
-            return ValidationResult(isValid: false, errorMessage: "El email es demasiado largo")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El email es demasiado largo")
         }
         
         // More strict and realistic email regex pattern
@@ -138,7 +138,7 @@ class InputValidator {
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         
         guard emailPredicate.evaluate(with: sanitizedEmail) else {
-            return ValidationResult(isValid: false, errorMessage: "Formato de email inválido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Formato de email inválido")
         }
         
         // Additional strict security checks
@@ -147,7 +147,7 @@ class InputValidator {
            sanitizedEmail.hasSuffix(".") ||
            sanitizedEmail.contains("@.") ||
            sanitizedEmail.contains(".@") {
-            return ValidationResult(isValid: false, errorMessage: "Formato de email inválido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Formato de email inválido")
         }
         
         // Check for suspicious domains and patterns
@@ -155,16 +155,16 @@ class InputValidator {
         let domain = String(sanitizedEmail.split(separator: "@").last ?? "")
         
         if suspiciousDomains.contains(where: domain.lowercased().contains) {
-            return ValidationResult(isValid: false, errorMessage: "Dominio de email no válido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Dominio de email no válido")
         }
         
         // Check local part length (before @)
         let localPart = String(sanitizedEmail.split(separator: "@").first ?? "")
         guard localPart.count >= 1 && localPart.count <= 64 else {
-            return ValidationResult(isValid: false, errorMessage: "Formato de email inválido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Formato de email inválido")
         }
         
-        return ValidationResult(isValid: true, errorMessage: nil)
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil)
     }
     
     // MARK: - Password Validation
@@ -172,18 +172,18 @@ class InputValidator {
     /// Validate password strength with comprehensive requirements
     /// - Parameter password: Password string to validate
     /// - Returns: ValidationResult with success/failure and error message
-    func isValidPassword(_ password: String) -> ValidationResult {
+    func h5XGz4DUlwTKJKtlQOvbuUuAbkL6wlu1(_ password: String) -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
         // Don't sanitize passwords as it might affect legitimate characters
         guard !password.isEmpty else {
-            return ValidationResult(isValid: false, errorMessage: "La contraseña es requerida")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La contraseña es requerida")
         }
         
         guard password.count >= 8 else {
-            return ValidationResult(isValid: false, errorMessage: "La contraseña debe tener al menos 8 caracteres")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La contraseña debe tener al menos 8 caracteres")
         }
         
         guard password.count <= 128 else {
-            return ValidationResult(isValid: false, errorMessage: "La contraseña es demasiado larga")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La contraseña es demasiado larga")
         }
         
         // Check for uppercase letter
@@ -191,7 +191,7 @@ class InputValidator {
         let hasUppercase = NSPredicate(format: "SELF MATCHES %@", uppercaseRegex).evaluate(with: password)
         
         guard hasUppercase else {
-            return ValidationResult(isValid: false, errorMessage: "La contraseña debe contener al menos una letra mayúscula")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La contraseña debe contener al menos una letra mayúscula")
         }
         
         // Check for number
@@ -199,7 +199,7 @@ class InputValidator {
         let hasNumber = NSPredicate(format: "SELF MATCHES %@", numberRegex).evaluate(with: password)
         
         guard hasNumber else {
-            return ValidationResult(isValid: false, errorMessage: "La contraseña debe contener al menos un número")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La contraseña debe contener al menos un número")
         }
         
         // Check for lowercase letter
@@ -207,7 +207,7 @@ class InputValidator {
         let hasLowercase = NSPredicate(format: "SELF MATCHES %@", lowercaseRegex).evaluate(with: password)
         
         guard hasLowercase else {
-            return ValidationResult(isValid: false, errorMessage: "La contraseña debe contener al menos una letra minúscula")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La contraseña debe contener al menos una letra minúscula")
         }
         
         // Check for special characters (more secure passwords)
@@ -215,21 +215,21 @@ class InputValidator {
         let hasSpecialChar = NSPredicate(format: "SELF MATCHES %@", specialCharRegex).evaluate(with: password)
         
         if !hasSpecialChar {
-            return ValidationResult(isValid: false, errorMessage: "La contraseña debe contener al menos un carácter especial (!@#$%^&*)")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La contraseña debe contener al menos un carácter especial (!@#$%^&*)")
         }
         
         // Check for sequential characters (123, abc, etc.)
         let sequentialPatterns = ["123", "234", "345", "456", "567", "678", "789", "abc", "bcd", "cde", "def", "efg", "fgh", "ghi"]
         for pattern in sequentialPatterns {
             if password.lowercased().contains(pattern) || password.lowercased().contains(String(pattern.reversed())) {
-                return ValidationResult(isValid: false, errorMessage: "La contraseña no puede contener secuencias obvias")
+                return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La contraseña no puede contener secuencias obvias")
             }
         }
         
         // Check for repeated characters (aaa, 111, etc.)
         let repeatedPattern = ".*([a-zA-Z0-9])\\1{2,}.*"
         if NSPredicate(format: "SELF MATCHES %@", repeatedPattern).evaluate(with: password) {
-            return ValidationResult(isValid: false, errorMessage: "La contraseña no puede tener más de 2 caracteres iguales consecutivos")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La contraseña no puede tener más de 2 caracteres iguales consecutivos")
         }
         
         // Expanded list of common weak passwords
@@ -242,41 +242,41 @@ class InputValidator {
         ]
         
         if weakPasswords.contains(password.lowercased()) {
-            return ValidationResult(isValid: false, errorMessage: "Esta contraseña es demasiado común. Usa una más segura")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Esta contraseña es demasiado común. Usa una más segura")
         }
         
         // Check for personal information patterns (common names, dates)
         let personalPatterns = ["antonio", "maria", "juan", "ana", "carlos", "luis", "jose", "2023", "2024", "2025"]
         for pattern in personalPatterns {
             if password.lowercased().contains(pattern) {
-                return ValidationResult(isValid: false, errorMessage: "La contraseña no debe contener información personal obvia")
+                return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La contraseña no debe contener información personal obvia")
             }
         }
         
-        return ValidationResult(isValid: true, errorMessage: nil)
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil)
     }
     
     /// Enhanced password validation with suggestions
     /// - Parameter password: Password string to validate
     /// - Returns: EnhancedValidationResult with suggestions for improvement
-    func validatePasswordWithSuggestions(_ password: String) -> EnhancedValidationResult {
+    func EtQAry82XiZH2kRyUQYNLLDwQbFyz847(_ password: String) -> I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F {
         var suggestions: [String] = []
-        var severity: EnhancedValidationResult.ValidationSeverity = .error
+        var severity: I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F.XBr8miKnBoG2dS7demubi4aJGuapw48Y = .Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY
         
         // Don't sanitize passwords as it might affect legitimate characters
         guard !password.isEmpty else {
-            return EnhancedValidationResult.failure("La contraseña es requerida", severity: .error)
+            return I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F.xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF("La contraseña es requerida", severity: .Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY)
         }
         
         // Check minimum length
         if password.count < 8 {
             suggestions.append("Agrega más caracteres (mínimo 8)")
-            return EnhancedValidationResult.failure("La contraseña debe tener al menos 8 caracteres", severity: .error, suggestions: suggestions)
+            return I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F.xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF("La contraseña debe tener al menos 8 caracteres", severity: .Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY, suggestions: suggestions)
         }
         
         // Check maximum length
         if password.count > 128 {
-            return EnhancedValidationResult.failure("La contraseña es demasiado larga", severity: .error)
+            return I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F.xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF("La contraseña es demasiado larga", severity: .Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY)
         }
         
         // Check for character type requirements
@@ -301,7 +301,7 @@ class InputValidator {
         // Return early if basic requirements not met
         if !hasUppercase || !hasLowercase || !hasNumber || !hasSpecialChar {
             let missingRequirements = suggestions.joined(separator: ", ")
-            return EnhancedValidationResult.failure("Faltan requisitos: \(missingRequirements)", severity: .error, suggestions: suggestions)
+            return I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F.xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF("Faltan requisitos: \(missingRequirements)", severity: .Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY, suggestions: suggestions)
         }
         
         // Advanced security checks
@@ -312,7 +312,7 @@ class InputValidator {
         for pattern in sequentialPatterns {
             if password.lowercased().contains(pattern) || password.lowercased().contains(String(pattern.reversed())) {
                 warnings.append("Evita secuencias obvias como '123' o 'abc'")
-                severity = .warning
+                severity = .vKSmkjrmbJpKJmFgUJBygZ97IJbSIo2K
                 break
             }
         }
@@ -320,7 +320,7 @@ class InputValidator {
         // Check for repeated characters
         if NSPredicate(format: "SELF MATCHES %@", ".*([a-zA-Z0-9])\\1{2,}.*").evaluate(with: password) {
             warnings.append("Evita repetir el mismo carácter más de 2 veces")
-            severity = .warning
+            severity = .vKSmkjrmbJpKJmFgUJBygZ97IJbSIo2K
         }
         
         // Check for common weak patterns
@@ -330,7 +330,7 @@ class InputValidator {
         ]
         
         if weakPasswords.contains(password.lowercased()) {
-            return EnhancedValidationResult.failure("Esta contraseña es demasiado común", severity: .critical, suggestions: ["Usa una combinación única de caracteres"])
+            return I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F.xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF("Esta contraseña es demasiado común", severity: .dRtV7Cn1Gx0d0Rl91vms6gakuwdpZdoU, suggestions: ["Usa una combinación única de caracteres"])
         }
         
         // Check for personal information
@@ -338,17 +338,17 @@ class InputValidator {
         for pattern in personalPatterns {
             if password.lowercased().contains(pattern) {
                 warnings.append("Evita usar información personal en tu contraseña")
-                severity = .warning
+                severity = .vKSmkjrmbJpKJmFgUJBygZ97IJbSIo2K
                 break
             }
         }
         
         // Strong password achieved
         if warnings.isEmpty {
-            return EnhancedValidationResult.success()
+            return I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F.Amqyy95vWgcOGxPe2gHNEvOb2gQuwTDe()
         } else {
             // Password is valid but has warnings
-            return EnhancedValidationResult(isValid: true, errorMessage: warnings.first, severity: severity, suggestions: warnings)
+            return I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: warnings.first, mNT410bsF7l47fbHQWoD0HS4QOV6DiBQ: severity, L1q9Wfz9etCIJ1flGLC4AjALJiCRsPqi: warnings)
         }
     }
     
@@ -357,19 +357,19 @@ class InputValidator {
     /// Validate user names (full names, display names, etc.)
     /// - Parameter name: Name string to validate
     /// - Returns: ValidationResult with success/failure and error message
-    func isValidName(_ name: String) -> ValidationResult {
-        let sanitizedName = sanitizeInput(name)
+    func GukvlHdwqqo9fBJgWjzJJvFe5OMUEOjg(_ name: String) -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
+        let sanitizedName = S1FcBW204dzhY83hyyJGO8udFCyY9l66(name)
         
         guard !sanitizedName.isEmpty else {
-            return ValidationResult(isValid: false, errorMessage: "El nombre es requerido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El nombre es requerido")
         }
         
         guard sanitizedName.count >= 2 else {
-            return ValidationResult(isValid: false, errorMessage: "El nombre debe tener al menos 2 caracteres")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El nombre debe tener al menos 2 caracteres")
         }
         
         guard sanitizedName.count <= 50 else {
-            return ValidationResult(isValid: false, errorMessage: "El nombre es demasiado largo")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El nombre es demasiado largo")
         }
         
         // Check for valid name characters (letters, spaces, hyphens, apostrophes)
@@ -377,15 +377,15 @@ class InputValidator {
         let namePredicate = NSPredicate(format: "SELF MATCHES %@", nameRegex)
         
         guard namePredicate.evaluate(with: sanitizedName) else {
-            return ValidationResult(isValid: false, errorMessage: "El nombre contiene caracteres no válidos")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El nombre contiene caracteres no válidos")
         }
         
         // Check for consecutive spaces or hyphens
         if sanitizedName.contains("  ") || sanitizedName.contains("--") || sanitizedName.contains("''") {
-            return ValidationResult(isValid: false, errorMessage: "Formato de nombre inválido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Formato de nombre inválido")
         }
         
-        return ValidationResult(isValid: true, errorMessage: nil)
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil)
     }
     
     // MARK: - Workout Duration Validation
@@ -393,42 +393,42 @@ class InputValidator {
     /// Validate workout duration in minutes
     /// - Parameter duration: Duration value to validate
     /// - Returns: ValidationResult with success/failure and error message
-    func isValidDuration(_ duration: String) -> ValidationResult {
-        let sanitizedDuration = sanitizeInput(duration)
+    func mK1HuXd0dllufICl3QQamyvCvsx1UOhe(_ duration: String) -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
+        let sanitizedDuration = S1FcBW204dzhY83hyyJGO8udFCyY9l66(duration)
         
         guard !sanitizedDuration.isEmpty else {
-            return ValidationResult(isValid: false, errorMessage: "La duración es requerida")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La duración es requerida")
         }
         
         // Check if it's a valid number
         guard let durationInt = Int(sanitizedDuration) else {
-            return ValidationResult(isValid: false, errorMessage: "La duración debe ser un número válido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La duración debe ser un número válido")
         }
         
         guard durationInt >= 1 else {
-            return ValidationResult(isValid: false, errorMessage: "La duración mínima es de 1 minuto")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La duración mínima es de 1 minuto")
         }
         
         guard durationInt <= 600 else {
-            return ValidationResult(isValid: false, errorMessage: "La duración máxima es de 600 minutos (10 horas)")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La duración máxima es de 600 minutos (10 horas)")
         }
         
-        return ValidationResult(isValid: true, errorMessage: nil)
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil)
     }
     
     /// Validate workout duration as integer
     /// - Parameter duration: Duration integer to validate
     /// - Returns: ValidationResult with success/failure and error message
-    func isValidDuration(_ duration: Int) -> ValidationResult {
+    func mK1HuXd0dllufICl3QQamyvCvsx1UOhe(_ duration: Int) -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
         guard duration >= 1 else {
-            return ValidationResult(isValid: false, errorMessage: "La duración mínima es de 1 minuto")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La duración mínima es de 1 minuto")
         }
         
         guard duration <= 600 else {
-            return ValidationResult(isValid: false, errorMessage: "La duración máxima es de 600 minutos (10 horas)")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "La duración máxima es de 600 minutos (10 horas)")
         }
         
-        return ValidationResult(isValid: true, errorMessage: nil)
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil)
     }
     
     // MARK: - Workout Type Validation
@@ -436,19 +436,19 @@ class InputValidator {
     /// Validate workout type names
     /// - Parameter workoutType: Workout type string to validate
     /// - Returns: ValidationResult with success/failure and error message
-    func isValidWorkoutType(_ workoutType: String) -> ValidationResult {
-        let sanitizedType = sanitizeInput(workoutType)
+    func yQTfzeSq7UapiEXhlhx81yO5cHtgXaYD(_ workoutType: String) -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
+        let sanitizedType = S1FcBW204dzhY83hyyJGO8udFCyY9l66(workoutType)
         
         guard !sanitizedType.isEmpty else {
-            return ValidationResult(isValid: false, errorMessage: "El tipo de entrenamiento es requerido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El tipo de entrenamiento es requerido")
         }
         
         guard sanitizedType.count >= 2 else {
-            return ValidationResult(isValid: false, errorMessage: "El tipo de entrenamiento debe tener al menos 2 caracteres")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El tipo de entrenamiento debe tener al menos 2 caracteres")
         }
         
         guard sanitizedType.count <= 30 else {
-            return ValidationResult(isValid: false, errorMessage: "El tipo de entrenamiento es demasiado largo")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El tipo de entrenamiento es demasiado largo")
         }
         
         // Allow letters, numbers, spaces, and some special characters for workout names
@@ -456,10 +456,10 @@ class InputValidator {
         let typePredicate = NSPredicate(format: "SELF MATCHES %@", typeRegex)
         
         guard typePredicate.evaluate(with: sanitizedType) else {
-            return ValidationResult(isValid: false, errorMessage: "El tipo de entrenamiento contiene caracteres no válidos")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El tipo de entrenamiento contiene caracteres no válidos")
         }
         
-        return ValidationResult(isValid: true, errorMessage: nil)
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil)
     }
     
     // MARK: - Calories Validation
@@ -467,41 +467,41 @@ class InputValidator {
     /// Validate calories burned in workout
     /// - Parameter calories: Calories value to validate
     /// - Returns: ValidationResult with success/failure and error message
-    func isValidCalories(_ calories: String) -> ValidationResult {
-        let sanitizedCalories = sanitizeInput(calories)
+    func UeuZ4TttshvAphn0ACvLfm5t5LOE5kqT(_ calories: String) -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
+        let sanitizedCalories = S1FcBW204dzhY83hyyJGO8udFCyY9l66(calories)
         
         guard !sanitizedCalories.isEmpty else {
-            return ValidationResult(isValid: false, errorMessage: "Las calorías son requeridas")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Las calorías son requeridas")
         }
         
         guard let caloriesInt = Int(sanitizedCalories) else {
-            return ValidationResult(isValid: false, errorMessage: "Las calorías deben ser un número válido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Las calorías deben ser un número válido")
         }
         
         guard caloriesInt >= 1 else {
-            return ValidationResult(isValid: false, errorMessage: "Las calorías mínimas son 1")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Las calorías mínimas son 1")
         }
         
         guard caloriesInt <= 5000 else {
-            return ValidationResult(isValid: false, errorMessage: "Las calorías máximas son 5000")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Las calorías máximas son 5000")
         }
         
-        return ValidationResult(isValid: true, errorMessage: nil)
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil)
     }
     
     /// Validate calories as integer
     /// - Parameter calories: Calories integer to validate
     /// - Returns: ValidationResult with success/failure and error message
-    func isValidCalories(_ calories: Int) -> ValidationResult {
+    func UeuZ4TttshvAphn0ACvLfm5t5LOE5kqT(_ calories: Int) -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
         guard calories >= 1 else {
-            return ValidationResult(isValid: false, errorMessage: "Las calorías mínimas son 1")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Las calorías mínimas son 1")
         }
         
         guard calories <= 5000 else {
-            return ValidationResult(isValid: false, errorMessage: "Las calorías máximas son 5000")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Las calorías máximas son 5000")
         }
         
-        return ValidationResult(isValid: true, errorMessage: nil)
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil)
     }
     
     // MARK: - General Text Validation
@@ -513,22 +513,22 @@ class InputValidator {
     ///   - maxLength: Maximum allowed length
     ///   - allowEmpty: Whether empty text is allowed
     /// - Returns: ValidationResult with success/failure and error message
-    func isValidText(_ text: String, minLength: Int = 0, maxLength: Int = 500, allowEmpty: Bool = true) -> ValidationResult {
-        let sanitizedText = sanitizeInput(text)
+    func XbYj8L8Tgt8tifDesaxHeBB7ZC6vl5FS(_ text: String, minLength: Int = 0, maxLength: Int = 500, allowEmpty: Bool = true) -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
+        let sanitizedText = S1FcBW204dzhY83hyyJGO8udFCyY9l66(text)
         
         if !allowEmpty && sanitizedText.isEmpty {
-            return ValidationResult(isValid: false, errorMessage: "Este campo es requerido")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "Este campo es requerido")
         }
         
         if !sanitizedText.isEmpty && sanitizedText.count < minLength {
-            return ValidationResult(isValid: false, errorMessage: "El texto debe tener al menos \(minLength) caracteres")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El texto debe tener al menos \(minLength) caracteres")
         }
         
         if sanitizedText.count > maxLength {
-            return ValidationResult(isValid: false, errorMessage: "El texto no puede exceder \(maxLength) caracteres")
+            return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: "El texto no puede exceder \(maxLength) caracteres")
         }
         
-        return ValidationResult(isValid: true, errorMessage: nil)
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil)
     }
     
     // MARK: - Comprehensive Form Validation
@@ -538,16 +538,16 @@ class InputValidator {
     ///   - email: Email input
     ///   - password: Password input
     /// - Returns: FormValidationResult with all validation results
-    func validateLoginForm(email: String, password: String) -> FormValidationResult {
-        let emailResult = isValidEmail(email)
-        let passwordResult = isValidPassword(password)
+    func MXrPHgEvfN1utFtDtqX8hlPRqmBESjo5(email: String, password: String) -> FjaI0E49hrfGsVa1bVopKbKXlXAaDzqy {
+        let emailResult = gqOgORpeH2M06vs7BMVtxLbptITBiYZ6(email)
+        let passwordResult = h5XGz4DUlwTKJKtlQOvbuUuAbkL6wlu1(password)
         
-        let isValid = emailResult.isValid && passwordResult.isValid
+        let isValid = emailResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP && passwordResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
         
-        return FormValidationResult(
-            isValid: isValid,
-            emailError: emailResult.errorMessage,
-            passwordError: passwordResult.errorMessage
+        return FjaI0E49hrfGsVa1bVopKbKXlXAaDzqy(
+            rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: isValid,
+            CxKxHT2sOLJ5h1bNHvwWoUgYSUhDmN09: emailResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy,
+            njSCE4IB5Uvv1MwNc4feiXWfH3IjX0lS: passwordResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
         )
     }
     
@@ -558,9 +558,9 @@ class InputValidator {
     ///   - confirmPassword: Password confirmation input
     ///   - fullName: Full name input (optional)
     /// - Returns: RegistrationValidationResult with all validation results
-    func validateRegistrationForm(email: String, password: String, confirmPassword: String, fullName: String? = nil) -> RegistrationValidationResult {
-        let emailResult = isValidEmail(email)
-        let passwordResult = isValidPassword(password)
+    func Jnn1RkQbLTe4y5NQcvqRPJ8hq6qIv6ut(email: String, password: String, confirmPassword: String, fullName: String? = nil) -> Nn8i1WWa5FY1dXJubtn575MEgwTWGBvH {
+        let emailResult = gqOgORpeH2M06vs7BMVtxLbptITBiYZ6(email)
+        let passwordResult = h5XGz4DUlwTKJKtlQOvbuUuAbkL6wlu1(password)
         
         // Password confirmation validation
         var confirmPasswordError: String? = nil
@@ -571,21 +571,21 @@ class InputValidator {
         // Full name validation (if provided)
         var fullNameError: String? = nil
         if let name = fullName, !name.isEmpty {
-            let nameResult = isValidName(name)
-            fullNameError = nameResult.errorMessage
+            let nameResult = GukvlHdwqqo9fBJgWjzJJvFe5OMUEOjg(name)
+            fullNameError = nameResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
         }
         
-        let isValid = emailResult.isValid && 
-                     passwordResult.isValid && 
+        let isValid = emailResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP && 
+                     passwordResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP && 
                      confirmPasswordError == nil && 
                      fullNameError == nil
         
-        return RegistrationValidationResult(
-            isValid: isValid,
-            emailError: emailResult.errorMessage,
-            passwordError: passwordResult.errorMessage,
-            confirmPasswordError: confirmPasswordError,
-            fullNameError: fullNameError
+        return Nn8i1WWa5FY1dXJubtn575MEgwTWGBvH(
+            rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: isValid,
+            CxKxHT2sOLJ5h1bNHvwWoUgYSUhDmN09: emailResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy,
+            njSCE4IB5Uvv1MwNc4feiXWfH3IjX0lS: passwordResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy,
+            FSmEyjUCFD85Rw1dG5PNnGbDIdBu7VfJ: confirmPasswordError,
+            hPoWQ7Ip74GgbZqVLnlVNdQ5oiFZQghh: fullNameError
         )
     }
     
@@ -595,18 +595,18 @@ class InputValidator {
     ///   - duration: Duration in minutes
     ///   - calories: Calories burned
     /// - Returns: WorkoutValidationResult with all validation results
-    func validateWorkoutForm(type: String, duration: String, calories: String) -> WorkoutValidationResult {
-        let typeResult = isValidWorkoutType(type)
-        let durationResult = isValidDuration(duration)
-        let caloriesResult = isValidCalories(calories)
+    func RjR1xocYhtEeKPgbAnKGy234lB4Hqvof(type: String, duration: String, calories: String) -> d60keL9OSfVxAmSQIHSxtrMyAuIT3AT0 {
+        let typeResult = yQTfzeSq7UapiEXhlhx81yO5cHtgXaYD(type)
+        let durationResult = mK1HuXd0dllufICl3QQamyvCvsx1UOhe(duration)
+        let caloriesResult = UeuZ4TttshvAphn0ACvLfm5t5LOE5kqT(calories)
         
-        let isValid = typeResult.isValid && durationResult.isValid && caloriesResult.isValid
+        let isValid = typeResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP && durationResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP && caloriesResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
         
-        return WorkoutValidationResult(
-            isValid: isValid,
-            typeError: typeResult.errorMessage,
-            durationError: durationResult.errorMessage,
-            caloriesError: caloriesResult.errorMessage
+        return d60keL9OSfVxAmSQIHSxtrMyAuIT3AT0(
+            rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: isValid,
+            ROFur6xD2hxx7r7ZWxpBu8HAPwTSQpu7: typeResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy,
+            ZTVlzuvGDHR67YL27BBt6LMNMhrAQlrn: durationResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy,
+            QZbQOb6iHPrCCvhhALwxwUlVYDdOqxcu: caloriesResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
         )
     }
 }
@@ -614,84 +614,84 @@ class InputValidator {
 // MARK: - Validation Result Types
 
 /// Basic validation result structure
-struct ValidationResult {
-    let isValid: Bool
-    let errorMessage: String?
+struct ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
+    let rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: Bool
+    let TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: String?
     
     /// Create a successful validation result
-    static func success() -> ValidationResult {
-        return ValidationResult(isValid: true, errorMessage: nil)
+    static func Amqyy95vWgcOGxPe2gHNEvOb2gQuwTDe() -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil)
     }
     
     /// Create a failed validation result with error message
-    static func failure(_ message: String) -> ValidationResult {
-        return ValidationResult(isValid: false, errorMessage: message)
+    static func xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(_ message: String) -> ePoHfU9AGzBqB23HXaGI0902aVfVeYvm {
+        return ePoHfU9AGzBqB23HXaGI0902aVfVeYvm(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: message)
     }
 }
 
 /// Enhanced validation result with severity levels
-struct EnhancedValidationResult {
-    let isValid: Bool
-    let errorMessage: String?
-    let severity: ValidationSeverity
-    let suggestions: [String]
+struct I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F {
+    let rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: Bool
+    let TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: String?
+    let mNT410bsF7l47fbHQWoD0HS4QOV6DiBQ: XBr8miKnBoG2dS7demubi4aJGuapw48Y
+    let L1q9Wfz9etCIJ1flGLC4AjALJiCRsPqi: [String]
     
-    enum ValidationSeverity {
-        case info       // Informational message
-        case warning    // Warning that doesn't prevent submission
-        case error      // Critical error that prevents submission
-        case critical   // Security-related critical error
+    enum XBr8miKnBoG2dS7demubi4aJGuapw48Y {
+        case YbqsQk4FoNov5y7inb8MYOlkpPj65o1R       // Informational message
+        case vKSmkjrmbJpKJmFgUJBygZ97IJbSIo2K    // Warning that doesn't prevent submission
+        case Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY      // Critical error that prevents submission
+        case dRtV7Cn1Gx0d0Rl91vms6gakuwdpZdoU   // Security-related critical error
     }
     
-    static func success() -> EnhancedValidationResult {
-        return EnhancedValidationResult(isValid: true, errorMessage: nil, severity: .info, suggestions: [])
+    static func Amqyy95vWgcOGxPe2gHNEvOb2gQuwTDe() -> I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F {
+        return I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: true, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: nil, mNT410bsF7l47fbHQWoD0HS4QOV6DiBQ: .YbqsQk4FoNov5y7inb8MYOlkpPj65o1R, L1q9Wfz9etCIJ1flGLC4AjALJiCRsPqi: [])
     }
     
-    static func failure(_ message: String, severity: ValidationSeverity = .error, suggestions: [String] = []) -> EnhancedValidationResult {
-        return EnhancedValidationResult(isValid: false, errorMessage: message, severity: severity, suggestions: suggestions)
+    static func xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(_ message: String, severity: XBr8miKnBoG2dS7demubi4aJGuapw48Y = .Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY, suggestions: [String] = []) -> I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F {
+        return I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F(rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: false, TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: message, mNT410bsF7l47fbHQWoD0HS4QOV6DiBQ: severity, L1q9Wfz9etCIJ1flGLC4AjALJiCRsPqi: suggestions)
     }
 }
 
 /// Form validation result for login
-struct FormValidationResult {
-    let isValid: Bool
-    let emailError: String?
-    let passwordError: String?
+struct FjaI0E49hrfGsVa1bVopKbKXlXAaDzqy {
+    let rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: Bool
+    let CxKxHT2sOLJ5h1bNHvwWoUgYSUhDmN09: String?
+    let njSCE4IB5Uvv1MwNc4feiXWfH3IjX0lS: String?
 }
 
 /// Form validation result for registration
-struct RegistrationValidationResult {
-    let isValid: Bool
-    let emailError: String?
-    let passwordError: String?
-    let confirmPasswordError: String?
-    let fullNameError: String?
+struct Nn8i1WWa5FY1dXJubtn575MEgwTWGBvH {
+    let rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: Bool
+    let CxKxHT2sOLJ5h1bNHvwWoUgYSUhDmN09: String?
+    let njSCE4IB5Uvv1MwNc4feiXWfH3IjX0lS: String?
+    let FSmEyjUCFD85Rw1dG5PNnGbDIdBu7VfJ: String?
+    let hPoWQ7Ip74GgbZqVLnlVNdQ5oiFZQghh: String?
 }
 
 /// Form validation result for workout
-struct WorkoutValidationResult {
-    let isValid: Bool
-    let typeError: String?
-    let durationError: String?
-    let caloriesError: String?
+struct d60keL9OSfVxAmSQIHSxtrMyAuIT3AT0 {
+    let rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP: Bool
+    let ROFur6xD2hxx7r7ZWxpBu8HAPwTSQpu7: String?
+    let ZTVlzuvGDHR67YL27BBt6LMNMhrAQlrn: String?
+    let QZbQOb6iHPrCCvhhALwxwUlVYDdOqxcu: String?
 }
 
 // MARK: - Validation UI Components
-extension InputValidator {
+extension VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z {
     /// Create a standardized validation error view
     /// - Parameters:
     ///   - errorMessage: The error message to display
     ///   - severity: The severity level of the error
     /// - Returns: A SwiftUI view for displaying the error
-    static func createErrorView(errorMessage: String, severity: EnhancedValidationResult.ValidationSeverity = .error) -> some View {
+    static func dS9cmwLbIWhJZE89586Jhd1qDnTGXekO(errorMessage: String, severity: I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F.XBr8miKnBoG2dS7demubi4aJGuapw48Y = .Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY) -> some View {
         HStack(spacing: 8) {
-            Image(systemName: severity.iconName)
+            Image(systemName: severity.pkXMz9UZlbK3FjM6Q61JGyuGDihYyM1j)
                 .font(.system(size: 12, weight: .medium))
-                .foregroundColor(severity.color)
+                .foregroundColor(severity.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA)
             
             Text(errorMessage)
                 .font(.system(size: 12, weight: .medium))
-                .foregroundColor(severity.color)
+                .foregroundColor(severity.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA)
             
             Spacer()
         }
@@ -699,51 +699,51 @@ extension InputValidator {
         .padding(.vertical, 8)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(severity.backgroundColor)
+                .fill(severity.N9WKSoRNX7JQr4XduaGhftBnYtRMOxkm)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(severity.color.opacity(0.3), lineWidth: 1)
+                        .stroke(severity.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.3), lineWidth: 1)
                 )
         )
         .transition(.opacity.combined(with: .move(edge: .top)))
     }
 }
 
-extension EnhancedValidationResult.ValidationSeverity {
-    var iconName: String {
+extension I1cnf6D3kFt7AV1ikfm6ZoDvvwsHce9F.XBr8miKnBoG2dS7demubi4aJGuapw48Y {
+    var pkXMz9UZlbK3FjM6Q61JGyuGDihYyM1j: String {
         switch self {
-        case .info: return "info.circle"
-        case .warning: return "exclamationmark.triangle"
-        case .error: return "xmark.circle"
-        case .critical: return "exclamationmark.triangle.fill"
+        case .YbqsQk4FoNov5y7inb8MYOlkpPj65o1R: return "info.circle"
+        case .vKSmkjrmbJpKJmFgUJBygZ97IJbSIo2K: return "exclamationmark.triangle"
+        case .Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY: return "xmark.circle"
+        case .dRtV7Cn1Gx0d0Rl91vms6gakuwdpZdoU: return "exclamationmark.triangle.fill"
         }
     }
     
-    var color: Color {
+    var QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: Color {
         switch self {
-        case .info: return .blue
-        case .warning: return .orange
-        case .error: return .red
-        case .critical: return .red
+        case .YbqsQk4FoNov5y7inb8MYOlkpPj65o1R: return .blue
+        case .vKSmkjrmbJpKJmFgUJBygZ97IJbSIo2K: return .orange
+        case .Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY: return .red
+        case .dRtV7Cn1Gx0d0Rl91vms6gakuwdpZdoU: return .red
         }
     }
     
-    var backgroundColor: Color {
+    var N9WKSoRNX7JQr4XduaGhftBnYtRMOxkm: Color {
         switch self {
-        case .info: return .blue.opacity(0.1)
-        case .warning: return .orange.opacity(0.1)
-        case .error: return .red.opacity(0.1)
-        case .critical: return .red.opacity(0.15)
+        case .YbqsQk4FoNov5y7inb8MYOlkpPj65o1R: return .blue.opacity(0.1)
+        case .vKSmkjrmbJpKJmFgUJBygZ97IJbSIo2K: return .orange.opacity(0.1)
+        case .Gbmlp5kAEfCiPqcdFJQgxqu6JRKoegWY: return .red.opacity(0.1)
+        case .dRtV7Cn1Gx0d0Rl91vms6gakuwdpZdoU: return .red.opacity(0.15)
         }
     }
 }
 
 // MARK: - Testing and Validation Verification
-extension InputValidator {
+extension VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z {
     
     /// Comprehensive testing of all validation functions
     /// - Returns: True if all tests pass, false otherwise
-    func runValidationTests() -> Bool {
+    func JYzZ9XeXx2MvIh31VlCw15bbdJo5sdeq() -> Bool {
         #if DEBUG
         print("[U+1F9EA] Running comprehensive validation tests...")
         #endif
@@ -768,15 +768,15 @@ extension InputValidator {
         #endif
         for (email, shouldPass) in emailTests {
             totalTests += 1
-            let result = isValidEmail(email)
-            if result.isValid == shouldPass {
+            let result = gqOgORpeH2M06vs7BMVtxLbptITBiYZ6(email)
+            if result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP == shouldPass {
                 testsPassedCount += 1
                 #if DEBUG
-                print("[OK] Email test passed: '\(email)' -> \(result.isValid)")
+                print("[OK] Email test passed: '\(email)' -> \(result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP)")
                 #endif
             } else {
                 #if DEBUG
-                print("[ERR] Email test failed: '\(email)' expected \(shouldPass), got \(result.isValid)")
+                print("[ERR] Email test failed: '\(email)' expected \(shouldPass), got \(result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP)")
                 #endif
             }
         }
@@ -798,15 +798,15 @@ extension InputValidator {
         #endif
         for (password, shouldPass) in passwordTests {
             totalTests += 1
-            let result = isValidPassword(password)
-            if result.isValid == shouldPass {
+            let result = h5XGz4DUlwTKJKtlQOvbuUuAbkL6wlu1(password)
+            if result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP == shouldPass {
                 testsPassedCount += 1
                 #if DEBUG
-                print("[OK] Password test passed: '\(password.prefix(3))***' -> \(result.isValid)")
+                print("[OK] Password test passed: '\(password.prefix(3))***' -> \(result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP)")
                 #endif
             } else {
                 #if DEBUG
-                print("[ERR] Password test failed: '\(password.prefix(3))***' expected \(shouldPass), got \(result.isValid)")
+                print("[ERR] Password test failed: '\(password.prefix(3))***' expected \(shouldPass), got \(result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP)")
                 #endif
             }
         }
@@ -825,7 +825,7 @@ extension InputValidator {
         #endif
         for (input, expected) in sanitizationTests {
             totalTests += 1
-            let result = sanitizeInput(input)
+            let result = S1FcBW204dzhY83hyyJGO8udFCyY9l66(input)
             if result == expected {
                 testsPassedCount += 1
                 #if DEBUG
@@ -854,15 +854,15 @@ extension InputValidator {
         #endif
         for (name, shouldPass) in nameTests {
             totalTests += 1
-            let result = isValidName(name)
-            if result.isValid == shouldPass {
+            let result = GukvlHdwqqo9fBJgWjzJJvFe5OMUEOjg(name)
+            if result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP == shouldPass {
                 testsPassedCount += 1
                 #if DEBUG
-                print("[OK] Name test passed: '\(name)' -> \(result.isValid)")
+                print("[OK] Name test passed: '\(name)' -> \(result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP)")
                 #endif
             } else {
                 #if DEBUG
-                print("[ERR] Name test failed: '\(name)' expected \(shouldPass), got \(result.isValid)")
+                print("[ERR] Name test failed: '\(name)' expected \(shouldPass), got \(result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP)")
                 #endif
             }
         }
@@ -891,10 +891,10 @@ extension InputValidator {
     
     /// Quick validation test for debugging
     /// - Returns: True if basic validations work
-    func quickValidationTest() -> Bool {
-        let emailTest = isValidEmail("test@valid.com").isValid
-        let passwordTest = isValidPassword("MyStr0ng#Pass").isValid
-        let nameTest = isValidName("Juan Carlos").isValid
+    func ScBsiJbnxhf3pxDNDkDjX22WWiOsaY9V() -> Bool {
+        let emailTest = gqOgORpeH2M06vs7BMVtxLbptITBiYZ6("test@valid.com").rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
+        let passwordTest = h5XGz4DUlwTKJKtlQOvbuUuAbkL6wlu1("MyStr0ng#Pass").rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
+        let nameTest = GukvlHdwqqo9fBJgWjzJJvFe5OMUEOjg("Juan Carlos").rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
         
         #if DEBUG
         print("[U+1F50D] Quick validation test: Email=\(emailTest), Password=\(passwordTest), Name=\(nameTest)")

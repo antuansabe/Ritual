@@ -4,151 +4,151 @@ import Combine
 import os.log
 
 // MARK: - Weekly Goal Manager
-class WeeklyGoalManager: ObservableObject {
-    static let shared = WeeklyGoalManager()
+class c3kqQniNesZXpxTzJtrm9NMyH8bXfWx7: ObservableObject {
+    static let DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX = c3kqQniNesZXpxTzJtrm9NMyH8bXfWx7()
     
-    @Published var showGoalAchievedPopup = false
-    @Published var currentWeeklyGoal: Int = 3
-    @Published var workoutsThisWeek: Int = 0
+    @Published var FXSqAeHL1HY1LOVtf42C1SP3ty5mvJcz = false
+    @Published var keMSUrVMokzCOpVVheeGQD50FQ41fXak: Int = 3
+    @Published var r59cI8ba1ct8kBcy0uXMMef36MOqURK5: Int = 0
     
-    private var cancellables = Set<AnyCancellable>()
-    private let calendar = Calendar.current
+    private var e6GbWj0JS44Gsu8Z4iRCLKT0VRiHPjhg = Set<AnyCancellable>()
+    private let Oh4Aurwyqt6m3ECRYNFjDgQ5h2EkCJb0 = Calendar.current
     
     // Key for tracking when goal was last achieved (week identifier)
-    private let lastGoalAchievedWeekKey = "lastGoalAchievedWeek"
+    private let SYB3nnNkPdYoBTY42ppmebmtS98CoDV6 = "lastGoalAchievedWeek"
     
     private init() {
         // Load current weekly goal from UserDefaults
-        loadWeeklyGoal()
+        Ljqg0j2JEdq2NYwqv5VwzxbJjihGzU6M()
         
         // Listen for weekly goal changes
-        NotificationCenter.default.publisher(for: .weeklyGoalChanged)
+        NotificationCenter.default.publisher(for: .PNqxq0lAjFsRRnIb7XoCcURRETBAHPqh)
             .sink { [weak self] notification in
                 if let newGoal = notification.object as? Int {
-                    self?.currentWeeklyGoal = newGoal
+                    self?.keMSUrVMokzCOpVVheeGQD50FQ41fXak = newGoal
                 }
             }
-            .store(in: &cancellables)
+            .store(in: &e6GbWj0JS44Gsu8Z4iRCLKT0VRiHPjhg)
         
         // Listen for workout saves
-        NotificationCenter.default.publisher(for: .workoutSaved)
+        NotificationCenter.default.publisher(for: .gUTLJd2whxFIrGRCEMVrNZWSFPiU5gq5)
             .sink { [weak self] notification in
-                self?.handleWorkoutSaved()
+                self?.WLoxguEswq4CuQfdpHwKlvTqsFuI2GJO()
             }
-            .store(in: &cancellables)
+            .store(in: &e6GbWj0JS44Gsu8Z4iRCLKT0VRiHPjhg)
     }
     
     // MARK: - Public Methods
     
-    private func handleWorkoutSaved() {
+    private func WLoxguEswq4CuQfdpHwKlvTqsFuI2GJO() {
         // Fetch current workouts from Core Data
-        let context = PersistenceController.shared.container.viewContext
+        let context = GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext
         let request: NSFetchRequest<WorkoutEntity> = WorkoutEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)]
         
         do {
             let workouts = try context.fetch(request)
-            checkWorkoutCompleted(workouts: workouts)
+            OyouN4YSTDcoHEPkN83goxp5YNzg3TVt(workouts: workouts)
         } catch {
             #if DEBUG
-            Logger.general.debug("Error fetching workouts for goal check: \(error)")
+            Logger.Ob4SnetCO7LMPevIhjhaA06irglkRYx7.debug("Error fetching workouts for goal check: \(error)")
             #endif
         }
     }
     
-    func checkWorkoutCompleted(workouts: [WorkoutEntity]) {
-        let newWorkoutCount = calculateWorkoutsThisWeek(workouts: workouts)
-        let previousCount = workoutsThisWeek
-        workoutsThisWeek = newWorkoutCount
+    func OyouN4YSTDcoHEPkN83goxp5YNzg3TVt(workouts: [WorkoutEntity]) {
+        let newWorkoutCount = YGfyA4j6n8VpKAbvWRChLrm5MMbM8kAQ(workouts: workouts)
+        let previousCount = r59cI8ba1ct8kBcy0uXMMef36MOqURK5
+        r59cI8ba1ct8kBcy0uXMMef36MOqURK5 = newWorkoutCount
         
         // Check if goal was just achieved
-        if newWorkoutCount >= currentWeeklyGoal && 
-           previousCount < currentWeeklyGoal && 
-           !hasShownGoalThisWeek() {
+        if newWorkoutCount >= keMSUrVMokzCOpVVheeGQD50FQ41fXak && 
+           previousCount < keMSUrVMokzCOpVVheeGQD50FQ41fXak && 
+           !YvmcFpfE3rTFyo1k7a8LjB3QOxbm7hxV() {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.showGoalAchievedPopup = true
-                self.markGoalShownThisWeek()
+                self.FXSqAeHL1HY1LOVtf42C1SP3ty5mvJcz = true
+                self.nFIWoczddTtIJs8mn0Hfbf03eILIbeL3()
             }
         }
     }
     
-    func updateWorkoutCount(workouts: [WorkoutEntity]) {
-        workoutsThisWeek = calculateWorkoutsThisWeek(workouts: workouts)
+    func uH7nVg4PqbRQECupKyNXkrosiKgHDGfi(workouts: [WorkoutEntity]) {
+        r59cI8ba1ct8kBcy0uXMMef36MOqURK5 = YGfyA4j6n8VpKAbvWRChLrm5MMbM8kAQ(workouts: workouts)
     }
     
-    func dismissGoalPopup() {
+    func dIdZKmE5aRz3ApThTedBMePDOG2RyaPA() {
         withAnimation(.easeInOut(duration: 0.3)) {
-            showGoalAchievedPopup = false
+            FXSqAeHL1HY1LOVtf42C1SP3ty5mvJcz = false
         }
     }
     
     // MARK: - Private Methods
     
-    private func loadWeeklyGoal() {
+    private func Ljqg0j2JEdq2NYwqv5VwzxbJjihGzU6M() {
         let storedGoal = UserDefaults.standard.integer(forKey: "weeklyGoal")
-        currentWeeklyGoal = storedGoal == 0 ? 3 : storedGoal
+        keMSUrVMokzCOpVVheeGQD50FQ41fXak = storedGoal == 0 ? 3 : storedGoal
     }
     
-    private func calculateWorkoutsThisWeek(workouts: [WorkoutEntity]) -> Int {
+    private func YGfyA4j6n8VpKAbvWRChLrm5MMbM8kAQ(workouts: [WorkoutEntity]) -> Int {
         let today = Date()
         
         return workouts.filter { workout in
-            calendar.isDate(workout.date ?? Date(), equalTo: today, toGranularity: .weekOfYear)
+            Oh4Aurwyqt6m3ECRYNFjDgQ5h2EkCJb0.isDate(workout.date ?? Date(), equalTo: today, toGranularity: .weekOfYear)
         }.count
     }
     
-    private func getCurrentWeekIdentifier() -> String {
+    private func fH9FnbIw8yM9fqRBC2DUZny0y3FXbx1I() -> String {
         let today = Date()
-        let year = calendar.component(.yearForWeekOfYear, from: today)
-        let week = calendar.component(.weekOfYear, from: today)
+        let year = Oh4Aurwyqt6m3ECRYNFjDgQ5h2EkCJb0.component(.yearForWeekOfYear, from: today)
+        let week = Oh4Aurwyqt6m3ECRYNFjDgQ5h2EkCJb0.component(.weekOfYear, from: today)
         return "\(year)-W\(week)"
     }
     
-    private func hasShownGoalThisWeek() -> Bool {
-        let currentWeek = getCurrentWeekIdentifier()
-        let lastShownWeek = UserDefaults.standard.string(forKey: lastGoalAchievedWeekKey)
+    private func YvmcFpfE3rTFyo1k7a8LjB3QOxbm7hxV() -> Bool {
+        let currentWeek = fH9FnbIw8yM9fqRBC2DUZny0y3FXbx1I()
+        let lastShownWeek = UserDefaults.standard.string(forKey: SYB3nnNkPdYoBTY42ppmebmtS98CoDV6)
         return currentWeek == lastShownWeek
     }
     
-    private func markGoalShownThisWeek() {
-        let currentWeek = getCurrentWeekIdentifier()
-        UserDefaults.standard.set(currentWeek, forKey: lastGoalAchievedWeekKey)
+    private func nFIWoczddTtIJs8mn0Hfbf03eILIbeL3() {
+        let currentWeek = fH9FnbIw8yM9fqRBC2DUZny0y3FXbx1I()
+        UserDefaults.standard.set(currentWeek, forKey: SYB3nnNkPdYoBTY42ppmebmtS98CoDV6)
     }
 }
 
 // MARK: - Notification Extensions
 extension Notification.Name {
-    static let weeklyGoalChanged = Notification.Name("weeklyGoalChanged")
-    static let workoutSaved = Notification.Name("workoutSaved")
+    static let PNqxq0lAjFsRRnIb7XoCcURRETBAHPqh = Notification.Name("weeklyGoalChanged")
+    static let gUTLJd2whxFIrGRCEMVrNZWSFPiU5gq5 = Notification.Name("workoutSaved")
 }
 
 // MARK: - Global Goal Achievement Popup
-struct GlobalGoalAchievementOverlay: View {
-    @EnvironmentObject var goalManager: WeeklyGoalManager
+struct isqjtgeChdmyuavMEwRRyV8yoeHAhS9Z: View {
+    @EnvironmentObject var goalManager: c3kqQniNesZXpxTzJtrm9NMyH8bXfWx7
     @State private var animateContent = false
     @State private var animateBackground = false
     
     var body: some View {
         ZStack {
-            if goalManager.showGoalAchievedPopup {
+            if goalManager.FXSqAeHL1HY1LOVtf42C1SP3ty5mvJcz {
                 // Background overlay
                 Color.black.opacity(0.6)
                     .ignoresSafeArea()
                     .opacity(animateBackground ? 1 : 0)
                     .animation(.easeInOut(duration: 0.3), value: animateBackground)
                     .onTapGesture {
-                        goalManager.dismissGoalPopup()
+                        goalManager.dIdZKmE5aRz3ApThTedBMePDOG2RyaPA()
                     }
                 
                 // Achievement popup
-                GoalAchievementPopupContent()
+                swiOYC5mtoFUz2zI7YyclOwn9EfYp7Zn()
                     .scaleEffect(animateContent ? 1.0 : 0.3)
                     .opacity(animateContent ? 1 : 0)
                     .animation(.spring(response: 0.6, dampingFraction: 0.8), value: animateContent)
             }
         }
-        .onChange(of: goalManager.showGoalAchievedPopup) { isShowing in
+        .onChange(of: goalManager.FXSqAeHL1HY1LOVtf42C1SP3ty5mvJcz) { isShowing in
             if isShowing {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     animateBackground = true
@@ -159,7 +159,7 @@ struct GlobalGoalAchievementOverlay: View {
                 
                 // Auto-dismiss after 4 seconds
                 DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-                    goalManager.dismissGoalPopup()
+                    goalManager.dIdZKmE5aRz3ApThTedBMePDOG2RyaPA()
                 }
             } else {
                 animateContent = false
@@ -170,8 +170,8 @@ struct GlobalGoalAchievementOverlay: View {
 }
 
 // MARK: - Goal Achievement Popup Content
-struct GoalAchievementPopupContent: View {
-    @EnvironmentObject var goalManager: WeeklyGoalManager
+struct swiOYC5mtoFUz2zI7YyclOwn9EfYp7Zn: View {
+    @EnvironmentObject var goalManager: c3kqQniNesZXpxTzJtrm9NMyH8bXfWx7
     @State private var sparkleAnimation = false
     @State private var pulseAnimation = false
     
@@ -238,7 +238,7 @@ struct GoalAchievementPopupContent: View {
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 
-                Text("¡Felicidades! Has completado \(goalManager.currentWeeklyGoal) entrenamientos esta semana")
+                Text("¡Felicidades! Has completado \(goalManager.keMSUrVMokzCOpVVheeGQD50FQ41fXak) entrenamientos esta semana")
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.white.opacity(0.9))
                     .multilineTextAlignment(.center)
@@ -250,7 +250,7 @@ struct GoalAchievementPopupContent: View {
                         .font(.system(size: 18))
                         .foregroundColor(.green)
                     
-                    Text("\(goalManager.workoutsThisWeek)/\(goalManager.currentWeeklyGoal) entrenamientos")
+                    Text("\(goalManager.r59cI8ba1ct8kBcy0uXMMef36MOqURK5)/\(goalManager.keMSUrVMokzCOpVVheeGQD50FQ41fXak) entrenamientos")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                 }
@@ -280,7 +280,7 @@ struct GoalAchievementPopupContent: View {
             
             // Dismiss button
             Button(action: {
-                goalManager.dismissGoalPopup()
+                goalManager.dIdZKmE5aRz3ApThTedBMePDOG2RyaPA()
             }) {
                 Text("¡Genial!")
                     .font(.system(size: 18, weight: .semibold))
@@ -291,13 +291,13 @@ struct GoalAchievementPopupContent: View {
                         RoundedRectangle(cornerRadius: 25)
                             .fill(
                                 LinearGradient(
-                                    colors: [AppConstants.Design.electricBlue, AppConstants.Design.softPurple],
+                                    colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0],
                                     startPoint: .leading,
                                     endPoint: .trailing
                                 )
                             )
                     )
-                    .shadow(color: AppConstants.Design.electricBlue.opacity(0.4), radius: 8, x: 0, y: 4)
+                    .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), radius: 8, x: 0, y: 4)
             }
         }
         .padding(32)

@@ -1,14 +1,14 @@
 import SwiftUI
 
-struct MainAppView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
+struct KQMbB3ZqQUMbSR2AGsJpCknS8pSLtpb6: View {
+    @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
     
     var body: some View {
-        ContentView()
+        B2rIflV5J4IUvMWrPeMVoV4aFDkd8UwZ()
     }
 }
 
 #Preview {
-    MainAppView()
-        .environmentObject(AuthViewModel())
+    KQMbB3ZqQUMbSR2AGsJpCknS8pSLtpb6()
+        .environmentObject(M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB())
 }

@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct AuthTestView: View {
+struct enhgCsfhgu4V3xtKpZcvrIPvisksjuew: View {
     @State private var showLogin = false
     @State private var showRegister = false
     
     var body: some View {
         ZStack {
-            AppConstants.Design.backgroundGradient
+            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
                 .ignoresSafeArea()
             
             VStack(spacing: 32) {
@@ -23,8 +23,8 @@ struct AuthTestView: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
                     .background(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                            .fill(AppConstants.Design.primaryButtonGradient)
+                        RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                            .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.BRZumEEKLDNhpWlIssXSSHs7tRJDkiWk)
                     )
                     
                     Button("Mostrar Register") {
@@ -35,7 +35,7 @@ struct AuthTestView: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
                     .background(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                             .fill(LinearGradient(
                                 colors: [Color.green, Color.blue],
                                 startPoint: .leading,
@@ -47,16 +47,16 @@ struct AuthTestView: View {
             }
         }
         .sheet(isPresented: $showLogin) {
-            LoginView()
-                .environmentObject(AuthViewModel())
+            wdJa7hhtRa6I67ei2Mi07KjELvqym68b()
+                .environmentObject(M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB())
         }
         .sheet(isPresented: $showRegister) {
-            RegisterView()
-                .environmentObject(AuthViewModel())
+            B4qvsC5G8P17ox009Aj1FnUDwHQ5CAhI()
+                .environmentObject(M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB())
         }
     }
 }
 
 #Preview {
-    AuthTestView()
+    enhgCsfhgu4V3xtKpZcvrIPvisksjuew()
 }

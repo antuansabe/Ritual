@@ -1,18 +1,18 @@
 import SwiftUI
 
-struct SignOutButton: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
+struct fdsNnzsNuc4ubtpYpSbsrJfmPuz1AmGM: View {
+    @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
     @State private var showingConfirmation = false
     
-    let style: SignOutStyle
+    let style: PgXfOx7vFQZpY0rsRXcmQptR4wBBoBPS
     
-    enum SignOutStyle {
+    enum PgXfOx7vFQZpY0rsRXcmQptR4wBBoBPS {
         case text
         case icon
         case card
     }
     
-    init(style: SignOutStyle = .text) {
+    init(style: PgXfOx7vFQZpY0rsRXcmQptR4wBBoBPS = .text) {
         self.style = style
     }
     
@@ -54,7 +54,7 @@ struct SignOutButton: View {
         .alert("Cerrar sesión", isPresented: $showingConfirmation) {
             Button("Cancelar", role: .cancel) { }
             Button("Cerrar sesión", role: .destructive) {
-                authViewModel.signOut()
+                authViewModel.xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y()
             }
         } message: {
             Text("¿Estás seguro de que quieres cerrar sesión?")
@@ -64,10 +64,10 @@ struct SignOutButton: View {
 
 #Preview {
     VStack(spacing: 20) {
-        SignOutButton(style: .text)
-        SignOutButton(style: .icon)
-        SignOutButton(style: .card)
+        fdsNnzsNuc4ubtpYpSbsrJfmPuz1AmGM(style: .text)
+        fdsNnzsNuc4ubtpYpSbsrJfmPuz1AmGM(style: .icon)
+        fdsNnzsNuc4ubtpYpSbsrJfmPuz1AmGM(style: .card)
     }
     .padding()
-    .environmentObject(AuthViewModel())
+    .environmentObject(M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB())
 }

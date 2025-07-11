@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct WelcomeView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
-    @EnvironmentObject var userProfileManager: UserProfileManager
+struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
+    @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
+    @EnvironmentObject var userProfileManager: gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm
     @State private var animateContent = false
     @State private var showMainApp = false
     
@@ -32,7 +32,7 @@ struct WelcomeView: View {
             }
         }
         .fullScreenCover(isPresented: $showMainApp) {
-            MainAppView()
+            KQMbB3ZqQUMbSR2AGsJpCknS8pSLtpb6()
                 .environmentObject(authViewModel)
                 .environmentObject(userProfileManager)
         }
@@ -83,8 +83,8 @@ struct WelcomeView: View {
             }
             
             // Personalized greeting
-            if !userProfileManager.displayName.isEmpty && userProfileManager.displayName != "Atleta" {
-                Text("¡Hola, \(userProfileManager.formattedDisplayName)! 👋")
+            if !userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8.isEmpty && userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 != "Atleta" {
+                Text("¡Hola, \(userProfileManager.XBRN83PxWbEPMDPcnWx7eC9WBTmYZNbu)! 👋")
                     .font(.system(size: 24, weight: .semibold))
                     .foregroundColor(.white.opacity(0.9))
                     .opacity(animateContent ? 1.0 : 0.0)
@@ -122,21 +122,21 @@ struct WelcomeView: View {
                     // Icon
                     ZStack {
                         Circle()
-                            .fill(feature.color.opacity(0.2))
+                            .fill(feature.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.2))
                             .frame(width: 50, height: 50)
                         
-                        Image(systemName: feature.icon)
+                        Image(systemName: feature.QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj)
                             .font(.system(size: 24, weight: .semibold))
-                            .foregroundColor(feature.color)
+                            .foregroundColor(feature.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA)
                     }
                     
                     // Text
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(feature.title)
+                        Text(feature.FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf)
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.white)
                         
-                        Text(feature.description)
+                        Text(feature.W5TVRE97oSlHf67bpUXP80LgXeYzET6B)
                             .font(.system(size: 15, weight: .medium))
                             .foregroundColor(.white.opacity(0.7))
                     }
@@ -154,7 +154,7 @@ struct WelcomeView: View {
     // MARK: - Get Started Button
     private var getStartedButton: some View {
         Button(action: {
-            handleGetStarted()
+            GwDLI3Vd1xgQDmn0reP2tOYadou91TXo()
         }) {
             HStack(spacing: 12) {
                 Text("Comenzar")
@@ -170,15 +170,15 @@ struct WelcomeView: View {
             .background(
                 LinearGradient(
                     colors: [
-                        AppConstants.Design.electricBlue,
-                        AppConstants.Design.softPurple
+                        pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT,
+                        pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0
                     ],
                     startPoint: .leading,
                     endPoint: .trailing
                 )
             )
             .cornerRadius(28)
-            .shadow(color: AppConstants.Design.electricBlue.opacity(0.4), radius: 15, x: 0, y: 8)
+            .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), radius: 15, x: 0, y: 8)
         }
         .scaleEffect(animateContent ? 1.0 : 0.8)
         .opacity(animateContent ? 1.0 : 0.0)
@@ -187,28 +187,28 @@ struct WelcomeView: View {
     
     // MARK: - Data
     private let features = [
-        WelcomeFeature(
-            icon: "figure.walk.circle.fill",
-            title: "Registra entrenamientos",
-            description: "Lleva control de tus sesiones de ejercicio",
-            color: .blue
+        rR0L7k2YdOzl6VXfh0gsdYto1NgC9a0H(
+            QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "figure.walk.circle.fill",
+            FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Registra entrenamientos",
+            W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "Lleva control de tus sesiones de ejercicio",
+            QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .blue
         ),
-        WelcomeFeature(
-            icon: "chart.bar.fill",
-            title: "Sigue tu progreso",
-            description: "Visualiza tu evolución y mejoras",
-            color: .green
+        rR0L7k2YdOzl6VXfh0gsdYto1NgC9a0H(
+            QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "chart.bar.fill",
+            FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Sigue tu progreso",
+            W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "Visualiza tu evolución y mejoras",
+            QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .green
         ),
-        WelcomeFeature(
-            icon: "target",
-            title: "Alcanza tus metas",
-            description: "Establece objetivos y cúmplelos",
-            color: .orange
+        rR0L7k2YdOzl6VXfh0gsdYto1NgC9a0H(
+            QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "target",
+            FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Alcanza tus metas",
+            W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "Establece objetivos y cúmplelos",
+            QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .orange
         )
     ]
     
     // MARK: - Actions
-    private func handleGetStarted() {
+    private func GwDLI3Vd1xgQDmn0reP2tOYadou91TXo() {
         print("🎉 User completed welcome flow - marking as seen")
         
         // Mark welcome as seen in UserDefaults
@@ -222,16 +222,16 @@ struct WelcomeView: View {
 }
 
 // MARK: - Welcome Feature Model
-struct WelcomeFeature {
-    let icon: String
-    let title: String
-    let description: String
-    let color: Color
+struct rR0L7k2YdOzl6VXfh0gsdYto1NgC9a0H {
+    let QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: String
+    let FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: String
+    let W5TVRE97oSlHf67bpUXP80LgXeYzET6B: String
+    let QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: Color
 }
 
 // MARK: - Previews
 #Preview {
-    WelcomeView()
-        .environmentObject(AuthViewModel())
-        .environmentObject(UserProfileManager.shared)
+    FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0()
+        .environmentObject(M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB())
+        .environmentObject(gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX)
 }

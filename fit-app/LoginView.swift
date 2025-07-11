@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct LoginView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
+struct wdJa7hhtRa6I67ei2Mi07KjELvqym68b: View {
+    @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
     @State private var showRegister = false
     @State private var animateOnAppear = false
     
@@ -10,7 +10,7 @@ struct LoginView: View {
     @State private var passwordError: String? = nil
     @State private var showValidationAlert = false
     
-    private let validator = InputValidator.shared
+    private let validator = VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     
     var body: some View {
         ZStack {
@@ -19,7 +19,7 @@ struct LoginView: View {
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
             
-            AppConstants.Design.backgroundGradient
+            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
                 .opacity(0.7)
                 .ignoresSafeArea()
             
@@ -45,14 +45,14 @@ struct LoginView: View {
             }
         }
         .sheet(isPresented: $showRegister) {
-            RegisterView()
+            B4qvsC5G8P17ox009Aj1FnUDwHQ5CAhI()
         }
-        .alert("Error", isPresented: .constant(authViewModel.errorMessage != nil)) {
+        .alert("Error", isPresented: .constant(authViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy != nil)) {
             Button("OK") {
-                authViewModel.errorMessage = nil
+                authViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = nil
             }
         } message: {
-            Text(authViewModel.errorMessage ?? "")
+            Text(authViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy ?? "")
         }
         .alert("Datos inválidos", isPresented: $showValidationAlert) {
             Button("OK") {
@@ -72,7 +72,7 @@ struct LoginView: View {
                 Circle()
                     .stroke(
                         LinearGradient(
-                            colors: [AppConstants.Design.lavender.opacity(0.3), AppConstants.Design.electricBlue.opacity(0.2), AppConstants.Design.softPurple.opacity(0.1)],
+                            colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR.opacity(0.3), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.2), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.1)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         ),
@@ -90,7 +90,7 @@ struct LoginView: View {
                     .font(.system(size: 22, weight: .light))
                     .foregroundStyle(
                         LinearGradient(
-                            colors: [AppConstants.Design.moonlight.opacity(0.9), AppConstants.Design.electricBlue.opacity(0.7)],
+                            colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.pfmjowVfLLdwmIFvy86thx6YHe6khrWx.opacity(0.9), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.7)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
@@ -111,7 +111,7 @@ struct LoginView: View {
                 Rectangle()
                     .fill(
                         LinearGradient(
-                            colors: [Color.white.opacity(0.6), AppConstants.Design.electricBlue.opacity(0.4), AppConstants.Design.softPurple.opacity(0.3)],
+                            colors: [Color.white.opacity(0.6), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.3)],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
@@ -140,19 +140,19 @@ struct LoginView: View {
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.white)
                 
-                TextField("Ingresa tu email", text: $authViewModel.email)
+                TextField("Ingresa tu email", text: $authViewModel.mhEi80qLCAtCbGeYgPfnpw820v8aCF9I)
                     .font(.system(size: 16, weight: .light))
                     .padding()
                     .background(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                            .fill(AppConstants.Design.fieldGradient)
+                        RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                            .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.x8kMOs8TbaTU9EZVNGGkCbO7acJpUphq)
                             .overlay(
-                                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                                RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                                     .stroke(
                                         emailError != nil ? 
                                         AnyShapeStyle(Color.red.opacity(0.6)) :
                                         AnyShapeStyle(LinearGradient(
-                                            colors: [Color.white.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
+                                            colors: [Color.white.opacity(0.2), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.1)],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
                                         )),
@@ -165,8 +165,8 @@ struct LoginView: View {
                     .textContentType(.emailAddress)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                    .onChange(of: authViewModel.email) { _ in
-                        validateEmailField()
+                    .onChange(of: authViewModel.mhEi80qLCAtCbGeYgPfnpw820v8aCF9I) { _ in
+                        PmcnDieiMpTJdUDVL1bgJXXbX20tU8RQ()
                     }
                 
                 // Email error message
@@ -185,19 +185,19 @@ struct LoginView: View {
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.white)
                 
-                SecureField("Ingresa tu contraseña", text: $authViewModel.password)
+                SecureField("Ingresa tu contraseña", text: $authViewModel.QZHDJgEWRERtPl00BdMoGaz3FxVErREZ)
                     .font(.system(size: 16, weight: .light))
                     .padding()
                     .background(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                            .fill(AppConstants.Design.fieldGradient)
+                        RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                            .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.x8kMOs8TbaTU9EZVNGGkCbO7acJpUphq)
                             .overlay(
-                                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                                RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                                     .stroke(
                                         passwordError != nil ? 
                                         AnyShapeStyle(Color.red.opacity(0.6)) :
                                         AnyShapeStyle(LinearGradient(
-                                            colors: [Color.white.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
+                                            colors: [Color.white.opacity(0.2), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.1)],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
                                         )),
@@ -207,8 +207,8 @@ struct LoginView: View {
                     )
                     .foregroundColor(.white)
                     .textContentType(.password)
-                    .onChange(of: authViewModel.password) { _ in
-                        validatePasswordField()
+                    .onChange(of: authViewModel.QZHDJgEWRERtPl00BdMoGaz3FxVErREZ) { _ in
+                        Jr8IrZxnLXIww95wVuts9j6hkJooTSlI()
                     }
                 
                 // Password error message
@@ -229,24 +229,71 @@ struct LoginView: View {
     // MARK: - Button Section
     private var buttonSection: some View {
         VStack(spacing: 16) {
-            // Login Button
+            // Login Button with Rate Limiting
             Button(action: {
-                handleLogin()
+                Qq7wTS0MGfKn6IkznCQ5hEYbBDUgHQDm()
             }) {
-                Text("Iniciar sesión")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .background(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                            .fill(AppConstants.Design.modernButtonGradient)
-                    )
-                    .shadow(color: AppConstants.Design.electricBlue.opacity(0.4), radius: 12, x: 0, y: 6)
+                HStack {
+                    if authViewModel.DYqqj6X2pcu9d8yEdJ6zrkgUsOKu40YH {
+                        Image(systemName: "lock.fill")
+                            .font(.system(size: 16, weight: .semibold))
+                    }
+                    
+                    Text(authViewModel.DYqqj6X2pcu9d8yEdJ6zrkgUsOKu40YH ? 
+                         "Bloqueado (\(authViewModel.I0yXhmBO3RN418RpUxebkiSB9wa2n5cz)s)" : 
+                         "Iniciar sesión")
+                        .font(.system(size: 18, weight: .semibold))
+                }
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
+                .background(
+                    RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                        .fill(authViewModel.DYqqj6X2pcu9d8yEdJ6zrkgUsOKu40YH ? 
+                              LinearGradient(
+                                colors: [Color.gray.opacity(0.6), Color.gray.opacity(0.4)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                              ) :
+                              pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.Jaqu2AaPnNe3jLsCKOSG0k8b0RZSs8Ez
+                        )
+                )
+                .shadow(
+                    color: authViewModel.DYqqj6X2pcu9d8yEdJ6zrkgUsOKu40YH ? 
+                    Color.clear : 
+                    pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), 
+                    radius: 12, x: 0, y: 6
+                )
+            }
+            .disabled(authViewModel.DYqqj6X2pcu9d8yEdJ6zrkgUsOKu40YH)
+            .animation(.easeInOut(duration: 0.3), value: authViewModel.DYqqj6X2pcu9d8yEdJ6zrkgUsOKu40YH)
+            
+            // Rate limit warning message
+            if authViewModel.DYqqj6X2pcu9d8yEdJ6zrkgUsOKu40YH {
+                VStack(spacing: 4) {
+                    Text("Demasiados intentos fallidos")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.orange)
+                    
+                    Text("Espera \(authViewModel.I0yXhmBO3RN418RpUxebkiSB9wa2n5cz) segundos para continuar")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.orange.opacity(0.8))
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.orange.opacity(0.1))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.orange.opacity(0.3), lineWidth: 1)
+                        )
+                )
+                .transition(.scale.combined(with: .opacity))
             }
             
-            // Apple Sign In Button
-            AppleSignInButtonView()
+            // Apple Sign In Button (not affected by rate limiting)
+            kUUx8S7NdyM5CPSTtv4aW8j7aBf037UH()
         }
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 30)
@@ -265,7 +312,7 @@ struct LoginView: View {
                 
                 Text("Regístrate")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(AppConstants.Design.electricBlue)
+                    .foregroundColor(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT)
             }
         }
         .opacity(animateOnAppear ? 1 : 0)
@@ -274,17 +321,17 @@ struct LoginView: View {
     
     // MARK: - Validation Methods
     
-    private func validateEmailField() {
-        let result = validator.isValidEmail(authViewModel.email)
+    private func PmcnDieiMpTJdUDVL1bgJXXbX20tU8RQ() {
+        let result = validator.gqOgORpeH2M06vs7BMVtxLbptITBiYZ6(authViewModel.mhEi80qLCAtCbGeYgPfnpw820v8aCF9I)
         withAnimation(.easeInOut(duration: 0.3)) {
-            emailError = result.isValid ? nil : result.errorMessage
+            emailError = result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP ? nil : result.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
         }
     }
     
-    private func validatePasswordField() {
+    private func Jr8IrZxnLXIww95wVuts9j6hkJooTSlI() {
         // For login, we only check if password is not empty
         // Full password validation is done during registration
-        if authViewModel.password.isEmpty {
+        if authViewModel.QZHDJgEWRERtPl00BdMoGaz3FxVErREZ.isEmpty {
             withAnimation(.easeInOut(duration: 0.3)) {
                 passwordError = "La contraseña es requerida"
             }
@@ -295,33 +342,33 @@ struct LoginView: View {
         }
     }
     
-    private func validateForm() -> Bool {
-        validateEmailField()
-        validatePasswordField()
+    private func tZUsKnLbJiZReoiix0Dum4cD6apyZa4D() -> Bool {
+        PmcnDieiMpTJdUDVL1bgJXXbX20tU8RQ()
+        Jr8IrZxnLXIww95wVuts9j6hkJooTSlI()
         
         return emailError == nil && passwordError == nil
     }
     
-    private func handleLogin() {
+    private func Qq7wTS0MGfKn6IkznCQ5hEYbBDUgHQDm() {
         // Clear any previous auth errors
-        authViewModel.errorMessage = nil
+        authViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = nil
         
         // Validate form first
-        guard validateForm() else {
+        guard tZUsKnLbJiZReoiix0Dum4cD6apyZa4D() else {
             showValidationAlert = true
             return
         }
         
         // Sanitize inputs before sending to auth
-        authViewModel.email = validator.sanitizeEmail(authViewModel.email)
-        authViewModel.password = authViewModel.password.trimmingCharacters(in: .whitespacesAndNewlines)
+        authViewModel.mhEi80qLCAtCbGeYgPfnpw820v8aCF9I = validator.dqcp23UnWaxuvyXm8KbQld90HimugLmK(authViewModel.mhEi80qLCAtCbGeYgPfnpw820v8aCF9I)
+        authViewModel.QZHDJgEWRERtPl00BdMoGaz3FxVErREZ = authViewModel.QZHDJgEWRERtPl00BdMoGaz3FxVErREZ.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Proceed with login
-        authViewModel.login()
+        authViewModel.xhzYSvBqF2708nr4JnAdHR0kZEn4Z6fe()
     }
 }
 
 #Preview {
-    LoginView()
-        .environmentObject(AuthViewModel())
+    wdJa7hhtRa6I67ei2Mi07KjELvqym68b()
+        .environmentObject(M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB())
 }

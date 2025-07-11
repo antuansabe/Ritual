@@ -4,7 +4,7 @@ import CloudKit
 import Combine
 
 // MARK: - Reusable Components
-struct MetricCardView: View {
+struct rji5oBHeH5tqY2OwV0PYO7wSVw6bBkHN: View {
     let icon: String
     let value: String
     let label: String
@@ -24,12 +24,12 @@ struct MetricCardView: View {
             
             VStack(spacing: 4) {
                 Text(value)
-                    .font(AppConstants.Design.subheaderFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.qginztZrG8YowoNdoaXjEAcxXYyyjnlT)
                     .foregroundColor(.white)
                     .accessibilityLabel("\(value) \(label)")
                 
                 Text(label)
-                    .font(AppConstants.Design.footnoteFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.zOhE8MtN0Z8xUsj1pwHJeEuvzmgf7tYr)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.6)
@@ -42,20 +42,20 @@ struct MetricCardView: View {
         .aspectRatio(1, contentMode: .fit)
         .padding(.vertical, 20)
         .background(
-            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                .fill(AppConstants.Design.cardBackground())
+            RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg())
                 .overlay(
-                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                        .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                    RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                        .stroke(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.hEHvnuhquOEbu91QYcb2ngjX1eTkwuVb(), lineWidth: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.kEdPhJbe9pFfxc6GmcCjsIcLRnkyRurM)
                 )
         )
-        .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
+        .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.s06S6l2jYXUPYG94fTRPPLQQdZkx2hYz(), radius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.bTCtL4JJ6s6CZeDy20yfXlv4bGc83wHJ)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(value) \(label)")
     }
 }
 
-struct TrainingListItem: View {
+struct EWDw9mu6qEuNiuUcgPj0IepRcg2x8IdN: View {
     let workout: WorkoutEntity
     
     private var workoutIcon: String {
@@ -106,45 +106,45 @@ struct TrainingListItem: View {
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(workout.type ?? "")
-                    .font(AppConstants.Design.bodyFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.qnotkIGWtshhYry4tQS0eVmv25ZankxQ)
                     .foregroundColor(.white)
                 
                 Text("\(workout.duration) min • \(workout.calories) kcal")
-                    .font(AppConstants.Design.captionFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.lsQGPy4QxpSwRnN9acKxlHS7hUYKqnmg)
                     .foregroundColor(.gray)
             }
             
             Spacer()
             
             Text(dateFormatter.string(from: workout.date ?? Date()))
-                .font(AppConstants.Design.captionFont)
+                .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.lsQGPy4QxpSwRnN9acKxlHS7hUYKqnmg)
                 .foregroundColor(.gray)
         }
-        .padding(.horizontal, AppConstants.UI.spacingL)
-        .padding(.vertical, AppConstants.UI.spacingL)
+        .padding(.horizontal, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
+        .padding(.vertical, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
         .background(
-            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                .fill(AppConstants.Design.cardBackground())
+            RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg())
                 .overlay(
-                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                        .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                    RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                        .stroke(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.hEHvnuhquOEbu91QYcb2ngjX1eTkwuVb(), lineWidth: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.kEdPhJbe9pFfxc6GmcCjsIcLRnkyRurM)
                 )
         )
-        .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
+        .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.s06S6l2jYXUPYG94fTRPPLQQdZkx2hYz(), radius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.bTCtL4JJ6s6CZeDy20yfXlv4bGc83wHJ)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(workout.type ?? "") workout, \(workout.duration) minutes, \(workout.calories) calories, \(dateFormatter.string(from: workout.date ?? Date()))")
     }
 }
 
 
-struct InicioView: View {
+struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
     
-    @ObservedObject private var offlineManager = OfflineManager.shared
-    @ObservedObject private var networkMonitor = NetworkMonitor.shared
-    @ObservedObject private var userProfileManager = UserProfileManager.shared
-    @EnvironmentObject var authViewModel: AuthViewModel
+    @ObservedObject private var offlineManager = f44CM3JdBo3CztstNOncNr1s4UV8ejD1.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+    @ObservedObject private var networkMonitor = T6BDbtv2u0anCAqwtryY4XMWEB6pm5mX.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+    @ObservedObject private var userProfileManager = gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+    @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     @State private var animateOnAppear = false
@@ -164,7 +164,7 @@ struct InicioView: View {
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
             
-            AppConstants.Design.backgroundGradient
+            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
                 .opacity(0.7)
                 .ignoresSafeArea()
             
@@ -181,7 +181,7 @@ struct InicioView: View {
         }
         .navigationBarHidden(true)
         .sheet(isPresented: $showingHistorial) {
-            HistorialView()
+            GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n()
         }
         .onAppear {
             withAnimation(.easeOut(duration: 1.0)) {
@@ -191,7 +191,7 @@ struct InicioView: View {
         .alert("Cerrar sesión", isPresented: $showingLogoutConfirmation) {
             Button("Cancelar", role: .cancel) { }
             Button("Cerrar sesión", role: .destructive) {
-                authViewModel.signOut()
+                authViewModel.xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y()
             }
         } message: {
             Text("¿Estás seguro de que quieres cerrar sesión?")
@@ -200,9 +200,9 @@ struct InicioView: View {
     
     // MARK: - Header Section
     private var headerSection: some View {
-        VStack(spacing: AppConstants.UI.spacingXL) {
+        VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.MClncXuDMA0DqsjaIRrg0bNnW3Yqs1En) {
             // Motivational greeting with user name and daily phrase
-            MotivationalPhraseView()
+            om15Jvsg84ivdDdMag8SIylK1uDB5JNJ()
                 .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 20)
@@ -214,7 +214,7 @@ struct InicioView: View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text("Progreso")
-                    .font(AppConstants.Design.headerFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.VbiaN8et3V1H9i33HGvaIjSMOPgfM5UL)
                     .foregroundColor(.white)
                     .opacity(animateOnAppear ? 1 : 0)
                     .offset(y: animateOnAppear ? 0 : 20)
@@ -226,7 +226,7 @@ struct InicioView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
-                    MetricCardView(
+                    rji5oBHeH5tqY2OwV0PYO7wSVw6bBkHN(
                         icon: "figure.walk.circle.fill",
                         value: "\(workouts.count)",
                         label: "Entrenamientos",
@@ -234,7 +234,7 @@ struct InicioView: View {
                     )
                     .matchedGeometryEffect(id: "workouts", in: heroAnimation)
                     
-                    MetricCardView(
+                    rji5oBHeH5tqY2OwV0PYO7wSVw6bBkHN(
                         icon: "clock.fill",
                         value: "\(workouts.reduce(0) { $0 + Int($1.duration) })",
                         label: "Minutos",
@@ -242,7 +242,7 @@ struct InicioView: View {
                     )
                     .matchedGeometryEffect(id: "minutes", in: heroAnimation)
                     
-                    MetricCardView(
+                    rji5oBHeH5tqY2OwV0PYO7wSVw6bBkHN(
                         icon: "flame.fill",
                         value: "\(workouts.reduce(0) { $0 + Int($1.calories) })",
                         label: "Calorías",
@@ -250,9 +250,9 @@ struct InicioView: View {
                     )
                     .matchedGeometryEffect(id: "calories", in: heroAnimation)
                     
-                    MetricCardView(
+                    rji5oBHeH5tqY2OwV0PYO7wSVw6bBkHN(
                         icon: "calendar.circle.fill",
-                        value: "\(calculateCurrentStreak())",
+                        value: "\(ES0BZT8uITuIRS240cz0GJ4YC02PSyRU())",
                         label: "Racha",
                         tint: .purple
                     )
@@ -271,7 +271,7 @@ struct InicioView: View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text("Entrenamientos recientes")
-                    .font(AppConstants.Design.headerFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.VbiaN8et3V1H9i33HGvaIjSMOPgfM5UL)
                     .foregroundColor(.white)
                 
                 Spacer()
@@ -280,8 +280,8 @@ struct InicioView: View {
                     Button("Ver historial") {
                         showingHistorial = true
                     }
-                    .font(AppConstants.Design.captionFont)
-                    .foregroundColor(AppConstants.Design.blue)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.lsQGPy4QxpSwRnN9acKxlHS7hUYKqnmg)
+                    .foregroundColor(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr)
                 }
             }
             .padding(.horizontal, 20)
@@ -292,7 +292,7 @@ struct InicioView: View {
             if !workouts.isEmpty {
                 VStack(spacing: 12) {
                     ForEach(Array(workouts.prefix(3).enumerated()), id: \.element.objectID) { index, workout in
-                        TrainingListItem(workout: workout)
+                        EWDw9mu6qEuNiuUcgPj0IepRcg2x8IdN(workout: workout)
                             .opacity(animateOnAppear ? 1 : 0)
                             .offset(y: animateOnAppear ? 0 : 30)
                             .animation(.easeOut(duration: 0.6).delay(0.4 + Double(index) * 0.1), value: animateOnAppear)
@@ -316,11 +316,11 @@ struct InicioView: View {
             
             VStack(spacing: 8) {
                 Text("Comienza tu viaje")
-                    .font(AppConstants.Design.headerFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.VbiaN8et3V1H9i33HGvaIjSMOPgfM5UL)
                     .foregroundColor(.white)
                 
                 Text("Registra tu primer entrenamiento para comenzar a ver tu progreso")
-                    .font(AppConstants.Design.bodyFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.qnotkIGWtshhYry4tQS0eVmv25ZankxQ)
                     .foregroundColor(.white.opacity(0.8))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
@@ -329,15 +329,15 @@ struct InicioView: View {
             Button("Empezar ahora") {
                 selectedTab = 1 // Navigate to Registrar tab
             }
-            .font(AppConstants.Design.bodyFont)
+            .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.qnotkIGWtshhYry4tQS0eVmv25ZankxQ)
             .foregroundColor(.white)
             .padding(.horizontal, 32)
             .padding(.vertical, 12)
             .background(
                 RoundedRectangle(cornerRadius: 25)
-                    .fill(AppConstants.Design.primaryButtonGradient)
+                    .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.BRZumEEKLDNhpWlIssXSSHs7tRJDkiWk)
             )
-            .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
+            .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.s06S6l2jYXUPYG94fTRPPLQQdZkx2hYz(), radius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.bTCtL4JJ6s6CZeDy20yfXlv4bGc83wHJ)
         }
         .padding(.vertical, 60)
         .opacity(animateOnAppear ? 1 : 0)
@@ -348,23 +348,23 @@ struct InicioView: View {
     // MARK: - CloudKit Sync Section
     private var cloudKitSyncSection: some View {
         VStack(spacing: 16) {
-            CloudKitStatusCard()
+            S5Y9Yc6Ooa6f2NuGIzvEGtIUI7akBoxu()
                 .opacity(animateOnAppear ? 1 : 0)
                 .offset(y: animateOnAppear ? 0 : 20)
                 .animation(.easeOut(duration: 0.6).delay(0.2), value: animateOnAppear)
         }
-        .padding(.horizontal, AppConstants.UI.spacingL)
+        .padding(.horizontal, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
     }
     
     // MARK: - Sync Status Section
     private var syncStatusSection: some View {
         VStack(spacing: 16) {
-            SyncStatusCard()
+            Rf9EmfwK66p5t78UXWHBzw52tpz7Fe6b()
                 .opacity(animateOnAppear ? 1 : 0)
                 .offset(y: animateOnAppear ? 0 : 20)
                 .animation(.easeOut(duration: 0.6).delay(0.25), value: animateOnAppear)
         }
-        .padding(.horizontal, AppConstants.UI.spacingL)
+        .padding(.horizontal, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
     }
     
     // MARK: - Daily Summary Section
@@ -374,7 +374,7 @@ struct InicioView: View {
             VStack(spacing: 20) {
                 dailySummaryHeaderSection
                 dailySummaryStatusSection
-                if calculateCurrentStreak() > 0 {
+                if ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() > 0 {
                     dailySummaryStreakSection
                 }
                 dailySummaryMotivationalSection
@@ -386,7 +386,7 @@ struct InicioView: View {
                     .fill(.ultraThinMaterial)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(AppConstants.Design.electricBlue.opacity(0.2), lineWidth: 1)
+                            .stroke(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.2), lineWidth: 1)
                     )
             )
             .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: 5)
@@ -394,14 +394,14 @@ struct InicioView: View {
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 30)
         .animation(.easeOut(duration: 0.8).delay(0.1), value: animateOnAppear)
-        .padding(.horizontal, AppConstants.UI.spacingL)
+        .padding(.horizontal, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
     }
     
     // MARK: - Daily Summary Components
     
     // Computed properties for daily summary
     private var userName: String {
-        userProfileManager.formattedDisplayName
+        userProfileManager.XBRN83PxWbEPMDPcnWx7eC9WBTmYZNbu
     }
     
     private var hasWorkoutToday: Bool {
@@ -429,7 +429,7 @@ struct InicioView: View {
                 Circle()
                     .fill(
                         LinearGradient(
-                            colors: [AppConstants.Design.electricBlue.opacity(0.3), AppConstants.Design.softPurple.opacity(0.2)],
+                            colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.3), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.2)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
@@ -469,7 +469,7 @@ struct InicioView: View {
             } label: {
                 Image(systemName: "person.circle.fill")
                     .font(.system(size: 24))
-                    .foregroundColor(AppConstants.Design.lavender)
+                    .foregroundColor(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR)
             }
         }
     }
@@ -519,7 +519,7 @@ struct InicioView: View {
                 .font(.system(size: 20))
                 .foregroundColor(.orange)
             
-            Text("Racha: \(calculateCurrentStreak()) día\(calculateCurrentStreak() > 1 ? "s" : "") seguido\(calculateCurrentStreak() > 1 ? "s" : "")")
+            Text("Racha: \(ES0BZT8uITuIRS240cz0GJ4YC02PSyRU()) día\(ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() > 1 ? "s" : "") seguido\(ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() > 1 ? "s" : "")")
                 .font(.subheadline.weight(.semibold))
                 .foregroundColor(.white)
             
@@ -546,7 +546,7 @@ struct InicioView: View {
             HStack {
                 Image(systemName: "quote.bubble.fill")
                     .font(.system(size: 16))
-                    .foregroundColor(AppConstants.Design.lavender)
+                    .foregroundColor(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR)
                 
                 Text("Frase del día")
                     .font(.caption.weight(.semibold))
@@ -555,7 +555,7 @@ struct InicioView: View {
                 Spacer()
             }
             
-            Text(getMotivationalQuote())
+            Text(Hen9DPHUaV3U90FVALLhUmHDtQHzFH5u())
                 .font(.subheadline.weight(.medium))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
@@ -567,7 +567,7 @@ struct InicioView: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(
                     LinearGradient(
-                        colors: [AppConstants.Design.lavender.opacity(0.1), AppConstants.Design.electricBlue.opacity(0.05)],
+                        colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR.opacity(0.1), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.05)],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -586,28 +586,28 @@ struct InicioView: View {
             }
             
             HStack(spacing: 12) {
-                QuickActionButton(
+                huM94mVLDQIylRoMpinZ5UCCdJ8jxiCP(
                     title: hasWorkoutToday ? "Entrenar más" : "Entrenar ahora",
                     icon: "figure.walk",
-                    color: AppConstants.Design.electricBlue,
+                    color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT,
                     action: {
                         selectedTab = 1 // Navigate to Registro tab
                     }
                 )
                 
-                QuickActionButton(
+                huM94mVLDQIylRoMpinZ5UCCdJ8jxiCP(
                     title: "Ver progreso",
                     icon: "chart.bar.fill",
-                    color: AppConstants.Design.softPurple,
+                    color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0,
                     action: {
                         selectedTab = 2 // Navigate to Historial tab
                     }
                 )
                 
-                QuickActionButton(
+                huM94mVLDQIylRoMpinZ5UCCdJ8jxiCP(
                     title: "Perfil",
                     icon: "person.circle.fill",
-                    color: AppConstants.Design.lavender,
+                    color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR,
                     action: {
                         selectedTab = 3 // Navigate to Perfil tab
                     }
@@ -646,7 +646,7 @@ struct InicioView: View {
     private var statusTitle: String {
         if hasWorkoutToday {
             return "Entrenamiento completado"
-        } else if calculateCurrentStreak() > 0 {
+        } else if ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() > 0 {
             return "Mantén tu racha activa"
         } else {
             return "Todo bien, hoy puedes retomar"
@@ -656,7 +656,7 @@ struct InicioView: View {
     private var statusIcon: String {
         if hasWorkoutToday {
             return "checkmark.circle.fill"
-        } else if calculateCurrentStreak() > 0 {
+        } else if ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() > 0 {
             return "figure.run.circle"
         } else {
             return "leaf.circle"
@@ -665,20 +665,20 @@ struct InicioView: View {
     
     private var statusColor: Color {
         if hasWorkoutToday {
-            return AppConstants.Design.electricBlue
-        } else if calculateCurrentStreak() > 0 {
+            return pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT
+        } else if ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() > 0 {
             return .orange
         } else {
-            return AppConstants.Design.softPurple
+            return pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0
         }
     }
     
-    private func getMotivationalQuote() -> String {
-        let quotes = getMotivationalQuotes()
+    private func Hen9DPHUaV3U90FVALLhUmHDtQHzFH5u() -> String {
+        let quotes = B3ItwUWFBPGf9Q1QQ8B3djtVIdtfZna5()
         return quotes.randomElement() ?? "Cada paso cuenta [U+1F31F]"
     }
     
-    private func getMotivationalQuotes() -> [String] {
+    private func B3ItwUWFBPGf9Q1QQ8B3djtVIdtfZna5() -> [String] {
         if hasWorkoutToday {
             return [
                 "¡Qué bien te has cuidado hoy! Tu cuerpo te lo agradece [U+1F499]",
@@ -687,7 +687,7 @@ struct InicioView: View {
                 "Tu energía positiva se nota desde aquí ⚡",
                 "Completaste algo hermoso para ti mismo [U+1F308]"
             ]
-        } else if calculateCurrentStreak() > 0 {
+        } else if ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() > 0 {
             return [
                 "Cada día que eliges cuidarte construyes algo hermoso [U+1F3D7]️",
                 "Tu constancia es tu superpoder silencioso [U+1F4AB]",
@@ -707,7 +707,7 @@ struct InicioView: View {
     }
     
     // MARK: - Quick Action Button Component
-    struct QuickActionButton: View {
+    struct huM94mVLDQIylRoMpinZ5UCCdJ8jxiCP: View {
         let title: String
         let icon: String
         let color: Color
@@ -749,7 +749,7 @@ struct InicioView: View {
     }
     
     // MARK: - Helper Functions
-    private func calculateCurrentStreak() -> Int {
+    private func ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() -> Int {
         let calendar = Calendar.current
         let sortedWorkouts = workouts.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
         guard !sortedWorkouts.isEmpty else { return 0 }
@@ -774,17 +774,17 @@ struct InicioView: View {
 }
 
 // MARK: - CloudKit Status Card
-struct CloudKitStatusCard: View {
-    @State private var syncStatus: CloudKitSyncStatus = .unknown
+struct S5Y9Yc6Ooa6f2NuGIzvEGtIUI7akBoxu: View {
+    @State private var syncStatus: hqXuDXGEi3CgVnZUkg0zod2KJVFWdQ5j = .unknown
     @State private var showingAlert = false
     @State private var errorMessage: String?
     @State private var lastSyncDate: Date?
     // @ObservedObject var conflictMonitor = PersistenceController.conflictMonitor // Temporarily disabled
     
-    enum CloudKitSyncStatus {
+    enum hqXuDXGEi3CgVnZUkg0zod2KJVFWdQ5j {
         case unknown, syncing, success, failed
         
-        var description: String {
+        var W5TVRE97oSlHf67bpUXP80LgXeYzET6B: String {
             switch self {
             case .unknown: return "Estado desconocido"
             case .syncing: return "Sincronizando..."
@@ -793,7 +793,7 @@ struct CloudKitStatusCard: View {
             }
         }
         
-        var color: Color {
+        var QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: Color {
             switch self {
             case .unknown: return .gray
             case .syncing: return .orange
@@ -802,7 +802,7 @@ struct CloudKitStatusCard: View {
             }
         }
         
-        var icon: String {
+        var QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: String {
             switch self {
             case .unknown: return "questionmark.circle"
             case .syncing: return "arrow.triangle.2.circlepath"
@@ -815,8 +815,8 @@ struct CloudKitStatusCard: View {
     var body: some View {
         VStack(spacing: 12) {
             HStack {
-                Image(systemName: syncStatus.icon)
-                    .foregroundColor(syncStatus.color)
+                Image(systemName: syncStatus.QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj)
+                    .foregroundColor(syncStatus.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA)
                     .font(.title2)
                 
                 VStack(alignment: .leading, spacing: 4) {
@@ -825,16 +825,16 @@ struct CloudKitStatusCard: View {
                         .foregroundColor(.white)
                         .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
                     
-                    Text(syncStatus.description)
+                    Text(syncStatus.W5TVRE97oSlHf67bpUXP80LgXeYzET6B)
                         .font(.caption)
-                        .foregroundColor(syncStatus.color)
+                        .foregroundColor(syncStatus.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA)
                 }
                 
                 Spacer()
                 
                 VStack(spacing: 4) {
                     Button("Test Sync") {
-                        testCloudKitSync()
+                        UkzrT9BnAMID7iPrFAKmDawtXvBer6Rw()
                     }
                     .font(.caption)
                     .padding(.horizontal, 12)
@@ -860,7 +860,7 @@ struct CloudKitStatusCard: View {
                     Image(systemName: "clock")
                         .foregroundColor(.gray)
                     
-                    Text("Última sync: \(formatTime(lastSync))")
+                    Text("Última sync: \(WPhHoE1PLwqQatnfUREd9LegNnFZKRjV(lastSync))")
                         .font(.caption)
                         .foregroundColor(.gray)
                     
@@ -886,11 +886,11 @@ struct CloudKitStatusCard: View {
             Text(errorMessage ?? "Error desconocido")
         }
         .onAppear {
-            checkCloudKitAccount()
+            UUyTtHVgmHJutTbSbpStz61v1xOt395L()
         }
     }
     
-    private func testCloudKitSync() {
+    private func UkzrT9BnAMID7iPrFAKmDawtXvBer6Rw() {
         print("[SYNC] Iniciando test de sincronización CloudKit...")
         syncStatus = .syncing
         
@@ -928,7 +928,7 @@ struct CloudKitStatusCard: View {
         }
     }
     
-    private func checkCloudKitAccount() {
+    private func UUyTtHVgmHJutTbSbpStz61v1xOt395L() {
         CKContainer.default().accountStatus { status, error in
             DispatchQueue.main.async {
                 if error != nil {
@@ -948,7 +948,7 @@ struct CloudKitStatusCard: View {
         }
     }
     
-    private func formatTime(_ date: Date) -> String {
+    private func WPhHoE1PLwqQatnfUREd9LegNnFZKRjV(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         return formatter.string(from: date)
@@ -957,7 +957,7 @@ struct CloudKitStatusCard: View {
 
 #Preview {
     NavigationStack {
-        InicioView(selectedTab: .constant(0))
+        nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ(selectedTab: .constant(0))
     }
-    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
 }

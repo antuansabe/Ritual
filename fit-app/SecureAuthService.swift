@@ -2,42 +2,42 @@ import Foundation
 import CryptoKit
 
 // MARK: - Authentication Result Types
-enum AuthResult {
-    case success(user: UserCredentials)
-    case failure(error: AuthError)
+enum nkO84Ag4linZtRdbgOcdL9PoREfol3RQ {
+    case Amqyy95vWgcOGxPe2gHNEvOb2gQuwTDe(user: JV7bROkDhjQGYuPFXzktlrcDSpYiPitM)
+    case xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(error: ugyXeOqyt1WDyGpV7zemttc868McTBtH)
 }
 
-enum AuthError: LocalizedError {
-    case invalidEmail
-    case weakPassword
-    case emailNotRegistered
-    case incorrectPassword
-    case userAlreadyExists
-    case storageError
-    case unknownError
+enum ugyXeOqyt1WDyGpV7zemttc868McTBtH: LocalizedError {
+    case qzUBJgs2Kquy66efw3BR2i898GM2I4Qk
+    case UaqZKJQ3LQQC4tXJiT0gTTUn8OWOuSjc
+    case rMiIcNoWKgaD58yd4OuSIMAcqtPT919E
+    case AS6KHFqmzkgL6Yey5fGD9hybLRCzavjJ
+    case yb9Xp0HsIhxdJjNELWJ49Zb4NIU1H4F4
+    case g1XJ83Fmb4AELSlYUFfA1MJ9uYdDJutp
+    case NzPXCxti1puQBR3EihrGLQhOggwJ6BUj
     
     var errorDescription: String? {
         switch self {
-        case .invalidEmail:
+        case .qzUBJgs2Kquy66efw3BR2i898GM2I4Qk:
             return "Formato de email inválido"
-        case .weakPassword:
+        case .UaqZKJQ3LQQC4tXJiT0gTTUn8OWOuSjc:
             return "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número"
-        case .emailNotRegistered:
+        case .rMiIcNoWKgaD58yd4OuSIMAcqtPT919E:
             return "Este email no está registrado"
-        case .incorrectPassword:
+        case .AS6KHFqmzkgL6Yey5fGD9hybLRCzavjJ:
             return "Contraseña incorrecta"
-        case .userAlreadyExists:
+        case .yb9Xp0HsIhxdJjNELWJ49Zb4NIU1H4F4:
             return "Este email ya está registrado"
-        case .storageError:
+        case .g1XJ83Fmb4AELSlYUFfA1MJ9uYdDJutp:
             return "Error al guardar datos. Intenta de nuevo"
-        case .unknownError:
+        case .NzPXCxti1puQBR3EihrGLQhOggwJ6BUj:
             return "Error desconocido. Intenta de nuevo"
         }
     }
 }
 
 // MARK: - User Credentials Model
-struct UserCredentials: Codable {
+struct JV7bROkDhjQGYuPFXzktlrcDSpYiPitM: Codable {
     let email: String
     let passwordHash: String
     let registrationDate: Date
@@ -52,18 +52,18 @@ struct UserCredentials: Codable {
 }
 
 // MARK: - Secure Authentication Service
-class SecureAuthService {
-    static let shared = SecureAuthService()
+class wnGKnVVY25VSc4eWkvgZ2MLHXV6csLz2 {
+    static let DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX = wnGKnVVY25VSc4eWkvgZ2MLHXV6csLz2()
     
-    private let storage = SecureStorage.shared
-    private let saltString = "FitApp2025SecureSalt"
+    private let ZjlZ7mjaEwb57I6IL6l0j9QboITfuhsr = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+    private let rAw4kAwBwm5zuku39Otez52thbcSZr82 = "FitApp2025SecureSalt"
     
     private init() {}
     
     // MARK: - Input Validation and Sanitization
     
     /// Sanitize user input to prevent malicious data
-    func sanitizeInput(_ input: String) -> String {
+    func S1FcBW204dzhY83hyyJGO8udFCyY9l66(_ input: String) -> String {
         let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Remove potentially dangerous characters
@@ -81,7 +81,7 @@ class SecureAuthService {
     }
     
     /// Validate email format using regex
-    func validateEmail(_ email: String) -> Bool {
+    func weVpX0VyVqlz2ThZl3xZU5xxrkgIhDlM(_ email: String) -> Bool {
         let emailRegex = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         let isValid = emailPredicate.evaluate(with: email)
@@ -91,7 +91,7 @@ class SecureAuthService {
     }
     
     /// Validate password strength (minimum 8 characters, at least one uppercase and one number)
-    func validatePassword(_ password: String) -> Bool {
+    func ZAi6EatMOIxrxK1wBxn3dM7TjhJwE7ht(_ password: String) -> Bool {
         guard password.count >= 8 else {
             print("🔐 SecureAuth: Password too short")
             return false
@@ -112,8 +112,8 @@ class SecureAuthService {
     // MARK: - Password Hashing
     
     /// Hash password using SHA256 with salt
-    private func hashPassword(_ password: String) -> String {
-        let saltedPassword = password + saltString
+    private func ONMtbOTwEtiuOkQNgXMYe7UdNf02iPDu(_ password: String) -> String {
+        let saltedPassword = password + rAw4kAwBwm5zuku39Otez52thbcSZr82
         let data = Data(saltedPassword.utf8)
         let hash = SHA256.hash(data: data)
         let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()
@@ -123,8 +123,8 @@ class SecureAuthService {
     }
     
     /// Verify password against stored hash
-    private func verifyPassword(_ password: String, against hash: String) -> Bool {
-        let inputHash = hashPassword(password)
+    private func InseCgUnyc7IbVgr6aid9Fl3Rx8lwLmi(_ password: String, against hash: String) -> Bool {
+        let inputHash = ONMtbOTwEtiuOkQNgXMYe7UdNf02iPDu(password)
         let isValid = inputHash == hash
         
         print("🔐 SecureAuth: Password verification result: \(isValid)")
@@ -134,114 +134,114 @@ class SecureAuthService {
     // MARK: - User Registration
     
     /// Register a new user with secure validation
-    func register(email: String, password: String, confirmPassword: String) -> AuthResult {
+    func GUKgzh2HAr1vFLofjElwmrtdn4gOv8bR(email: String, password: String, confirmPassword: String) -> nkO84Ag4linZtRdbgOcdL9PoREfol3RQ {
         print("🔐 SecureAuth: Starting user registration")
         
         // Sanitize inputs
-        let sanitizedEmail = sanitizeInput(email).lowercased()
-        let sanitizedPassword = sanitizeInput(password)
-        let sanitizedConfirmPassword = sanitizeInput(confirmPassword)
+        let sanitizedEmail = S1FcBW204dzhY83hyyJGO8udFCyY9l66(email).lowercased()
+        let sanitizedPassword = S1FcBW204dzhY83hyyJGO8udFCyY9l66(password)
+        let sanitizedConfirmPassword = S1FcBW204dzhY83hyyJGO8udFCyY9l66(confirmPassword)
         
         // Validate email format
-        guard validateEmail(sanitizedEmail) else {
+        guard weVpX0VyVqlz2ThZl3xZU5xxrkgIhDlM(sanitizedEmail) else {
             print("🔐 SecureAuth: Registration failed - Invalid email format")
-            return .failure(error: .invalidEmail)
+            return .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(error: .qzUBJgs2Kquy66efw3BR2i898GM2I4Qk)
         }
         
         // Validate password strength
-        guard validatePassword(sanitizedPassword) else {
+        guard ZAi6EatMOIxrxK1wBxn3dM7TjhJwE7ht(sanitizedPassword) else {
             print("🔐 SecureAuth: Registration failed - Weak password")
-            return .failure(error: .weakPassword)
+            return .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(error: .UaqZKJQ3LQQC4tXJiT0gTTUn8OWOuSjc)
         }
         
         // Check password confirmation
         guard sanitizedPassword == sanitizedConfirmPassword else {
             print("🔐 SecureAuth: Registration failed - Password confirmation mismatch")
-            return .failure(error: .weakPassword)
+            return .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(error: .UaqZKJQ3LQQC4tXJiT0gTTUn8OWOuSjc)
         }
         
         // Check if user already exists
-        if userExists(email: sanitizedEmail) {
+        if yolB0k11MdPK91cyobMzVeekkbt0DTgS(email: sanitizedEmail) {
             print("🔐 SecureAuth: Registration failed - User already exists")
-            return .failure(error: .userAlreadyExists)
+            return .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(error: .yb9Xp0HsIhxdJjNELWJ49Zb4NIU1H4F4)
         }
         
         // Create user credentials
-        let passwordHash = hashPassword(sanitizedPassword)
-        let userCredentials = UserCredentials(email: sanitizedEmail, passwordHash: passwordHash)
+        let passwordHash = ONMtbOTwEtiuOkQNgXMYe7UdNf02iPDu(sanitizedPassword)
+        let userCredentials = JV7bROkDhjQGYuPFXzktlrcDSpYiPitM(email: sanitizedEmail, passwordHash: passwordHash)
         
         // Store credentials securely
-        guard storeUserCredentials(userCredentials) else {
+        guard NYLCxkaMzczcao19QE07LkKDfuYdTqed(userCredentials) else {
             print("🔐 SecureAuth: Registration failed - Storage error")
-            return .failure(error: .storageError)
+            return .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(error: .g1XJ83Fmb4AELSlYUFfA1MJ9uYdDJutp)
         }
         
         print("🔐 SecureAuth: User registration successful")
-        return .success(user: userCredentials)
+        return .Amqyy95vWgcOGxPe2gHNEvOb2gQuwTDe(user: userCredentials)
     }
     
     // MARK: - User Login
     
     /// Authenticate user with secure validation
-    func login(email: String, password: String) -> AuthResult {
+    func xhzYSvBqF2708nr4JnAdHR0kZEn4Z6fe(email: String, password: String) -> nkO84Ag4linZtRdbgOcdL9PoREfol3RQ {
         print("🔐 SecureAuth: Starting user login")
         
         // Sanitize inputs
-        let sanitizedEmail = sanitizeInput(email).lowercased()
-        let sanitizedPassword = sanitizeInput(password)
+        let sanitizedEmail = S1FcBW204dzhY83hyyJGO8udFCyY9l66(email).lowercased()
+        let sanitizedPassword = S1FcBW204dzhY83hyyJGO8udFCyY9l66(password)
         
         // Validate email format
-        guard validateEmail(sanitizedEmail) else {
+        guard weVpX0VyVqlz2ThZl3xZU5xxrkgIhDlM(sanitizedEmail) else {
             print("🔐 SecureAuth: Login failed - Invalid email format")
-            return .failure(error: .invalidEmail)
+            return .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(error: .qzUBJgs2Kquy66efw3BR2i898GM2I4Qk)
         }
         
         // Check if user exists
-        guard userExists(email: sanitizedEmail) else {
+        guard yolB0k11MdPK91cyobMzVeekkbt0DTgS(email: sanitizedEmail) else {
             print("🔐 SecureAuth: Login failed - Email not registered")
-            return .failure(error: .emailNotRegistered)
+            return .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(error: .rMiIcNoWKgaD58yd4OuSIMAcqtPT919E)
         }
         
         // Retrieve stored credentials
-        guard let storedCredentials = getUserCredentials(email: sanitizedEmail) else {
+        guard let storedCredentials = JgmOMtlUwn76aX6uIzAfBD1uAe3HS4S4(email: sanitizedEmail) else {
             print("🔐 SecureAuth: Login failed - Could not retrieve user credentials")
-            return .failure(error: .storageError)
+            return .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(error: .g1XJ83Fmb4AELSlYUFfA1MJ9uYdDJutp)
         }
         
         // Verify password
-        guard verifyPassword(sanitizedPassword, against: storedCredentials.passwordHash) else {
+        guard InseCgUnyc7IbVgr6aid9Fl3Rx8lwLmi(sanitizedPassword, against: storedCredentials.passwordHash) else {
             print("🔐 SecureAuth: Login failed - Incorrect password")
-            return .failure(error: .incorrectPassword)
+            return .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(error: .AS6KHFqmzkgL6Yey5fGD9hybLRCzavjJ)
         }
         
         // Update last login date
-        let updatedCredentials = UserCredentials(
+        let updatedCredentials = JV7bROkDhjQGYuPFXzktlrcDSpYiPitM(
             email: storedCredentials.email,
             passwordHash: storedCredentials.passwordHash
         )
         
         // Store current session with encryption
-        _ = storage.storeEncrypted(sanitizedEmail, for: SecureStorage.StorageKeys.userEmail)
+        _ = ZjlZ7mjaEwb57I6IL6l0j9QboITfuhsr.GpX2gmw5MvTjIh4UaeYUjQdWdoMsVBcp(sanitizedEmail, for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.an8EQdG4sbWLiCnAmX9GlribmSjMTM7A)
         
         print("🔐 SecureAuth: User login successful")
-        return .success(user: updatedCredentials)
+        return .Amqyy95vWgcOGxPe2gHNEvOb2gQuwTDe(user: updatedCredentials)
     }
     
     // MARK: - User Management
     
     /// Check if user exists
-    private func userExists(email: String) -> Bool {
-        return getUserCredentials(email: email) != nil
+    private func yolB0k11MdPK91cyobMzVeekkbt0DTgS(email: String) -> Bool {
+        return JgmOMtlUwn76aX6uIzAfBD1uAe3HS4S4(email: email) != nil
     }
     
     /// Store user credentials securely
-    private func storeUserCredentials(_ credentials: UserCredentials) -> Bool {
+    private func NYLCxkaMzczcao19QE07LkKDfuYdTqed(_ credentials: JV7bROkDhjQGYuPFXzktlrcDSpYiPitM) -> Bool {
         do {
             let data = try JSONEncoder().encode(credentials)
             let jsonString = String(data: data, encoding: .utf8) ?? ""
             
             let key = "user_\(credentials.email)"
-            return storage.storeEncrypted(jsonString, for: key)
+            return ZjlZ7mjaEwb57I6IL6l0j9QboITfuhsr.GpX2gmw5MvTjIh4UaeYUjQdWdoMsVBcp(jsonString, for: key)
         } catch {
             print("🔐 SecureAuth: Failed to encode user credentials: \(error)")
             return false
@@ -249,16 +249,16 @@ class SecureAuthService {
     }
     
     /// Retrieve user credentials
-    private func getUserCredentials(email: String) -> UserCredentials? {
+    private func JgmOMtlUwn76aX6uIzAfBD1uAe3HS4S4(email: String) -> JV7bROkDhjQGYuPFXzktlrcDSpYiPitM? {
         let key = "user_\(email)"
         
-        guard let jsonString = storage.retrieveEncrypted(for: key),
+        guard let jsonString = ZjlZ7mjaEwb57I6IL6l0j9QboITfuhsr.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: key),
               let data = jsonString.data(using: .utf8) else {
             return nil
         }
         
         do {
-            return try JSONDecoder().decode(UserCredentials.self, from: data)
+            return try JSONDecoder().decode(JV7bROkDhjQGYuPFXzktlrcDSpYiPitM.self, from: data)
         } catch {
             print("🔐 SecureAuth: Failed to decode user credentials: \(error)")
             return nil
@@ -266,19 +266,19 @@ class SecureAuthService {
     }
     
     /// Get current logged in user
-    func getCurrentUser() -> String? {
-        return storage.retrieveEncrypted(for: SecureStorage.StorageKeys.userEmail)
+    func ocWrWN1mMBZWWSNXkkLBqeUUPgN0dIV3() -> String? {
+        return ZjlZ7mjaEwb57I6IL6l0j9QboITfuhsr.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.an8EQdG4sbWLiCnAmX9GlribmSjMTM7A)
     }
     
     /// Check if user is currently logged in
-    func isUserLoggedIn() -> Bool {
-        return getCurrentUser() != nil
+    func E12V0aQwfC8BL7OIoZCT6O1kQ9W1JECk() -> Bool {
+        return ocWrWN1mMBZWWSNXkkLBqeUUPgN0dIV3() != nil
     }
     
     /// Logout current user
-    func logout() -> Bool {
+    func kvwXfLuRAjQk9scdZH6Na9hioqbmNcPD() -> Bool {
         print("🔐 SecureAuth: Logging out current user")
-        let success = storage.clearAllCredentials()
+        let success = ZjlZ7mjaEwb57I6IL6l0j9QboITfuhsr.ahdJT6VjC55m9Zgn6rFCtDW2XNR2vbFP()
         
         if success {
             print("🔐 SecureAuth: Logout successful")
@@ -292,7 +292,7 @@ class SecureAuthService {
     // MARK: - Security Utilities
     
     /// Generate secure session token (for future backend integration)
-    func generateSessionToken() -> String {
+    func yzjDzEFKMDkUoIyH1AYJJzVWugHArfz5() -> String {
         let tokenData = Data((0..<32).map { _ in UInt8.random(in: 0...255) })
         return tokenData.base64EncodedString()
     }

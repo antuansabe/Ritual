@@ -1,13 +1,13 @@
 import SwiftUI
 import CoreData
 
-struct HistorialView: View {
+struct GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
     @Environment(\.dismiss) private var dismiss
     @State private var animateOnAppear = false
     @State private var currentDate = Date()
-    @StateObject private var motivationalManager = MotivationalMessageManager()
+    @StateObject private var motivationalManager = XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5()
     @State private var showingTrainingDetail = false
     @State private var selectedDateWorkouts: [WorkoutEntity] = []
     @State private var selectedDate = Date()
@@ -53,7 +53,7 @@ struct HistorialView: View {
         return (
             totalWorkouts: yearWorkouts.count,
             totalMinutes: yearWorkouts.reduce(0) { $0 + Int($1.duration) },
-            currentStreak: calculateCurrentStreak()
+            currentStreak: ES0BZT8uITuIRS240cz0GJ4YC02PSyRU()
         )
     }
     
@@ -64,7 +64,7 @@ struct HistorialView: View {
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
             
-            AppConstants.Design.backgroundGradient
+            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
                 .opacity(0.7)
                 .ignoresSafeArea()
             
@@ -81,15 +81,15 @@ struct HistorialView: View {
                         tipsSection
                     }
                 }
-                .padding(.horizontal, AppConstants.UI.spacingL)
-                .padding(.top, AppConstants.UI.spacingXL)
+                .padding(.horizontal, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
+                .padding(.top, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.MClncXuDMA0DqsjaIRrg0bNnW3Yqs1En)
                 .padding(.bottom, 100)
             }
         }
         .navigationBarHidden(true)
         .overlay {
             if showingTrainingDetail {
-                TrainingDetailPopupView(
+                nXGgxr19LIpVKcd4cUEVl275ihvhFfMi(
                     workouts: selectedDateWorkouts,
                     selectedDate: selectedDate,
                     isPresented: $showingTrainingDetail
@@ -97,7 +97,7 @@ struct HistorialView: View {
             }
         }
         .onAppear {
-            withAnimation(.easeOut(duration: AppConstants.Animation.entrance)) {
+            withAnimation(.easeOut(duration: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.TY7ZW5houGPwMVFGImNlC3I3EcEAN4GI.Z7xsdjw2hnYbjHVMQnLaw3tNvHBSqyDS)) {
                 animateOnAppear = true
             }
         }
@@ -105,11 +105,11 @@ struct HistorialView: View {
     
     // MARK: - Header Section
     private var headerSection: some View {
-        VStack(spacing: AppConstants.UI.spacingL) {
+        VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX) {
             // Navigation Bar
             HStack {
                 Button(action: { dismiss() }) {
-                    HStack(spacing: AppConstants.UI.spacingS) {
+                    HStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.WGScMqI3Q6T0pZ22WIc8o7hkW683p3YO) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.white)
@@ -118,10 +118,10 @@ struct HistorialView: View {
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.white)
                     }
-                    .padding(.horizontal, AppConstants.UI.spacingM)
-                    .padding(.vertical, AppConstants.UI.spacingS)
+                    .padding(.horizontal, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX)
+                    .padding(.vertical, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.WGScMqI3Q6T0pZ22WIc8o7hkW683p3YO)
                     .background(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusM)
+                        RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.LN3B4n9YFxSm5ylLDbkTP1ORcAc8zVlA)
                             .fill(.ultraThinMaterial.opacity(0.7))
                     )
                 }
@@ -131,7 +131,7 @@ struct HistorialView: View {
             }
             
             // Title Section
-            VStack(spacing: AppConstants.UI.spacingM) {
+            VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX) {
                 Text("Historial de Entrenamientos")
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
@@ -146,7 +146,7 @@ struct HistorialView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal, AppConstants.UI.spacingL)
+        .padding(.horizontal, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : -20)
         .animation(.easeOut(duration: 0.6), value: animateOnAppear)
@@ -155,22 +155,22 @@ struct HistorialView: View {
     // MARK: - Calendar Section
     private var calendarSection: some View {
         VStack(spacing: 24) {
-            HistorialCalendarView(
+            oceDsSstWUWphwxip8d8NBirtHgG7NaD(
                 workouts: Array(workouts),
                 currentDate: $currentDate,
-                onDateTapped: showTrainingDetails
+                onDateTapped: tl87jyemPGoeAbhiIqFd9TgmT6nD12Dv
             )
         }
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(AppConstants.Design.cardBackground())
+                .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg())
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                        .stroke(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.hEHvnuhquOEbu91QYcb2ngjX1eTkwuVb(), lineWidth: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.kEdPhJbe9pFfxc6GmcCjsIcLRnkyRurM)
                 )
         )
-        .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
+        .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.s06S6l2jYXUPYG94fTRPPLQQdZkx2hYz(), radius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.bTCtL4JJ6s6CZeDy20yfXlv4bGc83wHJ)
         .opacity(animateOnAppear ? 1 : 0)
         .offset(y: animateOnAppear ? 0 : 30)
         .animation(.easeOut(duration: 0.8).delay(0.2), value: animateOnAppear)
@@ -178,9 +178,9 @@ struct HistorialView: View {
     
     // MARK: - Month Summary Section
     private var monthSummarySection: some View {
-        VStack(spacing: AppConstants.UI.spacingL) {
+        VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX) {
             HStack {
-                VStack(alignment: .leading, spacing: AppConstants.UI.spacingXS) {
+                VStack(alignment: .leading, spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.GPTIMVzXVhYLFkeR151yq7JxB8fmAAgB) {
                     Text("Resumen del mes")
                         .font(.system(size: 20, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
@@ -193,9 +193,9 @@ struct HistorialView: View {
                 Spacer()
             }
             
-            HStack(spacing: AppConstants.UI.spacingL) {
+            HStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX) {
                 // Días entrenados
-                VStack(spacing: AppConstants.UI.spacingM) {
+                VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX) {
                     ZStack {
                         Circle()
                             .fill(Color.blue.opacity(0.2))
@@ -206,7 +206,7 @@ struct HistorialView: View {
                             .foregroundColor(.blue)
                     }
                     
-                    VStack(spacing: AppConstants.UI.spacingXS) {
+                    VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.GPTIMVzXVhYLFkeR151yq7JxB8fmAAgB) {
                         Text("\(uniqueWorkoutDays)")
                             .font(.system(size: 24, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
@@ -218,18 +218,18 @@ struct HistorialView: View {
                     }
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, AppConstants.UI.spacingL)
+                .padding(.vertical, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
                 .background(
-                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                        .fill(AppConstants.Design.cardBackground())
+                    RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                        .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg())
                         .overlay(
-                            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                            RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                                 .stroke(Color.blue.opacity(0.3), lineWidth: 1)
                         )
                 )
                 
                 // Total entrenamientos
-                VStack(spacing: AppConstants.UI.spacingM) {
+                VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX) {
                     ZStack {
                         Circle()
                             .fill(Color.green.opacity(0.2))
@@ -240,7 +240,7 @@ struct HistorialView: View {
                             .foregroundColor(.green)
                     }
                     
-                    VStack(spacing: AppConstants.UI.spacingXS) {
+                    VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.GPTIMVzXVhYLFkeR151yq7JxB8fmAAgB) {
                         Text("\(currentMonthWorkouts)")
                             .font(.system(size: 24, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
@@ -252,12 +252,12 @@ struct HistorialView: View {
                     }
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, AppConstants.UI.spacingL)
+                .padding(.vertical, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
                 .background(
-                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                        .fill(AppConstants.Design.cardBackground())
+                    RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                        .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg())
                         .overlay(
-                            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                            RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                                 .stroke(Color.green.opacity(0.3), lineWidth: 1)
                         )
                 )
@@ -270,9 +270,9 @@ struct HistorialView: View {
     
     // MARK: - Stats Section
     private var statsSection: some View {
-        VStack(spacing: AppConstants.UI.spacingL) {
+        VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX) {
             HStack {
-                VStack(alignment: .leading, spacing: AppConstants.UI.spacingXS) {
+                VStack(alignment: .leading, spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.GPTIMVzXVhYLFkeR151yq7JxB8fmAAgB) {
                     Text("Estadísticas del año")
                         .font(.system(size: 20, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
@@ -285,9 +285,9 @@ struct HistorialView: View {
                 Spacer()
             }
             
-            VStack(spacing: AppConstants.UI.spacingM) {
-                HStack(spacing: AppConstants.UI.spacingM) {
-                    StatCard(
+            VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX) {
+                HStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX) {
+                    Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                         icon: "figure.walk.circle.fill",
                         value: "\(yearStats.totalWorkouts)",
                         label: "Entrenamientos",
@@ -295,7 +295,7 @@ struct HistorialView: View {
                         accentColor: .blue.opacity(0.2)
                     )
                     
-                    StatCard(
+                    Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                         icon: "clock.fill",
                         value: "\(yearStats.totalMinutes)",
                         label: "Minutos",
@@ -304,8 +304,8 @@ struct HistorialView: View {
                     )
                 }
                 
-                HStack(spacing: AppConstants.UI.spacingM) {
-                    StatCard(
+                HStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX) {
+                    Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                         icon: "flame.fill",
                         value: "\(yearStats.currentStreak)",
                         label: "Racha actual",
@@ -313,7 +313,7 @@ struct HistorialView: View {
                         accentColor: .orange.opacity(0.2)
                     )
                     
-                    StatCard(
+                    Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                         icon: "heart.circle.fill",
                         value: "\(Int(Double(yearStats.totalMinutes) * 8.0))",
                         label: "Calorías quemadas",
@@ -346,7 +346,7 @@ struct HistorialView: View {
             
             VStack(spacing: 12) {
                 if uniqueWorkoutDays < 3 {
-                    TipCard(
+                    N7eL9gZE0A11qwNe9gQnqZgiUbl9xJNG(
                         icon: "calendar.badge.plus",
                         title: "Consistencia es clave",
                         description: "Intenta entrenar al menos 3 días por semana para ver mejores resultados.",
@@ -355,7 +355,7 @@ struct HistorialView: View {
                 }
                 
                 if yearStats.currentStreak < 2 {
-                    TipCard(
+                    N7eL9gZE0A11qwNe9gQnqZgiUbl9xJNG(
                         icon: "flame",
                         title: "Construye una racha",
                         description: "Entrenar días consecutivos te ayudará a crear un hábito duradero.",
@@ -363,7 +363,7 @@ struct HistorialView: View {
                     )
                 }
                 
-                TipCard(
+                N7eL9gZE0A11qwNe9gQnqZgiUbl9xJNG(
                     icon: "chart.line.uptrend.xyaxis",
                     title: "Toca los días verdes",
                     description: "Puedes tocar cualquier día con entrenamientos para ver los detalles.",
@@ -377,7 +377,7 @@ struct HistorialView: View {
     }
     
     // MARK: - Helper Functions
-    private func calculateCurrentStreak() -> Int {
+    private func ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() -> Int {
         let sortedWorkouts = workouts.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
         guard !sortedWorkouts.isEmpty else { return 0 }
         
@@ -400,14 +400,14 @@ struct HistorialView: View {
     }
     
     // MARK: - Helper Functions for Popup
-    private func getWorkoutsForDate(_ date: Date) -> [WorkoutEntity] {
+    private func ywPG64ejD7uBxMvKVW2dv1WUKfTklcvp(_ date: Date) -> [WorkoutEntity] {
         return workouts.filter { workout in
             calendar.isDate(workout.date ?? Date(), inSameDayAs: date)
         }
     }
     
-    private func showTrainingDetails(for date: Date) {
-        let dayWorkouts = getWorkoutsForDate(date)
+    private func tl87jyemPGoeAbhiIqFd9TgmT6nD12Dv(for date: Date) {
+        let dayWorkouts = ywPG64ejD7uBxMvKVW2dv1WUKfTklcvp(date)
         if !dayWorkouts.isEmpty {
             selectedDate = date
             selectedDateWorkouts = dayWorkouts
@@ -419,8 +419,8 @@ struct HistorialView: View {
     private var motivationalEmptySection: some View {
         VStack(spacing: 40) {
             // Motivational message
-            let message = motivationalManager.getMessage(for: .historyEmpty)
-            MotivationalCardView(message: message, style: .prominent)
+            let message = motivationalManager.Ybk5XOhw1M7TunRE3Dn538FHOpTonv3u(for: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX)
+            F86UW67ccAWVKtMzac7t2afh26jfxsLy(message: message, style: .prominent)
             
             // Empty state illustration
             VStack(spacing: 20) {
@@ -428,7 +428,7 @@ struct HistorialView: View {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [AppConstants.Design.lavender.opacity(0.2), AppConstants.Design.electricBlue.opacity(0.1)],
+                                colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR.opacity(0.2), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.1)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -439,7 +439,7 @@ struct HistorialView: View {
                         .font(.system(size: 60, weight: .light))
                         .foregroundStyle(
                             LinearGradient(
-                                colors: [AppConstants.Design.lavender.opacity(0.8), AppConstants.Design.electricBlue.opacity(0.6)],
+                                colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.iRzcaY5rHnko7qweKLrpTDkw0U4VdRtR.opacity(0.8), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.6)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -468,7 +468,7 @@ struct HistorialView: View {
 }
 
 // MARK: - Historial Calendar Component
-struct HistorialCalendarView: View {
+struct oceDsSstWUWphwxip8d8NBirtHgG7NaD: View {
     let workouts: [WorkoutEntity]
     @Binding var currentDate: Date
     let onDateTapped: (Date) -> Void
@@ -524,21 +524,21 @@ struct HistorialCalendarView: View {
         return days
     }
     
-    private func hasWorkout(on date: Date) -> Bool {
+    private func I5QHsgWv2XdgE8VXWpNhUE9yI61yQBYz(on date: Date) -> Bool {
         return workouts.contains { workout in
             calendar.isDate(workout.date ?? Date(), inSameDayAs: date)
         }
     }
     
-    private func isCurrentMonth(_ date: Date) -> Bool {
+    private func BWTR4Vgb1weh4426ZM6Sc1cFb9jEevSR(_ date: Date) -> Bool {
         calendar.isDate(date, equalTo: currentDate, toGranularity: .month)
     }
     
-    private func isToday(_ date: Date) -> Bool {
+    private func ykbetZRJo3OKvmT68bNRhKbN98vh2Tfa(_ date: Date) -> Bool {
         calendar.isDateInToday(date)
     }
     
-    private func getWorkoutCount(for date: Date) -> Int {
+    private func quGNjxwNr6bMGLmIjninKcK5mhqTZz8S(for date: Date) -> Int {
         return workouts.filter { workout in
             calendar.isDate(workout.date ?? Date(), inSameDayAs: date)
         }.count
@@ -548,29 +548,29 @@ struct HistorialCalendarView: View {
         VStack(spacing: 20) {
             // Month header with navigation
             HStack {
-                Button(action: { changeMonth(by: -1) }) {
+                Button(action: { phuNA2QE28qZfTQFibb6uOKGWTixpvSn(by: -1) }) {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white.opacity(0.8))
                         .frame(width: 32, height: 32)
-                        .background(AppConstants.Design.cardBackground())
+                        .background(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg())
                         .clipShape(Circle())
                 }
                 
                 Spacer()
                 
                 Text(dateFormatter.string(from: currentDate).capitalized)
-                    .font(AppConstants.Design.subheaderFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.qginztZrG8YowoNdoaXjEAcxXYyyjnlT)
                     .foregroundColor(.white)
                 
                 Spacer()
                 
-                Button(action: { changeMonth(by: 1) }) {
+                Button(action: { phuNA2QE28qZfTQFibb6uOKGWTixpvSn(by: 1) }) {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white.opacity(0.8))
                         .frame(width: 32, height: 32)
-                        .background(AppConstants.Design.cardBackground())
+                        .background(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg())
                         .clipShape(Circle())
                 }
             }
@@ -589,13 +589,13 @@ struct HistorialCalendarView: View {
                 // Calendar grid - Improved layout
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 7), spacing: 8) {
                     ForEach(monthDays, id: \.self) { date in
-                        EnhancedCalendarDayView(
+                        mDqHln5jpNpX9aXfdeepN8vGoNsyrK6F(
                             date: date,
-                            hasWorkout: hasWorkout(on: date),
-                            isCurrentMonth: isCurrentMonth(date),
-                            isToday: isToday(date),
+                            hasWorkout: I5QHsgWv2XdgE8VXWpNhUE9yI61yQBYz(on: date),
+                            isCurrentMonth: BWTR4Vgb1weh4426ZM6Sc1cFb9jEevSR(date),
+                            isToday: ykbetZRJo3OKvmT68bNRhKbN98vh2Tfa(date),
                             isFuture: date > Date(),
-                            workoutCount: getWorkoutCount(for: date),
+                            workoutCount: quGNjxwNr6bMGLmIjninKcK5mhqTZz8S(for: date),
                             onTap: onDateTapped
                         )
                     }
@@ -605,19 +605,19 @@ struct HistorialCalendarView: View {
             // Enhanced Legend
             VStack(spacing: 8) {
                 HStack(spacing: 16) {
-                    LegendItem(color: .green, label: "Con entrenamientos")
-                    LegendItem(color: .blue, label: "Hoy")
+                    v9d1B8mYymhWhGKFTSBC3IHqtFBZuol1(color: .green, label: "Con entrenamientos")
+                    v9d1B8mYymhWhGKFTSBC3IHqtFBZuol1(color: .blue, label: "Hoy")
                 }
                 
                 HStack(spacing: 16) {
-                    LegendItem(color: .white.opacity(0.1), label: "Sin entrenamientos")
-                    LegendItem(color: .white.opacity(0.05), label: "Días futuros")
+                    v9d1B8mYymhWhGKFTSBC3IHqtFBZuol1(color: .white.opacity(0.1), label: "Sin entrenamientos")
+                    v9d1B8mYymhWhGKFTSBC3IHqtFBZuol1(color: .white.opacity(0.05), label: "Días futuros")
                 }
             }
         }
     }
     
-    private func changeMonth(by value: Int) {
+    private func phuNA2QE28qZfTQFibb6uOKGWTixpvSn(by value: Int) {
         if let newDate = calendar.date(byAdding: .month, value: value, to: currentDate) {
             withAnimation(.easeInOut(duration: 0.3)) {
                 currentDate = newDate
@@ -627,7 +627,7 @@ struct HistorialCalendarView: View {
 }
 
 // MARK: - Enhanced Calendar Day View
-struct EnhancedCalendarDayView: View {
+struct mDqHln5jpNpX9aXfdeepN8vGoNsyrK6F: View {
     let date: Date
     let hasWorkout: Bool
     let isCurrentMonth: Bool
@@ -763,7 +763,7 @@ struct EnhancedCalendarDayView: View {
 
 // MARK: - Supporting Components
 
-struct LegendItem: View {
+struct v9d1B8mYymhWhGKFTSBC3IHqtFBZuol1: View {
     let color: Color
     let label: String
     
@@ -785,7 +785,7 @@ struct LegendItem: View {
 }
 
 
-struct WorkoutSummaryCard: View {
+struct GP7fIuwXYVLPbSohw6PU7LnEgTOlS3dT: View {
     let workout: WorkoutEntity
     
     private var activityIcon: String {
@@ -856,7 +856,7 @@ struct WorkoutSummaryCard: View {
     }
 }
 
-struct TipCard: View {
+struct N7eL9gZE0A11qwNe9gQnqZgiUbl9xJNG: View {
     let icon: String
     let title: String
     let description: String
@@ -902,7 +902,7 @@ struct TipCard: View {
 
 #Preview {
     NavigationStack {
-        HistorialView()
+        GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n()
     }
-    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
 }

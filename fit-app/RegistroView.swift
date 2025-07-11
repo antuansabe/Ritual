@@ -1,23 +1,23 @@
 import SwiftUI
 
 // MARK: - Activity Types Data
-struct ActivityType {
-    let name: String
-    let icon: String
-    let color: Color
+struct ihgdZCZ77qBKjAhR9r9jixKHxA35ZHNR {
+    let koIOMXzYPHchPAyY3M0OCT1ReFFoOqpJ: String
+    let QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: String
+    let QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: Color
     
-    static let allTypes = [
-        ActivityType(name: "Cardio", icon: "heart.circle.fill", color: .red),
-        ActivityType(name: "Fuerza", icon: "dumbbell.fill", color: .blue),
-        ActivityType(name: "Yoga", icon: "figure.mind.and.body", color: .purple),
-        ActivityType(name: "Caminata", icon: "figure.walk", color: .green),
-        ActivityType(name: "Ciclismo", icon: "bicycle", color: .yellow),
-        ActivityType(name: "Jiu Jitsu", icon: "figure.martial.arts", color: .purple)
+    static let ZK6kyfYr0vLj1yUR7dvzoTjmnmUfNWDI = [
+        ihgdZCZ77qBKjAhR9r9jixKHxA35ZHNR(koIOMXzYPHchPAyY3M0OCT1ReFFoOqpJ: "Cardio", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "heart.circle.fill", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .red),
+        ihgdZCZ77qBKjAhR9r9jixKHxA35ZHNR(koIOMXzYPHchPAyY3M0OCT1ReFFoOqpJ: "Fuerza", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "dumbbell.fill", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .blue),
+        ihgdZCZ77qBKjAhR9r9jixKHxA35ZHNR(koIOMXzYPHchPAyY3M0OCT1ReFFoOqpJ: "Yoga", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "figure.mind.and.body", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .purple),
+        ihgdZCZ77qBKjAhR9r9jixKHxA35ZHNR(koIOMXzYPHchPAyY3M0OCT1ReFFoOqpJ: "Caminata", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "figure.walk", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .green),
+        ihgdZCZ77qBKjAhR9r9jixKHxA35ZHNR(koIOMXzYPHchPAyY3M0OCT1ReFFoOqpJ: "Ciclismo", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "bicycle", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .yellow),
+        ihgdZCZ77qBKjAhR9r9jixKHxA35ZHNR(koIOMXzYPHchPAyY3M0OCT1ReFFoOqpJ: "Jiu Jitsu", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "figure.martial.arts", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .purple)
     ]
 }
 
 // MARK: - Modern Workout Type Button Component
-struct ModernWorkoutTypeButton: View {
+struct JR3pPqfV2aEfFQnN0c1Y1xnJG1Ly3Fvp: View {
     let type: String
     let icon: String
     let color: Color
@@ -51,13 +51,13 @@ struct ModernWorkoutTypeButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: 100)
             .background(
-                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                     .fill(isSelected ? 
                         LinearGradient(colors: [color, color.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing) :
                         LinearGradient(colors: [Color.white.opacity(0.08), Color.white.opacity(0.04)], startPoint: .topLeading, endPoint: .bottomTrailing)
                     )
                     .overlay(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                             .stroke(isSelected ? color.opacity(0.5) : Color.white.opacity(0.1), lineWidth: isSelected ? 2 : 1)
                     )
             )
@@ -77,7 +77,7 @@ struct ModernWorkoutTypeButton: View {
 }
 
 // MARK: - Success Modal Component
-struct SuccessModalView: View {
+struct l8KHgfumuyynsJtb04WRA9xcOAZks34R: View {
     let title: String
     let message: String
     let icon: String
@@ -92,22 +92,22 @@ struct SuccessModalView: View {
             VStack(spacing: 16) {
                 ZStack {
                     Circle()
-                        .fill(AppConstants.Design.green.opacity(0.2))
+                        .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.g6ulfCjB9tr2kTlC98jkNt7lvCVu3BSH.opacity(0.2))
                         .frame(width: 80, height: 80)
                     
                     Image(systemName: icon)
                         .font(.system(size: 48))
-                        .foregroundColor(AppConstants.Design.green)
+                        .foregroundColor(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.g6ulfCjB9tr2kTlC98jkNt7lvCVu3BSH)
                 }
                 
                 VStack(spacing: 8) {
                     Text(title)
-                        .font(AppConstants.Design.subheaderFont)
+                        .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.qginztZrG8YowoNdoaXjEAcxXYyyjnlT)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                     
                     Text(message)
-                        .font(AppConstants.Design.captionFont)
+                        .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.lsQGPy4QxpSwRnN9acKxlHS7hUYKqnmg)
                         .foregroundColor(.white.opacity(0.8))
                         .multilineTextAlignment(.center)
                 }
@@ -115,13 +115,13 @@ struct SuccessModalView: View {
             .frame(width: 280, height: 180)
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(AppConstants.Design.cardBackground(true))
+                    .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg(true))
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                            .stroke(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.hEHvnuhquOEbu91QYcb2ngjX1eTkwuVb(), lineWidth: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.kEdPhJbe9pFfxc6GmcCjsIcLRnkyRurM)
                     )
             )
-            .shadow(color: AppConstants.Design.cardShadow(), radius: 10)
+            .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.s06S6l2jYXUPYG94fTRPPLQQdZkx2hYz(), radius: 10)
             .scaleEffect(isVisible ? 1 : 0.8)
             .opacity(isVisible ? 1 : 0)
             .transition(.scale.combined(with: .opacity))
@@ -132,7 +132,7 @@ struct SuccessModalView: View {
 }
 
 // MARK: - Summary Metric Card Component
-struct SummaryMetricCard: View {
+struct vbM47y2u0RtVJW266wDAsRiLu9QHzogC: View {
     let icon: String
     let value: String
     let label: String
@@ -152,12 +152,12 @@ struct SummaryMetricCard: View {
             
             VStack(spacing: 4) {
                 Text(value)
-                    .font(AppConstants.Design.subheaderFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.qginztZrG8YowoNdoaXjEAcxXYyyjnlT)
                     .foregroundColor(.white)
                     .accessibilityLabel("\(value) \(label)")
                 
                 Text(label)
-                    .font(AppConstants.Design.footnoteFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.zOhE8MtN0Z8xUsj1pwHJeEuvzmgf7tYr)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.6)
@@ -170,24 +170,24 @@ struct SummaryMetricCard: View {
         .aspectRatio(1, contentMode: .fit)
         .padding(.vertical, 20)
         .background(
-            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                .fill(AppConstants.Design.cardBackground())
+            RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg())
                 .overlay(
-                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                        .stroke(AppConstants.Design.cardBorder(), lineWidth: AppConstants.UI.borderWidth)
+                    RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                        .stroke(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.hEHvnuhquOEbu91QYcb2ngjX1eTkwuVb(), lineWidth: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.kEdPhJbe9pFfxc6GmcCjsIcLRnkyRurM)
                 )
         )
-        .shadow(color: AppConstants.Design.cardShadow(), radius: AppConstants.UI.shadowRadius)
+        .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.s06S6l2jYXUPYG94fTRPPLQQdZkx2hYz(), radius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.bTCtL4JJ6s6CZeDy20yfXlv4bGc83wHJ)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(value) \(label)")
     }
 }
 
-struct RegistroView: View {
-    @StateObject private var workoutViewModel = WorkoutViewModel()
-    @StateObject private var customTrainingManager = CustomTrainingManager()
-    @ObservedObject private var offlineManager = OfflineManager.shared
-    @ObservedObject private var networkMonitor = NetworkMonitor.shared
+struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
+    @StateObject private var workoutViewModel = Jc55BDpU9b1oI7imy0dSuxhnsfADioo4()
+    @StateObject private var customTrainingManager = MquKYa6zIelLCz6Z4AhDl5XrdYZqIIR1()
+    @ObservedObject private var offlineManager = f44CM3JdBo3CztstNOncNr1s4UV8ejD1.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+    @ObservedObject private var networkMonitor = T6BDbtv2u0anCAqwtryY4XMWEB6pm5mX.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Binding var selectedTab: Int
     
@@ -197,7 +197,7 @@ struct RegistroView: View {
     @State private var showSuccessOverlay = false
     @State private var showAddCustomTraining = false
     @State private var showDeleteConfirmation = false
-    @State private var trainingToDelete: CustomTraining?
+    @State private var trainingToDelete: Rwq5UG4rvo7IhqKrt5SQ38RnUcfGPsYD?
     @Namespace private var heroAnimation
     
     // Button press state for save button animation
@@ -209,13 +209,13 @@ struct RegistroView: View {
     @State private var showValidationAlert = false
     @State private var validationAlertMessage = "Por favor corrige los errores en el formulario"
     
-    private let validator = InputValidator.shared
+    private let validator = VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     
     var isFormValid: Bool {
-        let durationResult = validator.isValidDuration(duracion)
-        let typeResult = validator.isValidWorkoutType(tipoSeleccionado)
+        let durationResult = validator.mK1HuXd0dllufICl3QQamyvCvsx1UOhe(duracion)
+        let typeResult = validator.yQTfzeSq7UapiEXhlhx81yO5cHtgXaYD(tipoSeleccionado)
         
-        return durationResult.isValid && typeResult.isValid
+        return durationResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP && typeResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
     }
     
     var body: some View {
@@ -225,13 +225,13 @@ struct RegistroView: View {
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
             
-            AppConstants.Design.backgroundGradient
+            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
                 .opacity(0.7)
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
                 // Network status banner
-                NetworkStatusBanner()
+                SFjoEA9WgrgcG2VXMOEPdBh25bSeyWSg()
                 
                 headerSection
                 
@@ -256,7 +256,7 @@ struct RegistroView: View {
             }
         }
         .overlay {
-            OverlaySuccessView(
+            wWSZ1770xFoHrYLOXIX3QK1M31SV1wMj(
                 title: "¡Entrenamiento guardado!",
                 subtitle: "Sigue así y alcanza tus metas",
                 isVisible: $showSuccessOverlay
@@ -264,17 +264,17 @@ struct RegistroView: View {
             .opacity(showSuccessOverlay ? 1 : 0)
             .allowsHitTesting(showSuccessOverlay)
         }
-        .onChange(of: workoutViewModel.showSuccess) { success in
+        .onChange(of: workoutViewModel.XBKRsaOVB7IubKbKig2RNYsBUWknczOR) { success in
             if success {
                 showSuccessOverlay = true
             }
         }
-        .alert("Error", isPresented: .constant(workoutViewModel.errorMessage != nil)) {
+        .alert("Error", isPresented: .constant(workoutViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy != nil)) {
             Button("OK") {
-                workoutViewModel.clearError()
+                workoutViewModel.EYA1lT4kx4ae526Okh9jsZgBxFHUOAsZ()
             }
         } message: {
-            Text(workoutViewModel.errorMessage ?? "")
+            Text(workoutViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy ?? "")
         }
         .alert("Datos inválidos", isPresented: $showValidationAlert) {
             Button("OK") {
@@ -289,7 +289,7 @@ struct RegistroView: View {
     private var headerSection: some View {
         HStack {
             Text("Nuevo Entrenamiento")
-                .font(AppConstants.Design.headerFont)
+                .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.VbiaN8et3V1H9i33HGvaIjSMOPgfM5UL)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
         }
@@ -305,7 +305,7 @@ struct RegistroView: View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text("Selecciona tu actividad")
-                    .font(AppConstants.Design.subheaderFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.qginztZrG8YowoNdoaXjEAcxXYyyjnlT)
                     .foregroundColor(.white)
                     .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
                     .opacity(animateOnAppear ? 1 : 0)
@@ -318,15 +318,15 @@ struct RegistroView: View {
             
             // Default activity types
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 2), spacing: 16) {
-                ForEach(Array(ActivityType.allTypes.enumerated()), id: \.offset) { index, activityType in
-                    ModernWorkoutTypeButton(
-                        type: activityType.name,
-                        icon: activityType.icon,
-                        color: activityType.color,
-                        isSelected: tipoSeleccionado == activityType.name
+                ForEach(Array(ihgdZCZ77qBKjAhR9r9jixKHxA35ZHNR.ZK6kyfYr0vLj1yUR7dvzoTjmnmUfNWDI.enumerated()), id: \.offset) { index, activityType in
+                    JR3pPqfV2aEfFQnN0c1Y1xnJG1Ly3Fvp(
+                        type: activityType.koIOMXzYPHchPAyY3M0OCT1ReFFoOqpJ,
+                        icon: activityType.QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj,
+                        color: activityType.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA,
+                        isSelected: tipoSeleccionado == activityType.koIOMXzYPHchPAyY3M0OCT1ReFFoOqpJ
                     ) {
                         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                            tipoSeleccionado = activityType.name
+                            tipoSeleccionado = activityType.koIOMXzYPHchPAyY3M0OCT1ReFFoOqpJ
                         }
                     }
                     .opacity(animateOnAppear ? 1 : 0)
@@ -337,12 +337,12 @@ struct RegistroView: View {
             .padding(.horizontal, 16)
             
             // Custom trainings section
-            if !customTrainingManager.customTrainings.isEmpty || customTrainingManager.canAddMoreTrainings() {
+            if !customTrainingManager.zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.isEmpty || customTrainingManager.PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu() {
                 customTrainingsSection
             }
         }
         .sheet(isPresented: $showAddCustomTraining) {
-            AddCustomTrainingView()
+            JwEMHAOLFU3QoFmE4JdeO2opAnNjRZ5X()
                 .environmentObject(customTrainingManager)
         }
         .alert("Eliminar Entrenamiento", isPresented: $showDeleteConfirmation) {
@@ -350,7 +350,7 @@ struct RegistroView: View {
             Button("Eliminar", role: .destructive) {
                 if let training = trainingToDelete {
                     withAnimation(.easeInOut(duration: 0.3)) {
-                        customTrainingManager.removeCustomTraining(training)
+                        customTrainingManager.Q6TViouC2E7V78xd81Ta8gTk6xvC5rB8(training)
                         if tipoSeleccionado == training.name {
                             tipoSeleccionado = "Cardio"
                         }
@@ -376,7 +376,7 @@ struct RegistroView: View {
                 
                 Spacer()
                 
-                if customTrainingManager.canAddMoreTrainings() {
+                if customTrainingManager.PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu() {
                     Button(action: {
                         showAddCustomTraining = true
                     }) {
@@ -391,8 +391,8 @@ struct RegistroView: View {
                         .padding(.vertical, 6)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .fill(AppConstants.Design.electricBlue)
-                                .shadow(color: AppConstants.Design.electricBlue.opacity(0.4), radius: 4, x: 0, y: 2)
+                                .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT)
+                                .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), radius: 4, x: 0, y: 2)
                         )
                     }
                 }
@@ -402,10 +402,10 @@ struct RegistroView: View {
             .offset(y: animateOnAppear ? 0 : 20)
             .animation(.easeOut(duration: 0.6).delay(0.8), value: animateOnAppear)
             
-            if !customTrainingManager.customTrainings.isEmpty {
+            if !customTrainingManager.zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.isEmpty {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 2), spacing: 16) {
-                    ForEach(Array(customTrainingManager.customTrainings.enumerated()), id: \.element.id) { index, customTraining in
-                        CustomWorkoutTypeButton(
+                    ForEach(Array(customTrainingManager.zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.enumerated()), id: \.element.id) { index, customTraining in
+                        Sonwv8s8aTlNcWiT9TaTKoejOVC2LzkM(
                             training: customTraining,
                             isSelected: tipoSeleccionado == customTraining.name,
                             onSelect: {
@@ -424,20 +424,20 @@ struct RegistroView: View {
                     }
                     
                     // Add button if there's space and less than max
-                    if customTrainingManager.canAddMoreTrainings() && customTrainingManager.customTrainings.count % 2 == 1 {
-                        AddTrainingButton {
+                    if customTrainingManager.PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu() && customTrainingManager.zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.count % 2 == 1 {
+                        yxWomeIShRzDF0eBuFCOnXbfMmpqe4Iu {
                             showAddCustomTraining = true
                         }
                         .opacity(animateOnAppear ? 1 : 0)
                         .offset(y: animateOnAppear ? 0 : 30)
-                        .animation(.easeOut(duration: 0.5).delay(0.9 + Double(customTrainingManager.customTrainings.count) * 0.05), value: animateOnAppear)
+                        .animation(.easeOut(duration: 0.5).delay(0.9 + Double(customTrainingManager.zaGunqeOYc8JPxMgK4gQmqOGUd2fafjW.count) * 0.05), value: animateOnAppear)
                     }
                 }
                 .padding(.horizontal, 16)
-            } else if customTrainingManager.canAddMoreTrainings() {
+            } else if customTrainingManager.PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu() {
                 // Show add button when no custom trainings exist
                 HStack {
-                    AddTrainingButton {
+                    yxWomeIShRzDF0eBuFCOnXbfMmpqe4Iu {
                         showAddCustomTraining = true
                     }
                     Spacer()
@@ -455,7 +455,7 @@ struct RegistroView: View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text("Duración del entrenamiento")
-                    .font(AppConstants.Design.subheaderFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.qginztZrG8YowoNdoaXjEAcxXYyyjnlT)
                     .foregroundColor(.white)
                     .opacity(animateOnAppear ? 1 : 0)
                     .offset(y: animateOnAppear ? 0 : 20)
@@ -475,7 +475,7 @@ struct RegistroView: View {
                         .frame(maxWidth: 120)
                         .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
                         .onChange(of: duracion) { _ in
-                            validateDurationField()
+                            Axpl8qOdzY7xWLvRNIqhc5cHQPWMFoCp()
                         }
                     
                     Text("minutos")
@@ -486,10 +486,10 @@ struct RegistroView: View {
                 .padding(.vertical, 24)
                 .padding(.horizontal, 24)
                 .background(
-                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
-                        .fill(AppConstants.Design.cardBackground(true))
+                    RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
+                        .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg(true))
                         .overlay(
-                            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                            RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                                 .stroke(
                                     durationError != nil ? 
                                     Color.red.opacity(0.6) : 
@@ -498,7 +498,7 @@ struct RegistroView: View {
                                 )
                         )
                 )
-                .shadow(color: AppConstants.Design.cardShadow(), radius: 8, x: 0, y: 4)
+                .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.s06S6l2jYXUPYG94fTRPPLQQdZkx2hYz(), radius: 8, x: 0, y: 4)
                 
                 // Duration error message
                 if let durationError = durationError {
@@ -523,7 +523,7 @@ struct RegistroView: View {
     private var quickDurationButtons: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Duraciones comunes")
-                .font(AppConstants.Design.footnoteFont)
+                .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.zOhE8MtN0Z8xUsj1pwHJeEuvzmgf7tYr)
                 .foregroundColor(.white.opacity(0.8))
             
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 8) {
@@ -531,23 +531,23 @@ struct RegistroView: View {
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             duracion = "\(minutes)"
-                            validateDurationField()
+                            Axpl8qOdzY7xWLvRNIqhc5cHQPWMFoCp()
                         }
                     }) {
                         Text("\(minutes)")
-                            .font(AppConstants.Design.captionFont)
+                            .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.lsQGPy4QxpSwRnN9acKxlHS7hUYKqnmg)
                             .foregroundColor(duracion == "\(minutes)" ? .white : .white.opacity(0.8))
-                            .frame(height: AppConstants.UI.minTouchTarget)
+                            .frame(height: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.ZPiJx0tqo8n2DtmG0CeHsdjOg2YoQqZx)
                             .frame(maxWidth: .infinity)
                             .background(
-                                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusS)
-                                    .fill(duracion == "\(minutes)" ? AnyShapeStyle(AppConstants.Design.blue) : AnyShapeStyle(AppConstants.Design.cardBackground()))
+                                RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.drEz2aTU4wuyafcRik6r81dFj2b4GDPU)
+                                    .fill(duracion == "\(minutes)" ? AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr) : AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg()))
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusS)
-                                            .stroke(duracion == "\(minutes)" ? AnyShapeStyle(AppConstants.Design.blue.opacity(0.3)) : AnyShapeStyle(AppConstants.Design.cardBorder()), lineWidth: AppConstants.UI.borderWidth)
+                                        RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.drEz2aTU4wuyafcRik6r81dFj2b4GDPU)
+                                            .stroke(duracion == "\(minutes)" ? AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr.opacity(0.3)) : AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.hEHvnuhquOEbu91QYcb2ngjX1eTkwuVb()), lineWidth: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.kEdPhJbe9pFfxc6GmcCjsIcLRnkyRurM)
                                     )
                             )
-                            .shadow(color: duracion == "\(minutes)" ? AppConstants.Design.blue.opacity(0.3) : .clear, radius: 2)
+                            .shadow(color: duracion == "\(minutes)" ? pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr.opacity(0.3) : .clear, radius: 2)
                     }
                     .animation(.easeInOut(duration: 0.2), value: duracion == "\(minutes)")
                 }
@@ -560,7 +560,7 @@ struct RegistroView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Text("Resumen")
-                    .font(AppConstants.Design.subheaderFont)
+                    .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.qginztZrG8YowoNdoaXjEAcxXYyyjnlT)
                     .foregroundColor(.white)
                     .opacity(animateOnAppear ? 1 : 0)
                     .offset(y: animateOnAppear ? 0 : 20)
@@ -571,7 +571,7 @@ struct RegistroView: View {
             .padding(.horizontal, 16)
             
             HStack(spacing: 12) {
-                SummaryMetricCard(
+                vbM47y2u0RtVJW266wDAsRiLu9QHzogC(
                     icon: "clock.fill",
                     value: duracion.isEmpty ? "0" : duracion,
                     label: "Minutos",
@@ -579,9 +579,9 @@ struct RegistroView: View {
                 )
                 .matchedGeometryEffect(id: "minutes", in: heroAnimation)
                 
-                SummaryMetricCard(
+                vbM47y2u0RtVJW266wDAsRiLu9QHzogC(
                     icon: "flame.fill",
-                    value: duracion.isEmpty ? "0" : "\(AppConstants.calculateCalories(for: Int(duracion) ?? 0))",
+                    value: duracion.isEmpty ? "0" : "\(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for: Int(duracion) ?? 0))",
                     label: "Calorías",
                     tint: .orange
                 )
@@ -597,9 +597,9 @@ struct RegistroView: View {
     // MARK: - Bottom Action Section
     private var bottomActionSection: some View {
         VStack(spacing: 16) {
-            Button(action: saveWorkout) {
+            Button(action: Q6FQiudhsBje7gcQQ0nF3ogoeJ65kYIX) {
                 HStack(spacing: 12) {
-                    if workoutViewModel.isLoading {
+                    if workoutViewModel.YSuY2aW2PCZkKwq4ph5miIoJ2ncJmCdo {
                         ProgressView()
                             .scaleEffect(0.8)
                             .tint(.white)
@@ -609,7 +609,7 @@ struct RegistroView: View {
                             .foregroundColor(.white)
                     }
                     
-                    Text(workoutViewModel.isLoading ? "Guardando..." : "Guardar Entrenamiento")
+                    Text(workoutViewModel.YSuY2aW2PCZkKwq4ph5miIoJ2ncJmCdo ? "Guardando..." : "Guardar Entrenamiento")
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.white)
                 }
@@ -627,7 +627,7 @@ struct RegistroView: View {
                 .animation(.easeInOut(duration: 0.2), value: isFormValid)
                 .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSaveButtonPressed)
             }
-            .disabled(!isFormValid || workoutViewModel.isLoading)
+            .disabled(!isFormValid || workoutViewModel.YSuY2aW2PCZkKwq4ph5miIoJ2ncJmCdo)
             .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
                 isSaveButtonPressed = pressing
             }, perform: {})
@@ -638,7 +638,7 @@ struct RegistroView: View {
                     duracion = ""
                 }
             }
-            .font(AppConstants.Design.captionFont)
+            .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.lsQGPy4QxpSwRnN9acKxlHS7hUYKqnmg)
             .foregroundColor(.white.opacity(0.6))
         }
         .padding(.horizontal, 16)
@@ -656,36 +656,36 @@ struct RegistroView: View {
     
     // MARK: - Validation Methods
     
-    private func validateDurationField() {
-        let result = validator.isValidDuration(duracion)
+    private func Axpl8qOdzY7xWLvRNIqhc5cHQPWMFoCp() {
+        let result = validator.mK1HuXd0dllufICl3QQamyvCvsx1UOhe(duracion)
         withAnimation(.easeInOut(duration: 0.3)) {
-            durationError = result.isValid ? nil : result.errorMessage
+            durationError = result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP ? nil : result.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
         }
     }
     
-    private func validateTypeField() {
-        let result = validator.isValidWorkoutType(tipoSeleccionado)
+    private func QSbYcsvCa6jy9a06wtSCDfk3bSEt0lFP() {
+        let result = validator.yQTfzeSq7UapiEXhlhx81yO5cHtgXaYD(tipoSeleccionado)
         withAnimation(.easeInOut(duration: 0.3)) {
-            typeError = result.isValid ? nil : result.errorMessage
+            typeError = result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP ? nil : result.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
         }
     }
     
-    private func validateForm() -> Bool {
-        validateDurationField()
-        validateTypeField()
+    private func tZUsKnLbJiZReoiix0Dum4cD6apyZa4D() -> Bool {
+        Axpl8qOdzY7xWLvRNIqhc5cHQPWMFoCp()
+        QSbYcsvCa6jy9a06wtSCDfk3bSEt0lFP()
         
         return durationError == nil && typeError == nil
     }
     
-    private func validateCompleteWorkout() -> Bool {
+    private func Kpi8sXbTgHCdZNmlB5vxM8cn96JM3G0o() -> Bool {
         // Use the same validation pattern as the form
-        let durationValid = validator.isValidDuration(duracion).isValid
-        let typeValid = validator.isValidWorkoutType(tipoSeleccionado).isValid
+        let durationValid = validator.mK1HuXd0dllufICl3QQamyvCvsx1UOhe(duracion).rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
+        let typeValid = validator.yQTfzeSq7UapiEXhlhx81yO5cHtgXaYD(tipoSeleccionado).rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
         
         // Additional validation for calculated calories
         if let durationInt = Int(duracion) {
-            let calories = AppConstants.calculateCalories(for: durationInt)
-            let caloriesValid = validator.isValidCalories(calories).isValid
+            let calories = pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for: durationInt)
+            let caloriesValid = validator.UeuZ4TttshvAphn0ACvLfm5t5LOE5kqT(calories).rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
             return durationValid && typeValid && caloriesValid
         }
         
@@ -693,34 +693,34 @@ struct RegistroView: View {
     }
     
     // MARK: - Save Function
-    private func saveWorkout() {
+    private func Q6FQiudhsBje7gcQQ0nF3ogoeJ65kYIX() {
         // Validate form fields first
-        guard validateForm() else {
+        guard tZUsKnLbJiZReoiix0Dum4cD6apyZa4D() else {
             validationAlertMessage = "Por favor corrige los errores en el formulario antes de continuar."
             showValidationAlert = true
             return
         }
         
         // Validate complete workout data including calories
-        guard validateCompleteWorkout() else {
+        guard Kpi8sXbTgHCdZNmlB5vxM8cn96JM3G0o() else {
             validationAlertMessage = "Los datos del entrenamiento no son válidos. Revisa la duración y el tipo de ejercicio."
             showValidationAlert = true
             return
         }
         
         // Sanitize inputs before saving
-        let sanitizedDuration = validator.sanitizeInput(duracion)
-        let sanitizedType = validator.sanitizeInput(tipoSeleccionado)
+        let sanitizedDuration = validator.S1FcBW204dzhY83hyyJGO8udFCyY9l66(duracion)
+        let sanitizedType = validator.S1FcBW204dzhY83hyyJGO8udFCyY9l66(tipoSeleccionado)
         
-        let validationResult = AppConstants.validateWorkoutDuration(sanitizedDuration)
+        let validationResult = pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.r394gO8EYYjBidmh5QxY475XdYckv2xp(sanitizedDuration)
         
         switch validationResult {
         case .success(let validDuration):
-            let calories = Int32(AppConstants.calculateCalories(for: validDuration))
+            let calories = Int32(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for: validDuration))
             
             // Use basic Core Data saving with offline capability built into CloudKit
             Task {
-                await workoutViewModel.saveWorkout(
+                await workoutViewModel.Q6FQiudhsBje7gcQQ0nF3ogoeJ65kYIX(
                     type: sanitizedType,
                     duration: validDuration,
                     managedObjectContext: managedObjectContext
@@ -728,7 +728,7 @@ struct RegistroView: View {
                 
                 // Handle success state on main actor
                 await MainActor.run {
-                    if workoutViewModel.showSuccess {
+                    if workoutViewModel.XBKRsaOVB7IubKbKig2RNYsBUWknczOR {
                         // Enhanced logging for offline detection
                         print("[U+1F3C3]‍♂️ Entrenamiento guardado - CloudKit manejará sync automáticamente")
                         print("[U+1F4CA] Tipo: \(tipoSeleccionado), Duración: \(validDuration) min")
@@ -756,14 +756,14 @@ struct RegistroView: View {
             }
             
         case .failure(let error):
-            workoutViewModel.errorMessage = error.localizedDescription
+            workoutViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = error.localizedDescription
         }
     }
 }
 
 // MARK: - Custom Workout Type Button Component
-struct CustomWorkoutTypeButton: View {
-    let training: CustomTraining
+struct Sonwv8s8aTlNcWiT9TaTKoejOVC2LzkM: View {
+    let training: Rwq5UG4rvo7IhqKrt5SQ38RnUcfGPsYD
     let isSelected: Bool
     let onSelect: () -> Void
     let onDelete: () -> Void
@@ -780,7 +780,7 @@ struct CustomWorkoutTypeButton: View {
                         .fill(
                             isSelected ? 
                                 LinearGradient(
-                                    colors: [AppConstants.Design.electricBlue, AppConstants.Design.softPurple],
+                                    colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ) :
@@ -791,7 +791,7 @@ struct CustomWorkoutTypeButton: View {
                                 )
                         )
                         .frame(width: 60, height: 60)
-                        .shadow(color: isSelected ? AppConstants.Design.electricBlue.opacity(0.4) : .clear, radius: 6, x: 0, y: 3)
+                        .shadow(color: isSelected ? pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4) : .clear, radius: 6, x: 0, y: 3)
                     
                     Image(systemName: training.iconName)
                         .font(.system(size: 28, weight: .semibold))
@@ -831,11 +831,11 @@ struct CustomWorkoutTypeButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: 100)
             .background(
-                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                     .fill(
                         isSelected ? 
                             LinearGradient(
-                                colors: [AppConstants.Design.electricBlue.opacity(0.3), AppConstants.Design.softPurple.opacity(0.2)],
+                                colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.3), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.2)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ) :
@@ -846,15 +846,15 @@ struct CustomWorkoutTypeButton: View {
                             )
                     )
                     .overlay(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                             .stroke(
-                                isSelected ? AppConstants.Design.electricBlue.opacity(0.5) : Color.white.opacity(0.1),
+                                isSelected ? pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.5) : Color.white.opacity(0.1),
                                 lineWidth: isSelected ? 2 : 1
                             )
                     )
             )
             .shadow(
-                color: isSelected ? AppConstants.Design.electricBlue.opacity(0.3) : .black.opacity(0.1),
+                color: isSelected ? pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.3) : .black.opacity(0.1),
                 radius: isSelected ? 8 : 4,
                 x: 0,
                 y: isSelected ? 4 : 2
@@ -886,7 +886,7 @@ struct CustomWorkoutTypeButton: View {
 }
 
 // MARK: - Add Training Button Component
-struct AddTrainingButton: View {
+struct yxWomeIShRzDF0eBuFCOnXbfMmpqe4Iu: View {
     let action: () -> Void
     
     @State private var isPressed = false
@@ -908,7 +908,7 @@ struct AddTrainingButton: View {
                             Circle()
                                 .stroke(
                                     LinearGradient(
-                                        colors: [AppConstants.Design.electricBlue.opacity(0.4), AppConstants.Design.softPurple.opacity(0.2)],
+                                        colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.2)],
                                         startPoint: .topLeading,
                                         endPoint: .bottomTrailing
                                     ),
@@ -929,7 +929,7 @@ struct AddTrainingButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: 100)
             .background(
-                RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                     .fill(
                         LinearGradient(
                             colors: [Color.white.opacity(0.05), Color.white.opacity(0.02)],
@@ -938,10 +938,10 @@ struct AddTrainingButton: View {
                         )
                     )
                     .overlay(
-                        RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                        RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                             .stroke(
                                 LinearGradient(
-                                    colors: [AppConstants.Design.electricBlue.opacity(0.3), AppConstants.Design.softPurple.opacity(0.15)],
+                                    colors: [pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.3), pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.DRvlvbJhxV7mCrFqbBkEol95863hAZF0.opacity(0.15)],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ),
@@ -962,6 +962,6 @@ struct AddTrainingButton: View {
 }
 
 #Preview {
-    RegistroView(selectedTab: .constant(1))
-        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2(selectedTab: .constant(1))
+        .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
 }

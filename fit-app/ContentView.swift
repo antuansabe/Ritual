@@ -1,80 +1,80 @@
 import SwiftUI
 
-struct ContentView: View {
+struct B2rIflV5J4IUvMWrPeMVoV4aFDkd8UwZ: View {
     @State private var selectedTab = 0
-    let persistenceController = PersistenceController.shared
+    let persistenceController = GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     
     var body: some View {
         ZStack {
             // Background gradient
-            AppConstants.Design.backgroundGradient
+            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
                 .ignoresSafeArea()
             
             TabView(selection: $selectedTab) {
                 NavigationStack {
-                    InicioView(selectedTab: $selectedTab)
+                    nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ(selectedTab: $selectedTab)
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 0 ? "house.fill" : "house")
                         .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
                     Text("Inicio")
-                        .font(AppConstants.Design.footnoteFont)
+                        .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.zOhE8MtN0Z8xUsj1pwHJeEuvzmgf7tYr)
                 }
                 .tag(0)
                 
                 NavigationStack {
-                    RegistroView(selectedTab: $selectedTab)
+                    IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2(selectedTab: $selectedTab)
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 1 ? "plus.circle.fill" : "plus.circle")
                         .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
                     Text("Registrar")
-                        .font(AppConstants.Design.footnoteFont)
+                        .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.zOhE8MtN0Z8xUsj1pwHJeEuvzmgf7tYr)
                 }
                 .tag(1)
                 
                 NavigationStack {
-                    TimerView()
+                    dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl()
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 2 ? "timer" : "timer")
                         .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
                     Text("Timer")
-                        .font(AppConstants.Design.footnoteFont)
+                        .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.zOhE8MtN0Z8xUsj1pwHJeEuvzmgf7tYr)
                 }
                 .tag(2)
                 
                 NavigationStack {
-                    HistorialView()
+                    GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n()
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 3 ? "chart.bar.fill" : "chart.bar")
                         .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
                     Text("Historial")
-                        .font(AppConstants.Design.footnoteFont)
+                        .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.zOhE8MtN0Z8xUsj1pwHJeEuvzmgf7tYr)
                 }
                 .tag(3)
                 
                 NavigationStack {
-                    PerfilView()
+                    q29ClCI2LABu3hQnTLcu6EAO6vHtllJW()
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 4 ? "person.crop.circle.fill" : "person.crop.circle")
                         .environment(\.symbolVariants, selectedTab == 4 ? .fill : .none)
                     Text("Perfil")
-                        .font(AppConstants.Design.footnoteFont)
+                        .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.zOhE8MtN0Z8xUsj1pwHJeEuvzmgf7tYr)
                 }
                 .tag(4)
             }
-            .tint(AppConstants.Design.blue)
+            .tint(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr)
             .toolbarBackground(.ultraThinMaterial, for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)
         }
-        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        .environment(\.managedObjectContext, persistenceController.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
     }
 }
 
 #Preview {
-    ContentView()
-        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    B2rIflV5J4IUvMWrPeMVoV4aFDkd8UwZ()
+        .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
 }

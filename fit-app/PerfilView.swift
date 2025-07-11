@@ -2,12 +2,12 @@ import SwiftUI
 import CoreData
 import CloudKit
 
-struct PerfilView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
-    @EnvironmentObject var userProfileManager: UserProfileManager
+struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
+    @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
+    @EnvironmentObject var userProfileManager: gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
-    @StateObject private var motivationalManager = MotivationalMessageManager()
+    @StateObject private var motivationalManager = XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5()
     
     @State private var showingCloudKitTest = false
     @State private var showingCloudKitConflicts = false
@@ -19,7 +19,7 @@ struct PerfilView: View {
     @State private var editingName = ""
     @State private var nameError: String? = nil
     
-    private let validator = InputValidator.shared
+    private let validator = VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     @State private var showingNameUpdatedMessage = false
     
     private var weeklyGoal: Int {
@@ -28,11 +28,11 @@ struct PerfilView: View {
     }
     
     private var currentUserName: String {
-        if !userProfileManager.displayName.isEmpty && userProfileManager.displayName != "Atleta" {
-            return userProfileManager.displayName
+        if !userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8.isEmpty && userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 != "Atleta" {
+            return userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8
         }
         // Get from SecureStorage only
-        if let secureUserName = SecureStorage.shared.retrieveEncrypted(for: SecureStorage.StorageKeys.userDisplayName) {
+        if let secureUserName = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.YhyL54l7qYGd78Z7egtPFzCWzLff1uDd) {
             return secureUserName
         }
         return "Usuario"
@@ -98,7 +98,7 @@ struct PerfilView: View {
         )
         .navigationBarHidden(true)
         .sheet(isPresented: $showingCloudKitTest) {
-            SimpleCloudKitTestView()
+            PkzOiTS3hyl3qrAITSwTANM7qA0J5n4Q()
         }
         .sheet(isPresented: $showingCloudKitConflicts) {
             // CloudKitConflictView() // Temporarily disabled
@@ -106,12 +106,12 @@ struct PerfilView: View {
                 .navigationTitle("CloudKit Monitor")
         }
         .sheet(isPresented: $showingWeeklyGoal) {
-            WeeklyGoalView()
+            Xj3WJQIjdqYVZ7GRqNsGGOF8t6wx845J()
         }
         .alert("Cerrar sesión", isPresented: $showingLogoutConfirmation) {
             Button("Cancelar", role: .cancel) { }
             Button("Cerrar sesión", role: .destructive) {
-                authViewModel.signOut()
+                authViewModel.xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y()
             }
         } message: {
             Text("¿Estás seguro de que quieres cerrar sesión?")
@@ -222,7 +222,7 @@ struct PerfilView: View {
             }
             
             HStack(spacing: 16) {
-                StatCard(
+                Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                     icon: "figure.walk.circle.fill",
                     value: "\(workouts.count)",
                     label: "Entrenamientos",
@@ -230,7 +230,7 @@ struct PerfilView: View {
                     accentColor: .blue.opacity(0.2)
                 )
                 
-                StatCard(
+                Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                     icon: "clock.fill",
                     value: "\(workouts.reduce(0) { $0 + Int($1.duration) })",
                     label: "Minutos",
@@ -238,7 +238,7 @@ struct PerfilView: View {
                     accentColor: .green.opacity(0.2)
                 )
                 
-                StatCard(
+                Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                     icon: "flame.fill",
                     value: "\(workouts.reduce(0) { $0 + Int($1.calories) })",
                     label: "Calorías",
@@ -330,7 +330,7 @@ struct PerfilView: View {
                     HStack(spacing: 12) {
                         Image(systemName: "gear")
                             .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(AppConstants.Design.electricBlue)
+                            .foregroundColor(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT)
                         
                         Text("Cambiar meta semanal")
                             .font(.system(size: 16, weight: .semibold, design: .rounded))
@@ -356,10 +356,10 @@ struct PerfilView: View {
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
-                                    .stroke(AppConstants.Design.electricBlue.opacity(0.3), lineWidth: 1.5)
+                                    .stroke(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.3), lineWidth: 1.5)
                             )
                     )
-                    .shadow(color: AppConstants.Design.electricBlue.opacity(0.2), radius: 6, x: 0, y: 3)
+                    .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.2), radius: 6, x: 0, y: 3)
                 }
                 .buttonStyle(PlainButtonStyle())
                 .scaleEffect(1.0)
@@ -392,7 +392,7 @@ struct PerfilView: View {
                 }
                 Spacer()
                 
-                NavigationLink(destination: HistorialView()) {
+                NavigationLink(destination: GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n()) {
                     HStack(spacing: 6) {
                         Text("Ver todo")
                             .font(.system(size: 14, weight: .medium))
@@ -428,7 +428,7 @@ struct PerfilView: View {
                     
                     VStack(spacing: 12) {
                         ForEach(recentWorkouts, id: \.id) { workout in
-                            RecentWorkoutRow(workout: workout)
+                            fM0AZDH6Yec2hzQWdXDePaBvu63dLdVu(workout: workout)
                         }
                     }
                     
@@ -476,8 +476,8 @@ struct PerfilView: View {
                 GridItem(.flexible(), spacing: 12),
                 GridItem(.flexible(), spacing: 12)
             ], spacing: 16) {
-                ForEach(achievements, id: \.id) { achievement in
-                    ModernAchievementCard(achievement: achievement)
+                ForEach(achievements, id: \.joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI) { achievement in
+                    UwIChVEYEahKl3Gq9X0eh5RvS2zyDmwr(achievement: achievement)
                 }
             }
         }
@@ -563,7 +563,7 @@ struct PerfilView: View {
                 
                 // Reset Welcome Button (for testing)
                 Button(action: {
-                    authViewModel.resetWelcomeFlag()
+                    authViewModel.ztuC6ouObpK3d02zNnL26mSYTqqAWYcM()
                 }) {
                     HStack(spacing: 12) {
                         Image(systemName: "arrow.clockwise.circle.fill")
@@ -589,7 +589,7 @@ struct PerfilView: View {
                 }
                 
                 // Logout Button using reusable component
-                SignOutButton(style: .card)
+                fdsNnzsNuc4ubtpYpSbsrJfmPuz1AmGM(style: .card)
             }
         }
     }
@@ -597,30 +597,30 @@ struct PerfilView: View {
     // MARK: - Motivational Section
     private var motivationalSection: some View {
         let workoutArray = Array(workouts)
-        let daysSinceLastWorkout = motivationalManager.calculateDaysSinceLastWorkout(workouts: workoutArray)
-        let currentStreak = motivationalManager.calculateCurrentStreak(workouts: workoutArray)
-        let message = motivationalManager.getMessage(for: .profile, daysSinceLastWorkout: daysSinceLastWorkout, currentStreak: currentStreak)
+        let daysSinceLastWorkout = motivationalManager.XpXjs2s0i38zzDWZ3PBpGos6nHfcnQ9A(workouts: workoutArray)
+        let currentStreak = motivationalManager.ES0BZT8uITuIRS240cz0GJ4YC02PSyRU(workouts: workoutArray)
+        let message = motivationalManager.Ybk5XOhw1M7TunRE3Dn538FHOpTonv3u(for: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1, daysSinceLastWorkout: daysSinceLastWorkout, currentStreak: currentStreak)
         
-        return MotivationalCardView(message: message, style: .prominent)
+        return F86UW67ccAWVKtMzac7t2afh26jfxsLy(message: message, style: .prominent)
     }
     
     // MARK: - Network Status Section
     private var networkStatusSection: some View {
-        NetworkStatusCard()
+        kpzgruBC1Plnfc1qqU6PbDLy9aJwEMTS()
     }
     
     // MARK: - Helper Functions
     
-    private var achievements: [Achievement] {
+    private var achievements: [EABnaL1XzCUCZkIaZIAdA7g308u3aHKs] {
         [
-            Achievement(id: 1, title: "Primer Paso", description: "Completa tu primer entrenamiento", icon: "star.fill", color: .yellow, isUnlocked: workouts.count > 0),
-            Achievement(id: 2, title: "Constancia", description: "5 días seguidos entrenando", icon: "flame.fill", color: .orange, isUnlocked: calculateCurrentStreak() >= 5),
-            Achievement(id: 3, title: "Meta Semanal", description: "Completa tu meta semanal", icon: "target", color: .blue, isUnlocked: workoutsThisWeek >= weeklyGoal),
-            Achievement(id: 4, title: "Disciplinado", description: "10 entrenamientos completados", icon: "figure.walk", color: .green, isUnlocked: workouts.count >= 10)
+            EABnaL1XzCUCZkIaZIAdA7g308u3aHKs(joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI: 1, FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Primer Paso", W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "Completa tu primer entrenamiento", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "star.fill", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .yellow, WPOomtGamDTA3limTrUPOXHSA1x0PB4H: workouts.count > 0),
+            EABnaL1XzCUCZkIaZIAdA7g308u3aHKs(joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI: 2, FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Constancia", W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "5 días seguidos entrenando", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "flame.fill", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .orange, WPOomtGamDTA3limTrUPOXHSA1x0PB4H: ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() >= 5),
+            EABnaL1XzCUCZkIaZIAdA7g308u3aHKs(joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI: 3, FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Meta Semanal", W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "Completa tu meta semanal", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "target", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .blue, WPOomtGamDTA3limTrUPOXHSA1x0PB4H: workoutsThisWeek >= weeklyGoal),
+            EABnaL1XzCUCZkIaZIAdA7g308u3aHKs(joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI: 4, FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Disciplinado", W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "10 entrenamientos completados", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "figure.walk", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .green, WPOomtGamDTA3limTrUPOXHSA1x0PB4H: workouts.count >= 10)
         ]
     }
     
-    private func calculateCurrentStreak() -> Int {
+    private func ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() -> Int {
         let calendar = Calendar.current
         let sortedWorkouts = workouts.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
         guard !sortedWorkouts.isEmpty else { return 0 }
@@ -699,10 +699,10 @@ struct PerfilView: View {
                     )
                     .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
                     .onChange(of: editingName) { _ in
-                        validateNameField()
+                        ycDqjzbaCRg5L1YpaodzGsvd17YjtTKN()
                     }
                     .onSubmit {
-                        saveNameChange()
+                        lCnkV0T45rorjsNFEjlYtQLAF58nRYcs()
                     }
             }
             
@@ -744,7 +744,7 @@ struct PerfilView: View {
                 
                 // Save button
                 Button(action: {
-                    saveNameChange()
+                    lCnkV0T45rorjsNFEjlYtQLAF58nRYcs()
                 }) {
                     HStack(spacing: 8) {
                         Image(systemName: "checkmark")
@@ -786,31 +786,31 @@ struct PerfilView: View {
     
     // MARK: - Name Editing Actions
     
-    private func validateNameField() {
-        let result = validator.isValidName(editingName)
+    private func ycDqjzbaCRg5L1YpaodzGsvd17YjtTKN() {
+        let result = validator.GukvlHdwqqo9fBJgWjzJJvFe5OMUEOjg(editingName)
         withAnimation(.easeInOut(duration: 0.3)) {
-            nameError = result.isValid ? nil : result.errorMessage
+            nameError = result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP ? nil : result.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
         }
     }
     
-    private func saveNameChange() {
+    private func lCnkV0T45rorjsNFEjlYtQLAF58nRYcs() {
         // Validate first
-        let validationResult = validator.isValidName(editingName)
-        guard validationResult.isValid else {
-            nameError = validationResult.errorMessage
+        let validationResult = validator.GukvlHdwqqo9fBJgWjzJJvFe5OMUEOjg(editingName)
+        guard validationResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP else {
+            nameError = validationResult.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
             return
         }
         // Sanitize the input
-        let sanitizedName = validator.sanitizeInput(editingName)
+        let sanitizedName = validator.S1FcBW204dzhY83hyyJGO8udFCyY9l66(editingName)
         
         // Clear any existing error
         nameError = nil
         
         // Update UserProfileManager
-        userProfileManager.updateDisplayName(sanitizedName)
+        userProfileManager.wFHSixC97l4MCTtHzG1HCsCLxkuaU2Tl(sanitizedName)
         
         // Store securely in Keychain
-        _ = SecureStorage.shared.storeEncrypted(sanitizedName, for: SecureStorage.StorageKeys.userDisplayName)
+        _ = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.GpX2gmw5MvTjIh4UaeYUjQdWdoMsVBcp(sanitizedName, for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.YhyL54l7qYGd78Z7egtPFzCWzLff1uDd)
         
         // UserDefaults removed - using SecureStorage only for security
         
@@ -838,7 +838,7 @@ struct PerfilView: View {
 
 // MARK: - Supporting Views
 
-struct StatCard: View {
+struct Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1: View {
     let icon: String
     let value: String
     let label: String
@@ -846,7 +846,7 @@ struct StatCard: View {
     let accentColor: Color
     
     var body: some View {
-        VStack(spacing: AppConstants.UI.spacingM) {
+        VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX) {
             ZStack {
                 Circle()
                     .fill(accentColor)
@@ -858,7 +858,7 @@ struct StatCard: View {
                     .foregroundColor(color)
             }
             
-            VStack(spacing: AppConstants.UI.spacingXS) {
+            VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.GPTIMVzXVhYLFkeR151yq7JxB8fmAAgB) {
                 Text(value)
                     .font(.system(size: 22, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
@@ -873,13 +873,13 @@ struct StatCard: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, AppConstants.UI.spacingL)
-        .padding(.horizontal, AppConstants.UI.spacingM)
+        .padding(.vertical, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
+        .padding(.horizontal, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX)
         .background(
-            RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+            RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                 .fill(Color.white.opacity(0.08))
                 .overlay(
-                    RoundedRectangle(cornerRadius: AppConstants.UI.cornerRadiusL)
+                    RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                         .stroke(color.opacity(0.2), lineWidth: 1)
                 )
         )
@@ -890,28 +890,28 @@ struct StatCard: View {
 }
 
 
-struct ModernAchievementCard: View {
-    let achievement: Achievement
+struct UwIChVEYEahKl3Gq9X0eh5RvS2zyDmwr: View {
+    let achievement: EABnaL1XzCUCZkIaZIAdA7g308u3aHKs
     
     var body: some View {
         VStack(spacing: 12) {
             ZStack {
                 Circle()
-                    .fill(achievement.color.opacity(0.2))
+                    .fill(achievement.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.2))
                     .frame(width: 60, height: 60)
                 
-                Image(systemName: achievement.icon)
+                Image(systemName: achievement.QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj)
                     .font(.system(size: 28, weight: .semibold))
-                    .foregroundColor(achievement.isUnlocked ? achievement.color : .gray)
+                    .foregroundColor(achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? achievement.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA : .gray)
             }
             
             VStack(spacing: 4) {
-                Text(achievement.title)
+                Text(achievement.FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf)
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(achievement.isUnlocked ? .white : .gray)
+                    .foregroundColor(achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? .white : .gray)
                     .multilineTextAlignment(.center)
                 
-                Text(achievement.description)
+                Text(achievement.W5TVRE97oSlHf67bpUXP80LgXeYzET6B)
                     .font(.system(size: 11, weight: .medium))
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
@@ -923,21 +923,21 @@ struct ModernAchievementCard: View {
         .padding(.horizontal, 12)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(achievement.isUnlocked ? 0.05 : 0.02))
+                .fill(Color.white.opacity(achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? 0.05 : 0.02))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(
-                            achievement.isUnlocked ? achievement.color.opacity(0.3) : Color.white.opacity(0.1),
+                            achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? achievement.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.3) : Color.white.opacity(0.1),
                             lineWidth: 1
                         )
                 )
         )
-        .scaleEffect(achievement.isUnlocked ? 1.0 : 0.95)
-        .opacity(achievement.isUnlocked ? 1.0 : 0.6)
+        .scaleEffect(achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? 1.0 : 0.95)
+        .opacity(achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? 1.0 : 0.6)
     }
 }
 
-struct RecentWorkoutRow: View {
+struct fM0AZDH6Yec2hzQWdXDePaBvu63dLdVu: View {
     let workout: WorkoutEntity
     
     private var workoutIcon: String {
@@ -1010,17 +1010,17 @@ struct RecentWorkoutRow: View {
 
 // MARK: - Data Models
 
-struct Achievement {
-    let id: Int
-    let title: String
-    let description: String
-    let icon: String
-    let color: Color
-    let isUnlocked: Bool
+struct EABnaL1XzCUCZkIaZIAdA7g308u3aHKs {
+    let joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI: Int
+    let FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: String
+    let W5TVRE97oSlHf67bpUXP80LgXeYzET6B: String
+    let QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: String
+    let QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: Color
+    let WPOomtGamDTA3limTrUPOXHSA1x0PB4H: Bool
 }
 
 // MARK: - Simple CloudKit Test View
-struct SimpleCloudKitTestView: View {
+struct PkzOiTS3hyl3qrAITSwTANM7qA0J5n4Q: View {
     @Environment(\.dismiss) private var dismiss
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
@@ -1051,7 +1051,7 @@ struct SimpleCloudKitTestView: View {
             }
         }
         .onAppear {
-            addTestResult("[U+1F4F1] Vista de testing CloudKit iniciada")
+            L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F4F1] Vista de testing CloudKit iniciada")
         }
     }
     
@@ -1106,7 +1106,7 @@ struct SimpleCloudKitTestView: View {
                             
                             Spacer()
                             
-                            Text(formatDate(workout.date))
+                            Text(zTTSnqpXq6fSCVYCQZOyyMNzvBlGR5AA(workout.date))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
@@ -1129,22 +1129,22 @@ struct SimpleCloudKitTestView: View {
                 .fontWeight(.semibold)
             
             VStack(spacing: 12) {
-                testButton(
+                xBPGLLcydtR2Wllc3ZTM59D0Cn2NIS5q(
                     title: "Verificar Cuenta iCloud",
                     icon: "person.icloud",
-                    action: testCloudKitAccount
+                    action: B3YZQEnGjkCz1g9zmFgN3DKtHFITZRfN
                 )
                 
-                testButton(
+                xBPGLLcydtR2Wllc3ZTM59D0Cn2NIS5q(
                     title: "Crear Entrenamiento de Prueba",
                     icon: "plus.circle",
-                    action: createTestWorkout
+                    action: sVa7YmFr3rTDgZ3R0liQq3FnIhxhoG4k
                 )
                 
-                testButton(
+                xBPGLLcydtR2Wllc3ZTM59D0Cn2NIS5q(
                     title: "Limpiar Logs",
                     icon: "trash",
-                    action: clearTestResults
+                    action: ox16CIsNFFKVrRHvY0jfQW3Jh5zxGAkJ
                 )
             }
         }
@@ -1183,7 +1183,7 @@ struct SimpleCloudKitTestView: View {
         )
     }
     
-    private func testButton(title: String, icon: String, action: @escaping () -> Void) -> some View {
+    private func xBPGLLcydtR2Wllc3ZTM59D0Cn2NIS5q(title: String, icon: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack {
                 Image(systemName: icon)
@@ -1202,41 +1202,41 @@ struct SimpleCloudKitTestView: View {
         .disabled(isRunningTest)
     }
     
-    private func testCloudKitAccount() {
+    private func B3YZQEnGjkCz1g9zmFgN3DKtHFITZRfN() {
         isRunningTest = true
-        addTestResult("[U+1F50D] Verificando cuenta iCloud...")
+        L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F50D] Verificando cuenta iCloud...")
         
         CKContainer.default().accountStatus { status, error in
             DispatchQueue.main.async {
                 self.isRunningTest = false
                 
                 if let error = error {
-                    self.addTestResult("[ERR] Error: \(error.localizedDescription)")
+                    self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[ERR] Error: \(error.localizedDescription)")
                     return
                 }
                 
                 switch status {
                 case .available:
-                    self.addTestResult("[OK] Cuenta iCloud disponible")
-                    self.addTestResult("[U+1F4CA] Entrenamientos locales: \(self.workouts.count)")
+                    self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[OK] Cuenta iCloud disponible")
+                    self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F4CA] Entrenamientos locales: \(self.workouts.count)")
                 case .noAccount:
-                    self.addTestResult("[ERR] No hay cuenta iCloud configurada")
+                    self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[ERR] No hay cuenta iCloud configurada")
                 case .restricted:
-                    self.addTestResult("[ERR] Cuenta iCloud restringida")
+                    self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[ERR] Cuenta iCloud restringida")
                 case .couldNotDetermine:
-                    self.addTestResult("[ERR] No se pudo determinar estado iCloud")
+                    self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[ERR] No se pudo determinar estado iCloud")
                 case .temporarilyUnavailable:
-                    self.addTestResult("[WARN]️ iCloud temporalmente no disponible")
+                    self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[WARN]️ iCloud temporalmente no disponible")
                 @unknown default:
-                    self.addTestResult("❓ Estado iCloud desconocido")
+                    self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("❓ Estado iCloud desconocido")
                 }
             }
         }
     }
     
-    private func createTestWorkout() {
+    private func sVa7YmFr3rTDgZ3R0liQq3FnIhxhoG4k() {
         isRunningTest = true
-        addTestResult("[U+1F3CB]️‍♂️ Creando entrenamiento de prueba...")
+        L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F3CB]️‍♂️ Creando entrenamiento de prueba...")
         
         let context = managedObjectContext
         let testWorkout = WorkoutEntity(context: context)
@@ -1248,28 +1248,28 @@ struct SimpleCloudKitTestView: View {
         
         do {
             try context.save()
-            addTestResult("[OK] Entrenamiento de prueba creado")
-            addTestResult("[U+1F4E4] Sincronización CloudKit iniciada automáticamente")
+            L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[OK] Entrenamiento de prueba creado")
+            L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F4E4] Sincronización CloudKit iniciada automáticamente")
             print("[U+1F3C3]‍♂️ Nuevo entrenamiento Test CloudKit guardado - iniciando sincronización CloudKit")
             print("[U+1F4CA] Tipo: Test CloudKit, Duración: \(testWorkout.duration) min")
             isRunningTest = false
         } catch {
-            addTestResult("[ERR] Error al crear entrenamiento: \(error.localizedDescription)")
+            L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[ERR] Error al crear entrenamiento: \(error.localizedDescription)")
             isRunningTest = false
         }
     }
     
-    private func clearTestResults() {
+    private func ox16CIsNFFKVrRHvY0jfQW3Jh5zxGAkJ() {
         testResults.removeAll()
-        addTestResult("[U+1F9F9] Logs limpiados")
+        L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F9F9] Logs limpiados")
     }
     
-    private func addTestResult(_ message: String) {
-        let timestamp = DateFormatter.testTimeFormatter.string(from: Date())
+    private func L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG(_ message: String) {
+        let timestamp = DateFormatter.hMl76nYPbWZBlEIhQPvRP0ghxaKPqSvL.string(from: Date())
         testResults.append("[\(timestamp)] \(message)")
     }
     
-    private func formatDate(_ date: Date?) -> String {
+    private func zTTSnqpXq6fSCVYCQZOyyMNzvBlGR5AA(_ date: Date?) -> String {
         guard let date = date else { return "No date" }
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -1279,7 +1279,7 @@ struct SimpleCloudKitTestView: View {
 }
 
 extension DateFormatter {
-    static let testTimeFormatter: DateFormatter = {
+    static let hMl76nYPbWZBlEIhQPvRP0ghxaKPqSvL: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeStyle = .medium
         return formatter
@@ -1288,8 +1288,8 @@ extension DateFormatter {
 
 #Preview {
     NavigationStack {
-        PerfilView()
+        q29ClCI2LABu3hQnTLcu6EAO6vHtllJW()
     }
-    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    .environmentObject(AuthViewModel())
+    .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
+    .environmentObject(M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB())
 }

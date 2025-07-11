@@ -3,10 +3,10 @@ import CoreData
 
 /// Helper class for encrypting sensitive data in UserDefaults and Core Data
 /// This class provides easy-to-use methods for encrypting workout data and other sensitive information
-class DataEncryptionHelper {
-    static let shared = DataEncryptionHelper()
+class vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY {
+    static let DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX = vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY()
     
-    private let secureStorage = SecureStorage.shared
+    private let uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     
     private init() {}
     
@@ -18,12 +18,12 @@ class DataEncryptionHelper {
     ///   - workoutData: The workout data to encrypt and store
     ///   - key: Storage key identifier
     /// - Returns: True if successful, false otherwise
-    func storeEncryptedWorkoutData(_ workoutData: [String: Any], for key: String) -> Bool {
+    func YUOlR8gzqnCuBs48h5QPNDYv3s47Cqla(_ workoutData: [String: Any], for key: String) -> Bool {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: workoutData)
             let jsonString = String(data: jsonData, encoding: .utf8) ?? ""
             
-            return secureStorage.storeEncrypted(jsonString, for: key)
+            return uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.GpX2gmw5MvTjIh4UaeYUjQdWdoMsVBcp(jsonString, for: key)
         } catch {
             print("[U+1F510] DataEncryption: Failed to serialize workout data: \(error)")
             return false
@@ -33,8 +33,8 @@ class DataEncryptionHelper {
     /// Retrieve and decrypt workout data from UserDefaults
     /// - Parameter key: Storage key identifier
     /// - Returns: Decrypted workout data dictionary, or nil if not found or decryption fails
-    func retrieveEncryptedWorkoutData(for key: String) -> [String: Any]? {
-        guard let jsonString = secureStorage.retrieveEncrypted(for: key) else {
+    func dWuGqMWROs4tdpNroiKG2wWmqjdnO2iM(for key: String) -> [String: Any]? {
+        guard let jsonString = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: key) else {
             return nil
         }
         
@@ -56,15 +56,15 @@ class DataEncryptionHelper {
     ///   - value: The value to encrypt and store
     ///   - key: Storage key identifier
     /// - Returns: True if successful, false otherwise
-    func storeEncryptedUserPreference(_ value: String, for key: String) -> Bool {
-        return secureStorage.storeEncrypted(value, for: key)
+    func xnI6Pe6zw6MbrOAcONPURoPmsbEGqrHn(_ value: String, for key: String) -> Bool {
+        return uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.GpX2gmw5MvTjIh4UaeYUjQdWdoMsVBcp(value, for: key)
     }
     
     /// Retrieve encrypted user preference data
     /// - Parameter key: Storage key identifier
     /// - Returns: Decrypted value, or nil if not found or decryption fails
-    func retrieveEncryptedUserPreference(for key: String) -> String? {
-        return secureStorage.retrieveEncrypted(for: key)
+    func GeJKDVrk1Tjtu6nuNI3828CFYHhY1unf(for key: String) -> String? {
+        return uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: key)
     }
     
     // MARK: - Core Data Encryption Helpers
@@ -74,14 +74,14 @@ class DataEncryptionHelper {
     /// - Parameters:
     ///   - entity: The Core Data entity to encrypt fields for
     ///   - sensitiveFields: Array of field names that should be encrypted
-    func encryptEntityFields(_ entity: NSManagedObject, sensitiveFields: [String]) {
+    func Branog4ORGjtEDKucIDJWHR5zjzkdtNF(_ entity: NSManagedObject, sensitiveFields: [String]) {
         for fieldName in sensitiveFields {
             if let value = entity.value(forKey: fieldName) as? String,
                !value.isEmpty {
                 
                 // Check if already encrypted (to avoid double encryption)
                 if !value.hasPrefix("encrypted_") {
-                    if let encryptedValue = secureStorage.encryptForCoreData(value) {
+                    if let encryptedValue = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.Eqc2ql0IVtWbFTAKElgtPqpbsawqmIKR(value) {
                         entity.setValue("encrypted_\(encryptedValue)", forKey: fieldName)
                         print("[U+1F510] DataEncryption: Encrypted field '\(fieldName)' for entity")
                     } else {
@@ -97,14 +97,14 @@ class DataEncryptionHelper {
     /// - Parameters:
     ///   - entity: The Core Data entity to decrypt fields for
     ///   - sensitiveFields: Array of field names that should be decrypted
-    func decryptEntityFields(_ entity: NSManagedObject, sensitiveFields: [String]) {
+    func P5gsNJ8awglJCaUzUFohz3s7w9tvoPXT(_ entity: NSManagedObject, sensitiveFields: [String]) {
         for fieldName in sensitiveFields {
             if let encryptedValue = entity.value(forKey: fieldName) as? String,
                encryptedValue.hasPrefix("encrypted_") {
                 
                 let actualEncryptedValue = String(encryptedValue.dropFirst("encrypted_".count))
                 
-                if let decryptedValue = secureStorage.decryptFromCoreData(actualEncryptedValue) {
+                if let decryptedValue = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.eaHJWTTic72DUmLgYtENJocDbVc9Jkvy(actualEncryptedValue) {
                     entity.setValue(decryptedValue, forKey: fieldName)
                     print("[U+1F510] DataEncryption: Decrypted field '\(fieldName)' for entity")
                 } else {
@@ -124,7 +124,7 @@ class DataEncryptionHelper {
     ///   - type: Type of workout
     ///   - date: Workout date
     /// - Returns: Encrypted workout data string, or nil if encryption fails
-    func encryptWorkoutMetrics(calories: Int, duration: Int, type: String, date: Date) -> String? {
+    func xitAKe02firuYpJA6wfngrW9ydY9ZbM4(calories: Int, duration: Int, type: String, date: Date) -> String? {
         let workoutData: [String: Any] = [
             "calories": calories,
             "duration": duration,
@@ -137,7 +137,7 @@ class DataEncryptionHelper {
             let jsonData = try JSONSerialization.data(withJSONObject: workoutData)
             let jsonString = String(data: jsonData, encoding: .utf8) ?? ""
             
-            return secureStorage.encrypt(value: jsonString)
+            return uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.GYcaHjFewiT2OY5w1kUcxdgQFRsFYxgp(value: jsonString)
         } catch {
             print("[U+1F510] DataEncryption: Failed to encrypt workout metrics: \(error)")
             return nil
@@ -147,8 +147,8 @@ class DataEncryptionHelper {
     /// Decrypt workout metrics after retrieval
     /// - Parameter encryptedWorkoutData: Encrypted workout data string
     /// - Returns: Tuple with workout metrics, or nil if decryption fails
-    func decryptWorkoutMetrics(_ encryptedWorkoutData: String) -> (calories: Int, duration: Int, type: String, date: Date)? {
-        guard let jsonString = secureStorage.decrypt(value: encryptedWorkoutData) else {
+    func XpaUBe52WoNDl4HZql4z8ssbwYSKrYOW(_ encryptedWorkoutData: String) -> (calories: Int, duration: Int, type: String, date: Date)? {
+        guard let jsonString = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.S3EssNUBAI8hl4Mnae1AGtxUIXkLDdrN(value: encryptedWorkoutData) else {
             print("[U+1F510] DataEncryption: Failed to decrypt workout data")
             return nil
         }
@@ -185,12 +185,12 @@ class DataEncryptionHelper {
     ///   - oldKey: The existing UserDefaults key
     ///   - newKey: The new encrypted storage key
     /// - Returns: True if migration successful, false otherwise
-    func migrateUserDefaultsToEncrypted(from oldKey: String, to newKey: String) -> Bool {
+    func sMgcxDWfRjh7gdgyBOm8wht667AYZnAz(from oldKey: String, to newKey: String) -> Bool {
         guard let oldValue = UserDefaults.standard.string(forKey: oldKey) else {
             return false // No data to migrate
         }
         
-        let success = secureStorage.storeEncrypted(oldValue, for: newKey)
+        let success = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.GpX2gmw5MvTjIh4UaeYUjQdWdoMsVBcp(oldValue, for: newKey)
         
         if success {
             // Clear old unencrypted data after successful migration
@@ -205,7 +205,7 @@ class DataEncryptionHelper {
 }
 
 // MARK: - Core Data Extension Guide
-extension DataEncryptionHelper {
+extension vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY {
     /// USAGE EXAMPLES AND IMPLEMENTATION GUIDE:
     ///
     /// 1. FOR CORE DATA ENTITIES:
