@@ -1,0 +1,51 @@
+{
+  "app_name": "fit-app",
+  "privacy_manifest_version": "1.0",
+  "date_generated": "2025-07-11T15:54:27-06:00",
+  "tracking": false,
+  "tracking_domains": [],
+  "data_collected": [
+    {
+      "type": "NSPrivacyCollectedDataTypeOtherUserContent",
+      "purpose": "NSPrivacyCollectedDataTypePurposeAppFunctionality",
+      "linked": true,
+      "tracking": false,
+      "description": "Workout data, exercise logs, and user preferences"
+    },
+    {
+      "type": "NSPrivacyCollectedDataTypeHealthFitness", 
+      "purpose": "NSPrivacyCollectedDataTypePurposeAppFunctionality",
+      "linked": true,
+      "tracking": false,
+      "description": "Exercise duration, calories burned, workout types"
+    }
+  ],
+  "required_reason_apis": [
+    {
+      "api": "NSPrivacyAccessedAPICategoryUserDefaults",
+      "reason": "CA92.1",
+      "description": "Store user preferences and app settings"
+    },
+    {
+      "api": "NSPrivacyAccessedAPICategoryFileTimestamp",
+      "reason": "C617.1", 
+      "description": "Access workout data file modification dates"
+    },
+    {
+      "api": "NSPrivacyAccessedAPICategorySystemBootTime",
+      "reason": "35F9.1",
+      "description": "Measure absolute timing for workout duration"
+    },
+    {
+      "api": "NSPrivacyAccessedAPICategoryDiskSpace",
+      "reason": "E174.1",
+      "description": "Ensure sufficient space for workout data storage"
+    }
+  ],
+  "compliance": {
+    "ios_17_privacy_manifest": true,
+    "app_store_requirement_5_1_1_v": true,
+    "account_deletion_available": true,
+    "data_minimization": true
+  }
+}

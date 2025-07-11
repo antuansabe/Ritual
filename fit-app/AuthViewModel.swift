@@ -1,459 +1,324 @@
 import Foundation
 import SwiftUI
+import AuthenticationServices
+import Combine
 import os.log
 
 class M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB: ObservableObject {
-    @AppStorage("isAuthenticated") var exTCxBz8yvnNYRQqFWC1W0Yh5tEaeJAH: Bool = false
-    @Published var mhEi80qLCAtCbGeYgPfnpw820v8aCF9I: String = ""
-    @Published var QZHDJgEWRERtPl00BdMoGaz3FxVErREZ: String = ""
-    @Published var UGRTONb8WgYcFf6vJNi6Z18uGgZAOQHm: String = ""
-    @Published var TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: String?
-    @Published var ZcyV56DImmWj4Y96j2b459YI8SvPQpMA: Bool = false
     
-    // Rate limiting for login attempts
-    @Published var DYqqj6X2pcu9d8yEdJ6zrkgUsOKu40YH: Bool = false
-    @Published var I0yXhmBO3RN418RpUxebkiSB9wa2n5cz: Int = 0
+    // MARK: - Published Properties
     
-    // Apple Sign In Manager
-    @ObservedObject private var oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz = Lx00e402Z63gwc4vKEC97NhbZVDDCOfA.shared
+    @Published var isLoggedIn: Bool = false
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String?
     
-    // User Profile Manager
-    @ObservedObject private var Tt3J2okrS5M6N0tpQWlXnaQtSfKrGrp9 = gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+    // User info from Apple ID
+    @Published var currentUserID: String = ""
+    @Published var currentUserEmail: String = ""
+    @Published var currentUserName: String = ""
     
-    // Secure Authentication Service
-    private let npjcTEY1LlpH9CE22XQrqJyOZZ8DVSGG = wnGKnVVY25VSc4eWkvgZ2MLHXV6csLz2.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+    // MARK: - Private Properties
     
-    // Secure Storage for sensitive data
-    private let uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+    private let appleSignInManager = Lx00e402Z63gwc4vKEC97NhbZVDDCOfA.shared
+    private let secureStorage = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+    private let userProfileManager = gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     
-    // Login Rate Limiter
-    private let dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB = aad5Y8PlamnXnoch5v7UeSToytIc7jOk.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+    private var cancellables = Set<AnyCancellable>()
     
-    // Timer for updating remaining block time
-    private var fdPgFGyASNv4JquarjXgOJFwIbVfNCa0: Timer?
+    // MARK: - Storage Keys
+    
+    private struct StorageKeys {
+        static let userAppleID = "userAppleID"
+        static let userEmail = "userEmail" 
+        static let userName = "userName"
+        static let isLoggedIn = "isLoggedIn"
+    }
+    
+    // MARK: - Initialization
     
     init() {
         #if DEBUG
-        print("🔐 Initializing AuthViewModel...")
+        Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🔐 Initializing AuthViewModel for Apple ID only")
         #endif
         
-        // Check for existing authentication first
-        b7ySoQ7mKe7cm8lszm2bfsZiw1II2qSk()
-        
-        // Check both authentication methods on init
-        kL2YZbAzod7j2gRjlVMJzCqagdhtYqk8()
-        
-        // Always listen to Apple authentication changes (even for new users)
-        jdUTtyfNNOWYSENaRiGO7Eqghl1ErRC3()
-        
-        // Migrate any legacy sensitive data to secure storage
-        SEkiryNEP5yWga7pzQodVSPXpYwGn8rw()
-        
-        // Initialize rate limiter status
-        lf6xR3QIf4m6q1gv50MRc0XGlZVSntHx()
-        
-        // Test and verify secure storage (development)
-        #if DEBUG
-        _ = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.OvUBVQaLf4h3wpAtwsbuysyReR8ohfyV()
-        uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.MrsQoTWHY45Peb8czR6H2yrUb89wDjub()
-        #endif
+        setupAppleSignInObservation()
+        checkExistingAuthentication()
     }
     
-    // MARK: - Legacy Data Migration
+    // MARK: - Public Methods
     
-    /// Migrate sensitive data from UserDefaults to SecureStorage
-    private func SEkiryNEP5yWga7pzQodVSPXpYwGn8rw() {
+    /// Signs in with Apple ID
+    func jniddSZKEoGcms9So9T3uUpuM55PjT8X() {
         #if DEBUG
-        print("🔄 Checking for legacy sensitive data to migrate...")
+        Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🍎 Starting Apple Sign In")
         #endif
         
-        var migrationOccurred = false
+        isLoading = true
+        errorMessage = nil
         
-        // Migrate userName if it exists
-        if let userName = UserDefaults.standard.string(forKey: "userName"), !userName.isEmpty {
-            #if DEBUG
-            print("🔄 Migrating userName to SecureStorage...")
-            #endif
-            if uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.GpX2gmw5MvTjIh4UaeYUjQdWdoMsVBcp(userName, for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.YhyL54l7qYGd78Z7egtPFzCWzLff1uDd) {
-                UserDefaults.standard.removeObject(forKey: "userName")
-                migrationOccurred = true
-                #if DEBUG
-                print("✅ Successfully migrated userName")
-                #endif
-            } else {
-                #if DEBUG
-                print("❌ Failed to migrate userName")
-                #endif
-            }
-        }
-        
-        // Migrate userIdentifier if it exists
-        if let userIdentifier = UserDefaults.standard.string(forKey: "userIdentifier"), !userIdentifier.isEmpty {
-            #if DEBUG
-            print("🔄 Migrating userIdentifier to SecureStorage...")
-            #endif
-            if uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.GpX2gmw5MvTjIh4UaeYUjQdWdoMsVBcp(userIdentifier, for: "user_identifier") {
-                UserDefaults.standard.removeObject(forKey: "userIdentifier")
-                migrationOccurred = true
-                #if DEBUG
-                print("✅ Successfully migrated userIdentifier")
-                #endif
-            } else {
-                #if DEBUG
-                print("❌ Failed to migrate userIdentifier")
-                #endif
-            }
-        }
-        
-        // Migrate userFullName if it exists
-        if let userFullName = UserDefaults.standard.string(forKey: "userFullName"), !userFullName.isEmpty {
-            #if DEBUG
-            print("🔄 Migrating userFullName to SecureStorage...")
-            #endif
-            if uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.GpX2gmw5MvTjIh4UaeYUjQdWdoMsVBcp(userFullName, for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.gZQjJBUcdNVueyu0ArJZi8U47vNe5Kqi) {
-                UserDefaults.standard.removeObject(forKey: "userFullName")
-                migrationOccurred = true
-                #if DEBUG
-                print("✅ Successfully migrated userFullName")
-                #endif
-            } else {
-                #if DEBUG
-                print("❌ Failed to migrate userFullName")
-                #endif
-            }
-        }
-        
-        if migrationOccurred {
-            #if DEBUG
-            print("✅ Legacy sensitive data migration completed")
-            #endif
-        } else {
-            #if DEBUG
-            print("ℹ️ No legacy sensitive data found to migrate")
-            #endif
-        }
+        appleSignInManager.jniddSZKEoGcms9So9T3uUpuM55PjT8X()
     }
     
-    func xhzYSvBqF2708nr4JnAdHR0kZEn4Z6fe() {
-        #if DEBUG
-        Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🔐 AuthViewModel: Starting secure login process")
-        #endif
-        TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = nil
-        
-        // Check rate limiting before attempting login
-        guard dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.JC4lqsnhEGZaMN2Yt9yfueV0rFJ7v1kI() else {
-            let remainingTime = dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.JobPgKTqKe347RFYOzA7bdaPN8qquhAU()
-            TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = "Demasiados intentos fallidos. Intenta de nuevo en \(remainingTime) segundos."
-            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.warning("🚨 Login blocked for \(remainingTime) seconds")
-            lf6xR3QIf4m6q1gv50MRc0XGlZVSntHx()
-            return
-        }
-        
-        // Use secure authentication service
-        let result = npjcTEY1LlpH9CE22XQrqJyOZZ8DVSGG.xhzYSvBqF2708nr4JnAdHR0kZEn4Z6fe(email: mhEi80qLCAtCbGeYgPfnpw820v8aCF9I, password: QZHDJgEWRERtPl00BdMoGaz3FxVErREZ)
-        
-        switch result {
-        case .Amqyy95vWgcOGxPe2gHNEvOb2gQuwTDe(let user):
-            #if DEBUG
-            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🔐 AuthViewModel: Login successful for user: \(user.email)")
-            #endif
-            // Reset rate limiter on successful login
-            dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.hK71mCWltpYaEzPtPBFTwy7pVFueZTlu()
-            exTCxBz8yvnNYRQqFWC1W0Yh5tEaeJAH = true
-            // Create user profile for secure login
-            Tt3J2okrS5M6N0tpQWlXnaQtSfKrGrp9.vjYKdXVeyxIwMaRLPlJSwWYiL1A4pB5D(email: user.email)
-            
-        case .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(let error):
-            #if DEBUG
-            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🔐 AuthViewModel: Login failed - \(error.localizedDescription)")
-            #endif
-            // Record failed attempt
-            dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.xP7Z01JKpdVTq21msPWS9YznNUWK57Ao()
-            TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = error.localizedDescription
-            
-            // Check if this failure caused a lockout
-            lf6xR3QIf4m6q1gv50MRc0XGlZVSntHx()
-            if dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.JobPgKTqKe347RFYOzA7bdaPN8qquhAU() > 0 {
-                let remainingTime = dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.JobPgKTqKe347RFYOzA7bdaPN8qquhAU()
-                TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = "Demasiados intentos fallidos. Bloqueado por \(remainingTime) segundos."
-                Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.warning("🚨 Login blocked for \(remainingTime) seconds after failed attempt")
-            }
-        }
-    }
-    
-    func GUKgzh2HAr1vFLofjElwmrtdn4gOv8bR() {
-        #if DEBUG
-        print("🔐 AuthViewModel: Starting secure registration process")
-        #endif
-        TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = nil
-        
-        // Use secure authentication service for registration
-        let result = npjcTEY1LlpH9CE22XQrqJyOZZ8DVSGG.GUKgzh2HAr1vFLofjElwmrtdn4gOv8bR(email: mhEi80qLCAtCbGeYgPfnpw820v8aCF9I, password: QZHDJgEWRERtPl00BdMoGaz3FxVErREZ, confirmPassword: UGRTONb8WgYcFf6vJNi6Z18uGgZAOQHm)
-        
-        switch result {
-        case .Amqyy95vWgcOGxPe2gHNEvOb2gQuwTDe(let user):
-            #if DEBUG
-            print("🔐 AuthViewModel: Registration successful for user: \(user.email)")
-            #endif
-            exTCxBz8yvnNYRQqFWC1W0Yh5tEaeJAH = true
-            // Create user profile for new registration
-            Tt3J2okrS5M6N0tpQWlXnaQtSfKrGrp9.vjYKdXVeyxIwMaRLPlJSwWYiL1A4pB5D(email: user.email)
-            
-        case .xfNSzDIg0uT6xWkWc0Fj5e864xzGSslF(let error):
-            #if DEBUG
-            print("🔐 AuthViewModel: Registration failed - \(error.localizedDescription)")
-            #endif
-            TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = error.localizedDescription
-        }
-    }
-    
-    func kvwXfLuRAjQk9scdZH6Na9hioqbmNcPD() {
-        #if DEBUG
-        print("🛚 Logging out user...")
-        #endif
-        
-        // Check if user is signed in with Apple and sign them out
-        if oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.U8E3vjZfnjwYRfkJUZx1CI7vi5s2E9z0 {
-            #if DEBUG
-            print("   - Signing out Apple user")
-            #endif
-            oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y()
-        } else {
-            // Use secure authentication service for regular logout
-            _ = npjcTEY1LlpH9CE22XQrqJyOZZ8DVSGG.kvwXfLuRAjQk9scdZH6Na9hioqbmNcPD()
-        }
-        
-        // Sign out user profile
-        Tt3J2okrS5M6N0tpQWlXnaQtSfKrGrp9.xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y()
-        
-        // Clear sensitive data from SecureStorage
-        _ = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.NUGTlwW4yncSmuhUGrpLiLxGsjhSLWaO(key: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.gZQjJBUcdNVueyu0ArJZi8U47vNe5Kqi)
-        _ = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.NUGTlwW4yncSmuhUGrpLiLxGsjhSLWaO(key: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.YhyL54l7qYGd78Z7egtPFzCWzLff1uDd)
-        _ = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.NUGTlwW4yncSmuhUGrpLiLxGsjhSLWaO(key: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.an8EQdG4sbWLiCnAmX9GlribmSjMTM7A)
-        _ = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.NUGTlwW4yncSmuhUGrpLiLxGsjhSLWaO(key: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.QPcT4AroqypAx0yzycrRs5zbG3JqOqXm)
-        
-        // Clear legacy UserDefaults for migration (but preserve welcome flag)
-        UserDefaults.standard.removeObject(forKey: "userIdentifier")
-        UserDefaults.standard.removeObject(forKey: "userFullName") 
-        UserDefaults.standard.removeObject(forKey: "userName")
-        // Note: We intentionally keep "hasSeenWelcome" so returning users don't see welcome again
-        
-        // Instead of going directly to login, show goodbye screen first
-        ZcyV56DImmWj4Y96j2b459YI8SvPQpMA = true
-        
-        // Clear authentication state but keep user logged in until goodbye is dismissed
-        mhEi80qLCAtCbGeYgPfnpw820v8aCF9I = ""
-        QZHDJgEWRERtPl00BdMoGaz3FxVErREZ = ""
-        UGRTONb8WgYcFf6vJNi6Z18uGgZAOQHm = ""
-        TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy = nil
-        
-        #if DEBUG
-        print("✅ User data cleared, showing goodbye screen")
-        #endif
-    }
-    
+    /// Signs out the current user
     func xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y() {
-        // Alias for logout to match the prompt requirements
-        kvwXfLuRAjQk9scdZH6Na9hioqbmNcPD()
+        #if DEBUG
+        Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🚪 Signing out user")
+        #endif
+        
+        Task { @MainActor in
+            // Clear stored authentication data
+            await clearAuthenticationData()
+            
+            // Sign out from Apple Sign In Manager
+            appleSignInManager.xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y()
+            
+            // Update UI state
+            isLoggedIn = false
+            currentUserID = ""
+            currentUserEmail = ""
+            currentUserName = ""
+            errorMessage = nil
+            
+            #if DEBUG
+            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("✅ User signed out successfully")
+            #endif
+        }
     }
     
-    func WclnnxV7r3qvqAkYbmZKSt0rHWBOFLp7() {
-        #if DEBUG
-        print("🏠 Completing logout process...")
-        #endif
-        exTCxBz8yvnNYRQqFWC1W0Yh5tEaeJAH = false
-        ZcyV56DImmWj4Y96j2b459YI8SvPQpMA = false
-        #if DEBUG
-        print("✅ User fully logged out, returning to login")
-        #endif
+    /// Clears error message
+    func clearError() {
+        errorMessage = nil
     }
     
-    // MARK: - Welcome Flow Management
-    
+    /// Resets welcome state for testing
     func ztuC6ouObpK3d02zNnL26mSYTqqAWYcM() {
-        UserDefaults.standard.removeObject(forKey: "hasSeenWelcome")
+        UserDefaults.standard.removeObject(forKey: "hasShownWelcome")
         #if DEBUG
-        print("🔄 Welcome flag reset - next login will show welcome screen")
+        Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🔄 Welcome state reset for testing")
         #endif
     }
     
-    // MARK: - Authentication Status Check
+    // MARK: - Private Methods
     
-    private func b7ySoQ7mKe7cm8lszm2bfsZiw1II2qSk() {
+    /// Sets up observation of Apple Sign In Manager state changes
+    private func setupAppleSignInObservation() {
+        // Observe Apple Sign In authentication state
+        appleSignInManager.$isAuthenticated
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isAuthenticated in
+                self?.handleAppleAuthenticationChange(isAuthenticated)
+            }
+            .store(in: &cancellables)
+        
+        // Observe Apple Sign In loading state
+        appleSignInManager.$isLoading
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isLoading in
+                self?.isLoading = isLoading
+            }
+            .store(in: &cancellables)
+        
+        // Observe Apple Sign In errors
+        appleSignInManager.$errorMessage
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] errorMessage in
+                if let error = errorMessage {
+                    self?.errorMessage = error
+                    self?.isLoading = false
+                }
+            }
+            .store(in: &cancellables)
+        
+        // Observe user data changes
+        appleSignInManager.$userIdentifier
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] userID in
+                if !userID.isEmpty {
+                    self?.currentUserID = userID
+                    self?.saveUserData()
+                }
+            }
+            .store(in: &cancellables)
+        
+        appleSignInManager.$userEmail
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] email in
+                self?.currentUserEmail = email
+                self?.saveUserData()
+            }
+            .store(in: &cancellables)
+        
+        appleSignInManager.$userFullName
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] fullName in
+                self?.currentUserName = fullName
+                self?.saveUserData()
+            }
+            .store(in: &cancellables)
+    }
+    
+    /// Handles Apple authentication state changes
+    private func handleAppleAuthenticationChange(_ isAuthenticated: Bool) {
         #if DEBUG
-        print("🔍 Checking for existing authentication...")
+        Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🍎 Apple authentication changed: \(isAuthenticated)")
         #endif
         
-        // Check if user is already authenticated via AppStorage
-        if exTCxBz8yvnNYRQqFWC1W0Yh5tEaeJAH {
-            #if DEBUG
-            print("   - User already authenticated via AppStorage")
-            #endif
-            return
-        }
-        
-        // Check for Apple Sign In auto-login
-        if oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.U8E3vjZfnjwYRfkJUZx1CI7vi5s2E9z0 && !oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.userIdentifier.isEmpty {
-            #if DEBUG
-            print("   - Found existing Apple user credentials")
-            print("   - User ID: \(oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.userIdentifier)")
-            print("   - Email: \(oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.userEmail)")
-            print("   - Auto-logging in Apple user...")
-            #endif
-            
-            // Auto-login the Apple user
-            DispatchQueue.main.async {
-                self.exTCxBz8yvnNYRQqFWC1W0Yh5tEaeJAH = true
-                #if DEBUG
-                print("✅ Apple user auto-logged in successfully")
-                #endif
-            }
-        } else if npjcTEY1LlpH9CE22XQrqJyOZZ8DVSGG.E12V0aQwfC8BL7OIoZCT6O1kQ9W1JECk() {
-            // Check for secure authentication session
-            if let currentUser = npjcTEY1LlpH9CE22XQrqJyOZZ8DVSGG.ocWrWN1mMBZWWSNXkkLBqeUUPgN0dIV3() {
-                #if DEBUG
-                print("   - Found existing secure user session for: \(currentUser)")
-                print("   - Auto-logging in secure user...")
-                #endif
+        Task { @MainActor in
+            if isAuthenticated {
+                // User successfully authenticated
+                await saveAuthenticationState(true)
+                isLoggedIn = true
+                errorMessage = nil
                 
-                DispatchQueue.main.async {
-                    self.exTCxBz8yvnNYRQqFWC1W0Yh5tEaeJAH = true
-                    self.mhEi80qLCAtCbGeYgPfnpw820v8aCF9I = currentUser
-                    #if DEBUG
-                    print("✅ Secure user auto-logged in successfully")
-                    #endif
-                }
-            }
-        }
-    }
-    
-    private func kL2YZbAzod7j2gRjlVMJzCqagdhtYqk8() {
-        #if DEBUG
-        print("🔍 Checking authentication status...")
-        #endif
-        
-        // Check Apple Sign In status for existing users
-        if oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.U8E3vjZfnjwYRfkJUZx1CI7vi5s2E9z0 && !oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.userIdentifier.isEmpty {
-            #if DEBUG
-            print("   - Found existing Apple user, checking status...")
-            #endif
-            oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.kvGFwCUlCmaJEUnAj1QJ2rdHtxiCBZeK()
-        }
-        
-        #if DEBUG
-        print("   - Current auth status: \(exTCxBz8yvnNYRQqFWC1W0Yh5tEaeJAH)")
-        #endif
-    }
-    
-    private func jdUTtyfNNOWYSENaRiGO7Eqghl1ErRC3() {
-        #if DEBUG
-        print("🔗 Setting up Apple authentication listener...")
-        #endif
-        
-        // Listen to Apple authentication changes (for both existing and new users)
-        oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.$isAuthenticated
-            .sink { [weak self] isAppleAuthenticated in
-                DispatchQueue.main.async {
-                    if isAppleAuthenticated {
-                        #if DEBUG
-                        print("✅ Apple user authenticated - updating AuthViewModel")
-                        #endif
-                        self?.exTCxBz8yvnNYRQqFWC1W0Yh5tEaeJAH = true
-                    } else {
-                        // Only log out if this was an Apple user previously
-                        if self?.oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.U8E3vjZfnjwYRfkJUZx1CI7vi5s2E9z0 == true {
-                            #if DEBUG
-                            print("❌ Apple user lost authentication - logging out")
-                            #endif
-                            self?.o6NxGozTIIZAlllT79izSyFAv6unfiLz()
-                        }
-                    }
-                }
-            }
-            .store(in: &e6GbWj0JS44Gsu8Z4iRCLKT0VRiHPjhg)
-    }
-    
-    private func o6NxGozTIIZAlllT79izSyFAv6unfiLz() {
-        #if DEBUG
-        print("🛚 Handling Apple Sign Out...")
-        #endif
-        
-        // Only clear authentication if user was logged in via Apple
-        if oQh2fiXPlhdP5awrZrU3rWsw3Hzv0wsz.U8E3vjZfnjwYRfkJUZx1CI7vi5s2E9z0 {
-            exTCxBz8yvnNYRQqFWC1W0Yh5tEaeJAH = false
-            #if DEBUG
-            print("✅ Apple user logged out from AuthViewModel")
-            #endif
-        }
-    }
-    
-    // MARK: - Rate Limiting Methods
-    
-    /// Updates the login block status based on rate limiter state
-    private func lf6xR3QIf4m6q1gv50MRc0XGlZVSntHx() {
-        let canAttempt = dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.JC4lqsnhEGZaMN2Yt9yfueV0rFJ7v1kI()
-        let remainingTime = dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.JobPgKTqKe347RFYOzA7bdaPN8qquhAU()
-        
-        DispatchQueue.main.async {
-            self.DYqqj6X2pcu9d8yEdJ6zrkgUsOKu40YH = !canAttempt
-            self.I0yXhmBO3RN418RpUxebkiSB9wa2n5cz = remainingTime
-            
-            if remainingTime > 0 {
-                self.brKR9X3OyBTDRpqiXTsZHvVhcbb5POSN()
+                #if DEBUG
+                Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("✅ User authenticated successfully")
+                #endif
             } else {
-                self.T0K4io4EcQIHBC8WkOTgmcNl4lT7jpO2()
-            }
-        }
-    }
-    
-    /// Starts a timer to update remaining block time
-    private func brKR9X3OyBTDRpqiXTsZHvVhcbb5POSN() {
-        T0K4io4EcQIHBC8WkOTgmcNl4lT7jpO2() // Stop any existing timer
-        
-        fdPgFGyASNv4JquarjXgOJFwIbVfNCa0 = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            guard let self = self else { return }
-            
-            let remainingTime = self.dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.JobPgKTqKe347RFYOzA7bdaPN8qquhAU()
-            DispatchQueue.main.async {
-                self.I0yXhmBO3RN418RpUxebkiSB9wa2n5cz = remainingTime
+                // Authentication lost or failed
+                await clearAuthenticationData()
+                isLoggedIn = false
                 
-                if remainingTime <= 0 {
-                    self.DYqqj6X2pcu9d8yEdJ6zrkgUsOKu40YH = false
-                    self.T0K4io4EcQIHBC8WkOTgmcNl4lT7jpO2()
-                    #if DEBUG
-                    Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🔓 Login rate limit expired - access restored")
-                    #endif
-                }
+                #if DEBUG
+                Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("❌ User authentication lost")
+                #endif
+            }
+            
+            isLoading = false
+        }
+    }
+    
+    /// Checks for existing authentication on app launch
+    private func checkExistingAuthentication() {
+        Task { @MainActor in
+            #if DEBUG
+            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🔍 Checking existing authentication")
+            #endif
+            
+            // Load stored authentication state
+            let storedLoggedIn = await loadAuthenticationState()
+            let storedUserID = await loadUserData()
+            
+            if storedLoggedIn && !storedUserID.isEmpty {
+                // Check if Apple ID is still valid
+                appleSignInManager.kvGFwCUlCmaJEUnAj1QJ2rdHtxiCBZeK()
+                
+                // Load user data
+                currentUserID = storedUserID
+                currentUserEmail = await loadStoredValue(StorageKeys.userEmail) ?? ""
+                currentUserName = await loadStoredValue(StorageKeys.userName) ?? ""
+                
+                isLoggedIn = true
+                
+                #if DEBUG
+                Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("✅ Existing authentication found for user: \(storedUserID)")
+                #endif
+            } else {
+                isLoggedIn = false
+                
+                #if DEBUG
+                Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("ℹ️ No existing authentication found")
+                #endif
             }
         }
     }
     
-    /// Stops the block timer
-    private func T0K4io4EcQIHBC8WkOTgmcNl4lT7jpO2() {
-        fdPgFGyASNv4JquarjXgOJFwIbVfNCa0?.invalidate()
-        fdPgFGyASNv4JquarjXgOJFwIbVfNCa0 = nil
+    /// Saves authentication state to secure storage
+    private func saveAuthenticationState(_ isAuthenticated: Bool) async {
+        do {
+            try secureStorage.r0AqoYxLhfNYCN9Nib0HLfzhDAmXp8ry(
+                isAuthenticated ? "true" : "false",
+                for: StorageKeys.isLoggedIn
+            )
+            
+            #if DEBUG
+            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("💾 Authentication state saved: \(isAuthenticated)")
+            #endif
+        } catch {
+            #if DEBUG
+            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.error("❌ Failed to save authentication state: \(error.localizedDescription)")
+            #endif
+        }
     }
     
-    /// Gets the current rate limiter status for debugging
-    func HsFIGkTCJxGaHE14kysd6Bjsp8NJyZnG() -> (attempts: Int, isLocked: Bool, remainingTime: Int) {
-        return dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.jmomiU8basFUoOBKuhLhEeldqFhu2mpt()
+    /// Loads authentication state from secure storage
+    private func loadAuthenticationState() async -> Bool {
+        do {
+            let storedValue = try secureStorage.eXGEhDZR5F3a9M8RnmLQbPuTTK0QyTsR(StorageKeys.isLoggedIn)
+            return storedValue == "true"
+        } catch {
+            #if DEBUG
+            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("ℹ️ No stored authentication state found")
+            #endif
+            return false
+        }
     }
     
-    /// Resets the rate limiter (for testing/admin purposes)
-    func mMD5ZK2vForefk0B6QvAgkQEyfxbY6GK() {
-        #if DEBUG
-        dUd6f1yX875RUhAaUdnUqH9Pvqa8jFxB.rNyZjOF1rAnctHfvZf5xu19UnjwTqbYY()
-        lf6xR3QIf4m6q1gv50MRc0XGlZVSntHx()
-        Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🔄 Rate limiter reset by admin")
-        #endif
+    /// Saves user data to secure storage
+    private func saveUserData() {
+        Task {
+            do {
+                // Save Apple ID (most critical)
+                if !currentUserID.isEmpty {
+                    try secureStorage.r0AqoYxLhfNYCN9Nib0HLfzhDAmXp8ry(currentUserID, for: StorageKeys.userAppleID)
+                }
+                
+                // Save email if available
+                if !currentUserEmail.isEmpty {
+                    try secureStorage.r0AqoYxLhfNYCN9Nib0HLfzhDAmXp8ry(currentUserEmail, for: StorageKeys.userEmail)
+                }
+                
+                // Save name if available
+                if !currentUserName.isEmpty {
+                    try secureStorage.r0AqoYxLhfNYCN9Nib0HLfzhDAmXp8ry(currentUserName, for: StorageKeys.userName)
+                }
+                
+                #if DEBUG
+                Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("💾 User data saved to secure storage")
+                #endif
+            } catch {
+                #if DEBUG
+                Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.error("❌ Failed to save user data: \(error.localizedDescription)")
+                #endif
+            }
+        }
     }
     
-    deinit {
-        T0K4io4EcQIHBC8WkOTgmcNl4lT7jpO2()
+    /// Loads user data from secure storage
+    private func loadUserData() async -> String {
+        do {
+            return try secureStorage.eXGEhDZR5F3a9M8RnmLQbPuTTK0QyTsR(StorageKeys.userAppleID) ?? ""
+        } catch {
+            #if DEBUG
+            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("ℹ️ No stored user ID found")
+            #endif
+            return ""
+        }
     }
     
-    // MARK: - Combine
-    private var e6GbWj0JS44Gsu8Z4iRCLKT0VRiHPjhg = Set<AnyCancellable>()
+    /// Loads a specific stored value
+    private func loadStoredValue(_ key: String) async -> String? {
+        do {
+            return try secureStorage.eXGEhDZR5F3a9M8RnmLQbPuTTK0QyTsR(key)
+        } catch {
+            return nil
+        }
+    }
+    
+    /// Clears all authentication data
+    func clearAuthenticationData() async {
+        do {
+            try secureStorage.NUGTlwW4yncSmuhUGrpLiLxGsjhSLWaO(StorageKeys.userAppleID)
+            try secureStorage.NUGTlwW4yncSmuhUGrpLiLxGsjhSLWaO(StorageKeys.userEmail)
+            try secureStorage.NUGTlwW4yncSmuhUGrpLiLxGsjhSLWaO(StorageKeys.userName)
+            try secureStorage.NUGTlwW4yncSmuhUGrpLiLxGsjhSLWaO(StorageKeys.isLoggedIn)
+            
+            #if DEBUG
+            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🗑️ Authentication data cleared from secure storage")
+            #endif
+        } catch {
+            #if DEBUG
+            Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("ℹ️ Some authentication data may not have existed")
+            #endif
+        }
+    }
 }
-
-import Combine

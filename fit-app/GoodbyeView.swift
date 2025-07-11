@@ -201,7 +201,7 @@ struct ApJ08JFGfVrR1tOMiHbVWMDwIafd73iX: View {
         
         // Auto-navigate to login after 4 seconds if user doesn't interact
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-            if authViewModel.ZcyV56DImmWj4Y96j2b459YI8SvPQpMA {
+            if !authViewModel.isLoggedIn {
                 AmLhUYJYwG4J77oV0J1VDvw8Iy2IDoOz()
             }
         }
@@ -211,7 +211,7 @@ struct ApJ08JFGfVrR1tOMiHbVWMDwIafd73iX: View {
         print("🏠 Returning to login from goodbye screen")
         
         withAnimation(.easeInOut(duration: 0.5)) {
-            authViewModel.WclnnxV7r3qvqAkYbmZKSt0rHWBOFLp7()
+            authViewModel.clearError()
         }
     }
 }

@@ -1,0 +1,29 @@
+{
+  "name": "fit-app-ci",
+  "version": "1.0.0",
+  "description": "CI/CD dependencies for FitApp iOS project",
+  "scripts": {
+    "api-lint": "redoc-cli build backend/openapi.yaml --output docs/api.html",
+    "api-validate": "openapi-lint backend/openapi.yaml",
+    "install-tools": "npm install",
+    "preinstall": "echo 'Installing API validation tools...'"
+  },
+  "devDependencies": {
+    "redoc-cli": "^0.13.21",
+    "openapi-lint-cli": "^2.0.2",
+    "@apidevtools/swagger-parser": "^10.1.0"
+  },
+  "keywords": [
+    "openapi",
+    "api",
+    "validation",
+    "ci",
+    "fastlane"
+  ],
+  "author": "FitApp Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "."
+  }
+}

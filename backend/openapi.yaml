@@ -1,0 +1,262 @@
+openapi: 3.1.0
+info:
+  title: FitApp Backend API
+  description: Servicio HTTPS minimal para autenticación y gestión de cuentas
+  version: 1.0.0
+  contact:
+    name: FitApp Team
+  license:
+    name: MIT
+
+servers:
+  - url: https://api.fitapp.com
+    description: Servidor de producción
+  - url: https://staging.api.fitapp.com
+    description: Servidor de staging
+
+security:
+  - BearerAuth: []
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Autenticación
+      summary: Iniciar sesión
+      description: Obtiene accessToken (15 min) y refreshToken (30 días)
+      operationId: login
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Email del usuario
+                  example: usuario@ejemplo.com
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+                  description: Contraseña del usuario
+                  example: miPassword123
+      responses:
+        '200':
+          description: Login exitoso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenPair'
+        '400':
+          description: Datos de entrada inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Credenciales incorrectas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/refresh:
+    post:
+      tags:
+        - Autenticación
+      summary: Renovar tokens
+      description: Devuelve un par de tokens nuevo usando refreshToken
+      operationId: refreshTokens
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - refreshToken
+              properties:
+                refreshToken:
+                  type: string
+                  description: Token de renovación válido
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        '200':
+          description: Tokens renovados exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenPair'
+        '400':
+          description: RefreshToken inválido o faltante
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: RefreshToken expirado o revocado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/logout:
+    post:
+      tags:
+        - Autenticación
+      summary: Cerrar sesión
+      description: Revoca ambos tokens (access y refresh)
+      operationId: logout
+      security:
+        - BearerAuth: []
+      responses:
+        '204':
+          description: Logout exitoso, tokens revocados
+        '401':
+          description: Token inválido o expirado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{id}:
+    delete:
+      tags:
+        - Usuarios
+      summary: Eliminar cuenta
+      description: Elimina cuenta del usuario y todos sus datos asociados
+      operationId: deleteUser
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del usuario
+          schema:
+            type: string
+            format: uuid
+            example: 123e4567-e89b-12d3-a456-426614174000
+      responses:
+        '204':
+          description: Cuenta eliminada exitosamente
+        '401':
+          description: Token inválido o expirado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Token JWT obtenido del endpoint /auth/login
+
+  schemas:
+    TokenPair:
+      type: object
+      required:
+        - accessToken
+        - refreshToken
+        - expiresIn
+        - tokenType
+      properties:
+        accessToken:
+          type: string
+          description: Token de acceso JWT (válido por 15 minutos)
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        refreshToken:
+          type: string
+          description: Token de renovación (válido por 30 días)
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE1MTg4MzEwMjJ9.cThIIoDvwdueQB468K5xDc5633seEFoqwxjF_xSJyQQ
+        expiresIn:
+          type: integer
+          description: Tiempo de vida del accessToken en segundos
+          example: 900
+        tokenType:
+          type: string
+          description: Tipo de token
+          example: Bearer
+        issuedAt:
+          type: string
+          format: date-time
+          description: Fecha y hora de emisión del token
+          example: 2025-07-11T12:00:00Z
+
+    Error:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Código de error
+          enum:
+            - invalid_request
+            - invalid_credentials
+            - invalid_token
+            - token_expired
+            - user_not_found
+            - internal_error
+          example: invalid_credentials
+        message:
+          type: string
+          description: Descripción legible del error
+          example: Las credenciales proporcionadas son incorrectas
+        timestamp:
+          type: string
+          format: date-time
+          description: Fecha y hora del error
+          example: 2025-07-11T12:00:00Z
+        requestId:
+          type: string
+          description: ID único de la request para debugging
+          example: req_1234567890abcdef
+
+tags:
+  - name: Autenticación
+    description: Endpoints para manejo de autenticación y tokens
+  - name: Usuarios
+    description: Endpoints para gestión de cuentas de usuario

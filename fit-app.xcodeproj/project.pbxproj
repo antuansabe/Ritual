@@ -15,7 +15,6 @@
 		20A4EEE72E15ED0000AC8C57 /* OverlaySuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE72E15ED0100AC8C57 /* OverlaySuccessView.swift */; };
 		20A4EEE82E15EE0000AC8C57 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE82E15EE0100AC8C57 /* AuthViewModel.swift */; };
 		20A4EEE92E15EE0000AC8C57 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEE92E15EE0200AC8C57 /* LoginView.swift */; };
-		20A4EEEA2E15EE0000AC8C57 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEEA2E15EE0300AC8C57 /* RegisterView.swift */; };
 		20A4EEEB2E15EF0000AC8C57 /* AuthTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */; };
 		20A4EEEC2E15F00000AC8C57 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */; };
 		20D8510D2E16FC1F001B2F98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20D8510C2E16FC1F001B2F98 /* Assets.xcassets */; };
@@ -57,7 +56,6 @@
 		20A4EEE72E15ED0100AC8C57 /* OverlaySuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlaySuccessView.swift; sourceTree = "<group>"; };
 		20A4EEE82E15EE0100AC8C57 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		20A4EEE92E15EE0200AC8C57 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		20A4EEEA2E15EE0300AC8C57 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTestView.swift; sourceTree = "<group>"; };
 		20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
 		20D8510C2E16FC1F001B2F98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 				20A4EEE72E15ED0100AC8C57 /* OverlaySuccessView.swift */,
 				20A4EEE82E15EE0100AC8C57 /* AuthViewModel.swift */,
 				20A4EEE92E15EE0200AC8C57 /* LoginView.swift */,
-				20A4EEEA2E15EE0300AC8C57 /* RegisterView.swift */,
 				H9G8C5F7B4E3890234567890 /* AppleSignInButtonView.swift */,
 				I8H9D6F8C5E4901345678901 /* AppleSignInManager.swift */,
 				J9I8E7G8D6F5012456789012 /* UserProfileManager.swift */,
@@ -258,7 +255,6 @@
 				20A4EEE72E15ED0000AC8C57 /* OverlaySuccessView.swift in Sources */,
 				20A4EEE82E15EE0000AC8C57 /* AuthViewModel.swift in Sources */,
 				20A4EEE92E15EE0000AC8C57 /* LoginView.swift in Sources */,
-				20A4EEEA2E15EE0000AC8C57 /* RegisterView.swift in Sources */,
 				20A4EEEB2E15EF0000AC8C57 /* AuthTestView.swift in Sources */,
 				20A4EEEC2E15F00000AC8C57 /* MainAppView.swift in Sources */,
 				A1B2C3D4E5F60019 /* PerfilView.swift in Sources */,

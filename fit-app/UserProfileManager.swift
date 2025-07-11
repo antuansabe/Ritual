@@ -302,4 +302,32 @@ class gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm: ObservableObject {
     var zolFB6D2RRsnAPNjPUICYnSvwRRmyaza: Bool {
         return d9dQusQ5q74vqBDR4S2x6ngkHlz4Fq84 != nil && !YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8.isEmpty && YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 != "Atleta"
     }
+    
+    // MARK: - Account Deletion
+    
+    /// Completely clears the user profile for account deletion
+    func clearUserProfile() {
+        print("🗑️ Clearing user profile for account deletion...")
+        
+        // Delete all user profiles from Core Data
+        let request: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
+        
+        do {
+            let allUsers = try LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.fetch(request)
+            for user in allUsers {
+                LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.delete(user)
+            }
+            try LxRQFrCsbBQtFCOyayxupkzFJLlXJonD.save()
+            
+            // Clear published properties
+            DispatchQueue.main.async {
+                self.d9dQusQ5q74vqBDR4S2x6ngkHlz4Fq84 = nil
+                self.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 = "Atleta"
+            }
+            
+            print("✅ User profile cleared successfully")
+        } catch {
+            print("❌ Error clearing user profile: \(error)")
+        }
+    }
 }

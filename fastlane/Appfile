@@ -1,0 +1,18 @@
+# App configuration for Fastlane
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
+
+# Your Apple ID
+apple_id("antonio@fitapp.com")
+
+# Your app identifier
+app_identifier("com.antonio.fit-app")
+
+# Your Team ID (if you have a team)
+# team_id("XXXXXXXXXX")
+
+# Your iTunes Connect Team ID (if different from team_id)
+# itunes_connect_team_id("XXXXXXXXXX")
+
+# For more information about available configuration options, see:
+# https://docs.fastlane.tools/advanced/

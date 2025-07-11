@@ -1,0 +1,238 @@
+name: API Contract Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths: 
+      - 'backend/openapi.yaml'
+      - '.github/workflows/api-validation.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'backend/openapi.yaml'
+
+jobs:
+  api-lint:
+    name: Validate OpenAPI Specification
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2  # Need previous commit for breaking change detection
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install API validation tools
+      run: |
+        npm install -g redoc-cli openapi-lint-cli
+        echo "✅ API validation tools installed"
+    
+    - name: Validate OpenAPI specification exists
+      run: |
+        if [ ! -f "backend/openapi.yaml" ]; then
+          echo "❌ OpenAPI specification file not found at backend/openapi.yaml"
+          exit 1
+        fi
+        echo "✅ OpenAPI specification file found"
+    
+    - name: Validate YAML syntax
+      run: |
+        python3 -c "
+        import yaml
+        import sys
+        try:
+            with open('backend/openapi.yaml', 'r') as f:
+                spec = yaml.safe_load(f)
+            print('✅ YAML syntax is valid')
+        except yaml.YAMLError as e:
+            print(f'❌ YAML syntax error: {e}')
+            sys.exit(1)
+        except Exception as e:
+            print(f'❌ Error reading file: {e}')
+            sys.exit(1)
+        "
+    
+    - name: Validate with redoc-cli
+      run: |
+        echo "🔍 Validating OpenAPI spec with redoc-cli..."
+        redoc-cli build backend/openapi.yaml --output /tmp/api-docs.html
+        echo "✅ redoc-cli validation passed"
+    
+    - name: Validate with openapi-lint
+      run: |
+        echo "🔍 Running detailed OpenAPI linting..."
+        openapi-lint backend/openapi.yaml --format json > lint-results.json || true
+        
+        # Check for errors
+        if [ -f "lint-results.json" ] && [ -s "lint-results.json" ]; then
+          echo "📋 Lint results found, checking for errors..."
+          
+          # Count errors and warnings
+          ERRORS=$(python3 -c "
+        import json
+        import sys
+        try:
+            with open('lint-results.json', 'r') as f:
+                results = json.load(f)
+            errors = [r for r in results if r.get('severity') == 'error']
+            warnings = [r for r in results if r.get('severity') == 'warning']
+            
+            print(f'Errors: {len(errors)}')
+            print(f'Warnings: {len(warnings)}')
+            
+            if errors:
+                print('❌ Critical errors found:')
+                for error in errors:
+                    print(f'  - {error.get(\"message\", \"Unknown error\")} ({error.get(\"path\", \"Unknown path\")})')
+                sys.exit(1)
+            elif warnings:
+                print('⚠️  Warnings found:')
+                for warning in warnings:
+                    print(f'  - {warning.get(\"message\", \"Unknown warning\")} ({warning.get(\"path\", \"Unknown path\")})')
+            else:
+                print('✅ No issues found')
+        except json.JSONDecodeError:
+            print('✅ No lint issues found (empty result)')
+        except Exception as e:
+            print(f'Error processing lint results: {e}')
+        " 2>&1)
+          
+          echo "$ERRORS"
+          
+          # Exit with error if critical issues found
+          if echo "$ERRORS" | grep -q "❌"; then
+            exit 1
+          fi
+        else
+          echo "✅ No lint issues found"
+        fi
+    
+    - name: Validate required fields
+      run: |
+        echo "🔍 Validating required OpenAPI fields..."
+        python3 -c "
+        import yaml
+        import sys
+        
+        with open('backend/openapi.yaml', 'r') as f:
+            spec = yaml.safe_load(f)
+        
+        # Check required root fields
+        required_fields = ['openapi', 'info', 'paths']
+        missing = [f for f in required_fields if f not in spec]
+        if missing:
+            print(f'❌ Missing required fields: {missing}')
+            sys.exit(1)
+        
+        # Check OpenAPI version
+        version = spec['openapi']
+        if not version.startswith('3.'):
+            print(f'❌ Invalid OpenAPI version: {version}. Expected 3.x.x')
+            sys.exit(1)
+        
+        # Check required info fields
+        info = spec['info']
+        required_info = ['title', 'version']
+        missing_info = [f for f in required_info if f not in info]
+        if missing_info:
+            print(f'❌ Missing required info fields: {missing_info}')
+            sys.exit(1)
+        
+        # Check required authentication endpoints
+        paths = spec['paths']
+        required_endpoints = ['/auth/login', '/auth/refresh', '/auth/logout']
+        missing_endpoints = [e for e in required_endpoints if e not in paths]
+        if missing_endpoints:
+            print(f'❌ Missing required endpoints: {missing_endpoints}')
+            sys.exit(1)
+        
+        # Check security schemes
+        if 'components' in spec and 'securitySchemes' in spec['components']:
+            schemes = spec['components']['securitySchemes']
+            if 'BearerAuth' in schemes:
+                bearer = schemes['BearerAuth']
+                if bearer.get('type') != 'http' or bearer.get('scheme') != 'bearer':
+                    print('❌ Invalid BearerAuth configuration')
+                    sys.exit(1)
+        
+        print('✅ All required fields and structure validation passed')
+        "
+    
+    - name: Check for breaking changes
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "🔍 Checking for potential breaking changes..."
+        
+        # Get the previous version of the OpenAPI spec
+        if git show HEAD~1:backend/openapi.yaml > /tmp/previous-openapi.yaml 2>/dev/null; then
+          echo "📋 Comparing with previous version..."
+          
+          # Simple diff check for potentially breaking changes
+          DIFF_OUTPUT=$(diff -u /tmp/previous-openapi.yaml backend/openapi.yaml || true)
+          
+          if [ -n "$DIFF_OUTPUT" ]; then
+            echo "📝 Changes detected in OpenAPI specification:"
+            echo "$DIFF_OUTPUT"
+            
+            # Check for potentially breaking patterns
+            BREAKING_CHANGES=$(echo "$DIFF_OUTPUT" | grep -E "^-.*required:|^-.*paths:|^-.*responses:|^-.*parameters:" || true)
+            
+            if [ -n "$BREAKING_CHANGES" ]; then
+              echo ""
+              echo "⚠️  Potential breaking changes detected:"
+              echo "$BREAKING_CHANGES"
+              echo ""
+              echo "Please review these changes carefully before merging."
+              echo "Consider if these changes require:"
+              echo "- API version increment"
+              echo "- Client application updates"
+              echo "- Migration strategies"
+            else
+              echo "✅ No obvious breaking changes detected"
+            fi
+          else
+            echo "ℹ️  No changes detected in OpenAPI specification"
+          fi
+        else
+          echo "ℹ️  No previous version found for comparison"
+        fi
+    
+    - name: Generate API documentation
+      run: |
+        echo "📚 Generating API documentation..."
+        redoc-cli build backend/openapi.yaml --output api-docs.html
+        echo "✅ API documentation generated"
+    
+    - name: Upload API documentation
+      uses: actions/upload-artifact@v3
+      with:
+        name: api-documentation
+        path: api-docs.html
+        retention-days: 30
+    
+    - name: Upload lint results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: api-lint-results
+        path: lint-results.json
+        retention-days: 7
+    
+    - name: Summary
+      run: |
+        echo "## 🎉 API Contract Validation Complete" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **OpenAPI Specification Validation**: PASSED" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **YAML Syntax**: Valid" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Required Fields**: Present" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Documentation Generation**: Successful" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "📚 **Generated Documentation**: Available in artifacts" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "The backend API contract is valid and ready for implementation!" >> $GITHUB_STEP_SUMMARY

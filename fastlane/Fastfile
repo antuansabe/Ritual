@@ -1,0 +1,360 @@
+# This file contains the fastlane configuration
+# You can find the documentation at https://docs.fastlane.tools
+
+default_platform(:ios)
+
+platform :ios do
+  
+  # MARK: - Setup and Validation
+  
+  desc "Validate OpenAPI specification"
+  lane :api_lint do
+    UI.message "🔍 Running OpenAPI specification validation..."
+    
+    # Check if OpenAPI spec file exists
+    openapi_file = "../backend/openapi.yaml"
+    unless File.exist?(openapi_file)
+      UI.user_error! "❌ OpenAPI specification file not found at: #{openapi_file}"
+    end
+    
+    # Install redoc-cli if not present
+    ensure_redoc_cli_installed
+    
+    # Validate OpenAPI specification
+    validate_openapi_spec(openapi_file)
+    
+    # Check for breaking changes (if previous version exists)
+    check_api_breaking_changes(openapi_file)
+    
+    UI.success "✅ OpenAPI specification validation passed"
+  end
+  
+  # MARK: - Build Lanes
+  
+  desc "Run all pre-build validations"
+  lane :pre_build_checks do
+    api_lint
+    # Add other pre-build checks here (code lint, security scan, etc.)
+  end
+  
+  desc "Build and deploy beta version"
+  lane :beta do
+    before_all do
+      api_lint
+    end
+    
+    # Increment build number
+    increment_build_number(xcodeproj: "fit-app.xcodeproj")
+    
+    # Build app
+    build_app(
+      scheme: "fit-app",
+      configuration: "Release",
+      export_options: {
+        method: "ad-hoc",
+        provisioningProfiles: {
+          "com.antonio.fit-app" => "fit-app AdHoc"
+        }
+      }
+    )
+    
+    # Upload to TestFlight or distribute
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true
+    )
+    
+    UI.success "🚀 Beta build completed and uploaded"
+  end
+  
+  desc "Build and deploy release version"
+  lane :release do
+    before_all do
+      api_lint
+    end
+    
+    # Ensure we're on main branch
+    ensure_git_branch(branch: "main")
+    
+    # Ensure git is clean
+    ensure_git_status_clean
+    
+    # Increment version number
+    increment_version_number(
+      bump_type: "patch",
+      xcodeproj: "fit-app.xcodeproj"
+    )
+    
+    # Increment build number
+    increment_build_number(xcodeproj: "fit-app.xcodeproj")
+    
+    # Build app
+    build_app(
+      scheme: "fit-app",
+      configuration: "Release",
+      export_options: {
+        method: "app-store",
+        provisioningProfiles: {
+          "com.antonio.fit-app" => "fit-app Distribution"
+        }
+      }
+    )
+    
+    # Upload to App Store
+    upload_to_app_store(
+      force: true,
+      submit_for_review: false
+    )
+    
+    # Commit version bump
+    commit_version_bump(
+      message: "Version bump for release",
+      xcodeproj: "fit-app.xcodeproj"
+    )
+    
+    # Create git tag
+    add_git_tag(tag: "v#{get_version_number(xcodeproj: 'fit-app.xcodeproj')}")
+    
+    # Push to git
+    push_to_git_remote
+    
+    UI.success "🎉 Release build completed and uploaded to App Store"
+  end
+  
+  # MARK: - Development Lanes
+  
+  desc "Run tests"
+  lane :test do
+    run_tests(
+      scheme: "fit-app",
+      device: "iPhone 16 Pro"
+    )
+  end
+  
+  desc "Run security scan"
+  lane :security_scan do
+    UI.message "🔒 Running security scan..."
+    sh("cd .. && ./security_scan.sh")
+    UI.success "✅ Security scan completed"
+  end
+  
+  # MARK: - Helper Methods
+  
+  private_lane :ensure_redoc_cli_installed do
+    UI.message "📦 Checking for redoc-cli installation..."
+    
+    begin
+      # Check if redoc-cli is installed
+      sh("which redoc-cli")
+      UI.message "✅ redoc-cli is already installed"
+    rescue => ex
+      UI.message "📦 Installing redoc-cli..."
+      
+      # Install redoc-cli via npm
+      begin
+        sh("npm install -g redoc-cli")
+        UI.success "✅ redoc-cli installed successfully"
+      rescue => install_ex
+        UI.user_error! "❌ Failed to install redoc-cli: #{install_ex.message}\nPlease install manually: npm install -g redoc-cli"
+      end
+    end
+    
+    # Also check for openapi-lint-cli (alternative linter)
+    begin
+      sh("which openapi-lint")
+    rescue => ex
+      UI.message "📦 Installing openapi-lint-cli as backup linter..."
+      begin
+        sh("npm install -g openapi-lint-cli")
+        UI.message "✅ openapi-lint-cli installed as backup"
+      rescue => lint_ex
+        UI.message "⚠️  openapi-lint-cli installation failed, continuing with redoc-cli only"
+      end
+    end
+  end
+  
+  private_lane :validate_openapi_spec do |openapi_file|
+    UI.message "🔍 Validating OpenAPI specification structure..."
+    
+    # Method 1: Use redoc-cli to validate (builds docs, fails on invalid spec)
+    begin
+      temp_output = "/tmp/api-docs-validation.html"
+      sh("redoc-cli build '#{openapi_file}' --output '#{temp_output}'")
+      
+      # Clean up temp file
+      File.delete(temp_output) if File.exist?(temp_output)
+      
+      UI.success "✅ OpenAPI specification is valid (redoc-cli validation passed)"
+    rescue => ex
+      UI.user_error! "❌ OpenAPI specification validation failed with redoc-cli:\n#{ex.message}"
+    end
+    
+    # Method 2: Use openapi-lint if available (more detailed validation)
+    begin
+      result = sh("openapi-lint '#{openapi_file}' --format json", error_callback: proc { |result|
+        # Handle lint errors
+        nil
+      })
+      
+      if result && !result.empty?
+        begin
+          lint_results = JSON.parse(result)
+          if lint_results.any? { |r| r["severity"] == "error" }
+            errors = lint_results.select { |r| r["severity"] == "error" }
+            error_details = errors.map { |e| "  - #{e['message']} (#{e['path']})" }.join("\n")
+            UI.user_error! "❌ OpenAPI specification has validation errors:\n#{error_details}"
+          else
+            warnings = lint_results.select { |r| r["severity"] == "warning" }
+            if warnings.any?
+              warning_details = warnings.map { |w| "  - #{w['message']} (#{w['path']})" }.join("\n")
+              UI.important "⚠️  OpenAPI specification has warnings:\n#{warning_details}"
+            end
+            UI.success "✅ OpenAPI specification passed openapi-lint validation"
+          end
+        rescue JSON::ParserError
+          UI.message "✅ openapi-lint validation passed (no issues found)"
+        end
+      end
+    rescue => ex
+      UI.message "ℹ️  openapi-lint not available or failed, relying on redoc-cli validation"
+    end
+    
+    # Method 3: Fallback validation using local script
+    fallback_validation(openapi_file)
+  end
+  
+  private_lane :fallback_validation do |openapi_file|
+    UI.message "🔍 Running fallback validation using local script..."
+    
+    begin
+      # Use our local validation script as fallback
+      result = sh("cd .. && ./validate-api.sh")
+      UI.success "✅ Local validation script passed"
+    rescue => ex
+      UI.user_error! "❌ Local validation failed:\n#{ex.message}"
+    end
+  end
+  
+  private_lane :validate_yaml_structure do |openapi_file|
+    UI.message "🔍 Validating YAML structure and required OpenAPI fields..."
+    
+    begin
+      require 'yaml'
+      
+      spec = YAML.load_file(openapi_file)
+      
+      # Check required OpenAPI 3.x fields
+      required_fields = %w[openapi info paths]
+      missing_fields = required_fields.select { |field| !spec.key?(field) }
+      
+      if missing_fields.any?
+        UI.user_error! "❌ OpenAPI specification missing required fields: #{missing_fields.join(', ')}"
+      end
+      
+      # Validate OpenAPI version
+      openapi_version = spec['openapi']
+      unless openapi_version =~ /^3\.\d+\.\d+$/
+        UI.user_error! "❌ Invalid OpenAPI version: #{openapi_version}. Expected 3.x.x format"
+      end
+      
+      # Check info section
+      info = spec['info']
+      required_info_fields = %w[title version]
+      missing_info_fields = required_info_fields.select { |field| !info.key?(field) }
+      
+      if missing_info_fields.any?
+        UI.user_error! "❌ OpenAPI info section missing required fields: #{missing_info_fields.join(', ')}"
+      end
+      
+      # Validate paths section
+      paths = spec['paths']
+      if paths.nil? || paths.empty?
+        UI.user_error! "❌ OpenAPI specification must define at least one path"
+      end
+      
+      # Check for required authentication endpoints
+      required_endpoints = ['/auth/login', '/auth/refresh', '/auth/logout']
+      missing_endpoints = required_endpoints.select { |endpoint| !paths.key?(endpoint) }
+      
+      if missing_endpoints.any?
+        UI.user_error! "❌ Missing required authentication endpoints: #{missing_endpoints.join(', ')}"
+      end
+      
+      # Validate security schemes if present
+      if spec['components'] && spec['components']['securitySchemes']
+        security_schemes = spec['components']['securitySchemes']
+        if security_schemes['BearerAuth']
+          bearer_auth = security_schemes['BearerAuth']
+          unless bearer_auth['type'] == 'http' && bearer_auth['scheme'] == 'bearer'
+            UI.user_error! "❌ Invalid BearerAuth security scheme configuration"
+          end
+        end
+      end
+      
+      UI.success "✅ YAML structure and OpenAPI fields validation passed"
+      
+    rescue Psych::SyntaxError => ex
+      UI.user_error! "❌ Invalid YAML syntax in OpenAPI specification:\n#{ex.message}"
+    rescue => ex
+      UI.user_error! "❌ Error validating OpenAPI specification structure:\n#{ex.message}"
+    end
+  end
+  
+  private_lane :check_api_breaking_changes do |openapi_file|
+    UI.message "🔍 Checking for potential breaking changes..."
+    
+    # If this is a git repository, compare with previous version
+    begin
+      # Check if we're in a git repository
+      sh("git rev-parse --git-dir", error_callback: proc { |result| nil })
+      
+      # Try to get the previous version of the OpenAPI spec
+      previous_spec_content = sh("git show HEAD~1:backend/openapi.yaml", error_callback: proc { |result| nil })
+      
+      if previous_spec_content && !previous_spec_content.empty?
+        UI.message "📋 Comparing with previous OpenAPI specification version..."
+        
+        # Write previous version to temp file
+        temp_previous = "/tmp/openapi-previous.yaml"
+        File.write(temp_previous, previous_spec_content)
+        
+        # Simple comparison - in a real scenario you'd use a proper API diff tool
+        begin
+          diff_result = sh("diff -u '#{temp_previous}' '#{openapi_file}'", error_callback: proc { |result| result })
+          
+          if diff_result && !diff_result.empty?
+            UI.important "⚠️  API specification has changes:\n#{diff_result}"
+            
+            # Check for potentially breaking changes
+            breaking_patterns = [
+              /^-.*required:/,           # Removed required fields
+              /^-.*paths:/,              # Removed endpoints
+              /^-.*responses:/,          # Removed response codes
+              /^-.*parameters:/          # Removed parameters
+            ]
+            
+            potential_breaking_changes = diff_result.lines.select do |line|
+              breaking_patterns.any? { |pattern| line.match?(pattern) }
+            end
+            
+            if potential_breaking_changes.any?
+              UI.important "⚠️  Potential breaking changes detected:"
+              potential_breaking_changes.each { |change| UI.important "  #{change.strip}" }
+              UI.important "Please review these changes carefully before releasing"
+            end
+          else
+            UI.message "ℹ️  No changes detected in OpenAPI specification"
+          end
+        ensure
+          # Clean up temp file
+          File.delete(temp_previous) if File.exist?(temp_previous)
+        end
+      else
+        UI.message "ℹ️  No previous OpenAPI specification version found for comparison"
+      end
+      
+    rescue => ex
+      UI.message "ℹ️  Could not compare with previous API version (not in git repo or first commit)"
+    end
+  end
+  
+end
