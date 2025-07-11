@@ -73,7 +73,7 @@ struct GoodbyeView: View {
     private var goodbyeContent: some View {
         VStack(spacing: 32) {
             // Goodbye emoji with animation
-            Text("[U+1F44B]")
+            Text("👋")
                 .font(.system(size: 80))
                 .scaleEffect(animateContent ? 1.0 : 0.5)
                 .opacity(animateContent ? 1.0 : 0.0)
@@ -97,7 +97,7 @@ struct GoodbyeView: View {
                     .offset(y: animateContent ? 0 : 20)
                     .animation(.easeOut(duration: 0.8).delay(0.5), value: animateContent)
                 
-                Text("¡Nos vemos pronto! [U+1F4AA]")
+                Text("¡Nos vemos pronto! 💪")
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.yellow)
                     .multilineTextAlignment(.center)
@@ -208,7 +208,7 @@ struct GoodbyeView: View {
     }
     
     private func handleReturnToLogin() {
-        print("[U+1F3E0] Returning to login from goodbye screen")
+        print("🏠 Returning to login from goodbye screen")
         
         withAnimation(.easeInOut(duration: 0.5)) {
             authViewModel.completeLogout()

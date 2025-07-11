@@ -67,7 +67,7 @@ struct WelcomeView: View {
         VStack(spacing: 32) {
             // Welcome emoji and title
             VStack(spacing: 16) {
-                Text("[U+1F389]")
+                Text("🎉")
                     .font(.system(size: 80))
                     .scaleEffect(animateContent ? 1.0 : 0.5)
                     .opacity(animateContent ? 1.0 : 0.0)
@@ -84,7 +84,7 @@ struct WelcomeView: View {
             
             // Personalized greeting
             if !userProfileManager.displayName.isEmpty && userProfileManager.displayName != "Atleta" {
-                Text("¡Hola, \(userProfileManager.formattedDisplayName)! [U+1F44B]")
+                Text("¡Hola, \(userProfileManager.formattedDisplayName)! 👋")
                     .font(.system(size: 24, weight: .semibold))
                     .foregroundColor(.white.opacity(0.9))
                     .opacity(animateContent ? 1.0 : 0.0)
@@ -209,7 +209,7 @@ struct WelcomeView: View {
     
     // MARK: - Actions
     private func handleGetStarted() {
-        print("[U+1F389] User completed welcome flow - marking as seen")
+        print("🎉 User completed welcome flow - marking as seen")
         
         // Mark welcome as seen in UserDefaults
         UserDefaults.standard.set(true, forKey: "hasSeenWelcome")

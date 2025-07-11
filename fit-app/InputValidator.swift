@@ -745,9 +745,7 @@ extension InputValidator {
     /// - Returns: True if all tests pass, false otherwise
     func runValidationTests() -> Bool {
         #if DEBUG
-        #if DEBUG
-        Logger.validation.debug("[U+1F9EA] Running comprehensive validation tests...")
-        #endif
+        print("[U+1F9EA] Running comprehensive validation tests...")
         #endif
         
         var testsPassedCount = 0
@@ -766,9 +764,7 @@ extension InputValidator {
         ]
         
         #if DEBUG
-        #if DEBUG
-        Logger.validation.debug("[U+1F4E7] Testing email validation...")
-        #endif
+        print("[U+1F4E7] Testing email validation...")
         #endif
         for (email, shouldPass) in emailTests {
             totalTests += 1
@@ -776,15 +772,11 @@ extension InputValidator {
             if result.isValid == shouldPass {
                 testsPassedCount += 1
                 #if DEBUG
-                #if DEBUG
-                Logger.validation.debug("[OK] Email test passed: '\(email)' -> \(result.isValid)")
-                #endif
+                print("[OK] Email test passed: '\(email)' -> \(result.isValid)")
                 #endif
             } else {
                 #if DEBUG
-                #if DEBUG
-                Logger.validation.debug("[ERR] Email test failed: '\(email)' expected \(shouldPass), got \(result.isValid)")
-                #endif
+                print("[ERR] Email test failed: '\(email)' expected \(shouldPass), got \(result.isValid)")
                 #endif
             }
         }
@@ -802,9 +794,7 @@ extension InputValidator {
         ]
         
         #if DEBUG
-        #if DEBUG
-        Logger.validation.debug("[LOCK] Testing password validation...")
-        #endif
+        print("[LOCK] Testing password validation...")
         #endif
         for (password, shouldPass) in passwordTests {
             totalTests += 1
@@ -812,15 +802,11 @@ extension InputValidator {
             if result.isValid == shouldPass {
                 testsPassedCount += 1
                 #if DEBUG
-                #if DEBUG
-                Logger.validation.debug("[OK] Password test passed: '\(password.prefix(3))***' -> \(result.isValid)")
-                #endif
+                print("[OK] Password test passed: '\(password.prefix(3))***' -> \(result.isValid)")
                 #endif
             } else {
                 #if DEBUG
-                #if DEBUG
-                Logger.validation.debug("[ERR] Password test failed: '\(password.prefix(3))***' expected \(shouldPass), got \(result.isValid)")
-                #endif
+                print("[ERR] Password test failed: '\(password.prefix(3))***' expected \(shouldPass), got \(result.isValid)")
                 #endif
             }
         }
@@ -835,7 +821,7 @@ extension InputValidator {
         ]
         
         #if DEBUG
-        Logger.validation.debug("[U+1F9FD] Testing input sanitization...")
+        print("[U+1F9FD] Testing input sanitization...")
         #endif
         for (input, expected) in sanitizationTests {
             totalTests += 1
@@ -843,15 +829,11 @@ extension InputValidator {
             if result == expected {
                 testsPassedCount += 1
                 #if DEBUG
-                #if DEBUG
-                Logger.validation.debug("[OK] Sanitization test passed: '\(input)' -> '\(result)'")
-                #endif
+                print("[OK] Sanitization test passed: '\(input)' -> '\(result)'")
                 #endif
             } else {
                 #if DEBUG
-                #if DEBUG
-                Logger.validation.debug("[ERR] Sanitization test failed: '\(input)' expected '\(expected)', got '\(result)'")
-                #endif
+                print("[ERR] Sanitization test failed: '\(input)' expected '\(expected)', got '\(result)'")
                 #endif
             }
         }
@@ -868,9 +850,7 @@ extension InputValidator {
         ]
         
         #if DEBUG
-        #if DEBUG
-        Logger.validation.debug("[U+1F464] Testing name validation...")
-        #endif
+        print("[U+1F464] Testing name validation...")
         #endif
         for (name, shouldPass) in nameTests {
             totalTests += 1
@@ -878,15 +858,11 @@ extension InputValidator {
             if result.isValid == shouldPass {
                 testsPassedCount += 1
                 #if DEBUG
-                #if DEBUG
-                Logger.validation.debug("[OK] Name test passed: '\(name)' -> \(result.isValid)")
-                #endif
+                print("[OK] Name test passed: '\(name)' -> \(result.isValid)")
                 #endif
             } else {
                 #if DEBUG
-                #if DEBUG
-                Logger.validation.debug("[ERR] Name test failed: '\(name)' expected \(shouldPass), got \(result.isValid)")
-                #endif
+                print("[ERR] Name test failed: '\(name)' expected \(shouldPass), got \(result.isValid)")
                 #endif
             }
         }
@@ -894,25 +870,19 @@ extension InputValidator {
         // Summary
         let successRate = Double(testsPassedCount) / Double(totalTests) * 100
         #if DEBUG
-        #if DEBUG
-        Logger.validation.debug("\n[U+1F4CA] Validation Test Summary:")
-        Logger.validation.debug("[OK] Tests passed: \(testsPassedCount)/\(totalTests)")
-        Logger.validation.debug("[U+1F4C8] Success rate: \(String(format: "%.1f", successRate))%")
-        #endif
+        print("\n[U+1F4CA] Validation Test Summary:")
+        print("[OK] Tests passed: \(testsPassedCount)/\(totalTests)")
+        print("[U+1F4C8] Success rate: \(String(format: "%.1f", successRate))%")
         #endif
         
         let allTestsPassed = testsPassedCount == totalTests
         if allTestsPassed {
             #if DEBUG
-            #if DEBUG
-            Logger.validation.debug("[U+1F389] All validation tests passed!")
-            #endif
+            print("[U+1F389] All validation tests passed!")
             #endif
         } else {
             #if DEBUG
-            #if DEBUG
-            Logger.validation.debug("[WARN]️ Some validation tests failed. Please review implementation.")
-            #endif
+            print("[WARN]️ Some validation tests failed. Please review implementation.")
             #endif
         }
         
@@ -927,9 +897,7 @@ extension InputValidator {
         let nameTest = isValidName("Juan Carlos").isValid
         
         #if DEBUG
-        #if DEBUG
-        Logger.validation.debug("[U+1F50D] Quick validation test: Email=\(emailTest), Password=\(passwordTest), Name=\(nameTest)")
-        #endif
+        print("[U+1F50D] Quick validation test: Email=\(emailTest), Password=\(passwordTest), Name=\(nameTest)")
         #endif
         return emailTest && passwordTest && nameTest
     }

@@ -31,7 +31,7 @@ class AppleSignInManager: NSObject, ObservableObject {
     func signInWithApple() {
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[U+1F34E] Starting Apple Sign In process...")
+        Logger.auth.debug("🍎 Starting Apple Sign In process...")
         #endif
         #endif
         
@@ -39,7 +39,7 @@ class AppleSignInManager: NSObject, ObservableObject {
         guard isAppleSignInAvailable() else {
             #if DEBUG
             #if DEBUG
-            Logger.auth.debug("[ERR] Apple Sign In is not available on this device/simulator")
+            Logger.auth.debug("❌ Apple Sign In is not available on this device/simulator")
             #endif
             #endif
             handleAppleSignInError(NSError(
@@ -62,7 +62,7 @@ class AppleSignInManager: NSObject, ObservableObject {
     private func performAppleSignInRequest() {
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[U+1F34E] Performing Apple Sign In request...")
+        Logger.auth.debug("🍎 Performing Apple Sign In request...")
         #endif
         #endif
         
@@ -71,7 +71,7 @@ class AppleSignInManager: NSObject, ObservableObject {
         
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[U+1F4DD] Request configured with scopes: \(request.requestedScopes?.map { $0.rawValue } ?? [])")
+        Logger.auth.debug("📝 Request configured with scopes: \(request.requestedScopes?.map { $0.rawValue } ?? [])")
         #endif
         #endif
         
@@ -82,17 +82,10 @@ class AppleSignInManager: NSObject, ObservableObject {
         // Store reference to prevent deallocation
         self.currentAuthController = authorizationController
         
-        do {
-            #if DEBUG
-            Logger.auth.debug("[U+1F680] Launching authorization controller...")
-            #endif
-            authorizationController.performRequests()
-        } catch {
-            #if DEBUG
-            Logger.auth.debug("[ERR] Failed to perform authorization request: \(error)")
-            #endif
-            handleAppleSignInError(error)
-        }
+        #if DEBUG
+        Logger.auth.debug("🚀 Launching authorization controller...")
+        #endif
+        authorizationController.performRequests()
     }
     
     private func isAppleSignInAvailable() -> Bool {
@@ -117,7 +110,7 @@ class AppleSignInManager: NSObject, ObservableObject {
     private func simulateAppleSignInForTesting() {
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[U+1F9EA] Simulating Apple Sign In for testing (Simulator)")
+        Logger.auth.debug("🧪 Simulating Apple Sign In for testing (Simulator)")
         #endif
         #endif
         
@@ -132,7 +125,7 @@ class AppleSignInManager: NSObject, ObservableObject {
             
             #if DEBUG
             #if DEBUG
-            Logger.auth.debug("[U+1F4CA] Mock Apple ID Credential Data (Simulator):")
+            Logger.auth.debug("📊 Mock Apple ID Credential Data (Simulator):")
             Logger.auth.debug("   - User ID: \(mockUserIdentifier)")
             Logger.auth.debug("   - Email: \(mockEmail)")
             Logger.auth.debug("   - Full Name: Usuario Simulador")
@@ -155,8 +148,8 @@ class AppleSignInManager: NSObject, ObservableObject {
             
             #if DEBUG
             #if DEBUG
-            Logger.auth.debug("[OK] Apple Sign In simulation completed successfully")
-            Logger.auth.debug("[OK] User should now be authenticated and logged in")
+            Logger.auth.debug("✅ Apple Sign In simulation completed successfully")
+            Logger.auth.debug("✅ User should now be authenticated and logged in")
             #endif
             #endif
         }
@@ -166,7 +159,7 @@ class AppleSignInManager: NSObject, ObservableObject {
         guard !userIdentifier.isEmpty else {
             #if DEBUG
             #if DEBUG
-            Logger.auth.debug("[U+1F34E] No stored Apple user identifier")
+            Logger.auth.debug("🍎 No stored Apple user identifier")
             #endif
             #endif
             return
@@ -174,7 +167,7 @@ class AppleSignInManager: NSObject, ObservableObject {
         
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[U+1F34E] Checking Apple Sign In status for user: \(userIdentifier)")
+        Logger.auth.debug("🍎 Checking Apple Sign In status for user: \(self.userIdentifier)")
         #endif
         #endif
         
@@ -185,14 +178,14 @@ class AppleSignInManager: NSObject, ObservableObject {
                 case .authorized:
                     #if DEBUG
                     #if DEBUG
-                    Logger.auth.debug("[OK] Apple Sign In status: Authorized")
+                    Logger.auth.debug("✅ Apple Sign In status: Authorized")
                     #endif
                     #endif
                     self?.isAuthenticated = true
                 case .revoked:
                     #if DEBUG
                     #if DEBUG
-                    Logger.auth.debug("[U+1F6AB] Apple Sign In status: Revoked")
+                    Logger.auth.debug("🚫 Apple Sign In status: Revoked")
                     #endif
                     #endif
                     self?.signOut()
@@ -203,10 +196,17 @@ class AppleSignInManager: NSObject, ObservableObject {
                     #endif
                     #endif
                     self?.signOut()
+                case .transferred:
+                    #if DEBUG
+                    #if DEBUG
+                    Logger.auth.debug("🔄 Apple Sign In status: Transferred")
+                    #endif
+                    #endif
+                    self?.signOut()
                 @unknown default:
                     #if DEBUG
                     #if DEBUG
-                    Logger.auth.debug("[U+1F937]‍♂️ Apple Sign In status: Unknown")
+                    Logger.auth.debug("🤷‍♂️ Apple Sign In status: Unknown")
                     #endif
                     #endif
                     break
@@ -218,7 +218,7 @@ class AppleSignInManager: NSObject, ObservableObject {
     func signOut() {
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[U+1F34E] Signing out Apple user...")
+        Logger.auth.debug("🍎 Signing out Apple user...")
         #endif
         #endif
         
@@ -242,7 +242,7 @@ class AppleSignInManager: NSObject, ObservableObject {
         
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[OK] Apple user signed out successfully")
+        Logger.auth.debug("✅ Apple user signed out successfully")
         #endif
         #endif
     }
@@ -252,7 +252,7 @@ class AppleSignInManager: NSObject, ObservableObject {
     private func loadStoredAppleUser() {
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[U+1F34E] Loading stored Apple user data...")
+        Logger.auth.debug("🍎 Loading stored Apple user data...")
         #endif
         #endif
         
@@ -274,10 +274,10 @@ class AppleSignInManager: NSObject, ObservableObject {
             
             #if DEBUG
             #if DEBUG
-            Logger.auth.debug("[U+1F34E] Loaded stored Apple user from secure storage:")
-            Logger.auth.debug("   - ID: \(userIdentifier)")
-            Logger.auth.debug("   - Email: \(userEmail.isEmpty ? "Not provided" : "***@***.***")")
-            Logger.auth.debug("   - Name: \(userFullName.isEmpty ? "Not provided" : userFullName)")
+            Logger.auth.debug("🍎 Loaded stored Apple user from secure storage:")
+            Logger.auth.debug("   - ID: \(self.userIdentifier)")
+            Logger.auth.debug("   - Email: \(self.userEmail.isEmpty ? "Not provided" : "***@***.***")")
+            Logger.auth.debug("   - Name: \(self.userFullName.isEmpty ? "Not provided" : self.userFullName)")
             #endif
             #endif
             
@@ -290,7 +290,7 @@ class AppleSignInManager: NSObject, ObservableObject {
     private func migrateLegacyAppleUserData() {
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[SYNC] Attempting to migrate legacy Apple user data...")
+        Logger.auth.debug("🔄 Attempting to migrate legacy Apple user data...")
         #endif
         #endif
         
@@ -302,7 +302,7 @@ class AppleSignInManager: NSObject, ObservableObject {
         if !legacyId.isEmpty && isAppleUser {
             #if DEBUG
             #if DEBUG
-            Logger.auth.debug("[SYNC] Found legacy Apple user data, migrating to secure storage...")
+            Logger.auth.debug("🔄 Found legacy Apple user data, migrating to secure storage...")
             #endif
             #endif
             
@@ -314,7 +314,7 @@ class AppleSignInManager: NSObject, ObservableObject {
             if success {
                 #if DEBUG
                 #if DEBUG
-                Logger.auth.debug("[OK] Successfully migrated Apple user data to secure storage")
+                Logger.auth.debug("✅ Successfully migrated Apple user data to secure storage")
                 #endif
                 #endif
                 
@@ -331,7 +331,7 @@ class AppleSignInManager: NSObject, ObservableObject {
                 
                 #if DEBUG
                 #if DEBUG
-                Logger.auth.debug("[U+1F5D1]️ Cleared legacy UserDefaults after migration")
+                Logger.auth.debug("🗑️ Cleared legacy UserDefaults after migration")
                 #endif
                 #endif
                 
@@ -340,7 +340,7 @@ class AppleSignInManager: NSObject, ObservableObject {
             } else {
                 #if DEBUG
                 #if DEBUG
-                Logger.auth.debug("[ERR] Failed to migrate Apple user data to secure storage")
+                Logger.auth.debug("❌ Failed to migrate Apple user data to secure storage")
                 #endif
                 #endif
             }
@@ -370,13 +370,13 @@ class AppleSignInManager: NSObject, ObservableObject {
         if success {
             #if DEBUG
             #if DEBUG
-            Logger.auth.debug("[U+1F510] Apple user data saved securely with encryption")
+            Logger.auth.debug("🔐 Apple user data saved securely with encryption")
             #endif
             #endif
         } else {
             #if DEBUG
             #if DEBUG
-            Logger.auth.debug("[ERR] Failed to save Apple user data securely")
+            Logger.auth.debug("❌ Failed to save Apple user data securely")
             #endif
             #endif
         }
@@ -393,10 +393,10 @@ class AppleSignInManager: NSObject, ObservableObject {
         
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[OK] Apple user saved successfully:")
-        Logger.auth.debug("   - ID: \(userIdentifier)")
-        Logger.auth.debug("   - Email: \(userEmail.isEmpty ? "Not provided" : "***@***.***")")
-        Logger.auth.debug("   - Name: \(userFullName.isEmpty ? "Not provided" : userFullName)")
+        Logger.auth.debug("✅ Apple user saved successfully:")
+        Logger.auth.debug("   - ID: \(self.userIdentifier)")
+        Logger.auth.debug("   - Email: \(self.userEmail.isEmpty ? "Not provided" : "***@***.***")")
+        Logger.auth.debug("   - Name: \(self.userFullName.isEmpty ? "Not provided" : self.userFullName)")
         #endif
         #endif
     }
@@ -404,7 +404,7 @@ class AppleSignInManager: NSObject, ObservableObject {
     private func handleAppleSignInError(_ error: Error) {
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[ERR] Apple Sign In error: \(error.localizedDescription)")
+        Logger.auth.debug("❌ Apple Sign In error: \(error.localizedDescription)")
         Logger.auth.debug("   - Error domain: \(error._domain)")
         Logger.auth.debug("   - Error code: \(error._code)")
         #endif
@@ -451,6 +451,13 @@ class AppleSignInManager: NSObject, ObservableObject {
                 Logger.auth.debug("   - Error type: Unknown (Code 1000 often indicates simulator limitations)")
                 #endif
                 #endif
+            case .notInteractive:
+                errorMessage = "Sesión no interactiva"
+                #if DEBUG
+                #if DEBUG
+                Logger.auth.debug("   - Error type: Not Interactive")
+                #endif
+                #endif
             @unknown default:
                 errorMessage = "Error inesperado"
                 #if DEBUG
@@ -464,7 +471,7 @@ class AppleSignInManager: NSObject, ObservableObject {
             if authError.code.rawValue == 1000 {
                 #if DEBUG
                 #if DEBUG
-                Logger.auth.debug("[U+1F527] Code 1000 Troubleshooting:")
+                Logger.auth.debug("🔧 Code 1000 Troubleshooting:")
                 Logger.auth.debug("   - This error is common in iOS Simulator")
                 Logger.auth.debug("   - Try testing on a real device")
                 Logger.auth.debug("   - Ensure you're signed into iCloud in Settings")
@@ -488,7 +495,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[U+1F34E] Apple Sign In completed successfully")
+        Logger.auth.debug("🍎 Apple Sign In completed successfully")
         #endif
         #endif
         
@@ -498,7 +505,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
             #if DEBUG
             #if DEBUG
-            Logger.auth.debug("[ERR] Failed to get Apple ID credential")
+            Logger.auth.debug("❌ Failed to get Apple ID credential")
             #endif
             #endif
             handleAppleSignInError(NSError(domain: "AppleSignIn", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to get Apple ID credential"]))
@@ -508,7 +515,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
         // Log received data for validation
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[U+1F4CA] Apple ID Credential Data:")
+        Logger.auth.debug("📊 Apple ID Credential Data:")
         Logger.auth.debug("   - User ID: \(appleIDCredential.user)")
         Logger.auth.debug("   - Email: \(appleIDCredential.email ?? "Not provided")")
         Logger.auth.debug("   - Full Name: \(appleIDCredential.fullName?.debugDescription ?? "Not provided")")
@@ -527,7 +534,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
         
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[OK] Apple Sign In process completed successfully")
+        Logger.auth.debug("✅ Apple Sign In process completed successfully")
         #endif
         #endif
     }
@@ -535,7 +542,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[ERR] Apple Sign In failed with error:")
+        Logger.auth.debug("❌ Apple Sign In failed with error:")
         Logger.auth.debug("   - Error: \(error)")
         #endif
         #endif
@@ -545,7 +552,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
             if let authError = error as? ASAuthorizationError, authError.code.rawValue == 1000 {
                 #if DEBUG
                 #if DEBUG
-                Logger.auth.debug("[U+1F527] Detected Code 1000 in simulator - activating automatic fallback")
+                Logger.auth.debug("🔧 Detected Code 1000 in simulator - activating automatic fallback")
                 #endif
                 #endif
                 
@@ -555,7 +562,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
                 // Automatically start simulator fallback
                 #if DEBUG
                 #if DEBUG
-                Logger.auth.debug("[U+1F9EA] Starting automatic simulator fallback...")
+                Logger.auth.debug("🧪 Starting automatic simulator fallback...")
                 #endif
                 #endif
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -578,7 +585,7 @@ extension AppleSignInManager: ASAuthorizationControllerPresentationContextProvid
               let window = windowScene.windows.first else {
             #if DEBUG
             #if DEBUG
-            Logger.auth.debug("[WARN]️ Could not find window for Apple Sign In presentation")
+            Logger.auth.debug("⚠️ Could not find window for Apple Sign In presentation")
             #endif
             #endif
             return UIWindow()
@@ -586,7 +593,7 @@ extension AppleSignInManager: ASAuthorizationControllerPresentationContextProvid
         
         #if DEBUG
         #if DEBUG
-        Logger.auth.debug("[U+1F34E] Presenting Apple Sign In on window: \(window)")
+        Logger.auth.debug("🍎 Presenting Apple Sign In on window: \(window)")
         #endif
         #endif
         return window

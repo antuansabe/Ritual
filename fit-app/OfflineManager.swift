@@ -34,9 +34,9 @@ class OfflineManager: ObservableObject {
         var emoji: String {
             switch self {
             case .idle: return "⏱️"
-            case .syncing: return "[SYNC]"
-            case .success: return "[OK]"
-            case .failed: return "[ERR]"
+            case .syncing: return "🔄"
+            case .success: return "✅"
+            case .failed: return "❌"
             }
         }
     }
@@ -74,7 +74,7 @@ class OfflineManager: ObservableObject {
             }
             .store(in: &cancellables)
         
-        print("[U+1F4BE] OfflineManager: Sistema offline inicializado")
+        print("💾 OfflineManager: Sistema offline inicializado")
     }
     
     private func setupNetworkReconnectionHandler() {
@@ -90,7 +90,7 @@ class OfflineManager: ObservableObject {
     private func handleNetworkReconnection() {
         guard networkMonitor.hasBeenOffline else { return }
         
-        print("[U+1F310] [OK] Red reconectada - Preparando sincronización offline")
+        print("🌐 ✅ Red reconectada - Preparando sincronización offline")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.triggerCloudKitSync()
@@ -98,8 +98,8 @@ class OfflineManager: ObservableObject {
     }
     
     private func handleNetworkDisconnection() {
-        print("[U+1F310] [ERR] Red desconectada - Activando modo offline")
-        print("[U+1F4BE] Los entrenamientos se guardarán localmente")
+        print("🌐 ❌ Red desconectada - Activando modo offline")
+        print("💾 Los entrenamientos se guardarán localmente")
         
         DispatchQueue.main.async {
             self.syncStatus = .idle
@@ -110,11 +110,11 @@ class OfflineManager: ObservableObject {
     // MARK: - CloudKit Sync Management
     private func triggerCloudKitSync() {
         guard networkMonitor.isConnected else {
-            print("[ERR] No se puede sincronizar: Sin conexión a internet")
+            print("❌ No se puede sincronizar: Sin conexión a internet")
             return
         }
         
-        print("[SYNC] Iniciando sincronización CloudKit después de reconexión...")
+        print("🔄 Iniciando sincronización CloudKit después de reconexión...")
         
         DispatchQueue.main.async {
             self.isSyncing = true
@@ -127,14 +127,14 @@ class OfflineManager: ObservableObject {
         do {
             if context.hasChanges {
                 try context.save()
-                print("[U+1F4BE] Context guardado - CloudKit sincronizará automáticamente")
+                print("💾 Context guardado - CloudKit sincronizará automáticamente")
             } else {
                 // Even if no changes, this can trigger a sync check
                 try context.save()
-                print("[SYNC] Trigger de sincronización enviado a CloudKit")
+                print("🔄 Trigger de sincronización enviado a CloudKit")
             }
         } catch {
-            print("[ERR] Error al trigger sincronización: \(error.localizedDescription)")
+            print("❌ Error al trigger sincronización: \(error.localizedDescription)")
             DispatchQueue.main.async {
                 self.syncStatus = .failed(error.localizedDescription)
                 self.isSyncing = false
@@ -158,11 +158,11 @@ class OfflineManager: ObservableObject {
         switch event.type {
         case .import:
             if let error = event.error {
-                print("[ERR] CloudKit Import Error: \(error.localizedDescription)")
+                print("❌ CloudKit Import Error: \(error.localizedDescription)")
                 syncStatus = .failed("Import failed")
                 isSyncing = false
             } else {
-                print("[U+1F4E5] CloudKit Import Success: Datos recibidos desde iCloud")
+                print("📥 CloudKit Import Success: Datos recibidos desde iCloud")
                 if isSyncing {
                     syncStatus = .success
                     lastSyncDate = Date()
@@ -179,11 +179,11 @@ class OfflineManager: ObservableObject {
             
         case .export:
             if let error = event.error {
-                print("[ERR] CloudKit Export Error: \(error.localizedDescription)")
+                print("❌ CloudKit Export Error: \(error.localizedDescription)")
                 syncStatus = .failed("Export failed")
                 isSyncing = false
             } else {
-                print("[U+1F4E4] CloudKit Export Success: Datos enviados a iCloud")
+                print("📤 CloudKit Export Success: Datos enviados a iCloud")
                 if isSyncing {
                     syncStatus = .success
                     lastSyncDate = Date()
@@ -225,24 +225,24 @@ class OfflineManager: ObservableObject {
                 if !workoutInserts.isEmpty {
                     DispatchQueue.main.async {
                         self.pendingSyncCount += workoutInserts.count
-                        print("[U+1F4BE] Entrenamientos pendientes de sync: \(self.pendingSyncCount)")
+                        print("💾 Entrenamientos pendientes de sync: \(self.pendingSyncCount)")
                     }
                 }
             }
         } else {
             // If we're online, successful saves mean sync is happening
-            print("[SYNC] Guardado online - CloudKit sincronizará automáticamente")
+            print("🔄 Guardado online - CloudKit sincronizará automáticamente")
         }
     }
     
     // MARK: - Manual Sync Trigger
     func forceSyncIfConnected() {
         guard networkMonitor.isConnected else {
-            print("[ERR] Sync manual: Sin conexión a internet")
+            print("❌ Sync manual: Sin conexión a internet")
             return
         }
         
-        print("[SYNC] Sync manual iniciado por usuario")
+        print("🔄 Sync manual iniciado por usuario")
         triggerCloudKitSync()
     }
     
@@ -261,10 +261,10 @@ class OfflineManager: ObservableObject {
             try context.save()
             
             if networkMonitor.isConnected {
-                print("[SYNC] Entrenamiento guardado y enviado a CloudKit: \(type)")
+                print("🔄 Entrenamiento guardado y enviado a CloudKit: \(type)")
             } else {
-                print("[U+1F4BE] Entrenamiento guardado offline: \(type)")
-                print("[U+1F4CB] Se sincronizará cuando regrese la conexión")
+                print("💾 Entrenamiento guardado offline: \(type)")
+                print("📋 Se sincronizará cuando regrese la conexión")
                 
                 DispatchQueue.main.async {
                     self.pendingSyncCount += 1
@@ -273,7 +273,7 @@ class OfflineManager: ObservableObject {
             
             return true
         } catch {
-            print("[ERR] Error al guardar entrenamiento: \(error.localizedDescription)")
+            print("❌ Error al guardar entrenamiento: \(error.localizedDescription)")
             return false
         }
     }

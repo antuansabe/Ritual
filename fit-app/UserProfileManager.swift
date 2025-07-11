@@ -18,7 +18,7 @@ class UserProfileManager: ObservableObject {
     // MARK: - User Profile Management
     
     func loadCurrentUser() {
-        print("[U+1F464] Loading current user profile...")
+        print("👤 Loading current user profile...")
         
         let request: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         request.predicate = NSPredicate(format: "isActive == YES")
@@ -31,7 +31,7 @@ class UserProfileManager: ObservableObject {
                 // Decrypt sensitive fields after fetching
                 decryptUserProfileFields(user)
                 
-                print("[OK] Found existing user: \(user.fullName ?? "Unknown")")
+                print("✅ Found existing user: \(user.fullName ?? "Unknown")")
                 currentUser = user
                 displayName = user.fullName ?? "Atleta"
             } else {
@@ -39,7 +39,7 @@ class UserProfileManager: ObservableObject {
                 // Don't create default user here - wait for authentication
             }
         } catch {
-            print("[ERR] Error loading current user: \(error)")
+            print("❌ Error loading current user: \(error)")
         }
     }
     
@@ -49,7 +49,7 @@ class UserProfileManager: ObservableObject {
         appleUserID: String? = nil,
         authType: String = "email"
     ) {
-        print("[U+1F464] Creating/updating user profile...")
+        print("👤 Creating/updating user profile...")
         print("   - Name: \(fullName ?? "Not provided")")
         print("   - Email: \(email ?? "Not provided")")
         print("   - Auth Type: \(authType)")
@@ -62,12 +62,12 @@ class UserProfileManager: ObservableObject {
             do {
                 let existingUsers = try context.fetch(request)
                 if let existingUser = existingUsers.first {
-                    print("[OK] Updating existing Apple user")
+                    print("✅ Updating existing Apple user")
                     updateExistingUser(existingUser, fullName: fullName, email: email)
                     return
                 }
             } catch {
-                print("[ERR] Error checking for existing Apple user: \(error)")
+                print("❌ Error checking for existing Apple user: \(error)")
             }
         }
         
@@ -114,7 +114,7 @@ class UserProfileManager: ObservableObject {
                 user.isActive = false
             }
         } catch {
-            print("[ERR] Error deactivating users: \(error)")
+            print("❌ Error deactivating users: \(error)")
         }
     }
     
@@ -131,17 +131,17 @@ class UserProfileManager: ObservableObject {
             DispatchQueue.main.async {
                 self.currentUser = user
                 self.displayName = user.fullName ?? "Atleta"
-                print("[OK] User profile saved: \(user.fullName ?? "Unknown")")
+                print("✅ User profile saved: \(user.fullName ?? "Unknown")")
             }
         } catch {
-            print("[ERR] Error saving user profile: \(error)")
+            print("❌ Error saving user profile: \(error)")
         }
     }
     
     // MARK: - Apple Sign In Integration
     
     func handleAppleSignIn(userID: String, fullName: PersonNameComponents?, email: String?) {
-        print("[U+1F34E] Handling Apple Sign In for user profile...")
+        print("🍎 Handling Apple Sign In for user profile...")
         
         let name = formatAppleFullName(fullName)
         
@@ -166,7 +166,7 @@ class UserProfileManager: ObservableObject {
     // MARK: - Regular Authentication Integration
     
     func handleRegularSignIn(email: String) {
-        print("[U+1F4E7] Handling regular sign in for user profile...")
+        print("📧 Handling regular sign in for user profile...")
         
         // Extract name from email or use default
         let name = extractNameFromEmail(email)
@@ -194,7 +194,7 @@ class UserProfileManager: ObservableObject {
     // MARK: - User Management
     
     func signOut() {
-        print("[U+1F6AA] Signing out user profile...")
+        print("🛚 Signing out user profile...")
         
         if let user = currentUser {
             user.isActive = false
@@ -206,7 +206,7 @@ class UserProfileManager: ObservableObject {
             self.displayName = "Atleta"
         }
         
-        print("[OK] User signed out successfully")
+        print("✅ User signed out successfully")
     }
     
     // MARK: - Data Encryption Methods
@@ -228,7 +228,7 @@ class UserProfileManager: ObservableObject {
     /// Migrate existing unencrypted user profiles to encrypted storage
     /// Call this method during app updates to encrypt existing data
     func migrateUserProfilesToEncrypted() {
-        print("[SYNC] Starting UserProfile encryption migration...")
+        print("🔄 Starting UserProfile encryption migration...")
         
         let request: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         
@@ -250,13 +250,13 @@ class UserProfileManager: ObservableObject {
             
             if migratedCount > 0 {
                 try context.save()
-                print("[OK] Successfully migrated \(migratedCount) user profiles to encrypted storage")
+                print("✅ Successfully migrated \(migratedCount) user profiles to encrypted storage")
             } else {
                 print("ℹ️ No user profiles needed encryption migration")
             }
             
         } catch {
-            print("[ERR] Error migrating user profiles to encrypted storage: \(error)")
+            print("❌ Error migrating user profiles to encrypted storage: \(error)")
         }
     }
     
@@ -275,9 +275,9 @@ class UserProfileManager: ObservableObject {
                 DispatchQueue.main.async {
                     self.displayName = newName
                 }
-                print("[OK] Display name updated successfully")
+                print("✅ Display name updated successfully")
             } catch {
-                print("[ERR] Error updating display name: \(error)")
+                print("❌ Error updating display name: \(error)")
             }
         } else {
             // If no current user, just update the display name locally

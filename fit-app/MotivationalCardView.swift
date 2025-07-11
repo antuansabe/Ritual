@@ -40,7 +40,7 @@ struct MotivationalCardView: View {
                     .fixedSize(horizontal: false, vertical: true)
                 
                 if style == .prominent {
-                    Text("[U+1F4AB] Inspiración del día")
+                    Text("💫 Inspiración del día")
                         .font(.system(size: 12, weight: .light))
                         .foregroundColor(.white.opacity(0.6))
                         .italic()
@@ -189,7 +189,7 @@ struct MotivationalCardView: View {
             MotivationalCardView(
                 message: MotivationalMessage(
                     text: "Hoy puedes darte un regalo de movimiento",
-                    emoji: "[U+1F9D8]‍♂️",
+                    emoji: "🧘‍♂️",
                     context: .profile
                 ),
                 style: .prominent
@@ -198,7 +198,7 @@ struct MotivationalCardView: View {
             MotivationalCardView(
                 message: MotivationalMessage(
                     text: "Tu constancia empieza con pequeños pasos",
-                    emoji: "[U+1F463]",
+                    emoji: "👣",
                     context: .workoutStart
                 ),
                 style: .subtle
@@ -207,7 +207,7 @@ struct MotivationalCardView: View {
             MotivationalCardView(
                 message: MotivationalMessage(
                     text: "¡Tu constancia inspira!",
-                    emoji: "[U+1F525]",
+                    emoji: "🔥",
                     context: .streak
                 ),
                 style: .minimal

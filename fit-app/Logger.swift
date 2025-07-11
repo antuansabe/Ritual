@@ -1,7 +1,6 @@
 import Foundation
 import os.log
 
-@available(iOS 14.0, *)
 extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier ?? "com.antonio.fit-app"
     

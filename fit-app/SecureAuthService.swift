@@ -76,7 +76,7 @@ class SecureAuthService {
             .replacingOccurrences(of: ";", with: "")
             .replacingOccurrences(of: "=", with: "")
         
-        print("[U+1F510] SecureAuth: Input sanitized (length: \(sanitized.count))")
+        print("🔐 SecureAuth: Input sanitized (length: \(sanitized.count))")
         return sanitized
     }
     
@@ -86,14 +86,14 @@ class SecureAuthService {
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         let isValid = emailPredicate.evaluate(with: email)
         
-        print("[U+1F510] SecureAuth: Email validation result: \(isValid)")
+        print("🔐 SecureAuth: Email validation result: \(isValid)")
         return isValid
     }
     
     /// Validate password strength (minimum 8 characters, at least one uppercase and one number)
     func validatePassword(_ password: String) -> Bool {
         guard password.count >= 8 else {
-            print("[U+1F510] SecureAuth: Password too short")
+            print("🔐 SecureAuth: Password too short")
             return false
         }
         
@@ -104,7 +104,7 @@ class SecureAuthService {
         let hasNumber = NSPredicate(format: "SELF MATCHES %@", numberRegex).evaluate(with: password)
         
         let isValid = hasUppercase && hasNumber
-        print("[U+1F510] SecureAuth: Password validation - Length: ✓, Uppercase: \(hasUppercase ? "✓" : "✗"), Number: \(hasNumber ? "✓" : "✗")")
+        print("🔐 SecureAuth: Password validation - Length: ✓, Uppercase: \(hasUppercase ? "✓" : "✗"), Number: \(hasNumber ? "✓" : "✗")")
         
         return isValid
     }
@@ -118,7 +118,7 @@ class SecureAuthService {
         let hash = SHA256.hash(data: data)
         let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()
         
-        print("[U+1F510] SecureAuth: Password hashed successfully")
+        print("🔐 SecureAuth: Password hashed successfully")
         return hashString
     }
     
@@ -127,7 +127,7 @@ class SecureAuthService {
         let inputHash = hashPassword(password)
         let isValid = inputHash == hash
         
-        print("[U+1F510] SecureAuth: Password verification result: \(isValid)")
+        print("🔐 SecureAuth: Password verification result: \(isValid)")
         return isValid
     }
     
@@ -135,7 +135,7 @@ class SecureAuthService {
     
     /// Register a new user with secure validation
     func register(email: String, password: String, confirmPassword: String) -> AuthResult {
-        print("[U+1F510] SecureAuth: Starting user registration")
+        print("🔐 SecureAuth: Starting user registration")
         
         // Sanitize inputs
         let sanitizedEmail = sanitizeInput(email).lowercased()
@@ -144,25 +144,25 @@ class SecureAuthService {
         
         // Validate email format
         guard validateEmail(sanitizedEmail) else {
-            print("[U+1F510] SecureAuth: Registration failed - Invalid email format")
+            print("🔐 SecureAuth: Registration failed - Invalid email format")
             return .failure(error: .invalidEmail)
         }
         
         // Validate password strength
         guard validatePassword(sanitizedPassword) else {
-            print("[U+1F510] SecureAuth: Registration failed - Weak password")
+            print("🔐 SecureAuth: Registration failed - Weak password")
             return .failure(error: .weakPassword)
         }
         
         // Check password confirmation
         guard sanitizedPassword == sanitizedConfirmPassword else {
-            print("[U+1F510] SecureAuth: Registration failed - Password confirmation mismatch")
+            print("🔐 SecureAuth: Registration failed - Password confirmation mismatch")
             return .failure(error: .weakPassword)
         }
         
         // Check if user already exists
         if userExists(email: sanitizedEmail) {
-            print("[U+1F510] SecureAuth: Registration failed - User already exists")
+            print("🔐 SecureAuth: Registration failed - User already exists")
             return .failure(error: .userAlreadyExists)
         }
         
@@ -172,11 +172,11 @@ class SecureAuthService {
         
         // Store credentials securely
         guard storeUserCredentials(userCredentials) else {
-            print("[U+1F510] SecureAuth: Registration failed - Storage error")
+            print("🔐 SecureAuth: Registration failed - Storage error")
             return .failure(error: .storageError)
         }
         
-        print("[U+1F510] SecureAuth: User registration successful")
+        print("🔐 SecureAuth: User registration successful")
         return .success(user: userCredentials)
     }
     
@@ -184,7 +184,7 @@ class SecureAuthService {
     
     /// Authenticate user with secure validation
     func login(email: String, password: String) -> AuthResult {
-        print("[U+1F510] SecureAuth: Starting user login")
+        print("🔐 SecureAuth: Starting user login")
         
         // Sanitize inputs
         let sanitizedEmail = sanitizeInput(email).lowercased()
@@ -192,25 +192,25 @@ class SecureAuthService {
         
         // Validate email format
         guard validateEmail(sanitizedEmail) else {
-            print("[U+1F510] SecureAuth: Login failed - Invalid email format")
+            print("🔐 SecureAuth: Login failed - Invalid email format")
             return .failure(error: .invalidEmail)
         }
         
         // Check if user exists
         guard userExists(email: sanitizedEmail) else {
-            print("[U+1F510] SecureAuth: Login failed - Email not registered")
+            print("🔐 SecureAuth: Login failed - Email not registered")
             return .failure(error: .emailNotRegistered)
         }
         
         // Retrieve stored credentials
         guard let storedCredentials = getUserCredentials(email: sanitizedEmail) else {
-            print("[U+1F510] SecureAuth: Login failed - Could not retrieve user credentials")
+            print("🔐 SecureAuth: Login failed - Could not retrieve user credentials")
             return .failure(error: .storageError)
         }
         
         // Verify password
         guard verifyPassword(sanitizedPassword, against: storedCredentials.passwordHash) else {
-            print("[U+1F510] SecureAuth: Login failed - Incorrect password")
+            print("🔐 SecureAuth: Login failed - Incorrect password")
             return .failure(error: .incorrectPassword)
         }
         
@@ -223,7 +223,7 @@ class SecureAuthService {
         // Store current session with encryption
         _ = storage.storeEncrypted(sanitizedEmail, for: SecureStorage.StorageKeys.userEmail)
         
-        print("[U+1F510] SecureAuth: User login successful")
+        print("🔐 SecureAuth: User login successful")
         return .success(user: updatedCredentials)
     }
     
@@ -243,7 +243,7 @@ class SecureAuthService {
             let key = "user_\(credentials.email)"
             return storage.storeEncrypted(jsonString, for: key)
         } catch {
-            print("[U+1F510] SecureAuth: Failed to encode user credentials: \(error)")
+            print("🔐 SecureAuth: Failed to encode user credentials: \(error)")
             return false
         }
     }
@@ -260,7 +260,7 @@ class SecureAuthService {
         do {
             return try JSONDecoder().decode(UserCredentials.self, from: data)
         } catch {
-            print("[U+1F510] SecureAuth: Failed to decode user credentials: \(error)")
+            print("🔐 SecureAuth: Failed to decode user credentials: \(error)")
             return nil
         }
     }
@@ -277,13 +277,13 @@ class SecureAuthService {
     
     /// Logout current user
     func logout() -> Bool {
-        print("[U+1F510] SecureAuth: Logging out current user")
+        print("🔐 SecureAuth: Logging out current user")
         let success = storage.clearAllCredentials()
         
         if success {
-            print("[U+1F510] SecureAuth: Logout successful")
+            print("🔐 SecureAuth: Logout successful")
         } else {
-            print("[U+1F510] SecureAuth: Logout failed")
+            print("🔐 SecureAuth: Logout failed")
         }
         
         return success
