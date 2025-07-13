@@ -40,9 +40,9 @@ class CloudKitConflictMonitor: ObservableObject {
             var emoji: String {
                 switch self {
                 case .simultaneousEdit: return "⚡"
-                case .deletionConflict: return "[U+1F5D1]️"
-                case .attributeConflict: return "[U+1F4DD]"
-                case .relationshipConflict: return "[U+1F517]"
+                case .deletionConflict: return "🗑️"
+                case .attributeConflict: return "📝"
+                case .relationshipConflict: return "🔗"
                 case .unknown: return "❓"
                 }
             }
@@ -65,10 +65,10 @@ class CloudKitConflictMonitor: ObservableObject {
             
             var emoji: String {
                 switch self {
-                case .import: return "[U+1F4E5]"
-                case .export: return "[U+1F4E4]"
+                case .import: return "📥"
+                case .export: return "📤"
                 case .setup: return "⚙️"
-                case .accountChange: return "[U+1F464]"
+                case .accountChange: return "👤"
                 case .remoteChange: return "☁️"
                 }
             }
@@ -101,10 +101,10 @@ class CloudKitConflictMonitor: ObservableObject {
             
             var emoji: String {
                 switch self {
-                case .networkError: return "[U+1F4E1]"
-                case .accountError: return "[U+1F464]"
-                case .quotaExceeded: return "[U+1F4BE]"
-                case .authenticationFailed: return "[U+1F510]"
+                case .networkError: return "📡"
+                case .accountError: return "👤"
+                case .quotaExceeded: return "💾"
+                case .authenticationFailed: return "🔐"
                 case .serviceUnavailable: return "[WARN]️"
                 }
             }
@@ -115,7 +115,7 @@ class CloudKitConflictMonitor: ObservableObject {
     private func setupCloudKitMonitoring() {
         isMonitoring = true
         #if DEBUG
-        Logger.cloudkit.debug("[U+1F527] Configurando monitoreo avanzado de CloudKit...")
+        Logger.cloudkit.debug("🔧 Configurando monitoreo avanzado de CloudKit...")
         #endif
         
         // Monitor CloudKit container events
@@ -212,7 +212,7 @@ class CloudKitConflictMonitor: ObservableObject {
             )
             addSyncEvent(syncEvent)
             #if DEBUG
-            Logger.cloudkit.debug("[U+1F4E5] CloudKit Import: Datos nuevos recibidos desde iCloud")
+            Logger.cloudkit.debug("📥 CloudKit Import: Datos nuevos recibidos desde iCloud")
             #endif
             
             // Check for potential conflicts during import
@@ -235,7 +235,7 @@ class CloudKitConflictMonitor: ObservableObject {
             )
             addSyncEvent(syncEvent)
             #if DEBUG
-            Logger.cloudkit.debug("[U+1F4E4] CloudKit Export: Datos locales enviados a iCloud exitosamente")
+            Logger.cloudkit.debug("📤 CloudKit Export: Datos locales enviados a iCloud exitosamente")
             #endif
         }
     }
@@ -264,7 +264,7 @@ class CloudKitConflictMonitor: ObservableObject {
         // Only monitor the view context saves
         if context == container.viewContext {
             #if DEBUG
-            Logger.cloudkit.debug("[U+1F4BE] Context Save: Datos guardados localmente")
+            Logger.cloudkit.debug("💾 Context Save: Datos guardados localmente")
             #endif
             
             // Check for potential conflicts before save
@@ -289,7 +289,7 @@ class CloudKitConflictMonitor: ObservableObject {
         // Simulate conflict detection during import
         // In a real implementation, you would analyze the imported data
         #if DEBUG
-        Logger.cloudkit.debug("[U+1F50D] Analizando posibles conflictos en datos importados...")
+        Logger.cloudkit.debug("🔍 Analizando posibles conflictos en datos importados...")
         #endif
         
         // Example: Check for timestamp conflicts
@@ -333,7 +333,7 @@ class CloudKitConflictMonitor: ObservableObject {
         if let updatedObjects = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
             for object in updatedObjects {
                 if let workout = object as? WorkoutEntity {
-                    print("[U+1F4DD] Objeto modificado antes de guardar: \(workout.type ?? "Unknown")")
+                    print("📝 Objeto modificado antes de guardar: \(workout.type ?? "Unknown")")
                     
                     // Check if this object was recently modified remotely
                     if hasRecentRemoteChanges(for: workout) {
@@ -349,7 +349,7 @@ class CloudKitConflictMonitor: ObservableObject {
                         DispatchQueue.main.async {
                             self.addConflict(conflict)
                         }
-                        print("[U+1F4DD] Conflicto de atributos detectado para \(workout.type ?? "Unknown")")
+                        print("📝 Conflicto de atributos detectado para \(workout.type ?? "Unknown")")
                     }
                 }
             }
@@ -359,7 +359,7 @@ class CloudKitConflictMonitor: ObservableObject {
         if let deletedObjects = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> {
             for object in deletedObjects {
                 if let workout = object as? WorkoutEntity {
-                    print("[U+1F5D1]️ Objeto eliminado: \(workout.type ?? "Unknown")")
+                    print("🗑️ Objeto eliminado: \(workout.type ?? "Unknown")")
                     
                     let conflict = CloudKitConflict(
                         timestamp: Date(),
@@ -373,7 +373,7 @@ class CloudKitConflictMonitor: ObservableObject {
                     DispatchQueue.main.async {
                         self.addConflict(conflict)
                     }
-                    print("[U+1F5D1]️ Conflicto de eliminación detectado")
+                    print("🗑️ Conflicto de eliminación detectado")
                 }
             }
         }
@@ -384,12 +384,12 @@ class CloudKitConflictMonitor: ObservableObject {
         
         // Log details about remote changes
         if let storeUUID = userInfo[NSStoreUUIDKey] as? String {
-            print("[U+1F4E1] Store UUID: \(storeUUID)")
+            print("📡 Store UUID: \(storeUUID)")
         }
         
         // Analyze transaction history if available
         if let historyToken = userInfo["NSPersistentHistoryTokenKey"] {
-            print("[U+1F4DA] History Token: \(historyToken)")
+            print("📚 History Token: \(historyToken)")
             
             // This indicates we have detailed transaction history
             analyzeTransactionHistory()
@@ -403,7 +403,7 @@ class CloudKitConflictMonitor: ObservableObject {
             
             for object in updatedObjects {
                 if let workout = object as? WorkoutEntity {
-                    print("   [U+1F4DD] Merged: \(workout.type ?? "Unknown") - \(workout.duration) min")
+                    print("   📝 Merged: \(workout.type ?? "Unknown") - \(workout.duration) min")
                 }
             }
         }
@@ -433,7 +433,7 @@ class CloudKitConflictMonitor: ObservableObject {
             if let transactions = historyResult?.result as? [NSPersistentHistoryTransaction] {
                 
                 for transaction in transactions.suffix(5) { // Last 5 transactions
-                    print("[U+1F4DA] Transaction: \(transaction.timestamp) - Author: \(transaction.author ?? "Unknown")")
+                    print("📚 Transaction: \(transaction.timestamp) - Author: \(transaction.author ?? "Unknown")")
                     
                     if let changes = transaction.changes {
                         for change in changes {
@@ -462,19 +462,19 @@ class CloudKitConflictMonitor: ObservableObject {
                 issueType = .networkError
                 description = "Error de red: \(ckError.localizedDescription)"
                 suggestion = "Verificar conexión a internet"
-                print("[U+1F4E1] CloudKit Network Error: \(description)")
+                print("📡 CloudKit Network Error: \(description)")
                 
             case .notAuthenticated:
                 issueType = .authenticationFailed
                 description = "Error de autenticación iCloud"
                 suggestion = "Verificar sesión iCloud en Configuración"
-                print("[U+1F510] CloudKit Auth Error: \(description)")
+                print("🔐 CloudKit Auth Error: \(description)")
                 
             case .quotaExceeded:
                 issueType = .quotaExceeded
                 description = "Cuota de iCloud excedida"
                 suggestion = "Liberar espacio en iCloud"
-                print("[U+1F4BE] CloudKit Quota Error: \(description)")
+                print("💾 CloudKit Quota Error: \(description)")
                 
             case .serviceUnavailable:
                 issueType = .serviceUnavailable
@@ -539,14 +539,14 @@ class CloudKitConflictMonitor: ObservableObject {
         conflicts.removeAll()
         syncEvents.removeAll()
         networkIssues.removeAll()
-        print("[U+1F9F9] Eventos de monitoreo limpiados")
+        print("🧹 Eventos de monitoreo limpiados")
     }
     
     func generateConflictReport() -> String {
-        var report = "[U+1F4CA] REPORTE DE CONFLICTOS CLOUDKIT\n"
+        var report = "📊 REPORTE DE CONFLICTOS CLOUDKIT\n"
         report += "================================\n\n"
         
-        report += "[U+1F525] CONFLICTOS DETECTADOS: \(conflicts.count)\n"
+        report += "🔥 CONFLICTOS DETECTADOS: \(conflicts.count)\n"
         for conflict in conflicts.suffix(5) {
             report += "\(conflict.conflictType.emoji) \(conflict.description)\n"
             report += "   Local: \(conflict.localData)\n"
@@ -554,13 +554,13 @@ class CloudKitConflictMonitor: ObservableObject {
             report += "   Tiempo: \(formatTime(conflict.timestamp))\n\n"
         }
         
-        report += "[U+1F4E1] PROBLEMAS DE RED: \(networkIssues.count)\n"
+        report += "📡 PROBLEMAS DE RED: \(networkIssues.count)\n"
         for issue in networkIssues.suffix(3) {
             report += "\(issue.type.emoji) \(issue.description)\n"
             report += "   Sugerencia: \(issue.suggestion)\n\n"
         }
         
-        report += "[U+1F4CB] EVENTOS RECIENTES: \(syncEvents.count)\n"
+        report += "📋 EVENTOS RECIENTES: \(syncEvents.count)\n"
         for event in syncEvents.suffix(5) {
             report += "\(event.type.emoji) \(event.description)\n"
         }

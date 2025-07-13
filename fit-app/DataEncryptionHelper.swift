@@ -25,7 +25,7 @@ class vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY {
             
             return uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.GpX2gmw5MvTjIh4UaeYUjQdWdoMsVBcp(jsonString, for: key)
         } catch {
-            print("[U+1F510] DataEncryption: Failed to serialize workout data: \(error)")
+            print("🔐 DataEncryption: Failed to serialize workout data: \(error)")
             return false
         }
     }
@@ -39,14 +39,14 @@ class vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY {
         }
         
         guard let jsonData = jsonString.data(using: .utf8) else {
-            print("[U+1F510] DataEncryption: Failed to convert JSON string to data")
+            print("🔐 DataEncryption: Failed to convert JSON string to data")
             return nil
         }
         
         do {
             return try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
         } catch {
-            print("[U+1F510] DataEncryption: Failed to deserialize workout data: \(error)")
+            print("🔐 DataEncryption: Failed to deserialize workout data: \(error)")
             return nil
         }
     }
@@ -83,7 +83,7 @@ class vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY {
                 if !value.hasPrefix("encrypted_") {
                     if let encryptedValue = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.Eqc2ql0IVtWbFTAKElgtPqpbsawqmIKR(value) {
                         entity.setValue("encrypted_\(encryptedValue)", forKey: fieldName)
-                        print("[U+1F510] DataEncryption: Encrypted field '\(fieldName)' for entity")
+                        print("🔐 DataEncryption: Encrypted field '\(fieldName)' for entity")
                     } else {
                         print("[ERR] DataEncryption: Failed to encrypt field '\(fieldName)'")
                     }
@@ -106,7 +106,7 @@ class vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY {
                 
                 if let decryptedValue = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.eaHJWTTic72DUmLgYtENJocDbVc9Jkvy(actualEncryptedValue) {
                     entity.setValue(decryptedValue, forKey: fieldName)
-                    print("[U+1F510] DataEncryption: Decrypted field '\(fieldName)' for entity")
+                    print("🔐 DataEncryption: Decrypted field '\(fieldName)' for entity")
                 } else {
                     print("[ERR] DataEncryption: Failed to decrypt field '\(fieldName)'")
                     // Keep the encrypted value as is if decryption fails
@@ -139,7 +139,7 @@ class vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY {
             
             return uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.GYcaHjFewiT2OY5w1kUcxdgQFRsFYxgp(value: jsonString)
         } catch {
-            print("[U+1F510] DataEncryption: Failed to encrypt workout metrics: \(error)")
+            print("🔐 DataEncryption: Failed to encrypt workout metrics: \(error)")
             return nil
         }
     }
@@ -149,12 +149,12 @@ class vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY {
     /// - Returns: Tuple with workout metrics, or nil if decryption fails
     func XpaUBe52WoNDl4HZql4z8ssbwYSKrYOW(_ encryptedWorkoutData: String) -> (calories: Int, duration: Int, type: String, date: Date)? {
         guard let jsonString = uOp4D9wfDhKAC8oJVppvbO8bHwz2kNGj.S3EssNUBAI8hl4Mnae1AGtxUIXkLDdrN(value: encryptedWorkoutData) else {
-            print("[U+1F510] DataEncryption: Failed to decrypt workout data")
+            print("🔐 DataEncryption: Failed to decrypt workout data")
             return nil
         }
         
         guard let jsonData = jsonString.data(using: .utf8) else {
-            print("[U+1F510] DataEncryption: Failed to convert decrypted string to data")
+            print("🔐 DataEncryption: Failed to convert decrypted string to data")
             return nil
         }
         
@@ -166,13 +166,13 @@ class vay7tnBoye1SjsSNdjoJ3ppSfXcJnGkY {
                   let type = workoutData?["type"] as? String,
                   let dateString = workoutData?["date"] as? String,
                   let date = ISO8601DateFormatter().date(from: dateString) else {
-                print("[U+1F510] DataEncryption: Failed to parse decrypted workout data")
+                print("🔐 DataEncryption: Failed to parse decrypted workout data")
                 return nil
             }
             
             return (calories: calories, duration: duration, type: type, date: date)
         } catch {
-            print("[U+1F510] DataEncryption: Failed to parse workout JSON: \(error)")
+            print("🔐 DataEncryption: Failed to parse workout JSON: \(error)")
             return nil
         }
     }

@@ -73,7 +73,7 @@ struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
                     .opacity(animateContent ? 1.0 : 0.0)
                     .animation(.spring(response: 0.8, dampingFraction: 0.7).delay(0.5), value: animateContent)
                 
-                Text("¡Bienvenido a Fit-App!")
+                Text("¡Bienvenido a Ritmia!")
                     .font(.system(size: 36, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)

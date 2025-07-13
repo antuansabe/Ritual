@@ -48,7 +48,7 @@ struct GlobalGoalAchievementOverlay: View {
                             .multilineTextAlignment(.center)
                             .lineLimit(2)
                         
-                        Text("¡Sigue así! [U+1F4AA]")
+                        Text("¡Sigue así! 💪")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.yellow)
                             .padding(.top, 8)

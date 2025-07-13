@@ -11,6 +11,7 @@ class M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
+    @Published var showGoodbyeView: Bool = false
     
     // User info from Apple ID
     @Published var currentUserID: String = ""
@@ -66,6 +67,9 @@ class M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB: ObservableObject {
         #endif
         
         Task { @MainActor in
+            // Show goodbye screen first
+            showGoodbyeView = true
+            
             // Clear stored authentication data
             await clearAuthenticationData()
             
@@ -83,6 +87,11 @@ class M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB: ObservableObject {
             Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("✅ User signed out successfully")
             #endif
         }
+    }
+    
+    /// Resets goodbye view state to return to login
+    func dismissGoodbyeView() {
+        showGoodbyeView = false
     }
     
     /// Clears error message

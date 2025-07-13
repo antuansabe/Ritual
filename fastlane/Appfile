@@ -3,13 +3,13 @@
 #     https://docs.fastlane.tools/advanced/#appfile
 
 # Your Apple ID
-apple_id("antonio@fitapp.com")
+apple_id("antonio@ritmia.com")
 
 # Your app identifier
-app_identifier("com.antonio.fit-app")
+app_identifier("com.antonio.ritmia")
 
 # Your Team ID (if you have a team)
-# team_id("XXXXXXXXXX")
+team_id("WP54892UWX")
 
 # Your iTunes Connect Team ID (if different from team_id)
 # itunes_connect_team_id("XXXXXXXXXX")

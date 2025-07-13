@@ -2,7 +2,7 @@ import Foundation
 import os.log
 
 extension Logger {
-    private static let vG88W3KtUrnJDlctQKsO9BoyB76u3siH = Bundle.main.bundleIdentifier ?? "com.antonio.fit-app"
+    private static let vG88W3KtUrnJDlctQKsO9BoyB76u3siH = Bundle.main.bundleIdentifier ?? "com.antonio.ritmia"
     
     // MARK: - Logger Categories
     static let dZypOEWLc9moB7toIqUd8PR8UFyvsPD3 = Logger(subsystem: vG88W3KtUrnJDlctQKsO9BoyB76u3siH, category: "auth")

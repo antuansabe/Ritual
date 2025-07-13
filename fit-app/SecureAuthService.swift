@@ -56,7 +56,7 @@ class wnGKnVVY25VSc4eWkvgZ2MLHXV6csLz2 {
     static let DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX = wnGKnVVY25VSc4eWkvgZ2MLHXV6csLz2()
     
     private let ZjlZ7mjaEwb57I6IL6l0j9QboITfuhsr = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
-    private let rAw4kAwBwm5zuku39Otez52thbcSZr82 = "FitApp2025SecureSalt"
+    private let rAw4kAwBwm5zuku39Otez52thbcSZr82 = "Ritmia2025SecureSalt"
     
     private init() {}
     
@@ -273,6 +273,15 @@ class wnGKnVVY25VSc4eWkvgZ2MLHXV6csLz2 {
     /// Check if user is currently logged in
     func E12V0aQwfC8BL7OIoZCT6O1kQ9W1JECk() -> Bool {
         return ocWrWN1mMBZWWSNXkkLBqeUUPgN0dIV3() != nil
+    }
+    
+    /// Get current user's registration date
+    func getUserRegistrationDate() -> Date? {
+        guard let currentUserEmail = ocWrWN1mMBZWWSNXkkLBqeUUPgN0dIV3(),
+              let userCredentials = JgmOMtlUwn76aX6uIzAfBD1uAe3HS4S4(email: currentUserEmail) else {
+            return nil
+        }
+        return userCredentials.registrationDate
     }
     
     /// Logout current user

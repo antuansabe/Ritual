@@ -175,12 +175,12 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
             }
             
             // Main Timer Display
-            VStack(spacing: 24) {
+            VStack(spacing: 20) {
                 ZStack {
                     // Outer ring
                     Circle()
-                        .stroke(Color.white.opacity(0.2), lineWidth: 8)
-                        .frame(width: 260, height: 260)
+                        .stroke(Color.white.opacity(0.2), lineWidth: 6)
+                        .frame(width: 200, height: 200)
                     
                     // Progress ring
                     Circle()
@@ -191,21 +191,21 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
-                            style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                            style: StrokeStyle(lineWidth: 6, lineCap: .round)
                         )
-                        .frame(width: 260, height: 260)
+                        .frame(width: 200, height: 200)
                         .rotationEffect(.degrees(-90))
                         .animation(.easeInOut(duration: 0.3), value: progressPercentage)
                     
                     // Time display
-                    VStack(spacing: 8) {
+                    VStack(spacing: 6) {
                         Text(timeDisplayString)
-                            .font(.system(size: 64, weight: .bold, design: .rounded))
+                            .font(.system(size: 48, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                             .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
                         
                         Text("mm:ss")
-                            .font(.system(size: 16, weight: .medium))
+                            .font(.system(size: 14, weight: .medium))
                             .foregroundColor(.white.opacity(0.6))
                     }
                 }
@@ -234,16 +234,16 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                 }
             }
         }
-        .padding(32)
+        .padding(24)
         .background(
-            RoundedRectangle(cornerRadius: 24)
+            RoundedRectangle(cornerRadius: 20)
                 .fill(.ultraThinMaterial.opacity(0.4))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 24)
+                    RoundedRectangle(cornerRadius: 20)
                         .stroke(currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.4), lineWidth: 2)
                 )
         )
-        .shadow(color: currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.2), radius: 12, x: 0, y: 6)
+        .shadow(color: currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.2), radius: 10, x: 0, y: 4)
         .opacity(animateOnAppear ? 1 : 0)
         .scaleEffect(animateOnAppear ? 1 : 0.9)
         .animation(.spring(response: 0.6, dampingFraction: 0.8), value: animateOnAppear)
@@ -388,29 +388,80 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
     // MARK: - Start Button Section
     private var startButtonSection: some View {
         VStack(spacing: 20) {
-            Button(action: XJNBD3EZW3l5RDSxNyiOXpK6uMPI7hFl) {
-                HStack(spacing: 12) {
-                    Image(systemName: buttonIcon)
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.white)
+            if isTimerRunning {
+                // When timer is running, show pause/resume and cancel buttons
+                HStack(spacing: 16) {
+                    // Pause/Resume button
+                    Button(action: XJNBD3EZW3l5RDSxNyiOXpK6uMPI7hFl) {
+                        HStack(spacing: 8) {
+                            Image(systemName: buttonIcon)
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(.white)
+                            
+                            Text(buttonText)
+                                .font(.system(size: 16, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 52)
+                        .background(
+                            RoundedRectangle(cornerRadius: 26)
+                                .fill(buttonGradient)
+                        )
+                        .shadow(color: buttonShadowColor, radius: 6, x: 0, y: 3)
+                    }
                     
-                    Text(buttonText)
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
+                    // Cancel button
+                    Button(action: cancelTimer) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(.white)
+                            
+                            Text("Cancelar")
+                                .font(.system(size: 16, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 52)
+                        .background(
+                            RoundedRectangle(cornerRadius: 26)
+                                .fill(
+                                    LinearGradient(
+                                        colors: [.red.opacity(0.8), .red.opacity(0.6)],
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
+                                )
+                        )
+                        .shadow(color: .red.opacity(0.4), radius: 6, x: 0, y: 3)
+                    }
                 }
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .background(
-                    RoundedRectangle(cornerRadius: 28)
-                        .fill(buttonGradient)
-                )
-                .shadow(color: buttonShadowColor, radius: 8, x: 0, y: 4)
-                .scaleEffect(isTimerRunning ? 1.02 : 1.0)
-                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isTimerRunning)
-                .opacity(canStartTimer || isTimerRunning ? 1.0 : 0.6)
-                .animation(.easeInOut(duration: 0.2), value: canStartTimer)
+                .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isTimerRunning)
+            } else {
+                // When timer is not running, show start button
+                Button(action: XJNBD3EZW3l5RDSxNyiOXpK6uMPI7hFl) {
+                    HStack(spacing: 12) {
+                        Image(systemName: buttonIcon)
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.white)
+                        
+                        Text(buttonText)
+                            .font(.system(size: 18, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 56)
+                    .background(
+                        RoundedRectangle(cornerRadius: 28)
+                            .fill(buttonGradient)
+                    )
+                    .shadow(color: buttonShadowColor, radius: 8, x: 0, y: 4)
+                    .opacity(canStartTimer ? 1.0 : 0.6)
+                    .animation(.easeInOut(duration: 0.2), value: canStartTimer)
+                }
+                .disabled(!canStartTimer)
             }
-            .disabled(!canStartTimer && !isTimerRunning)
             
             // Timer summary - more compact layout
             VStack(spacing: 12) {
@@ -654,25 +705,25 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
     
     // MARK: - Audio Setup
     private func wffOZMhKbHhIlUhbGMDAVr4uZzWUug8h() {
-        // Setup work phase sound (beep)
-        if let workSoundURL = Bundle.main.url(forResource: "work-beep", withExtension: "wav") {
+        // Setup work phase sound (chime)
+        if let workSoundURL = Bundle.main.url(forResource: "work-chime", withExtension: "wav") {
             do {
                 workAudioPlayer = try AVAudioPlayer(contentsOf: workSoundURL)
                 workAudioPlayer?.prepareToPlay()
-                workAudioPlayer?.volume = 0.7
+                workAudioPlayer?.volume = 0.6
             } catch {
-                print("[ERR] Error loading work sound: \(error.localizedDescription)")
+                print("[INFO] Work chime sound not found, will use system fallback")
             }
         }
         
-        // Setup rest phase sound (bell)
-        if let restSoundURL = Bundle.main.url(forResource: "rest-bell", withExtension: "wav") {
+        // Setup rest phase sound (gentle bell)
+        if let restSoundURL = Bundle.main.url(forResource: "rest-chime", withExtension: "wav") {
             do {
                 restAudioPlayer = try AVAudioPlayer(contentsOf: restSoundURL)
                 restAudioPlayer?.prepareToPlay()
                 restAudioPlayer?.volume = 0.5
             } catch {
-                print("[ERR] Error loading rest sound: \(error.localizedDescription)")
+                print("[INFO] Rest chime sound not found, will use system fallback")
             }
         }
         
@@ -686,26 +737,26 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
     }
     
     private func o0DtSpQEFMLog3HFDD93CzuVjZ9mj5dv() {
-        // Play work phase sound (beep)
+        // Play work phase sound (gentle chime)
         if let player = workAudioPlayer {
             player.stop()
             player.currentTime = 0
             player.play()
         } else {
-            // Fallback to system sound
-            AudioServicesPlaySystemSound(1054) // Ping sound
+            // Fallback to more pleasant system sound
+            AudioServicesPlaySystemSound(1016) // Tink sound - more pleasant than ping
         }
     }
     
     private func UBsTfngp7a1kR0prHENzBpwznAAg35vv() {
-        // Play rest phase sound (bell)
+        // Play rest phase sound (gentle bell)
         if let player = restAudioPlayer {
             player.stop()
             player.currentTime = 0
             player.play()
         } else {
-            // Fallback to system sound
-            AudioServicesPlaySystemSound(1005) // New mail sound
+            // Fallback to more pleasant system sound
+            AudioServicesPlaySystemSound(1013) // Glass sound - more soothing
         }
     }
     
@@ -758,6 +809,26 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                 isPaused = true
                 CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
             }
+        }
+    }
+    
+    private func cancelTimer() {
+        // Add haptic feedback for cancel action
+        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedback.impactOccurred()
+        
+        withAnimation(.easeInOut(duration: 0.5)) {
+            // Stop timer
+            CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
+            
+            // Reset all timer states
+            isTimerRunning = false
+            isPaused = false
+            currentState = .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC
+            currentRound = 1
+            
+            // Reset time display to initial values
+            WBhY2jIg4Te0thaSqDrimCq7YvMQgV27()
         }
     }
 }

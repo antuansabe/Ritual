@@ -42,6 +42,20 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
         return "Usuario"
     }
     
+    private var memberSinceText: String {
+        let authService = wnGKnVVY25VSc4eWkvgZ2MLHXV6csLz2.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
+        
+        guard let registrationDate = authService.getUserRegistrationDate() else {
+            return "Miembro desde 2025"
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        formatter.locale = Locale(identifier: "es_ES")
+        
+        return "Miembro desde \(formatter.string(from: registrationDate))"
+    }
+    
     private var workoutsThisWeek: Int {
         let calendar = Calendar.current
         let today = Date()
@@ -112,24 +126,44 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
         .sheet(isPresented: $showingWeeklyGoal) {
             Xj3WJQIjdqYVZ7GRqNsGGOF8t6wx845J()
         }
-        .alert("Cerrar sesión", isPresented: $showingLogoutConfirmation) {
-            Button("Cancelar", role: .cancel) { }
-            Button("Cerrar sesión", role: .destructive) {
-                authViewModel.xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y()
-            }
-        } message: {
-            Text("¿Estás seguro de que quieres cerrar sesión?")
-        }
-        .alert("Eliminar cuenta", isPresented: $showingDeleteAccountConfirmation) {
-            Button("Cancelar", role: .cancel) { }
-            Button("Eliminar", role: .destructive) {
-                Task {
-                    await deleteUserAccount()
+        .customAlert(
+            title: "Cerrar sesión",
+            message: "¿Estás seguro de que quieres cerrar sesión?",
+            primaryButton: AlertButton(
+                title: "Cerrar sesión",
+                icon: "rectangle.portrait.and.arrow.right",
+                style: .destructive,
+                action: {
+                    authViewModel.xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y()
                 }
-            }
-        } message: {
-            Text("Esta acción es irreversible. Se eliminarán todos tus datos y entrenamientos permanentemente.")
-        }
+            ),
+            secondaryButton: AlertButton(
+                title: "Cancelar",
+                style: .cancel,
+                action: {}
+            ),
+            isPresented: $showingLogoutConfirmation
+        )
+        .customAlert(
+            title: "Eliminar cuenta",
+            message: "Esta acción es irreversible. Se eliminarán todos tus datos y entrenamientos permanentemente.",
+            primaryButton: AlertButton(
+                title: "Eliminar",
+                icon: "trash",
+                style: .destructive,
+                action: {
+                    Task {
+                        await deleteUserAccount()
+                    }
+                }
+            ),
+            secondaryButton: AlertButton(
+                title: "Cancelar",
+                style: .cancel,
+                action: {}
+            ),
+            isPresented: $showingDeleteAccountConfirmation
+        )
         .overlay(
             // Success messages
             Group {
@@ -243,7 +277,7 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                         nameDisplayView
                     }
                     
-                    Text("Miembro desde Enero 2024")
+                    Text(memberSinceText)
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white.opacity(0.8))
                 }
@@ -1228,7 +1262,7 @@ struct PkzOiTS3hyl3qrAITSwTANM7qA0J5n4Q: View {
             }
         }
         .onAppear {
-            L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F4F1] Vista de testing CloudKit iniciada")
+            L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("📱 Vista de testing CloudKit iniciada")
         }
     }
     
@@ -1381,7 +1415,7 @@ struct PkzOiTS3hyl3qrAITSwTANM7qA0J5n4Q: View {
     
     private func B3YZQEnGjkCz1g9zmFgN3DKtHFITZRfN() {
         isRunningTest = true
-        L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F50D] Verificando cuenta iCloud...")
+        L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("🔍 Verificando cuenta iCloud...")
         
         CKContainer.default().accountStatus { status, error in
             DispatchQueue.main.async {
@@ -1395,7 +1429,7 @@ struct PkzOiTS3hyl3qrAITSwTANM7qA0J5n4Q: View {
                 switch status {
                 case .available:
                     self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[OK] Cuenta iCloud disponible")
-                    self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F4CA] Entrenamientos locales: \(self.workouts.count)")
+                    self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("📊 Entrenamientos locales: \(self.workouts.count)")
                 case .noAccount:
                     self.L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[ERR] No hay cuenta iCloud configurada")
                 case .restricted:
@@ -1413,7 +1447,7 @@ struct PkzOiTS3hyl3qrAITSwTANM7qA0J5n4Q: View {
     
     private func sVa7YmFr3rTDgZ3R0liQq3FnIhxhoG4k() {
         isRunningTest = true
-        L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F3CB]️‍♂️ Creando entrenamiento de prueba...")
+        L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("🏋️‍♂️ Creando entrenamiento de prueba...")
         
         let context = managedObjectContext
         let testWorkout = WorkoutEntity(context: context)
@@ -1426,9 +1460,9 @@ struct PkzOiTS3hyl3qrAITSwTANM7qA0J5n4Q: View {
         do {
             try context.save()
             L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[OK] Entrenamiento de prueba creado")
-            L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F4E4] Sincronización CloudKit iniciada automáticamente")
-            print("[U+1F3C3]‍♂️ Nuevo entrenamiento Test CloudKit guardado - iniciando sincronización CloudKit")
-            print("[U+1F4CA] Tipo: Test CloudKit, Duración: \(testWorkout.duration) min")
+            L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("📤 Sincronización CloudKit iniciada automáticamente")
+            print("🏃‍♂️ Nuevo entrenamiento Test CloudKit guardado - iniciando sincronización CloudKit")
+            print("📊 Tipo: Test CloudKit, Duración: \(testWorkout.duration) min")
             isRunningTest = false
         } catch {
             L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[ERR] Error al crear entrenamiento: \(error.localizedDescription)")
@@ -1438,7 +1472,7 @@ struct PkzOiTS3hyl3qrAITSwTANM7qA0J5n4Q: View {
     
     private func ox16CIsNFFKVrRHvY0jfQW3Jh5zxGAkJ() {
         testResults.removeAll()
-        L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("[U+1F9F9] Logs limpiados")
+        L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG("🧹 Logs limpiados")
     }
     
     private func L5uIA3yf0pJGeKMe39M5fHbDp8xg1jmG(_ message: String) {

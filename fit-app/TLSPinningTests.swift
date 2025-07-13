@@ -93,7 +93,7 @@ class TLSPinningTests: XCTestCase {
         
         // Crear un mock challenge que no sea server trust
         let protectionSpace = URLProtectionSpace(
-            host: "api.fitapp.com",
+            host: "api.ritmia.com",
             port: 443,
             protocol: "https",
             realm: nil,

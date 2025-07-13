@@ -49,7 +49,7 @@ struct GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx {
             description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
             
             // Set CloudKit container identifier - uses private database by default
-            let containerIdentifier = "iCloud.com.antonio.fit-app"
+            let containerIdentifier = "iCloud.com.antonio.ritmia"
             description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: containerIdentifier)
             
             // Configure CloudKit container options for private database
@@ -214,7 +214,7 @@ struct GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx {
     
     /// Checks and logs CloudKit account status
     private func checkCloudKitAccountStatus() {
-        let container = CKContainer(identifier: "iCloud.com.antonio.fit-app")
+        let container = CKContainer(identifier: "iCloud.com.antonio.ritmia")
         
         container.accountStatus { accountStatus, error in
             DispatchQueue.main.async {

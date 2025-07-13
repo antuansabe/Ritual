@@ -2,7 +2,7 @@ import Foundation
 import os.log
 
 /// Capa de red segura con TLS Certificate Pinning
-/// Maneja todas las comunicaciones HTTP/HTTPS con el backend de FitApp
+/// Maneja todas las comunicaciones HTTP/HTTPS con el backend de Ritmia
 class cs5srZOImM6bgVz7e5jFMoaReyyKYTx3 {
     
     // MARK: - Shared Instance
@@ -15,7 +15,7 @@ class cs5srZOImM6bgVz7e5jFMoaReyyKYTx3 {
     private let y2UK1kNCbUNLHDmClnE6HPV76XuSAUbu: URLSession
     
     /// Base URL del API
-    private let iaNCMwZtrGICnb5qMBqosVkWRrhzSydy = "https://api.fitapp.com"
+    private let iaNCMwZtrGICnb5qMBqosVkWRrhzSydy = "https://api.ritmia.com"
     
     /// Delegate para TLS pinning
     private let NAUplMJ5TPklsbH0i03FTKupmbMJuSAp: Kje6QSfD1R5q6eqO6FPHaNSqLIp83CZ2
@@ -77,7 +77,7 @@ class cs5srZOImM6bgVz7e5jFMoaReyyKYTx3 {
         
         // Headers por defecto
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("FitApp-iOS/1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue("Ritmia-iOS/1.0", forHTTPHeaderField: "User-Agent")
         
         // Headers adicionales
         for (key, value) in headers {

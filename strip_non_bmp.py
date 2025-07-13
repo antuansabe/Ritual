@@ -1,38 +1,46 @@
+#!/usr/bin/env python3
+"""
+Script to restore Unicode placeholders [U+XXXXX] back to actual emojis in Swift files.
+This fixes the display issue where Unicode characters show as text instead of emojis.
+"""
+
 import pathlib, re, sys
 
-def clean_text(text):
-    # Sustituye emojis comunes por tags breves
-    mapping = {
-        "🔑": "[KEY]", "🗝": "[KEY]", "🔒": "[LOCK]", "🛡": "[SHIELD]",
-        "✅": "[OK]", "❌": "[ERR]", "⚠": "[WARN]", "🔄": "[SYNC]"
-    }
-    for k,v in mapping.items():
-        text = text.replace(k, v)
+def restore_unicode(text):
+    """Convert [U+XXXXX] format back to actual Unicode characters"""
+    def unicode_replacer(match):
+        unicode_str = match.group(1)
+        try:
+            # Convert hex string to int, then to Unicode character
+            unicode_int = int(unicode_str, 16)
+            return chr(unicode_int)
+        except (ValueError, OverflowError):
+            # If conversion fails, return original
+            return match.group(0)
     
-    # Sustituye cualquier código fuera BMP o surrogate suelto
-    # Preserve essential whitespace characters
-    return ''.join(
-        ch if (0x09 <= ord(ch) <= 0x0D) or (0x20 <= ord(ch) < 0xD800) or (0xE000 <= ord(ch) <= 0xFFFD)
-        else '[U+%04X]'%ord(ch)
-        for ch in text
-    )
+    # Pattern to match [U+XXXXX] format
+    pattern = r'\[U\+([0-9A-Fa-f]{4,5})\]'
+    return re.sub(pattern, unicode_replacer, text)
 
 root = pathlib.Path('.')
 changed_files = []
 
-for path in root.rglob('*.[sm]*[iftw]'):  # *.swift, *.plist, *.md etc.
+for path in root.rglob('*.swift'):  # Only process Swift files
     if path.is_file():
         try:
-            txt = path.read_text(errors='ignore')
-            new = clean_text(txt)
+            txt = path.read_text(encoding='utf-8', errors='ignore')
+            new = restore_unicode(txt)
             if txt != new:
-                path.write_text(new)
+                path.write_text(new, encoding='utf-8')
                 changed_files.append(str(path))
-                print(f"Cleaned: {path}")
+                
+                # Count how many replacements were made
+                matches = re.findall(r'\[U\+([0-9A-Fa-f]{4,5})\]', txt)
+                print(f"✅ {path}: Restored {len(matches)} Unicode placeholders to emojis")
         except Exception as e:
-            print(f"Error processing {path}: {e}")
+            print(f"❌ Error processing {path}: {e}")
 
-print(f"Unicode sanitation completed. Modified {len(changed_files)} files.")
+print(f"\n📊 Unicode restoration completed. Modified {len(changed_files)} files.")
 if changed_files:
     print("Changed files:")
     for f in changed_files:

@@ -10,7 +10,7 @@ class Kje6QSfD1R5q6eqO6FPHaNSqLIp83CZ2: NSObject, URLSessionDelegate {
     
     // MARK: - Properties
     
-    /// Hash SHA-256 del certificado de api.fitapp.com en formato base64
+    /// Hash SHA-256 del certificado de api.ritmia.com en formato base64
     /// TODO: Reemplazar con el hash real cuando el dominio esté disponible
     private let expectedCertificateHash: String
     
@@ -22,8 +22,8 @@ class Kje6QSfD1R5q6eqO6FPHaNSqLIp83CZ2: NSObject, URLSessionDelegate {
     /// Inicializa el delegate con el hash del certificado esperado
     /// - Parameters:
     ///   - certificateHash: Hash SHA-256 en base64 del certificado esperado
-    ///   - domain: Dominio para aplicar pinning (default: api.fitapp.com)
-    init(certificateHash: String, domain: String = "api.fitapp.com") {
+    ///   - domain: Dominio para aplicar pinning (default: api.ritmia.com)
+    init(certificateHash: String, domain: String = "api.ritmia.com") {
         self.expectedCertificateHash = certificateHash
         self.pinnedDomain = domain
         super.init()
@@ -180,7 +180,7 @@ enum B5ZPKxi6GmWiqHiNq2jBolPntTov4L4n: Error, LocalizedError {
 
 extension Kje6QSfD1R5q6eqO6FPHaNSqLIp83CZ2 {
     
-    /// Hash de ejemplo para api.fitapp.com (placeholder hasta obtener el real)
+    /// Hash de ejemplo para api.ritmia.com (placeholder hasta obtener el real)
     static let t4ArORJbWdZA7IBCigzBQmRB5Th10lUI = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
     
     /// Crea un delegate con configuración de ejemplo para desarrollo

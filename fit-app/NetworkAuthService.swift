@@ -15,7 +15,7 @@ class NetworkAuthService {
     private let urlSession: URLSession
     
     /// Base URL del API de autenticación
-    private let baseURL = "https://api.fitapp.com"
+    private let baseURL = "https://api.ritmia.com"
     
     /// Secure storage para tokens
     private let secureStorage = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
@@ -78,7 +78,7 @@ class NetworkAuthService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("FitApp-iOS/1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue("Ritmia-iOS/1.0", forHTTPHeaderField: "User-Agent")
         
         // Preparar body
         let loginRequest = LoginRequest(email: email, password: password)
@@ -174,7 +174,7 @@ class NetworkAuthService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("FitApp-iOS/1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue("Ritmia-iOS/1.0", forHTTPHeaderField: "User-Agent")
         
         // Preparar body
         let refreshRequest = RefreshRequest(refreshToken: refreshToken)
@@ -245,7 +245,7 @@ class NetworkAuthService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("FitApp-iOS/1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue("Ritmia-iOS/1.0", forHTTPHeaderField: "User-Agent")
         
         // Add authorization header
         if let accessToken = try secureStorage.eXGEhDZR5F3a9M8RnmLQbPuTTK0QyTsR(StorageKeys.accessToken) {
@@ -422,7 +422,7 @@ class NetworkAuthService {
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("FitApp-iOS/1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue("Ritmia-iOS/1.0", forHTTPHeaderField: "User-Agent")
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         
         return request

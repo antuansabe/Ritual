@@ -44,9 +44,9 @@ class UnifiedSyncMonitor: ObservableObject {
         
         var emoji: String {
             switch self {
-            case .wifi: return "[U+1F4F6]"
-            case .cellular: return "[U+1F4F1]"
-            case .ethernet: return "[U+1F310]"
+            case .wifi: return "📶"
+            case .cellular: return "📱"
+            case .ethernet: return "🌐"
             case .none: return "[ERR]"
             }
         }
@@ -87,7 +87,7 @@ class UnifiedSyncMonitor: ObservableObject {
     private init() {
         self.container = PersistenceController.shared.container
         setupUnifiedMonitoring()
-        print("[U+1F310] UnifiedSyncMonitor: Sistema consolidado iniciado")
+        print("🌐 UnifiedSyncMonitor: Sistema consolidado iniciado")
     }
     
     // MARK: - Setup
@@ -177,7 +177,7 @@ class UnifiedSyncMonitor: ObservableObject {
     }
     
     private func handleConnectionRestored() {
-        print("[U+1F310] [OK] Red CONECTADA - Tipo: \(connectionType.emoji) \(connectionType.description)")
+        print("🌐 [OK] Red CONECTADA - Tipo: \(connectionType.emoji) \(connectionType.description)")
         
         // Trigger sync if we were offline
         if hasBeenOffline {
@@ -195,8 +195,8 @@ class UnifiedSyncMonitor: ObservableObject {
     }
     
     private func handleConnectionLost() {
-        print("[U+1F310] [ERR] Red DESCONECTADA - Modo offline activado")
-        print("[U+1F4BE] Los datos se guardarán localmente hasta reconectar")
+        print("🌐 [ERR] Red DESCONECTADA - Modo offline activado")
+        print("💾 Los datos se guardarán localmente hasta reconectar")
         
         syncStatus = .idle
         isSyncing = false
@@ -208,16 +208,16 @@ class UnifiedSyncMonitor: ObservableObject {
         if !wasConnected && isCurrentlyConnected {
             print("[SYNC] Iniciando sincronización automática CloudKit...")
         } else if isCurrentlyConnected {
-            print("[U+1F310] [U+1F4E1] Cambio de red - Tipo: \(connectionType.emoji) \(connectionType.description)")
+            print("🌐 📡 Cambio de red - Tipo: \(connectionType.emoji) \(connectionType.description)")
         }
     }
     
     // MARK: - CloudKit Event Handling
     private func handleRemoteChange(_ notification: Notification) {
-        print("[U+1F4E1] CloudKit: Cambios remotos detectados")
+        print("📡 CloudKit: Cambios remotos detectados")
         
         if let store = notification.object as? NSPersistentStore {
-            print("[U+1F4E1] Store afectado: \(store.identifier ?? "Unknown")")
+            print("📡 Store afectado: \(store.identifier ?? "Unknown")")
         }
         
         // Refresh sync status after remote changes
@@ -236,11 +236,11 @@ class UnifiedSyncMonitor: ObservableObject {
     }
     
     private func processCloudKitEvent(_ event: NSPersistentCloudKitContainer.Event) {
-        print("[U+1F329]️ CloudKit Event: \(event.type.description)")
+        print("🌩️ CloudKit Event: \(event.type.description)")
         
         switch event.type {
         case .setup:
-            print("[U+1F329]️ CloudKit: Configuración completada")
+            print("🌩️ CloudKit: Configuración completada")
             
         case .import:
             if let error = event.error {
@@ -248,7 +248,7 @@ class UnifiedSyncMonitor: ObservableObject {
                 syncStatus = .failed("Import failed")
                 showError("Error al importar de iCloud: \(error.localizedDescription)")
             } else {
-                print("[U+1F4E5] CloudKit Import Success: Datos recibidos desde iCloud")
+                print("📥 CloudKit Import Success: Datos recibidos desde iCloud")
                 handleSyncSuccess()
             }
             
@@ -258,7 +258,7 @@ class UnifiedSyncMonitor: ObservableObject {
                 syncStatus = .failed("Export failed")
                 showError("Error al exportar a iCloud: \(error.localizedDescription)")
             } else {
-                print("[U+1F4E4] CloudKit Export Success: Datos enviados a iCloud")
+                print("📤 CloudKit Export Success: Datos enviados a iCloud")
                 pendingSyncCount = 0 // Reset pending count
                 handleSyncSuccess()
             }
@@ -304,7 +304,7 @@ class UnifiedSyncMonitor: ObservableObject {
         
         do {
             try context.save()
-            print("[U+1F4BE] Context guardado - CloudKit sincronizará automáticamente")
+            print("💾 Context guardado - CloudKit sincronizará automáticamente")
         } catch {
             print("[ERR] Error al trigger sincronización: \(error.localizedDescription)")
             syncStatus = .failed(error.localizedDescription)
@@ -317,7 +317,7 @@ class UnifiedSyncMonitor: ObservableObject {
         CKContainer.default().accountStatus { [weak self] status, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    print("[U+1F534] CloudKit Account Error: \(error.localizedDescription)")
+                    print("🔴 CloudKit Account Error: \(error.localizedDescription)")
                     self?.syncStatus = .failed("Error de cuenta iCloud")
                     self?.showError("Error de cuenta iCloud: \(error.localizedDescription)")
                     return
@@ -328,20 +328,20 @@ class UnifiedSyncMonitor: ObservableObject {
                     print("[OK] CloudKit Account: Available")
                     self?.checkCloudKitStatus()
                 case .noAccount:
-                    print("[U+1F534] CloudKit Account: No iCloud account")
+                    print("🔴 CloudKit Account: No iCloud account")
                     self?.syncStatus = .failed("No hay cuenta iCloud")
                     self?.showError("No se encontró cuenta iCloud")
                 case .restricted:
-                    print("[U+1F534] CloudKit Account: Restricted")
+                    print("🔴 CloudKit Account: Restricted")
                     self?.syncStatus = .failed("Cuenta iCloud restringida")
                 case .couldNotDetermine:
-                    print("[U+1F534] CloudKit Account: Could not determine")
+                    print("🔴 CloudKit Account: Could not determine")
                     self?.syncStatus = .failed("No se pudo determinar estado iCloud")
                 case .temporarilyUnavailable:
-                    print("[U+1F7E1] CloudKit Account: Temporarily unavailable")
+                    print("🟡 CloudKit Account: Temporarily unavailable")
                     self?.syncStatus = .failed("iCloud temporalmente no disponible")
                 @unknown default:
-                    print("[U+1F534] CloudKit Account: Unknown status")
+                    print("🔴 CloudKit Account: Unknown status")
                     self?.syncStatus = .failed("Estado iCloud desconocido")
                 }
             }
@@ -356,7 +356,7 @@ class UnifiedSyncMonitor: ObservableObject {
         
         do {
             let workouts = try context.fetch(request)
-            print("[U+1F4CA] Entrenamientos locales: \(workouts.count)")
+            print("📊 Entrenamientos locales: \(workouts.count)")
             
             // Update sync status based on data availability
             if workouts.isEmpty {
@@ -366,7 +366,7 @@ class UnifiedSyncMonitor: ObservableObject {
                 lastSyncDate = Date()
             }
         } catch {
-            print("[U+1F534] Error fetching workouts: \(error.localizedDescription)")
+            print("🔴 Error fetching workouts: \(error.localizedDescription)")
             syncStatus = .failed("Error al obtener datos")
         }
     }
@@ -384,7 +384,7 @@ class UnifiedSyncMonitor: ObservableObject {
                 let workoutInserts = insertedObjects.compactMap { $0 as? WorkoutEntity }
                 if !workoutInserts.isEmpty {
                     pendingSyncCount += workoutInserts.count
-                    print("[U+1F4BE] Entrenamientos pendientes de sync: \(pendingSyncCount)")
+                    print("💾 Entrenamientos pendientes de sync: \(pendingSyncCount)")
                 }
             }
         } else {
@@ -408,7 +408,7 @@ class UnifiedSyncMonitor: ObservableObject {
             if isConnected {
                 print("[SYNC] Entrenamiento guardado y enviado a CloudKit: \(type)")
             } else {
-                print("[U+1F4BE] Entrenamiento guardado offline: \(type)")
+                print("💾 Entrenamiento guardado offline: \(type)")
                 pendingSyncCount += 1
             }
             

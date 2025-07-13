@@ -93,7 +93,7 @@ enum tVQk028Np7aLSfp0p6vMHfHJKNqU7ElT {
 class HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow {
     static let DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow()
     
-    private let rOkXSKjo3gh0Aumx2oHhWQjHD9oewvfx = "com.antonio.fit-app"
+    private let rOkXSKjo3gh0Aumx2oHhWQjHD9oewvfx = "com.antonio.ritmia"
     private let lNNtgqzJ13KEdFEURzIkTrkmVTZLGPYy = "encryption_master_key"
     
     // MARK: - KeychainAccess-like API

@@ -90,7 +90,7 @@ struct wdJa7hhtRa6I67ei2Mi07KjELvqym68b: View {
             
             // App title and subtitle
             VStack(spacing: 16) {
-                Text("FitApp")
+                Text("Ritmia")
                     .font(.system(size: 42, weight: .ultraLight, design: .rounded))
                     .foregroundColor(.white)
                     .kerning(3)
@@ -112,7 +112,7 @@ struct wdJa7hhtRa6I67ei2Mi07KjELvqym68b: View {
                     .cornerRadius(1)
                     .animation(.easeInOut(duration: 1.0).delay(0.6), value: animateOnAppear)
                 
-                Text("Tu compañero de entrenamiento")
+                Text("Fitness Tracker")
                     .font(.system(size: 18, weight: .light))
                     .foregroundColor(.white.opacity(0.8))
                     .tracking(1.0)

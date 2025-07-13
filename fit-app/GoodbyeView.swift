@@ -201,7 +201,7 @@ struct ApJ08JFGfVrR1tOMiHbVWMDwIafd73iX: View {
         
         // Auto-navigate to login after 4 seconds if user doesn't interact
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-            if !authViewModel.isLoggedIn {
+            if authViewModel.showGoodbyeView {
                 AmLhUYJYwG4J77oV0J1VDvw8Iy2IDoOz()
             }
         }
@@ -212,6 +212,7 @@ struct ApJ08JFGfVrR1tOMiHbVWMDwIafd73iX: View {
         
         withAnimation(.easeInOut(duration: 0.5)) {
             authViewModel.clearError()
+            authViewModel.dismissGoodbyeView()
         }
     }
 }

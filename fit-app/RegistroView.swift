@@ -269,20 +269,33 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
                 showSuccessOverlay = true
             }
         }
-        .alert("Error", isPresented: .constant(workoutViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy != nil)) {
-            Button("OK") {
-                workoutViewModel.EYA1lT4kx4ae526Okh9jsZgBxFHUOAsZ()
-            }
-        } message: {
-            Text(workoutViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy ?? "")
-        }
-        .alert("Datos inválidos", isPresented: $showValidationAlert) {
-            Button("OK") {
-                showValidationAlert = false
-            }
-        } message: {
-            Text(validationAlertMessage)
-        }
+        .customAlert(
+            title: "Error",
+            message: workoutViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy ?? "",
+            primaryButton: AlertButton(
+                title: "OK",
+                icon: "checkmark",
+                style: .default,
+                action: {
+                    workoutViewModel.EYA1lT4kx4ae526Okh9jsZgBxFHUOAsZ()
+                }
+            ),
+            isPresented: .constant(workoutViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy != nil)
+        )
+        .customAlert(
+            title: "Datos inválidos",
+            message: validationAlertMessage,
+            primaryButton: AlertButton(
+                title: "OK",
+                icon: "checkmark",
+                style: .default,
+                action: {
+                    showValidationAlert = false
+                    
+                }
+            ),
+            isPresented: $showValidationAlert
+        )
     }
     
     // MARK: - Header Section
@@ -345,24 +358,34 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
             JwEMHAOLFU3QoFmE4JdeO2opAnNjRZ5X()
                 .environmentObject(customTrainingManager)
         }
-        .alert("Eliminar Entrenamiento", isPresented: $showDeleteConfirmation) {
-            Button("Cancelar", role: .cancel) { }
-            Button("Eliminar", role: .destructive) {
-                if let training = trainingToDelete {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        customTrainingManager.Q6TViouC2E7V78xd81Ta8gTk6xvC5rB8(training)
-                        if tipoSeleccionado == training.name {
-                            tipoSeleccionado = "Cardio"
+        .customAlert(
+            title: "Eliminar Entrenamiento",
+            message: trainingToDelete != nil ? "¿Estás seguro de que quieres eliminar '\(trainingToDelete!.name)'?" : "",
+            primaryButton: AlertButton(
+                title: "Eliminar",
+                icon: "trash",
+                style: .destructive,
+                action: {
+                    if let training = trainingToDelete {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            customTrainingManager.Q6TViouC2E7V78xd81Ta8gTk6xvC5rB8(training)
+                            if tipoSeleccionado == training.name {
+                                tipoSeleccionado = "Cardio"
+                            }
                         }
                     }
+                    trainingToDelete = nil
                 }
-                trainingToDelete = nil
-            }
-        } message: {
-            if let training = trainingToDelete {
-                Text("¿Estás seguro de que quieres eliminar '\(training.name)'?")
-            }
-        }
+            ),
+            secondaryButton: AlertButton(
+                title: "Cancelar",
+                style: .cancel,
+                action: {
+                    trainingToDelete = nil
+                }
+            ),
+            isPresented: $showDeleteConfirmation
+        )
     }
     
     // MARK: - Custom Trainings Section
@@ -730,9 +753,9 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
                 await MainActor.run {
                     if workoutViewModel.XBKRsaOVB7IubKbKig2RNYsBUWknczOR {
                         // Enhanced logging for offline detection
-                        print("[U+1F3C3]‍♂️ Entrenamiento guardado - CloudKit manejará sync automáticamente")
-                        print("[U+1F4CA] Tipo: \(tipoSeleccionado), Duración: \(validDuration) min")
-                        print("[U+1F4BE] Core Data + CloudKit: Funciona offline y sync cuando hay red")
+                        print("🏃‍♂️ Entrenamiento guardado - CloudKit manejará sync automáticamente")
+                        print("📊 Tipo: \(tipoSeleccionado), Duración: \(validDuration) min")
+                        print("💾 Core Data + CloudKit: Funciona offline y sync cuando hay red")
                         
                         // Show success overlay
                         withAnimation(.easeInOut(duration: 0.3)) {
@@ -958,6 +981,272 @@ struct yxWomeIShRzDF0eBuFCOnXbfMmpqe4Iu: View {
         }, perform: {})
         .accessibilityLabel("Add custom training")
         .accessibilityHint("Tap to create a new custom training activity")
+    }
+}
+
+// MARK: - Custom Alert Components
+
+struct AlertButton {
+    let title: String
+    let icon: String
+    let style: AlertButtonStyle
+    let action: () -> Void
+    
+    init(title: String, icon: String = "", style: AlertButtonStyle = .default, action: @escaping () -> Void) {
+        self.title = title
+        self.icon = icon
+        self.style = style
+        self.action = action
+    }
+}
+
+enum AlertButtonStyle {
+    case `default`
+    case destructive
+    case cancel
+    
+    var color: Color {
+        switch self {
+        case .default:
+            return pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT
+        case .destructive:
+            return .red
+        case .cancel:
+            return .gray
+        }
+    }
+    
+    var icon: String {
+        switch self {
+        case .default:
+            return "questionmark.circle"
+        case .destructive:
+            return "exclamationmark.triangle"
+        case .cancel:
+            return "xmark.circle"
+        }
+    }
+}
+
+struct CustomAlertView: View {
+    let title: String
+    let message: String
+    let primaryButton: AlertButton
+    let secondaryButton: AlertButton?
+    @Binding var isVisible: Bool
+    
+    @State private var scale: CGFloat = 0.5
+    @State private var opacity: Double = 0
+    @State private var iconScale: CGFloat = 0
+    @State private var buttonsOpacity: Double = 0
+    
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    hideAlert()
+                }
+            
+            VStack(spacing: 0) {
+                VStack(spacing: 0) {
+                    ZStack {
+                        Circle()
+                            .fill(
+                                LinearGradient(
+                                    colors: [
+                                        primaryButton.style.color.opacity(0.2),
+                                        primaryButton.style.color.opacity(0.1)
+                                    ],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .frame(width: 80, height: 80)
+                        
+                        Circle()
+                            .stroke(primaryButton.style.color, lineWidth: 3)
+                            .frame(width: 80, height: 80)
+                        
+                        Image(systemName: primaryButton.style.icon)
+                            .font(.system(size: 32, weight: .bold))
+                            .foregroundColor(primaryButton.style.color)
+                            .scaleEffect(iconScale)
+                    }
+                    .padding(.top, 32)
+                    .padding(.bottom, 24)
+                }
+                
+                VStack(spacing: 16) {
+                    Text(title)
+                        .font(.system(size: 22, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                    
+                    Text(message)
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.white.opacity(0.8))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(.horizontal, 32)
+                .padding(.bottom, 32)
+                
+                VStack(spacing: 12) {
+                    if let secondary = secondaryButton {
+                        HStack(spacing: 12) {
+                            alertButton(secondary, isPrimary: false)
+                            alertButton(primaryButton, isPrimary: true)
+                        }
+                        .padding(.horizontal, 24)
+                    } else {
+                        alertButton(primaryButton, isPrimary: true)
+                            .padding(.horizontal, 24)
+                    }
+                }
+                .padding(.bottom, 24)
+                .opacity(buttonsOpacity)
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(.ultraThinMaterial)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 24)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
+            )
+            .scaleEffect(scale)
+            .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 10)
+        }
+        .opacity(opacity)
+        .onChange(of: isVisible) { visible in
+            if visible {
+                showAlert()
+            } else {
+                hideAlert()
+            }
+        }
+        .onAppear {
+            if isVisible {
+                showAlert()
+            }
+        }
+    }
+    
+    private func alertButton(_ button: AlertButton, isPrimary: Bool) -> some View {
+        Button(action: {
+            hideAlert()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                button.action()
+            }
+        }) {
+            HStack(spacing: 8) {
+                if !button.icon.isEmpty {
+                    Image(systemName: button.icon)
+                        .font(.system(size: 16, weight: .semibold))
+                }
+                
+                Text(button.title)
+                    .font(.system(size: 16, weight: .semibold))
+            }
+            .foregroundColor(isPrimary ? .white : button.style.color)
+            .frame(maxWidth: .infinity)
+            .frame(height: 48)
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(
+                        isPrimary 
+                        ? LinearGradient(
+                            colors: [
+                                button.style.color,
+                                button.style.color.opacity(0.8)
+                            ],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                        : LinearGradient(
+                            colors: [
+                                Color.white.opacity(0.1),
+                                Color.white.opacity(0.05)
+                            ],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 24)
+                            .stroke(
+                                isPrimary ? Color.clear : button.style.color.opacity(0.3),
+                                lineWidth: 1
+                            )
+                    )
+            )
+        }
+        .buttonStyle(ScaleButtonStyle())
+    }
+    
+    private func showAlert() {
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+            opacity = 1
+            scale = 1
+        }
+        
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.6).delay(0.1)) {
+            iconScale = 1
+        }
+        
+        withAnimation(.easeOut(duration: 0.3).delay(0.2)) {
+            buttonsOpacity = 1
+        }
+    }
+    
+    private func hideAlert() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            opacity = 0
+            scale = 0.8
+            buttonsOpacity = 0
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            if isVisible {
+                isVisible = false
+            }
+            scale = 0.5
+            iconScale = 0
+        }
+    }
+}
+
+struct ScaleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
+    }
+}
+
+extension View {
+    func customAlert(
+        title: String,
+        message: String,
+        primaryButton: AlertButton,
+        secondaryButton: AlertButton? = nil,
+        isPresented: Binding<Bool>
+    ) -> some View {
+        self.overlay(
+            Group {
+                if isPresented.wrappedValue {
+                    CustomAlertView(
+                        title: title,
+                        message: message,
+                        primaryButton: primaryButton,
+                        secondaryButton: secondaryButton,
+                        isVisible: isPresented
+                    )
+                }
+            }
+        )
     }
 }
 

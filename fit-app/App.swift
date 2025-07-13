@@ -13,7 +13,14 @@ struct bznZq23oqpIdNqA1wbzgsmcc11mjbUC2: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if FfMlKSdN0VvNsKLTaCk5aNVKbSS4yOqT.isLoggedIn {
+                if FfMlKSdN0VvNsKLTaCk5aNVKbSS4yOqT.showGoodbyeView {
+                    // Show goodbye screen when logging out
+                    ApJ08JFGfVrR1tOMiHbVWMDwIafd73iX()
+                        .environmentObject(FfMlKSdN0VvNsKLTaCk5aNVKbSS4yOqT)
+                        .environmentObject(Tt3J2okrS5M6N0tpQWlXnaQtSfKrGrp9)
+                        .preferredColorScheme(.dark)
+                        .transition(.scale.combined(with: .opacity))
+                } else if FfMlKSdN0VvNsKLTaCk5aNVKbSS4yOqT.isLoggedIn {
                     if Eipluq8LD9geJrV1Io29kimcg2nhUc0k {
                         // Returning user - go directly to main app
                         ZStack {
@@ -47,6 +54,7 @@ struct bznZq23oqpIdNqA1wbzgsmcc11mjbUC2: App {
             .animation(.easeInOut(duration: 0.5), value: FfMlKSdN0VvNsKLTaCk5aNVKbSS4yOqT.isLoggedIn)
             .animation(.easeInOut(duration: 0.7), value: Eipluq8LD9geJrV1Io29kimcg2nhUc0k)
             .animation(.easeInOut(duration: 0.5), value: FfMlKSdN0VvNsKLTaCk5aNVKbSS4yOqT.isLoading)
+            .animation(.easeInOut(duration: 0.5), value: FfMlKSdN0VvNsKLTaCk5aNVKbSS4yOqT.showGoodbyeView)
         }
     }
 }

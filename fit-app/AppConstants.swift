@@ -22,39 +22,39 @@ class XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5: ObservableObject {
     
     // MARK: - Message Collections
     private let M6w5mg9zhmFNSHCKlqV0B0v4X5euSSi9 = [
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Hoy puedes darte un regalo de movimiento", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F9D8]‍♂️", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu bienestar merece estos momentos", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F49A]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada día es una nueva oportunidad", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F305]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Hoy puedes darte un regalo de movimiento", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🧘‍♂️", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu bienestar merece estos momentos", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "💚", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada día es una nueva oportunidad", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🌅", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
         O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu cuerpo te agradece este cuidado", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "✨", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Pequeños pasos, grandes cambios", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F463]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1)
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Pequeños pasos, grandes cambios", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "👣", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1)
     ]
     
     private let lKdGbnZuOra0mRYYFOIiLfjmiZdkviUv = [
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu primer entrenamiento te está esperando", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F331]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada gran viaje comienza con un paso", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F680]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Hoy puede ser el día perfecto para empezar", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F31F]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu historia fitness está por comenzar", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F4D6]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX)
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu primer entrenamiento te está esperando", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🌱", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada gran viaje comienza con un paso", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🚀", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Hoy puede ser el día perfecto para empezar", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🌟", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu historia fitness está por comenzar", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "📖", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX)
     ]
     
     private let LkfDTCybFldHzttiVoegvGMK1yHU71QL = [
         O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¿Qué tipo de energía quieres crear hoy?", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "⚡", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu cuerpo está listo para este momento", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F4AA]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Conecta con tu fuerza interior", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F525]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Este momento es tuyo", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F3AF]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam)
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu cuerpo está listo para este momento", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "💪", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Conecta con tu fuerza interior", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🔥", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Este momento es tuyo", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🎯", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam)
     ]
     
     private let YHW1PAdnIUlAEFyBimTTwBKBd9d7GzDn = [
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Todo bien, puedes volver a empezar", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F331]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "El descanso también es parte del proceso", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F33F]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Si descansaste, hoy puedes regresar con calma", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F54A]️", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada regreso es una nueva oportunidad", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F308]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr)
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Todo bien, puedes volver a empezar", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🌱", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "El descanso también es parte del proceso", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🌿", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Si descansaste, hoy puedes regresar con calma", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🕊️", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada regreso es una nueva oportunidad", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🌈", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr)
     ]
     
     private let T6IP6V80TouYevyJ0uGDkxRQS9bKJrVd = [
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¡Tu constancia inspira!", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F525]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¡Tu constancia inspira!", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🔥", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN),
         O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Mira lo lejos que has llegado", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "⭐", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu disciplina está dando frutos", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F338]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN),
-        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Eres más fuerte de lo que crees", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F48E]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN)
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu disciplina está dando frutos", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🌸", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN),
+        O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Eres más fuerte de lo que crees", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "💎", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN)
     ]
     
     // MARK: - Public Methods
@@ -77,13 +77,13 @@ class XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5: ObservableObject {
         case .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1:
             return M6w5mg9zhmFNSHCKlqV0B0v4X5euSSi9.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Hoy es tu día", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "✨", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .NIJGfl8FprvAwRkQeEKJnzDz3BsWlUb1)
         case .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX:
-            return lKdGbnZuOra0mRYYFOIiLfjmiZdkviUv.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu primer paso te espera", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F331]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX)
+            return lKdGbnZuOra0mRYYFOIiLfjmiZdkviUv.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Tu primer paso te espera", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🌱", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Tif5QvZbPrNxdiMJjqB4Pdn0BsvZ7HHX)
         case .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam:
-            return LkfDTCybFldHzttiVoegvGMK1yHU71QL.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¡A por ello!", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F4AA]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam)
+            return LkfDTCybFldHzttiVoegvGMK1yHU71QL.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¡A por ello!", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "💪", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .W4xT37bzA7MscseBmyFwXeMAQ1f5kXam)
         case .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr:
-            return YHW1PAdnIUlAEFyBimTTwBKBd9d7GzDn.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Vuelve cuando estés listo", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F33F]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr)
+            return YHW1PAdnIUlAEFyBimTTwBKBd9d7GzDn.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Vuelve cuando estés listo", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🌿", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .LmIqVrMwbNGQw6dckd4JrHWTsjSuz2Pr)
         case .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN:
-            return T6IP6V80TouYevyJ0uGDkxRQS9bKJrVd.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¡Increíble progreso!", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "[U+1F525]", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN)
+            return T6IP6V80TouYevyJ0uGDkxRQS9bKJrVd.randomElement() ?? O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "¡Increíble progreso!", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "🔥", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .QEFFwNvaz3G53Z0VDXi07kxE5so0d3CN)
         case .Ob4SnetCO7LMPevIhjhaA06irglkRYx7:
             return O5t94UArcKw5q8zGlkSu6ww0wAcrxlT0(OlaOtqtEDsjnFUUx2wzOVwyZFll8XhSC: "Cada momento cuenta", i6rGNxQpdsotQeCmVcyhE5mg1Tqt59EB: "⭐", LxRQFrCsbBQtFCOyayxupkzFJLlXJonD: .Ob4SnetCO7LMPevIhjhaA06irglkRYx7)
         }
@@ -166,7 +166,7 @@ struct F86UW67ccAWVKtMzac7t2afh26jfxsLy: View {
                     .fixedSize(horizontal: false, vertical: true)
                 
                 if style == .prominent {
-                    Text("[U+1F4AB] Inspiración del día")
+                    Text("💫 Inspiración del día")
                         .font(.system(size: 12, weight: .light))
                         .foregroundColor(.white.opacity(0.6))
                         .italic()
@@ -447,31 +447,46 @@ struct pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc {
     struct DlHLlMeyuOHeFBIO58NGuiSSD5Z2YKSj {
         static let Bqc0PbT10QXG2oXLLc6yrDvpET6lFrbp = "Usuario"
         static let ruflLvfLM14XVvXO4CjrMWh1e3PSX8XK = "Hola"
-        static let DMRfI3fjpKVF41BZFkHpCOSNe2xHUQrs = "[U+1F44B]"
+        static let DMRfI3fjpKVF41BZFkHpCOSNe2xHUQrs = "👋"
     }
     
     // MARK: - Daily Motivational Phrases
     struct qZG15ZFGuYDd5FpaQeRKOxJz7vSXlxzL {
         static let qDIaLqInPT8ZWCwY5v0cFgHTjk3TPdHj = [
-            "Hoy puedes darte un regalo de movimiento [U+1F9D8]‍♂️",
-            "Tu bienestar merece estos momentos [U+1F49A]",
-            "Cada día es una nueva oportunidad [U+1F305]",
+            "Hoy puedes darte un regalo de movimiento 🧘‍♂️",
+            "Tu bienestar merece estos momentos 💚",
+            "Cada día es una nueva oportunidad 🌅",
             "Tu cuerpo te agradece este cuidado ✨",
-            "Pequeños pasos, grandes cambios [U+1F463]",
-            "Eres más fuerte de lo que imaginas [U+1F4AA]",
+            "Pequeños pasos, grandes cambios 👣",
+            "Eres más fuerte de lo que imaginas 💪",
             "Hoy es perfecto para brillar ⭐",
-            "Tu energía positiva transforma todo [U+1F31F]",
-            "Cada movimiento cuenta hacia tu bienestar [U+1F331]",
-            "Dedícate tiempo, te lo mereces [U+1F917]",
-            "Hoy puedes crear algo hermoso para ti [U+1F338]",
-            "Tu constancia silenciosa es poderosa [U+1F33F]",
-            "Respira, sonríe y comienza [U+1F60A]",
-            "Tu mejor versión te está esperando [U+1F98B]",
-            "Hoy es un lienzo en blanco lleno de posibilidades [U+1F3A8]"
+            "Tu energía positiva transforma todo 🌟",
+            "Cada movimiento cuenta hacia tu bienestar 🌱",
+            "Dedícate tiempo, te lo mereces 🤗",
+            "Hoy puedes crear algo hermoso para ti 🌸",
+            "Tu constancia silenciosa es poderosa 🌿",
+            "Respira, sonríe y comienza 😊",
+            "Tu mejor versión te está esperando 🦋",
+            "Hoy es un lienzo en blanco lleno de posibilidades 🎨"
         ]
         
+        private static var cachedPhrase: String?
+        private static var lastAppLaunchDate: Date?
+        
         static func W8dpI3lFmaeZTnurvJabtvAQFRaWZ2tW() -> String {
-            return qDIaLqInPT8ZWCwY5v0cFgHTjk3TPdHj.randomElement() ?? "Hoy es tu día para brillar ✨"
+            let now = Date()
+            
+            // Check if this is a new app session (phrase hasn't been cached yet or it's a new day)
+            if cachedPhrase == nil || 
+               lastAppLaunchDate == nil ||
+               !Calendar.current.isDate(lastAppLaunchDate!, inSameDayAs: now) {
+                
+                // Generate new phrase for this session
+                cachedPhrase = qDIaLqInPT8ZWCwY5v0cFgHTjk3TPdHj.randomElement() ?? "Hoy es tu día para brillar ✨"
+                lastAppLaunchDate = now
+            }
+            
+            return cachedPhrase ?? "Hoy es tu día para brillar ✨"
         }
         
         static func BZSWPiEO0MeOPKVTrzLSfAQTVIO4Xo9i() -> String {
@@ -547,7 +562,7 @@ struct om15Jvsg84ivdDdMag8SIylK1uDB5JNJ: View {
     var body: some View {
         VStack(spacing: 12) {
             // Welcome greeting with user name
-            Text("Bienvenido de nuevo, \(userName) [U+1F44B]")
+            Text("Bienvenido de nuevo, \(userName) 👋")
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.white)

@@ -745,7 +745,7 @@ extension VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z {
     /// - Returns: True if all tests pass, false otherwise
     func JYzZ9XeXx2MvIh31VlCw15bbdJo5sdeq() -> Bool {
         #if DEBUG
-        print("[U+1F9EA] Running comprehensive validation tests...")
+        print("🧪 Running comprehensive validation tests...")
         #endif
         
         var testsPassedCount = 0
@@ -764,7 +764,7 @@ extension VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z {
         ]
         
         #if DEBUG
-        print("[U+1F4E7] Testing email validation...")
+        print("📧 Testing email validation...")
         #endif
         for (email, shouldPass) in emailTests {
             totalTests += 1
@@ -821,7 +821,7 @@ extension VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z {
         ]
         
         #if DEBUG
-        print("[U+1F9FD] Testing input sanitization...")
+        print("🧽 Testing input sanitization...")
         #endif
         for (input, expected) in sanitizationTests {
             totalTests += 1
@@ -850,7 +850,7 @@ extension VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z {
         ]
         
         #if DEBUG
-        print("[U+1F464] Testing name validation...")
+        print("👤 Testing name validation...")
         #endif
         for (name, shouldPass) in nameTests {
             totalTests += 1
@@ -870,15 +870,15 @@ extension VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z {
         // Summary
         let successRate = Double(testsPassedCount) / Double(totalTests) * 100
         #if DEBUG
-        print("\n[U+1F4CA] Validation Test Summary:")
+        print("\n📊 Validation Test Summary:")
         print("[OK] Tests passed: \(testsPassedCount)/\(totalTests)")
-        print("[U+1F4C8] Success rate: \(String(format: "%.1f", successRate))%")
+        print("📈 Success rate: \(String(format: "%.1f", successRate))%")
         #endif
         
         let allTestsPassed = testsPassedCount == totalTests
         if allTestsPassed {
             #if DEBUG
-            print("[U+1F389] All validation tests passed!")
+            print("🎉 All validation tests passed!")
             #endif
         } else {
             #if DEBUG
@@ -897,7 +897,7 @@ extension VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z {
         let nameTest = GukvlHdwqqo9fBJgWjzJJvFe5OMUEOjg("Juan Carlos").rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
         
         #if DEBUG
-        print("[U+1F50D] Quick validation test: Email=\(emailTest), Password=\(passwordTest), Name=\(nameTest)")
+        print("🔍 Quick validation test: Email=\(emailTest), Password=\(passwordTest), Name=\(nameTest)")
         #endif
         return emailTest && passwordTest && nameTest
     }

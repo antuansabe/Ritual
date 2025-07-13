@@ -99,7 +99,7 @@ struct CloudKitConflictView: View {
     
     private var conflictsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("[U+1F525] Conflictos Detectados (\(conflictMonitor.conflicts.count))")
+            Text("🔥 Conflictos Detectados (\(conflictMonitor.conflicts.count))")
                 .font(.headline)
                 .fontWeight(.semibold)
             
@@ -122,7 +122,7 @@ struct CloudKitConflictView: View {
     
     private var syncEventsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("[U+1F4CB] Eventos de Sincronización (\(conflictMonitor.syncEvents.count))")
+            Text("📋 Eventos de Sincronización (\(conflictMonitor.syncEvents.count))")
                 .font(.headline)
                 .fontWeight(.semibold)
             
@@ -141,7 +141,7 @@ struct CloudKitConflictView: View {
     
     private var networkIssuesSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("[U+1F4E1] Problemas de Red (\(conflictMonitor.networkIssues.count))")
+            Text("📡 Problemas de Red (\(conflictMonitor.networkIssues.count))")
                 .font(.headline)
                 .fontWeight(.semibold)
             
@@ -164,7 +164,7 @@ struct CloudKitConflictView: View {
     
     private var actionsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("[U+1F527] Acciones de Debugging")
+            Text("🔧 Acciones de Debugging")
                 .font(.headline)
                 .fontWeight(.semibold)
             

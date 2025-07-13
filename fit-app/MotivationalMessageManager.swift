@@ -77,13 +77,13 @@ class MotivationalMessageManager: ObservableObject {
         case .profile:
             return profileMessages.randomElement() ?? MotivationalMessage(text: "Hoy es tu día", emoji: "✨", context: .profile)
         case .historyEmpty:
-            return historyEmptyMessages.randomElement() ?? MotivationalMessage(text: "Tu primer paso te espera", emoji: "[U+1F331]", context: .historyEmpty)
+            return historyEmptyMessages.randomElement() ?? MotivationalMessage(text: "Tu primer paso te espera", emoji: "🌱", context: .historyEmpty)
         case .workoutStart:
-            return workoutStartMessages.randomElement() ?? MotivationalMessage(text: "¡A por ello!", emoji: "[U+1F4AA]", context: .workoutStart)
+            return workoutStartMessages.randomElement() ?? MotivationalMessage(text: "¡A por ello!", emoji: "💪", context: .workoutStart)
         case .longBreak:
-            return longBreakMessages.randomElement() ?? MotivationalMessage(text: "Vuelve cuando estés listo", emoji: "[U+1F33F]", context: .longBreak)
+            return longBreakMessages.randomElement() ?? MotivationalMessage(text: "Vuelve cuando estés listo", emoji: "🌿", context: .longBreak)
         case .streak:
-            return streakMessages.randomElement() ?? MotivationalMessage(text: "¡Increíble progreso!", emoji: "[U+1F525]", context: .streak)
+            return streakMessages.randomElement() ?? MotivationalMessage(text: "¡Increíble progreso!", emoji: "🔥", context: .streak)
         case .general:
             return MotivationalMessage(text: "Cada momento cuenta", emoji: "⭐", context: .general)
         }
