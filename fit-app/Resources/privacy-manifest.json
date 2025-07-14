@@ -1,0 +1,7 @@
+{
+  "purposeStrings": {
+    "NSHealthShareUsageDescription": "Ritmia usa tus entrenamientos para mostrar progreso."
+  },
+  "categories": ["userID", "fitness"],
+  "tracking": false
+}
