@@ -36,8 +36,12 @@ struct GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx {
             // Configure for preview/testing with in-memory store
             FU31nOsXzkAu3ssDTzwUVmAnypmtztob.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
             // Disable CloudKit for preview mode
-            FU31nOsXzkAu3ssDTzwUVmAnypmtztob.persistentStoreDescriptions.first!.setOption(true as NSNumber, 
-                                                                  forKey: NSPersistentHistoryTrackingKey)
+            // Configure testing mode store options
+            let description = FU31nOsXzkAu3ssDTzwUVmAnypmtztob.persistentStoreDescriptions.first!
+            description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+            
+            // SECURITY: Enable file protection encryption (AES-256 native) for testing
+            description.setOption(FileProtectionType.complete as NSObject, forKey: NSPersistentStoreFileProtectionKey)
         } else {
             // Configure for production with CloudKit synchronization
             guard let description = FU31nOsXzkAu3ssDTzwUVmAnypmtztob.persistentStoreDescriptions.first else {
@@ -56,6 +60,9 @@ struct GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx {
             if let cloudKitOptions = description.cloudKitContainerOptions {
                 cloudKitOptions.databaseScope = .private // EXPLICIT: Use private database scope
             }
+            
+            // SECURITY: Enable file protection encryption (AES-256 native)
+            description.setOption(FileProtectionType.complete as NSObject, forKey: NSPersistentStoreFileProtectionKey)
             
             #if DEBUG
             Logger.uJ64CEAapWCbqsNEGRmfxsCkTN5OcuF8.debug("☁️ CloudKit configurado para base de datos PRIVADA")

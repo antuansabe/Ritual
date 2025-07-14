@@ -729,4 +729,26 @@ extension HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow {
     ///        // Use decryptedData
     ///    }
     ///    ```
+    
+    // MARK: - Database Encryption Key Management
+    
+    /// Generate or retrieve database encryption key for future SQLCipher integration
+    /// - Returns: Base64 encoded 32-byte encryption key stored in Keychain
+    func encryptionKey() -> String {
+        // Try to retrieve existing key using the proper SecureStorage interface
+        if let existingKey = Gw8Vt7im7gEmbOKRHqXmNh1UH2Qo2HYq(for: "dbKey"),
+           let keyString = String(data: existingKey, encoding: .utf8) {
+            return keyString
+        }
+        
+        // Generate new 32-byte key and encode as base64
+        let key = Data((0..<32).map { _ in UInt8.random(in: 0...255) }).base64EncodedString()
+        
+        // Store the key using proper SecureStorage interface
+        if let keyData = key.data(using: .utf8) {
+            _ = Z5hw73WlQzeRQt1obKOWBz9ghA4wenS3(keyData, for: "dbKey")
+        }
+        
+        return key
+    }
 }
