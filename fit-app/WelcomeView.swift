@@ -6,6 +6,20 @@ struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
     @State private var animateContent = false
     @State private var showMainApp = false
     
+    private var userName: String {
+        // Get from SecureStorage first
+        if let secureUserName = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.YhyL54l7qYGd78Z7egtPFzCWzLff1uDd) {
+            return secureUserName
+        }
+        
+        // Fallback to user profile manager
+        if !userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8.isEmpty && userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 != "Atleta" {
+            return userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8
+        }
+        
+        return "Atleta"
+    }
+    
     var body: some View {
         ZStack {
             // Background with gradient
@@ -65,7 +79,7 @@ struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
     // MARK: - Welcome Content
     private var welcomeContent: some View {
         VStack(spacing: 32) {
-            // Welcome emoji and title
+            // Welcome emoji and personalized greeting hierarchy
             VStack(spacing: 16) {
                 Text("🎉")
                     .font(.system(size: 80))
@@ -73,33 +87,33 @@ struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
                     .opacity(animateContent ? 1.0 : 0.0)
                     .animation(.spring(response: 0.8, dampingFraction: 0.7).delay(0.5), value: animateContent)
                 
-                Text("¡Bienvenido a Ritmia!")
-                    .font(.system(size: 36, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .opacity(animateContent ? 1.0 : 0.0)
-                    .offset(y: animateContent ? 0 : 30)
-                    .animation(.easeOut(duration: 0.8).delay(0.7), value: animateContent)
-            }
-            
-            // Personalized greeting
-            if !userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8.isEmpty && userProfileManager.YVBUBnfcvywjnXVCwvK5ij1vHynswRQ8 != "Atleta" {
-                Text("¡Hola, \(userProfileManager.XBRN83PxWbEPMDPcnWx7eC9WBTmYZNbu)! 👋")
-                    .font(.system(size: 24, weight: .semibold))
-                    .foregroundColor(.white.opacity(0.9))
-                    .opacity(animateContent ? 1.0 : 0.0)
-                    .offset(y: animateContent ? 0 : 20)
-                    .animation(.easeOut(duration: 0.8).delay(0.9), value: animateContent)
+                // Personalized greeting with user name as primary
+                VStack(spacing: 8) {
+                    Text("HELLO_USER".t.replacingOccurrences(of: "{name}", with: userName))
+                        .font(.system(size: 34, weight: .bold))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .opacity(animateContent ? 1.0 : 0.0)
+                        .offset(y: animateContent ? 0 : 30)
+                        .animation(.easeOut(duration: 0.8).delay(0.7), value: animateContent)
+                    
+                    Text("WELCOME_TO_RITMIA".t)
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .opacity(animateContent ? 1.0 : 0.0)
+                        .offset(y: animateContent ? 0 : 20)
+                        .animation(.easeOut(duration: 0.8).delay(0.9), value: animateContent)
+                }
             }
             
             // Description
             VStack(spacing: 16) {
-                Text("Tu compañero ideal para alcanzar tus metas de fitness")
+                Text("WELCOME_SUBTITLE".t)
                     .font(.system(size: 22, weight: .medium))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 
-                Text("Registra entrenamientos, sigue tu progreso y mantente motivado cada día")
+                Text("WELCOME_DESCRIPTION".t)
                     .font(.system(size: 18, weight: .regular))
                     .foregroundColor(.white.opacity(0.8))
                     .multilineTextAlignment(.center)

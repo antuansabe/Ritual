@@ -2,6 +2,7 @@ import SwiftUI
 
 struct B2rIflV5J4IUvMWrPeMVoV4aFDkd8UwZ: View {
     @State private var selectedTab = 0
+    @StateObject private var navigationContext = NavigationContext()
     let persistenceController = GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     
     var body: some View {
@@ -46,6 +47,9 @@ struct B2rIflV5J4IUvMWrPeMVoV4aFDkd8UwZ: View {
                 
                 NavigationStack {
                     HistorialView()
+                        .onAppear {
+                            navigationContext.setTabContext()
+                        }
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 3 ? "chart.bar.fill" : "chart.bar")
@@ -71,6 +75,7 @@ struct B2rIflV5J4IUvMWrPeMVoV4aFDkd8UwZ: View {
             .toolbarBackground(.visible, for: .tabBar)
         }
         .environment(\.managedObjectContext, persistenceController.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
+        .navigationContext(navigationContext)
     }
 }
 

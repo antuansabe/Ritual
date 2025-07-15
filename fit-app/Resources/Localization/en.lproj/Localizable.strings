@@ -43,3 +43,9 @@
 "LOGOUT" = "Sign Out";
 "SIGN_IN_APPLE" = "Continue with Apple";
 "WELCOME_BACK" = "Welcome back";
+
+/* Welcome Screen */
+"HELLO_USER" = "Hello, {name}!";
+"WELCOME_TO_RITMIA" = "Welcome to Ritmia";
+"WELCOME_SUBTITLE" = "Your ideal companion to achieve your fitness goals";
+"WELCOME_DESCRIPTION" = "Track workouts, follow your progress and stay motivated every day";

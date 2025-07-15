@@ -5,6 +5,7 @@ struct HistorialView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.navigationContext) private var navigationContext
     @State private var animateOnAppear = false
     @State private var currentDate = Date()
     @StateObject private var motivationalManager = XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5()
@@ -77,7 +78,8 @@ struct HistorialView: View {
                 .padding(.bottom, 100)
             }
         }
-        .navigationBarHidden(true)
+        .navigationBarHidden(navigationContext.isFromTab)
+        .navigationBarTitleDisplayMode(.inline)
         .overlay {
             if showingTrainingDetail {
                 nXGgxr19LIpVKcd4cUEVl275ihvhFfMi(

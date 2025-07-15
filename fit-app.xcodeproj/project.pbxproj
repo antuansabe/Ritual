@@ -53,6 +53,9 @@
 		F3G4H5I6J7K8L9M0 /* LocalizationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3G4H5I6J7K8L9N1 /* LocalizationHelper.swift */; };
 		6BIZ0HG72SXJFQ84ZJLMA77Z /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AVF8OT0EYSKU8GXBSR5KBGR /* Achievement.swift */; };
 		326PY91UFRHMKPLA09WJOOTF /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15LNHJLZ6KQBRED9WEBDA3 /* AchievementManager.swift */; };
+		B7C8D9E0F1A2B3C4 /* NavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D9E0F1A2B3C4D5 /* NavigationContext.swift */; };
+		B8C9D0E1F2A3B4C5 /* WelcomeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D0E1F2A3B4C5D6 /* WelcomeViewTests.swift */; };
+		B9C0D1E2F3A4B5C6 /* HistorialBackButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1E2F3A4B5C6D7 /* HistorialBackButtonTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +113,9 @@
 		F7G8H9I0J1K2L3M4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1AVF8OT0EYSKU8GXBSR5KBGR /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		DD15LNHJLZ6KQBRED9WEBDA3 /* AchievementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementManager.swift; sourceTree = "<group>"; };
+		C8D9E0F1A2B3C4D5 /* NavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContext.swift; sourceTree = "<group>"; };
+		C9D0E1F2A3B4C5D6 /* WelcomeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewTests.swift; sourceTree = "<group>"; };
+		C0D1E2F3A4B5C6D7 /* HistorialBackButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorialBackButtonTests.swift; sourceTree = "<group>"; };
 		WKS60SN2AHGUNLJONHMC2EPC /* AchievementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +194,8 @@
 				F4G5H6I7J8K9L0N2 /* LocalizationKeyTests.swift */,
 				F5G6H7I8J9K0L1N3 /* SpinnerVisibilityTests.swift */,
 				WKS60SN2AHGUNLJONHMC2EPC /* AchievementTests.swift */,
+				C9D0E1F2A3B4C5D6 /* WelcomeViewTests.swift */,
+				C0D1E2F3A4B5C6D7 /* HistorialBackButtonTests.swift */,
 				20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */,
 				20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
@@ -231,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				F3G4H5I6J7K8L9N1 /* LocalizationHelper.swift */,
+				C8D9E0F1A2B3C4D5 /* NavigationContext.swift */,
 			);
 			name = Utils;
 			path = Utils;
@@ -411,6 +420,7 @@
 				F3G4H5I6J7K8L9M0 /* LocalizationHelper.swift in Sources */,
 				6BIZ0HG72SXJFQ84ZJLMA77Z /* Achievement.swift in Sources */,
 				326PY91UFRHMKPLA09WJOOTF /* AchievementManager.swift in Sources */,
+				B7C8D9E0F1A2B3C4 /* NavigationContext.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
