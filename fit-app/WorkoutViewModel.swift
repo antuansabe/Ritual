@@ -26,7 +26,13 @@ class Jc55BDpU9b1oI7imy0dSuxhnsfADioo4: ObservableObject {
             // Notify WeeklyGoalManager about the new workout
             NotificationCenter.default.post(name: .gUTLJd2whxFIrGRCEMVrNZWSFPiU5gq5, object: workout)
             
+            // Evaluate achievements after saving workout
+            let fetchRequest: NSFetchRequest<WorkoutEntity> = WorkoutEntity.fetchRequest()
+            fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)]
+            let allWorkouts = try managedObjectContext.fetch(fetchRequest)
+            
             await MainActor.run {
+                AchievementManager.shared.evaluateWithWorkouts(allWorkouts)
                 YSuY2aW2PCZkKwq4ph5miIoJ2ncJmCdo = false
                 XBKRsaOVB7IubKbKig2RNYsBUWknczOR = true
             }

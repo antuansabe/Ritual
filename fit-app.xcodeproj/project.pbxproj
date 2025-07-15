@@ -51,6 +51,8 @@
 		F1G2H3I4J5K6L7M8 /* LoadingSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1G2H3I4J5K6L7M9 /* LoadingSpinnerView.swift */; };
 		F2G3H4I5J6K7L8M9 /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2G3H4I5J6K7L8N0 /* ErrorAlertView.swift */; };
 		F3G4H5I6J7K8L9M0 /* LocalizationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3G4H5I6J7K8L9N1 /* LocalizationHelper.swift */; };
+		6BIZ0HG72SXJFQ84ZJLMA77Z /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AVF8OT0EYSKU8GXBSR5KBGR /* Achievement.swift */; };
+		326PY91UFRHMKPLA09WJOOTF /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15LNHJLZ6KQBRED9WEBDA3 /* AchievementManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +108,9 @@
 		F5G6H7I8J9K0L1N3 /* SpinnerVisibilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerVisibilityTests.swift; sourceTree = "<group>"; };
 		F6G7H8I9J0K1L2M3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F7G8H9I0J1K2L3M4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1AVF8OT0EYSKU8GXBSR5KBGR /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
+		DD15LNHJLZ6KQBRED9WEBDA3 /* AchievementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementManager.swift; sourceTree = "<group>"; };
+		WKS60SN2AHGUNLJONHMC2EPC /* AchievementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,11 +180,14 @@
 				T9S8O7R8N6Q6012356789012 /* PinnedSessionDelegate.swift */,
 				U0T9P8S9O7R7123467890123 /* NetworkLayer.swift */,
 				A3B4C5D6E7F8G9H0 /* Views */,
+				H9WA7H9WJ4X1V706RKB4L3VH /* Models */,
+				ZTPRY43HR2ZHL8ZZZMT9DXAZ /* Managers */,
 				F9G0H1I2J3K4L5M6 /* Utils */,
 				G0H1I2J3K4L5M6N7 /* Resources */,
 				V1U0Q9T0P8S8234578901234 /* TLSPinningTests.swift */,
 				F4G5H6I7J8K9L0N2 /* LocalizationKeyTests.swift */,
 				F5G6H7I8J9K0L1N3 /* SpinnerVisibilityTests.swift */,
+				WKS60SN2AHGUNLJONHMC2EPC /* AchievementTests.swift */,
 				20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */,
 				20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */,
 				A1B2C3D4E5F60005 /* Info.plist */,
@@ -244,6 +252,24 @@
 			);
 			name = Localization;
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		H9WA7H9WJ4X1V706RKB4L3VH /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1AVF8OT0EYSKU8GXBSR5KBGR /* Achievement.swift */,
+			);
+			name = Models;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		ZTPRY43HR2ZHL8ZZZMT9DXAZ /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				DD15LNHJLZ6KQBRED9WEBDA3 /* AchievementManager.swift */,
+			);
+			name = Managers;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -383,6 +409,8 @@
 				F1G2H3I4J5K6L7M8 /* LoadingSpinnerView.swift in Sources */,
 				F2G3H4I5J6K7L8M9 /* ErrorAlertView.swift in Sources */,
 				F3G4H5I6J7K8L9M0 /* LocalizationHelper.swift in Sources */,
+				6BIZ0HG72SXJFQ84ZJLMA77Z /* Achievement.swift in Sources */,
+				326PY91UFRHMKPLA09WJOOTF /* AchievementManager.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

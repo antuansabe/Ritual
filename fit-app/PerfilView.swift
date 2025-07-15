@@ -9,6 +9,7 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
     @StateObject private var motivationalManager = XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5()
+    @StateObject private var achievementManager = AchievementManager.shared
     
     @State private var showingCloudKitTest = false
     @State private var showingCloudKitConflicts = false
@@ -529,7 +530,7 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                     Text("Logros")
                         .font(.system(size: 22, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
-                    Text("\(achievements.count) desbloqueados")
+                    Text("\(achievementManager.unlockedCount()) desbloqueados")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.gray)
                 }
@@ -540,8 +541,8 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                 GridItem(.flexible(), spacing: 12),
                 GridItem(.flexible(), spacing: 12)
             ], spacing: 16) {
-                ForEach(achievements, id: \.joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI) { achievement in
-                    UwIChVEYEahKl3Gq9X0eh5RvS2zyDmwr(achievement: achievement)
+                ForEach(achievementManager.achievements, id: \.id) { achievement in
+                    AchievementCardView(achievement: achievement)
                 }
             }
         }
@@ -709,14 +710,7 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
     
     // MARK: - Helper Functions
     
-    private var achievements: [EABnaL1XzCUCZkIaZIAdA7g308u3aHKs] {
-        [
-            EABnaL1XzCUCZkIaZIAdA7g308u3aHKs(joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI: 1, FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Primer Paso", W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "Completa tu primer entrenamiento", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "star.fill", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .yellow, WPOomtGamDTA3limTrUPOXHSA1x0PB4H: workouts.count > 0),
-            EABnaL1XzCUCZkIaZIAdA7g308u3aHKs(joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI: 2, FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Constancia", W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "5 días seguidos entrenando", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "flame.fill", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .orange, WPOomtGamDTA3limTrUPOXHSA1x0PB4H: ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() >= 5),
-            EABnaL1XzCUCZkIaZIAdA7g308u3aHKs(joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI: 3, FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Meta Semanal", W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "Completa tu meta semanal", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "target", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .blue, WPOomtGamDTA3limTrUPOXHSA1x0PB4H: workoutsThisWeek >= weeklyGoal),
-            EABnaL1XzCUCZkIaZIAdA7g308u3aHKs(joqflDa9yaeZ68zS1fMy0Sb4Y2oQFTEI: 4, FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf: "Disciplinado", W5TVRE97oSlHf67bpUXP80LgXeYzET6B: "10 entrenamientos completados", QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj: "figure.walk", QFkRJkbJW973pOHJ12UZBEOecQPqJHCA: .green, WPOomtGamDTA3limTrUPOXHSA1x0PB4H: workouts.count >= 10)
-        ]
-    }
+    // Legacy achievements removed - now using AchievementManager
     
     private func ES0BZT8uITuIRS240cz0GJ4YC02PSyRU() -> Int {
         let calendar = Calendar.current
@@ -1088,28 +1082,41 @@ struct Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1: View {
 }
 
 
-struct UwIChVEYEahKl3Gq9X0eh5RvS2zyDmwr: View {
-    let achievement: EABnaL1XzCUCZkIaZIAdA7g308u3aHKs
+struct AchievementCardView: View {
+    let achievement: Achievement
+    
+    private var achievementColor: Color {
+        switch achievement.id {
+        case .firstWorkout:
+            return .yellow
+        case .fiveWorkouts:
+            return .orange
+        case .tenWorkouts:
+            return .green
+        case .weeklyStreak:
+            return .blue
+        }
+    }
     
     var body: some View {
         VStack(spacing: 12) {
             ZStack {
                 Circle()
-                    .fill(achievement.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.2))
+                    .fill(achievementColor.opacity(0.2))
                     .frame(width: 60, height: 60)
                 
-                Image(systemName: achievement.QC46OQsKu6Ywy6KZ9QNySnnKV3mho0Mj)
+                Image(systemName: achievement.id.icon)
                     .font(.system(size: 28, weight: .semibold))
-                    .foregroundColor(achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? achievement.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA : .gray)
+                    .foregroundColor(achievement.unlocked ? achievementColor : .gray)
             }
             
             VStack(spacing: 4) {
-                Text(achievement.FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf)
+                Text(achievement.id.title)
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? .white : .gray)
+                    .foregroundColor(achievement.unlocked ? .white : .gray)
                     .multilineTextAlignment(.center)
                 
-                Text(achievement.W5TVRE97oSlHf67bpUXP80LgXeYzET6B)
+                Text(achievement.id.description)
                     .font(.system(size: 11, weight: .medium))
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
@@ -1121,17 +1128,17 @@ struct UwIChVEYEahKl3Gq9X0eh5RvS2zyDmwr: View {
         .padding(.horizontal, 12)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? 0.05 : 0.02))
+                .fill(Color.white.opacity(achievement.unlocked ? 0.05 : 0.02))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(
-                            achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? achievement.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.3) : Color.white.opacity(0.1),
+                            achievement.unlocked ? achievementColor.opacity(0.3) : Color.white.opacity(0.1),
                             lineWidth: 1
                         )
                 )
         )
-        .scaleEffect(achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? 1.0 : 0.95)
-        .opacity(achievement.WPOomtGamDTA3limTrUPOXHSA1x0PB4H ? 1.0 : 0.6)
+        .scaleEffect(achievement.unlocked ? 1.0 : 0.95)
+        .opacity(achievement.unlocked ? 1.0 : 0.6)
     }
 }
 
