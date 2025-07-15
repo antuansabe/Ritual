@@ -333,6 +333,25 @@ class HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow {
         return TxBVFgZQXcAiGSpe5Bj4cWX37pRpzhmy(encryptedValue, for: key)
     }
     
+    /// Store a boolean value in Keychain
+    /// - Parameters:
+    ///   - value: Boolean value to store
+    ///   - key: Storage key identifier
+    /// - Returns: True if successful, false otherwise
+    func wBqxqyKHdtNvJSzEMZWFGBKcJx6iJ8hK(_ value: Bool, for key: String) -> Bool {
+        return TxBVFgZQXcAiGSpe5Bj4cWX37pRpzhmy(value ? "true" : "false", for: key)
+    }
+    
+    /// Retrieve a boolean value from Keychain
+    /// - Parameter key: Storage key identifier
+    /// - Returns: Boolean value, or nil if not found
+    func xDNpJkHgR3T9mBzWqFvYc8aLtQsEu7Ko(for key: String) -> Bool? {
+        guard let value = kDKvq00aGCveS0U5tzMkjQOKoyS8ZeRg(for: key) else {
+            return nil
+        }
+        return value == "true"
+    }
+    
     /// Retrieve and decrypt a value from Keychain
     /// This method should be used for all sensitive data retrieval
     /// - Parameter key: Storage key identifier

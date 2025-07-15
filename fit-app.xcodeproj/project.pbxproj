@@ -46,6 +46,8 @@
 		P8Q7O6R7N5Q6E11QQDEFZA /* PinnedSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = T9S8O7R8N6Q6012356789012 /* PinnedSessionDelegate.swift */; };
 		Q9R8P7S8O6R7F22RRDEFAB /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = U0T9P8S9O7R7123467890123 /* NetworkLayer.swift */; };
 		R1S2T3U4V5W6X7Y8 /* ReusableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = Z1A2B3C4D5E6F7G8 /* ReusableBackgroundView.swift */; };
+		X1Y2Z3A4B5C6D7E8 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = Y1Z2A3B4C5D6E7F8 /* OnboardingView.swift */; };
+		X2Y3Z4A5B6C7D8E9 /* OnboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = Y2Z3A4B5C6D7E8F9 /* OnboardingSlide.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +94,8 @@
 		U0T9P8S9O7R7123467890123 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
 		V1U0Q9T0P8S8234578901234 /* TLSPinningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSPinningTests.swift; sourceTree = "<group>"; };
 		Z1A2B3C4D5E6F7G8 /* ReusableBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableBackgroundView.swift; sourceTree = "<group>"; };
+		Y1Z2A3B4C5D6E7F8 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		Y2Z3A4B5C6D7E8F9 /* OnboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlide.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +164,7 @@
 				S8R7N6Q7M5P5901245678901 /* LoginRateLimiter.swift */,
 				T9S8O7R8N6Q6012356789012 /* PinnedSessionDelegate.swift */,
 				U0T9P8S9O7R7123467890123 /* NetworkLayer.swift */,
+				A3B4C5D6E7F8G9H0 /* Views */,
 				V1U0Q9T0P8S8234578901234 /* TLSPinningTests.swift */,
 				20A4EEEB2E15EF0100AC8C57 /* AuthTestView.swift */,
 				20A4EEEC2E15F00100AC8C57 /* MainAppView.swift */,
@@ -168,6 +173,25 @@
 				20D8510C2E16FC1F001B2F98 /* Assets.xcassets */,
 			);
 			path = "fit-app";
+			sourceTree = "<group>";
+		};
+		A3B4C5D6E7F8G9H0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A4B5C6D7E8F9G0H1 /* Onboarding */,
+			);
+			name = Views;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A4B5C6D7E8F9G0H1 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				Y1Z2A3B4C5D6E7F8 /* OnboardingView.swift */,
+				Y2Z3A4B5C6D7E8F9 /* OnboardingSlide.swift */,
+			);
+			name = Onboarding;
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +325,8 @@
 				O7P6N5Q6M4O5D00PPDEFYZ /* LoginRateLimiter.swift in Sources */,
 				P8Q7O6R7N5Q6E11QQDEFZA /* PinnedSessionDelegate.swift in Sources */,
 				Q9R8P7S8O6R7F22RRDEFAB /* NetworkLayer.swift in Sources */,
+				X1Y2Z3A4B5C6D7E8 /* OnboardingView.swift in Sources */,
+				X2Y3Z4A5B6C7D8E9 /* OnboardingSlide.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
