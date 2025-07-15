@@ -45,7 +45,7 @@ struct B2rIflV5J4IUvMWrPeMVoV4aFDkd8UwZ: View {
                 .tag(2)
                 
                 NavigationStack {
-                    GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n()
+                    HistorialView()
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 3 ? "chart.bar.fill" : "chart.bar")

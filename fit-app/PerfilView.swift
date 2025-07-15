@@ -456,7 +456,7 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                 }
                 Spacer()
                 
-                NavigationLink(destination: GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n()) {
+                NavigationLink(destination: HistorialView()) {
                     HStack(spacing: 6) {
                         Text("Ver todo")
                             .font(.system(size: 14, weight: .medium))

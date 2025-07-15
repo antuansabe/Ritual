@@ -209,7 +209,7 @@ class Lx00e402Z63gwc4vKEC97NhbZVDDCOfA: NSObject, ObservableObject {
                     Logger.dZypOEWLc9moB7toIqUd8PR8UFyvsPD3.debug("🤷‍♂️ Apple Sign In status: Unknown")
                     #endif
                     #endif
-                    break
+                    self?.xeZsiWBAd5pwKDqJFItOs5ErVipoJw0y()
                 }
             }
         }

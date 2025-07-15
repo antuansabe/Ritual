@@ -126,7 +126,6 @@ class Kje6QSfD1R5q6eqO6FPHaNSqLIp83CZ2: NSObject, URLSessionDelegate {
         }
         
         // Verificar que el server trust sea válido
-        var secResult: OSStatus = errSecSuccess
         let evaluationResult = SecTrustEvaluateWithError(serverTrust, nil)
         
         guard evaluationResult else {

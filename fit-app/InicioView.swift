@@ -171,7 +171,7 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
         }
         .navigationBarHidden(true)
         .sheet(isPresented: $showingHistorial) {
-            GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n()
+            HistorialView()
         }
         .onAppear {
             withAnimation(.easeOut(duration: 1.0)) {

@@ -62,7 +62,7 @@ struct OnboardingSlide: View {
                 Button(action: {
                     onGetStarted?()
                 }) {
-                    Text("Empezar")
+                    Text("START_BTN".t)
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)

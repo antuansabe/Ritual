@@ -1,7 +1,7 @@
 import SwiftUI
 import CoreData
 
-struct GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n: View {
+struct HistorialView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
     @Environment(\.dismiss) private var dismiss
@@ -893,7 +893,151 @@ struct N7eL9gZE0A11qwNe9gQnqZgiUbl9xJNG: View {
 
 #Preview {
     NavigationStack {
-        GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n()
+        HistorialView()
     }
     .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
+}
+
+// MARK: - Training Detail Popup View Component
+struct nXGgxr19LIpVKcd4cUEVl275ihvhFfMi: View {
+    let workouts: [WorkoutEntity]
+    let selectedDate: Date
+    @Binding var isPresented: Bool
+    @State private var animateOnAppear = false
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        formatter.locale = Locale(identifier: "es_ES")
+        return formatter
+    }()
+    
+    private func yABx61qWD7PwWueiyg0PAv2nhCa3HW7b(for type: String) -> String {
+        switch type {
+        case "Cardio": return "heart.circle.fill"
+        case "Fuerza": return "dumbbell.fill"
+        case "Yoga": return "figure.mind.and.body"
+        case "Caminata": return "figure.walk"
+        case "Ciclismo": return "bicycle"
+        case "Natación": return "figure.pool.swim"
+        case "Striking": return "figure.boxing"
+        case "Jiu Jitsu": return "figure.martial.arts"
+        default: return "figure.walk.circle.fill"
+        }
+    }
+    
+    private func pHqJYdyeSs1Bb7xNvO3B8rgRJtiXBSN8(for type: String) -> Color {
+        switch type {
+        case "Cardio": return .red
+        case "Fuerza": return .blue
+        case "Yoga": return .purple
+        case "Caminata": return .green
+        case "Ciclismo": return .yellow
+        case "Natación": return .cyan
+        case "Striking": return .red
+        case "Jiu Jitsu": return .purple
+        default: return .gray
+        }
+    }
+    
+    var body: some View {
+        ZStack {
+            // Semi-transparent background
+            Color.black.opacity(0.4)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    iSwvwIR1ECPW7Q9WvcFq3vb42IbDnJVO()
+                }
+            
+            VStack(spacing: 0) {
+                // Header
+                VStack(spacing: 16) {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Entrenamientos")
+                                .font(.system(size: 24, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                            
+                            Text(dateFormatter.string(from: selectedDate))
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: iSwvwIR1ECPW7Q9WvcFq3vb42IbDnJVO) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 28))
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                    }
+                    
+                    Text("\(workouts.count) entrenamiento\(workouts.count > 1 ? "s" : "") registrado\(workouts.count > 1 ? "s" : "")")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.white.opacity(0.7))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 24)
+                .padding(.bottom, 20)
+                
+                // Workouts list
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        ForEach(Array(workouts.enumerated()), id: \.element.objectID) { index, workout in
+                            GP7fIuwXYVLPbSohw6PU7LnEgTOlS3dT(workout: workout)
+                                .opacity(animateOnAppear ? 1 : 0)
+                                .offset(y: animateOnAppear ? 0 : 30)
+                                .animation(.easeOut(duration: 0.4).delay(Double(index) * 0.1), value: animateOnAppear)
+                        }
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 24)
+                }
+                .frame(maxHeight: 400)
+                
+                // Close button
+                Button(action: iSwvwIR1ECPW7Q9WvcFq3vb42IbDnJVO) {
+                    Text("Entendido")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .background(
+                            RoundedRectangle(cornerRadius: 25)
+                                .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.BRZumEEKLDNhpWlIssXSSHs7tRJDkiWk)
+                        )
+                        .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr.opacity(0.3), radius: 8, x: 0, y: 4)
+                }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 32)
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(.ultraThinMaterial)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 24)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
+            )
+            .padding(.horizontal, 20)
+            .scaleEffect(animateOnAppear ? 1 : 0.9)
+            .opacity(animateOnAppear ? 1 : 0)
+            .animation(.spring(response: 0.6, dampingFraction: 0.8), value: animateOnAppear)
+        }
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.3)) {
+                animateOnAppear = true
+            }
+        }
+    }
+    
+    private func iSwvwIR1ECPW7Q9WvcFq3vb42IbDnJVO() {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            animateOnAppear = false
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            isPresented = false
+        }
+    }
 }

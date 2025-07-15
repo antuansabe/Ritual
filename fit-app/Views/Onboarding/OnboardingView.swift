@@ -5,9 +5,9 @@ struct OnboardingView: View {
     @Binding var hasCompletedOnboarding: Bool
     
     private let slides = [
-        (icon: "bolt.heart", title: "Registra tu energía", description: "Captura cada entrenamiento y observa cómo tu dedicación se transforma en progreso visible"),
-        (icon: "icloud", title: "Sincroniza en iCloud", description: "Mantén tu historial seguro y accesible desde todos tus dispositivos Apple"),
-        (icon: "chart.bar", title: "Convierte hábitos en victorias", description: "Visualiza tu evolución y celebra cada paso hacia una vida más activa y saludable")
+        (icon: "bolt.heart", title: "ONB_TITLE_1".t, description: "ONB_SUB_1".t),
+        (icon: "icloud", title: "ONB_TITLE_2".t, description: "ONB_SUB_2".t),
+        (icon: "chart.bar", title: "ONB_TITLE_3".t, description: "ONB_SUB_3".t)
     ]
     
     var body: some View {
@@ -30,7 +30,7 @@ struct OnboardingView: View {
                     Button(action: {
                         completeOnboarding()
                     }) {
-                        Text("Omitir")
+                        Text("SKIP_BTN".t)
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.white.opacity(0.7))
                             .padding(.horizontal, 20)
@@ -63,7 +63,7 @@ struct OnboardingView: View {
     
     private func completeOnboarding() {
         // Save the flag to SecureStorage
-        HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.wBqxqyKHdtNvJSzEMZWFGBKcJx6iJ8hK(
+        _ = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.wBqxqyKHdtNvJSzEMZWFGBKcJx6iJ8hK(
             true,
             for: "hasSeenOnboarding"
         )

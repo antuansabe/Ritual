@@ -1,0 +1,45 @@
+/* Spanish Localization */
+
+/* Onboarding */
+"ONB_TITLE_1" = "Registra tu energía";
+"ONB_SUB_1" = "Añade entrenamientos en segundos.";
+"ONB_TITLE_2" = "Sincroniza en iCloud";
+"ONB_SUB_2" = "Accede en todos tus dispositivos.";
+"ONB_TITLE_3" = "Convierte hábitos en victorias";
+"ONB_SUB_3" = "Tu progreso, día a día.";
+"START_BTN" = "Empezar";
+"SKIP_BTN" = "Omitir";
+
+/* Error Messages */
+"GENERIC_ERROR" = "Algo salió mal. Intenta de nuevo.";
+"NETWORK_ERROR" = "Error de conexión. Verifica tu internet.";
+"AUTH_ERROR" = "Error de autenticación. Verifica tus credenciales.";
+
+/* Loading States */
+"LOADING" = "Cargando...";
+"SAVING" = "Guardando...";
+"SYNCING" = "Sincronizando...";
+
+/* Common Actions */
+"OK" = "OK";
+"CANCEL" = "Cancelar";
+"RETRY" = "Reintentar";
+"CLOSE" = "Cerrar";
+
+/* App Navigation */
+"HOME" = "Inicio";
+"REGISTER" = "Registrar";
+"TIMER" = "Timer";
+"HISTORY" = "Historial";
+"PROFILE" = "Perfil";
+
+/* Workout */
+"WORKOUT_SAVED" = "Entrenamiento guardado";
+"WORKOUT_ERROR" = "Error al guardar entrenamiento";
+"SELECT_WORKOUT" = "Selecciona un entrenamiento";
+
+/* Authentication */
+"LOGIN" = "Iniciar sesión";
+"LOGOUT" = "Cerrar sesión";
+"SIGN_IN_APPLE" = "Continuar con Apple";
+"WELCOME_BACK" = "Bienvenido de vuelta";

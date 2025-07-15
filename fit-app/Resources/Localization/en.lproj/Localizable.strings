@@ -1,0 +1,45 @@
+/* English Localization */
+
+/* Onboarding */
+"ONB_TITLE_1" = "Track your energy";
+"ONB_SUB_1" = "Add workouts in seconds.";
+"ONB_TITLE_2" = "Sync with iCloud";
+"ONB_SUB_2" = "Access from all your devices.";
+"ONB_TITLE_3" = "Turn habits into victories";
+"ONB_SUB_3" = "Your progress, day by day.";
+"START_BTN" = "Get Started";
+"SKIP_BTN" = "Skip";
+
+/* Error Messages */
+"GENERIC_ERROR" = "Something went wrong. Please try again.";
+"NETWORK_ERROR" = "Connection error. Check your internet.";
+"AUTH_ERROR" = "Authentication error. Verify your credentials.";
+
+/* Loading States */
+"LOADING" = "Loading...";
+"SAVING" = "Saving...";
+"SYNCING" = "Syncing...";
+
+/* Common Actions */
+"OK" = "OK";
+"CANCEL" = "Cancel";
+"RETRY" = "Retry";
+"CLOSE" = "Close";
+
+/* App Navigation */
+"HOME" = "Home";
+"REGISTER" = "Register";
+"TIMER" = "Timer";
+"HISTORY" = "History";
+"PROFILE" = "Profile";
+
+/* Workout */
+"WORKOUT_SAVED" = "Workout saved";
+"WORKOUT_ERROR" = "Error saving workout";
+"SELECT_WORKOUT" = "Select a workout";
+
+/* Authentication */
+"LOGIN" = "Sign In";
+"LOGOUT" = "Sign Out";
+"SIGN_IN_APPLE" = "Continue with Apple";
+"WELCOME_BACK" = "Welcome back";
