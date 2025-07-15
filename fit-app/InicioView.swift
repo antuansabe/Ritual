@@ -158,16 +158,7 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
     @Binding var selectedTab: Int
     
     var body: some View {
-        ZStack {
-            Image("historialBackground")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .ignoresSafeArea()
-            
-            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
-                .opacity(0.7)
-                .ignoresSafeArea()
-            
+        ReusableBackgroundView {
             ScrollView {
                 VStack(spacing: 40) {
                     headerSection
@@ -177,7 +168,6 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
                 .padding(.top, 20)
                 .padding(.bottom, 120)
             }
-            
         }
         .navigationBarHidden(true)
         .sheet(isPresented: $showingHistorial) {

@@ -58,16 +58,7 @@ struct GkjEDEAm9UyaMK6Kk0bByhUgGKoNBp9n: View {
     }
     
     var body: some View {
-        ZStack {
-            Image("historialBackground")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .ignoresSafeArea()
-            
-            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
-                .opacity(0.7)
-                .ignoresSafeArea()
-            
+        ReusableBackgroundView {
             ScrollView {
                 VStack(spacing: 32) {
                     headerSection

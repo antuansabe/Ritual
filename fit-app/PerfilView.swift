@@ -66,54 +66,41 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
     }
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 0) {
-                // Header with gradient background
-                headerSection
-                
-                // Main content
-                VStack(spacing: 32) {
-                    // Motivational message
-                    motivationalSection
+        ReusableBackgroundView {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 0) {
+                    // Header with gradient background
+                    headerSection
                     
-                    // Network status
-                    networkStatusSection
-                    
-                    // Quick stats
-                    statsSection
-                    
-                    // Weekly progress
-                    weeklyProgressSection
-                    
-                    // Recent activity summary
-                    recentActivitySection
-                    
-                    // Achievements
-                    achievementsSection
-                    
-                    // Settings section with logout
-                    settingsSection
+                    // Main content
+                    VStack(spacing: 32) {
+                        // Motivational message
+                        motivationalSection
+                        
+                        // Network status
+                        networkStatusSection
+                        
+                        // Quick stats
+                        statsSection
+                        
+                        // Weekly progress
+                        weeklyProgressSection
+                        
+                        // Recent activity summary
+                        recentActivitySection
+                        
+                        // Achievements
+                        achievementsSection
+                        
+                        // Settings section with logout
+                        settingsSection
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 32)
+                    .padding(.bottom, 100)
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 32)
-                .padding(.bottom, 100)
             }
         }
-        .background(
-            ZStack {
-                Image("profileBackground")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .ignoresSafeArea()
-                
-                LinearGradient(
-                    colors: [Color.black.opacity(0.7), Color(.systemGray6).opacity(0.3)],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
-            }
-        )
         .navigationBarHidden(true)
         .sheet(isPresented: $showingCloudKitTest) {
             PkzOiTS3hyl3qrAITSwTANM7qA0J5n4Q()

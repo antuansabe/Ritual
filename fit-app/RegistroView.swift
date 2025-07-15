@@ -219,16 +219,7 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
     }
     
     var body: some View {
-        ZStack {
-            Image("historialBackground")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .ignoresSafeArea()
-            
-            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
-                .opacity(0.7)
-                .ignoresSafeArea()
-            
+        ReusableBackgroundView {
             VStack(spacing: 0) {
                 // Network status banner
                 SFjoEA9WgrgcG2VXMOEPdBh25bSeyWSg()

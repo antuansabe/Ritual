@@ -94,17 +94,7 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
     @State private var validationMessage = ""
     
     var body: some View {
-        ZStack {
-            // Background
-            Image("registroBackground")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .ignoresSafeArea()
-            
-            pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.P2JAqpuaMaUNg0pKyHnxvgk0VYFtEhNu
-                .opacity(0.7)
-                .ignoresSafeArea()
-            
+        ReusableBackgroundView {
             ScrollView {
                 VStack(spacing: 24) {
                     headerSection

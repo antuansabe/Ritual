@@ -45,6 +45,7 @@
 		O7P6N5Q6M4O5D00PPDEFYZ /* LoginRateLimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = S8R7N6Q7M5P5901245678901 /* LoginRateLimiter.swift */; };
 		P8Q7O6R7N5Q6E11QQDEFZA /* PinnedSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = T9S8O7R8N6Q6012356789012 /* PinnedSessionDelegate.swift */; };
 		Q9R8P7S8O6R7F22RRDEFAB /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = U0T9P8S9O7R7123467890123 /* NetworkLayer.swift */; };
+		R1S2T3U4V5W6X7Y8 /* ReusableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = Z1A2B3C4D5E6F7G8 /* ReusableBackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		T9S8O7R8N6Q6012356789012 /* PinnedSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedSessionDelegate.swift; sourceTree = "<group>"; };
 		U0T9P8S9O7R7123467890123 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
 		V1U0Q9T0P8S8234578901234 /* TLSPinningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSPinningTests.swift; sourceTree = "<group>"; };
+		Z1A2B3C4D5E6F7G8 /* ReusableBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableBackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				E3F2A9D8C4B5678901234567 /* WeeklyGoalManager.swift */,
 				F7E8A3B5D2C6789012345678 /* AddCustomTrainingView.swift */,
 				G8F9B4C6E3D7890123456789 /* TimerView.swift */,
+				Z1A2B3C4D5E6F7G8 /* ReusableBackgroundView.swift */,
 				20A4EEE52E15EC0100AC8C57 /* WorkoutViewModel.swift */,
 				20A4EEE62E15EC0200AC8C57 /* PersistenceController.swift */,
 				20A4EEE72E15ED0100AC8C57 /* OverlaySuccessView.swift */,
@@ -283,6 +286,7 @@
 				A9B8C7D5F7A640BBEF123456 /* WeeklyGoalManager.swift in Sources */,
 				B4C9F2A8E6D740CCAB789DEF /* AddCustomTrainingView.swift in Sources */,
 				C5D8A6F9B3E740DDBC890123 /* TimerView.swift in Sources */,
+				R1S2T3U4V5W6X7Y8 /* ReusableBackgroundView.swift in Sources */,
 				D6E9C8F7A5B3740EEFABCDEF /* AppleSignInButtonView.swift in Sources */,
 				E7F8D9A6B4C3741FFABCDEFG /* AppleSignInManager.swift in Sources */,
 				F8G9E8H7C6E4742GGHBCDEFH /* UserProfileManager.swift in Sources */,
