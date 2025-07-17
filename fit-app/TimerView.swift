@@ -68,7 +68,7 @@ enum QCxXT2kSPIbWvflUyClOkikKBvurCtBx {
 }
 
 // MARK: - Timer View
-struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
+struct TimerView: View {
     @StateObject private var viewModel = TimerViewModel()
     
     var body: some View {
@@ -115,6 +115,67 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
         .onDisappear {
             viewModel.onDisappear()
         }
+    }
+    
+    // MARK: - Computed Properties
+    private var selectedTimerType: wj1PITNF50YDIsWEj4a7OZgroyUqjcTI {
+        viewModel.selectedTimerType
+    }
+    
+    private var workDuration: Int {
+        viewModel.workDuration
+    }
+    
+    private var restDuration: Int {
+        viewModel.restDuration
+    }
+    
+    private var rounds: Int {
+        viewModel.rounds
+    }
+    
+    private var isTimerRunning: Bool {
+        viewModel.isTimerRunning
+    }
+    
+    private var isPaused: Bool {
+        viewModel.isPaused
+    }
+    
+    private var minutes: Int {
+        viewModel.minutes
+    }
+    
+    private var seconds: Int {
+        viewModel.seconds
+    }
+    
+    private var currentState: QCxXT2kSPIbWvflUyClOkikKBvurCtBx {
+        viewModel.currentState
+    }
+    
+    private var currentRound: Int {
+        viewModel.currentRound
+    }
+    
+    private var animateOnAppear: Bool {
+        viewModel.animateOnAppear
+    }
+    
+    private var progressPercentage: Double {
+        viewModel.progressPercentage
+    }
+    
+    private var timeDisplayString: String {
+        viewModel.timeDisplayString
+    }
+    
+    private var nextPhaseText: String {
+        viewModel.nextPhaseText
+    }
+    
+    private var canStartTimer: Bool {
+        viewModel.canStartTimer
     }
     
     // MARK: - Timer Display Section
@@ -267,7 +328,7 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                         isSelected: selectedTimerType == timerType,
                         action: {
                             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                                selectedTimerType = timerType
+                                viewModel.selectedTimerType = timerType
                             }
                         }
                     )
@@ -303,7 +364,7 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                 // Work Duration
                 cqL4x6Penm19Hqf0x0SS2z22P2GQIB8a(
                     title: "Trabajo",
-                    duration: $workDuration,
+                    duration: $viewModel.workDuration,
                     icon: "figure.run",
                     color: .green,
                     range: 5...300
@@ -312,7 +373,7 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                 // Rest Duration
                 cqL4x6Penm19Hqf0x0SS2z22P2GQIB8a(
                     title: "Descanso",
-                    duration: $restDuration,
+                    duration: $viewModel.restDuration,
                     icon: "pause.circle",
                     color: .blue,
                     range: 5...300
@@ -322,7 +383,7 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                 if selectedTimerType != .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 {
                     cqL4x6Penm19Hqf0x0SS2z22P2GQIB8a(
                         title: "Rondas",
-                        duration: $rounds,
+                        duration: $viewModel.rounds,
                         icon: "repeat",
                         color: .orange,
                         range: 1...20
@@ -352,7 +413,7 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                 // When timer is running, show pause/resume and cancel buttons
                 HStack(spacing: 16) {
                     // Pause/Resume button
-                    Button(action: XJNBD3EZW3l5RDSxNyiOXpK6uMPI7hFl) {
+                    Button(action: { viewModel.toggleTimer() }) {
                         HStack(spacing: 8) {
                             Image(systemName: buttonIcon)
                                 .font(.system(size: 18, weight: .bold))
@@ -372,7 +433,7 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                     }
                     
                     // Cancel button
-                    Button(action: cancelTimer) {
+                    Button(action: { viewModel.cancelTimer() }) {
                         HStack(spacing: 8) {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.system(size: 18, weight: .bold))
@@ -400,7 +461,7 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                 .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isTimerRunning)
             } else {
                 // When timer is not running, show start button
-                Button(action: XJNBD3EZW3l5RDSxNyiOXpK6uMPI7hFl) {
+                Button(action: { viewModel.toggleTimer() }) {
                     HStack(spacing: 12) {
                         Image(systemName: buttonIcon)
                             .font(.system(size: 20, weight: .bold))
@@ -516,281 +577,7 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
         }
     }
     
-    // MARK: - Computed Properties
-    private var timeDisplayString: String {
-        return String(format: "%02d:%02d", minutes, seconds)
-    }
     
-    private var isConfigurationValid: Bool {
-        let workValid = workDuration > 0
-        let restValid = restDuration > 0
-        let roundsValid = selectedTimerType == .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 || rounds > 0
-        return workValid && restValid && roundsValid
-    }
-    
-    private var canStartTimer: Bool {
-        return isConfigurationValid && !isTimerRunning
-    }
-    
-    private var progressPercentage: Double {
-        let totalSeconds = WFGETVOWnMN64lVQEUGFarR0toadHaqq()
-        let remainingSeconds = minutes * 60 + seconds
-        let elapsedSeconds = totalSeconds - remainingSeconds
-        return totalSeconds > 0 ? Double(elapsedSeconds) / Double(totalSeconds) : 0
-    }
-    
-    private var nextPhaseText: String {
-        switch currentState {
-        case .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1:
-            if selectedTimerType == .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 {
-                return "Fin del entrenamiento"
-            } else {
-                return currentRound >= rounds ? "Fin del entrenamiento" : "Descanso (\(restDuration)s)"
-            }
-        case .M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x:
-            return currentRound >= rounds ? "Fin del entrenamiento" : "Trabajo (\(workDuration)s)"
-        default:
-            return ""
-        }
-    }
-    
-    // MARK: - Timer Logic
-    private func WFGETVOWnMN64lVQEUGFarR0toadHaqq() -> Int {
-        switch currentState {
-        case .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1: return workDuration
-        case .M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x: return restDuration
-        default: return workDuration
-        }
-    }
-    
-    private func gLfTqhzhxcpWliKCrGouhmG1S8JLJfOi() {
-        if currentState == .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC {
-            currentState = .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1
-            h3Hn95d5lCBPY4upMqLWGaBF1MLPn4v3(duration: workDuration)
-            o0DtSpQEFMLog3HFDD93CzuVjZ9mj5dv() // Play work sound when starting the timer
-        }
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            VjdFUbOlyluDmaVgNduXHjfptHlzXE37()
-        }
-    }
-    
-    private func CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH() {
-        timer?.invalidate()
-        timer = nil
-    }
-    
-    private func WBhY2jIg4Te0thaSqDrimCq7YvMQgV27() {
-        minutes = workDuration / 60
-        seconds = workDuration % 60
-        currentState = .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC
-        currentRound = 1
-    }
-    
-    private func hAadxrPjJk0FI96VqhXr8cnvHPWltRo2() {
-        withAnimation(.easeInOut(duration: 0.5)) {
-            isTimerRunning = false
-            isPaused = false
-            currentState = .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC
-            currentRound = 1
-            CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
-            h3Hn95d5lCBPY4upMqLWGaBF1MLPn4v3(duration: workDuration)
-        }
-    }
-    
-    private func h3Hn95d5lCBPY4upMqLWGaBF1MLPn4v3(duration: Int) {
-        minutes = duration / 60
-        seconds = duration % 60
-    }
-    
-    private func VjdFUbOlyluDmaVgNduXHjfptHlzXE37() {
-        guard isTimerRunning && !isPaused else { return }
-        
-        if seconds > 0 {
-            seconds -= 1
-        } else if minutes > 0 {
-            minutes -= 1
-            seconds = 59
-        } else {
-            // Time reached zero
-            JyHU0PT2U16JlZvUjyAeeHKT7ts0IwDp()
-        }
-    }
-    
-    private func JyHU0PT2U16JlZvUjyAeeHKT7ts0IwDp() {
-        switch currentState {
-        case .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1:
-            if selectedTimerType == .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 {
-                // Custom timer completes after work phase
-                Wd6nud7woxh12cA1fv3iYNGB1FddQZi4()
-            } else {
-                // Switch to rest phase
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                UBsTfngp7a1kR0prHENzBpwznAAg35vv()
-                currentState = .M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x
-                h3Hn95d5lCBPY4upMqLWGaBF1MLPn4v3(duration: restDuration)
-            }
-            
-        case .M8IbOnV08mw1yxQZ7YDxAyTmuMWXFX8x:
-            if currentRound >= rounds {
-                // All rounds completed
-                Wd6nud7woxh12cA1fv3iYNGB1FddQZi4()
-            } else {
-                // Move to next round
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                o0DtSpQEFMLog3HFDD93CzuVjZ9mj5dv()
-                currentRound += 1
-                currentState = .fJb3AnvLQe202gy6jmQwrRF0z8W3JER1
-                h3Hn95d5lCBPY4upMqLWGaBF1MLPn4v3(duration: workDuration)
-            }
-            
-        default:
-            break
-        }
-    }
-    
-    private func Wd6nud7woxh12cA1fv3iYNGB1FddQZi4() {
-        CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
-        currentState = .zxy98ghKsmaUyShNoZ5jOB5kHpma0LT5
-        withAnimation(.easeInOut(duration: 0.3)) {
-            isTimerRunning = false
-            isPaused = false
-        }
-        
-        // Show completion alert after a brief delay
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            showCompletionAlert = true
-        }
-    }
-    
-    // MARK: - Audio Setup
-    private func wffOZMhKbHhIlUhbGMDAVr4uZzWUug8h() {
-        // Setup work phase sound (chime)
-        if let workSoundURL = Bundle.main.url(forResource: "work-chime", withExtension: "wav") {
-            do {
-                workAudioPlayer = try AVAudioPlayer(contentsOf: workSoundURL)
-                workAudioPlayer?.prepareToPlay()
-                workAudioPlayer?.volume = 0.6
-            } catch {
-                print("[INFO] Work chime sound not found, will use system fallback")
-            }
-        }
-        
-        // Setup rest phase sound (gentle bell)
-        if let restSoundURL = Bundle.main.url(forResource: "rest-chime", withExtension: "wav") {
-            do {
-                restAudioPlayer = try AVAudioPlayer(contentsOf: restSoundURL)
-                restAudioPlayer?.prepareToPlay()
-                restAudioPlayer?.volume = 0.5
-            } catch {
-                print("[INFO] Rest chime sound not found, will use system fallback")
-            }
-        }
-        
-        // Configure audio session
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print("[ERR] Error setting up audio session: \(error.localizedDescription)")
-        }
-    }
-    
-    private func o0DtSpQEFMLog3HFDD93CzuVjZ9mj5dv() {
-        // Play work phase sound (gentle chime)
-        if let player = workAudioPlayer {
-            player.stop()
-            player.currentTime = 0
-            player.play()
-        } else {
-            // Fallback to more pleasant system sound
-            AudioServicesPlaySystemSound(1016) // Tink sound - more pleasant than ping
-        }
-    }
-    
-    private func UBsTfngp7a1kR0prHENzBpwznAAg35vv() {
-        // Play rest phase sound (gentle bell)
-        if let player = restAudioPlayer {
-            player.stop()
-            player.currentTime = 0
-            player.play()
-        } else {
-            // Fallback to more pleasant system sound
-            AudioServicesPlaySystemSound(1013) // Glass sound - more soothing
-        }
-    }
-    
-    // MARK: - Validation
-    private func ATJ101GLyuaLHQe6JL2sHfBxIwFUCkGa() -> Bool {
-        var issues: [String] = []
-        
-        if workDuration <= 0 {
-            issues.append("• El tiempo de trabajo debe ser mayor a 0 segundos")
-        }
-        
-        if restDuration <= 0 {
-            issues.append("• El tiempo de descanso debe ser mayor a 0 segundos")
-        }
-        
-        if selectedTimerType != .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 && rounds <= 0 {
-            issues.append("• El número de rondas debe ser mayor a 0")
-        }
-        
-        if !issues.isEmpty {
-            validationMessage = "Por favor corrige los siguientes problemas:\n\n" + issues.joined(separator: "\n")
-            showValidationAlert = true
-            return false
-        }
-        
-        return true
-    }
-    
-    // MARK: - Actions
-    private func XJNBD3EZW3l5RDSxNyiOXpK6uMPI7hFl() {
-        // Validate configuration before starting
-        if !isTimerRunning && !ATJ101GLyuaLHQe6JL2sHfBxIwFUCkGa() {
-            return
-        }
-        
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-            if !isTimerRunning {
-                // Start timer
-                isTimerRunning = true
-                isPaused = false
-                gLfTqhzhxcpWliKCrGouhmG1S8JLJfOi()
-            } else if isPaused {
-                // Resume timer
-                isPaused = false
-                if timer == nil {
-                    gLfTqhzhxcpWliKCrGouhmG1S8JLJfOi()
-                }
-            } else {
-                // Pause timer
-                isPaused = true
-                CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
-            }
-        }
-    }
-    
-    private func cancelTimer() {
-        // Add haptic feedback for cancel action
-        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-        impactFeedback.impactOccurred()
-        
-        withAnimation(.easeInOut(duration: 0.5)) {
-            // Stop timer
-            CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
-            
-            // Reset all timer states
-            isTimerRunning = false
-            isPaused = false
-            currentState = .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC
-            currentRound = 1
-            
-            // Reset time display to initial values
-            WBhY2jIg4Te0thaSqDrimCq7YvMQgV27()
-        }
-    }
 }
 
 // MARK: - Compact Timer Type Button Component
@@ -1075,10 +862,10 @@ struct Ar2rt9Q88PYVOw7e2UhhKEciUJEpXGg4: View {
 }
 
 // MARK: - Previews
-struct pgN5eDuvPlrGGhquZojsthEyiF7jC0Gx: PreviewProvider {
+struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl()
+            TimerView()
         }
         .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
     }
@@ -1086,7 +873,7 @@ struct pgN5eDuvPlrGGhquZojsthEyiF7jC0Gx: PreviewProvider {
 
 #Preview {
     NavigationStack {
-        dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl()
+        TimerView()
     }
     .environment(\.managedObjectContext, GgJjlIWWrlkkeb1rUQT1TyDcuxy3khjx.WD9g7eC9WeDqkPF9KKQ4lphkoLpd3nwF.FU31nOsXzkAu3ssDTzwUVmAnypmtztob.viewContext)
 }

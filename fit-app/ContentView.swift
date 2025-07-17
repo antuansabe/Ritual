@@ -35,7 +35,7 @@ struct B2rIflV5J4IUvMWrPeMVoV4aFDkd8UwZ: View {
                 .tag(1)
                 
                 NavigationStack {
-                    dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl()
+                    TimerView()
                 }
                 .tabItem {
                     Image(systemName: selectedTab == 2 ? "timer" : "timer")

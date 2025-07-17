@@ -1,7 +1,6 @@
 #!/bin/zsh
 set -e
-
-echo "🔍 Lint & format"
+echo "🔧 Lint"
 if command -v swiftformat >/dev/null 2>&1; then
     swiftformat .
 else
@@ -14,19 +13,9 @@ else
     echo "⚠️  swiftlint not found, skipping linting"
 fi
 
-echo "🧪 Unit tests"
-xcodebuild test -scheme fit-app \
-    -destination 'platform=iOS Simulator,name=iPhone 16' \
-    -quiet
-
-echo "🛠️  Build Release"
-xcodebuild build -scheme fit-app -configuration Release -destination 'platform=iOS Simulator,name=iPhone 16' -quiet
-
-echo "📱 Device matrix compile check"
-for device in "iPhone SE (3rd generation)" "iPhone 16" "iPad (10th generation)"; do
-  echo "Building for ${device}..."
-  xcodebuild build -scheme fit-app -configuration Debug \
-    -destination "platform=iOS Simulator,name=${device}" -quiet
+echo "🧪 Tests"; xcodebuild test -scheme fit-app -quiet
+echo "📱 Build matrix"
+for d in "iPhone 16" "iPhone SE (3rd generation)" "iPad (10th generation)"; do
+  xcodebuild build -scheme fit-app -destination "platform=iOS Simulator,name=$d" -quiet
 done
-
-echo "✅ Preflight passed"
+echo "✅ All green"

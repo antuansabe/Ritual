@@ -146,11 +146,11 @@ struct HistorialView: View {
                     }
                     
                     VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.GPTIMVzXVhYLFkeR151yq7JxB8fmAAgB) {
-                        Text("\(uniqueWorkoutDays)")
+                        Text("\(viewModel.uniqueWorkoutDays)")
                             .font(.system(size: 24, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                         
-                        Text(uniqueWorkoutDays == 1 ? "día entrenado" : "días entrenados")
+                        Text(viewModel.uniqueWorkoutDays == 1 ? "día entrenado" : "días entrenados")
                             .font(.system(size: 12, weight: .medium))
                             .foregroundColor(.white.opacity(0.8))
                             .multilineTextAlignment(.center)
@@ -180,11 +180,11 @@ struct HistorialView: View {
                     }
                     
                     VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.GPTIMVzXVhYLFkeR151yq7JxB8fmAAgB) {
-                        Text("\(currentMonthWorkouts)")
+                        Text("\(viewModel.currentMonthWorkouts)")
                             .font(.system(size: 24, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                         
-                        Text(currentMonthWorkouts == 1 ? "entrenamiento" : "entrenamientos")
+                        Text(viewModel.currentMonthWorkouts == 1 ? "entrenamiento" : "entrenamientos")
                             .font(.system(size: 12, weight: .medium))
                             .foregroundColor(.white.opacity(0.8))
                             .multilineTextAlignment(.center)
@@ -202,9 +202,9 @@ struct HistorialView: View {
                 )
             }
         }
-        .opacity(animateOnAppear ? 1 : 0)
-        .offset(y: animateOnAppear ? 0 : 20)
-        .animation(.easeOut(duration: 0.6).delay(0.4), value: animateOnAppear)
+        .opacity(viewModel.animateOnAppear ? 1 : 0)
+        .offset(y: viewModel.animateOnAppear ? 0 : 20)
+        .animation(.easeOut(duration: 0.6).delay(0.4), value: viewModel.animateOnAppear)
     }
     
     // MARK: - Stats Section
@@ -228,7 +228,7 @@ struct HistorialView: View {
                 HStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX) {
                     Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                         icon: "figure.walk.circle.fill",
-                        value: "\(yearStats.totalWorkouts)",
+                        value: "\(viewModel.yearStats.totalWorkouts)",
                         label: "Entrenamientos",
                         color: .blue,
                         accentColor: .blue.opacity(0.2)
@@ -236,7 +236,7 @@ struct HistorialView: View {
                     
                     Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                         icon: "clock.fill",
-                        value: "\(yearStats.totalMinutes)",
+                        value: "\(viewModel.yearStats.totalMinutes)",
                         label: "Minutos",
                         color: .green,
                         accentColor: .green.opacity(0.2)
@@ -246,7 +246,7 @@ struct HistorialView: View {
                 HStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX) {
                     Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                         icon: "flame.fill",
-                        value: "\(yearStats.currentStreak)",
+                        value: "\(viewModel.yearStats.currentStreak)",
                         label: "Racha actual",
                         color: .orange,
                         accentColor: .orange.opacity(0.2)
@@ -254,7 +254,7 @@ struct HistorialView: View {
                     
                     Y3kSrLJTjGyFcVLD2gLfj1iTmlK5Cvm1(
                         icon: "heart.circle.fill",
-                        value: "\(Int(Double(yearStats.totalMinutes) * 8.0))",
+                        value: "\(Int(Double(viewModel.yearStats.totalMinutes) * 8.0))",
                         label: "Calorías quemadas",
                         color: .red,
                         accentColor: .red.opacity(0.2)
@@ -262,9 +262,9 @@ struct HistorialView: View {
                 }
             }
         }
-        .opacity(animateOnAppear ? 1 : 0)
-        .offset(y: animateOnAppear ? 0 : 30)
-        .animation(.easeOut(duration: 0.6).delay(0.6), value: animateOnAppear)
+        .opacity(viewModel.animateOnAppear ? 1 : 0)
+        .offset(y: viewModel.animateOnAppear ? 0 : 30)
+        .animation(.easeOut(duration: 0.6).delay(0.6), value: viewModel.animateOnAppear)
     }
     
     // MARK: - Tips Section
@@ -284,7 +284,7 @@ struct HistorialView: View {
             }
             
             VStack(spacing: 12) {
-                if uniqueWorkoutDays < 3 {
+                if viewModel.uniqueWorkoutDays < 3 {
                     N7eL9gZE0A11qwNe9gQnqZgiUbl9xJNG(
                         icon: "calendar.badge.plus",
                         title: "Consistencia es clave",
@@ -293,7 +293,7 @@ struct HistorialView: View {
                     )
                 }
                 
-                if yearStats.currentStreak < 2 {
+                if viewModel.yearStats.currentStreak < 2 {
                     N7eL9gZE0A11qwNe9gQnqZgiUbl9xJNG(
                         icon: "flame",
                         title: "Construye una racha",
@@ -310,9 +310,9 @@ struct HistorialView: View {
                 )
             }
         }
-        .opacity(animateOnAppear ? 1 : 0)
-        .offset(y: animateOnAppear ? 0 : 40)
-        .animation(.easeOut(duration: 0.6).delay(0.8), value: animateOnAppear)
+        .opacity(viewModel.animateOnAppear ? 1 : 0)
+        .offset(y: viewModel.animateOnAppear ? 0 : 40)
+        .animation(.easeOut(duration: 0.6).delay(0.8), value: viewModel.animateOnAppear)
     }
     
     // MARK: - Helper Functions
@@ -338,21 +338,6 @@ struct HistorialView: View {
         return streak
     }
     
-    // MARK: - Helper Functions for Popup
-    private func ywPG64ejD7uBxMvKVW2dv1WUKfTklcvp(_ date: Date) -> [WorkoutEntity] {
-        return workouts.filter { workout in
-            calendar.isDate(workout.date ?? Date(), inSameDayAs: date)
-        }
-    }
-    
-    private func tl87jyemPGoeAbhiIqFd9TgmT6nD12Dv(for date: Date) {
-        let dayWorkouts = ywPG64ejD7uBxMvKVW2dv1WUKfTklcvp(date)
-        if !dayWorkouts.isEmpty {
-            selectedDate = date
-            selectedDateWorkouts = dayWorkouts
-            showingTrainingDetail = true
-        }
-    }
     
     // MARK: - Motivational Empty Section
     private var motivationalEmptySection: some View {
@@ -398,9 +383,9 @@ struct HistorialView: View {
                         .lineSpacing(4)
                 }
             }
-            .opacity(animateOnAppear ? 1 : 0)
-            .offset(y: animateOnAppear ? 0 : 30)
-            .animation(.easeOut(duration: 0.8).delay(0.3), value: animateOnAppear)
+            .opacity(viewModel.animateOnAppear ? 1 : 0)
+            .offset(y: viewModel.animateOnAppear ? 0 : 30)
+            .animation(.easeOut(duration: 0.8).delay(0.3), value: viewModel.animateOnAppear)
         }
         .padding(.top, 60)
     }
