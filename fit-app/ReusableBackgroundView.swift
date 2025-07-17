@@ -1,38 +1,32 @@
 import SwiftUI
 
 struct ReusableBackgroundView<Content: View>: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var scheme
     @ViewBuilder var content: () -> Content
-    @State private var animate = false
-    
-    var gradientColors: [Color] {
-        colorScheme == .dark
-            ? [.purple, .black]
-            : [.purple.opacity(0.6), .white.opacity(0.1)]
-    }
+    @State private var appear = false
     
     var body: some View {
         ZStack {
-            // Gradiente animado entre tonos púrpura
-            LinearGradient(colors: animate ? gradientColors : gradientColors.reversed(),
-                           startPoint: .topLeading,
-                           endPoint: .bottomTrailing)
+            // Brand gradient with instant appearance and fade-in
+            currentBrandGradient
                 .ignoresSafeArea()
-                .blur(radius: 15)
-                .opacity(0.7)
-                .animation(.easeInOut(duration: 12).repeatForever(autoreverses: true), value: animate)
-                .onAppear { animate.toggle() }
+                .opacity(appear ? 1 : 0)
+                .animation(.easeOut(duration: 0.25), value: appear)
 
-            // Efecto de brillo muy sutil (iluminación de fondo)
-            Circle()
-                .fill(Color.white.opacity(0.05))
-                .frame(width: 400, height: 400)
-                .blur(radius: 100)
-                .offset(x: -150, y: -300)
+            // Glass lighting effect
+            Color.white.opacity(scheme == .dark ? 0.08 : 0.04)
+                .blur(radius: 60)
+                .ignoresSafeArea()
 
             content()
-                .transition(.opacity.combined(with: .scale))
-                .animation(.easeInOut(duration: 0.5), value: UUID())
         }
+        .onAppear { appear = true }
+    }
+    
+    /// Returns the exact brand gradient used in the project
+    private var currentBrandGradient: LinearGradient {
+        LinearGradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.6)],
+                       startPoint: .topLeading,
+                       endPoint: .bottomTrailing)
     }
 }
