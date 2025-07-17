@@ -69,29 +69,7 @@ enum QCxXT2kSPIbWvflUyClOkikKBvurCtBx {
 
 // MARK: - Timer View
 struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
-    @State private var selectedTimerType: wj1PITNF50YDIsWEj4a7OZgroyUqjcTI = .VfceYO5YMYBgFqLP4wZ9RM5QpLNKdjH8
-    @State private var workDuration: Int = 20
-    @State private var restDuration: Int = 10
-    @State private var rounds: Int = 8
-    @State private var isTimerRunning: Bool = false
-    @State private var isPaused: Bool = false
-    @State private var animateOnAppear = false
-    
-    // Timer Logic State
-    @State private var minutes: Int = 0
-    @State private var seconds: Int = 20
-    @State private var timer: Timer?
-    @State private var currentState: QCxXT2kSPIbWvflUyClOkikKBvurCtBx = .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC
-    @State private var currentRound: Int = 1
-    @State private var showCompletionAlert = false
-    
-    // Audio players for phase sounds
-    @State private var workAudioPlayer: AVAudioPlayer?
-    @State private var restAudioPlayer: AVAudioPlayer?
-    
-    // Validation states
-    @State private var showValidationAlert = false
-    @State private var validationMessage = ""
+    @StateObject private var viewModel = TimerViewModel()
     
     var body: some View {
         ReusableBackgroundView {
@@ -99,7 +77,7 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
                 VStack(spacing: 24) {
                     headerSection
                     
-                    if isTimerRunning || currentState != .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC {
+                    if viewModel.isTimerRunning || viewModel.currentState != .VKgfRX5qiiFtp342tT5Vi4hEqtshA2RC {
                         timerDisplaySection
                     } else {
                         timerTypeSection
@@ -115,35 +93,27 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-            withAnimation(.easeOut(duration: 0.8)) {
-                animateOnAppear = true
-            }
-            wffOZMhKbHhIlUhbGMDAVr4uZzWUug8h()
+            viewModel.onAppear()
         }
-        .onChange(of: selectedTimerType) { newType in
-            // Update durations when timer type changes only if not running
-            if !isTimerRunning {
-                workDuration = newType.gT3QPVtHL1YVcRO1v0Kevo1tMC2N1kja
-                restDuration = newType.pigV3hi0my7eS2KVEeKoMKTTUxGCMo5s
-                WBhY2jIg4Te0thaSqDrimCq7YvMQgV27()
-            }
+        .onChange(of: viewModel.selectedTimerType) { newType in
+            viewModel.updateFromTimerType()
         }
-        .alert("¡Tiempo Completo!", isPresented: $showCompletionAlert) {
+        .alert("¡Tiempo Completo!", isPresented: $viewModel.showCompletionAlert) {
             Button("OK") {
-                hAadxrPjJk0FI96VqhXr8cnvHPWltRo2()
+                viewModel.completeTimer()
             }
         } message: {
             Text("Has completado tu sesión de entrenamiento")
         }
-        .alert("Configuración Inválida", isPresented: $showValidationAlert) {
+        .alert("Configuración Inválida", isPresented: $viewModel.showValidationAlert) {
             Button("OK") {
-                showValidationAlert = false
+                viewModel.showValidationAlert = false
             }
         } message: {
-            Text(validationMessage)
+            Text(viewModel.validationMessage)
         }
         .onDisappear {
-            CXEvld2aXGDNjkuCbDJ1kBZOBHZLv2kH()
+            viewModel.onDisappear()
         }
     }
     
@@ -152,16 +122,16 @@ struct dzMXD3hivlzLZ3GtSj8FaFVVr52PmQrl: View {
         VStack(spacing: 32) {
             // Current State and Round Info
             VStack(spacing: 12) {
-                if selectedTimerType != .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 && rounds > 1 {
-                    Text("Ronda \(currentRound) de \(rounds)")
+                if viewModel.selectedTimerType != .P9RJFaUmzFAvzUTrHJFuXfVduNcfxez9 && viewModel.rounds > 1 {
+                    Text("Ronda \(viewModel.currentRound) de \(viewModel.rounds)")
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.white.opacity(0.8))
                 }
                 
-                Text(currentState.FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf)
+                Text(viewModel.currentState.FTHUTNSpsE8UA18FuBCnsyiUIC2Gujzf)
                     .font(.system(size: 24, weight: .bold, design: .rounded))
-                    .foregroundColor(currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA)
-                    .shadow(color: currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.4), radius: 4, x: 0, y: 2)
+                    .foregroundColor(viewModel.currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA)
+                    .shadow(color: viewModel.currentState.QFkRJkbJW973pOHJ12UZBEOecQPqJHCA.opacity(0.4), radius: 4, x: 0, y: 2)
             }
             
             // Main Timer Display

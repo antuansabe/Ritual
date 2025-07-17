@@ -4,64 +4,17 @@ import CoreData
 struct HistorialView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.navigationContext) private var navigationContext
     @EnvironmentObject private var navigationStateManager: NavigationStateManager
-    @State private var animateOnAppear = false
-    @State private var currentDate = Date()
+    @StateObject private var viewModel = HistorialViewModel()
     @StateObject private var motivationalManager = XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5()
-    @State private var showingTrainingDetail = false
-    @State private var selectedDateWorkouts: [WorkoutEntity] = []
-    @State private var selectedDate = Date()
     
     private let calendar = Calendar.current
     
     // Check if this is the root view (no navigation stack)
     private var isRoot: Bool {
         return navigationStateManager.isRootView()
-    }
-    
-    // Entrenamientos del mes actual
-    private var currentMonthWorkouts: Int {
-        let currentMonth = calendar.component(.month, from: currentDate)
-        let currentYear = calendar.component(.year, from: currentDate)
-        
-        return workouts.filter { workout in
-            let workoutMonth = calendar.component(.month, from: workout.date ?? Date())
-            let workoutYear = calendar.component(.year, from: workout.date ?? Date())
-            return workoutMonth == currentMonth && workoutYear == currentYear
-        }.count
-    }
-    
-    // Días únicos con entrenamientos en el mes actual
-    private var uniqueWorkoutDays: Int {
-        let currentMonth = calendar.component(.month, from: currentDate)
-        let currentYear = calendar.component(.year, from: currentDate)
-        
-        let workoutDates = Set(workouts.compactMap { workout in
-            let workoutMonth = calendar.component(.month, from: workout.date ?? Date())
-            let workoutYear = calendar.component(.year, from: workout.date ?? Date())
-            if workoutMonth == currentMonth && workoutYear == currentYear {
-                return calendar.startOfDay(for: workout.date ?? Date())
-            }
-            return nil
-        })
-        
-        return workoutDates.count
-    }
-    
-    // Estadísticas del año
-    private var yearStats: (totalWorkouts: Int, totalMinutes: Int, currentStreak: Int) {
-        let currentYear = Calendar.current.component(.year, from: Date())
-        let yearWorkouts = workouts.filter { 
-            Calendar.current.component(.year, from: $0.date ?? Date()) == currentYear 
-        }
-        
-        return (
-            totalWorkouts: yearWorkouts.count,
-            totalMinutes: yearWorkouts.reduce(0) { $0 + Int($1.duration) },
-            currentStreak: ES0BZT8uITuIRS240cz0GJ4YC02PSyRU()
-        )
     }
     
     var body: some View {
@@ -87,48 +40,34 @@ struct HistorialView: View {
         .navigationBarHidden(navigationContext.isFromTab)
         .navigationBarBackButtonHidden(isRoot)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if !isRoot {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Atrás") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    .foregroundColor(.white)
+                }
+            }
+        }
         .overlay {
-            if showingTrainingDetail {
+            if viewModel.showingTrainingDetail {
                 nXGgxr19LIpVKcd4cUEVl275ihvhFfMi(
-                    workouts: selectedDateWorkouts,
-                    selectedDate: selectedDate,
-                    isPresented: $showingTrainingDetail
+                    workouts: viewModel.selectedDateWorkouts,
+                    selectedDate: viewModel.selectedDate,
+                    isPresented: $viewModel.showingTrainingDetail
                 )
             }
         }
         .onAppear {
-            withAnimation(.easeOut(duration: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.TY7ZW5houGPwMVFGImNlC3I3EcEAN4GI.Z7xsdjw2hnYbjHVMQnLaw3tNvHBSqyDS)) {
-                animateOnAppear = true
-            }
+            viewModel.configure(with: workouts)
+            viewModel.onAppear()
         }
     }
     
     // MARK: - Header Section
     private var headerSection: some View {
         VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX) {
-            // Navigation Bar
-            HStack {
-                Button(action: { dismiss() }) {
-                    HStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.WGScMqI3Q6T0pZ22WIc8o7hkW683p3YO) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.white)
-                        
-                        Text("Atrás")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.white)
-                    }
-                    .padding(.horizontal, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX)
-                    .padding(.vertical, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.WGScMqI3Q6T0pZ22WIc8o7hkW683p3YO)
-                    .background(
-                        RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.LN3B4n9YFxSm5ylLDbkTP1ORcAc8zVlA)
-                            .fill(.ultraThinMaterial.opacity(0.7))
-                    )
-                }
-                .accessibilityLabel("Volver atrás")
-                
-                Spacer()
-            }
             
             // Title Section
             VStack(spacing: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.eolKpLnBV18B5zFVYquf59EJN7NQGzrX) {
@@ -147,9 +86,9 @@ struct HistorialView: View {
             .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.cLCfL2nwBEWw5KG2ecDz3CrS4DrWXUHX)
-        .opacity(animateOnAppear ? 1 : 0)
-        .offset(y: animateOnAppear ? 0 : -20)
-        .animation(.easeOut(duration: 0.6), value: animateOnAppear)
+        .opacity(viewModel.animateOnAppear ? 1 : 0)
+        .offset(y: viewModel.animateOnAppear ? 0 : -20)
+        .animation(.easeOut(duration: 0.6), value: viewModel.animateOnAppear)
     }
     
     // MARK: - Calendar Section
@@ -157,8 +96,8 @@ struct HistorialView: View {
         VStack(spacing: 24) {
             oceDsSstWUWphwxip8d8NBirtHgG7NaD(
                 workouts: Array(workouts),
-                currentDate: $currentDate,
-                onDateTapped: tl87jyemPGoeAbhiIqFd9TgmT6nD12Dv
+                currentDate: $viewModel.currentDate,
+                onDateTapped: viewModel.onDateTapped
             )
         }
         .padding(20)
@@ -171,9 +110,9 @@ struct HistorialView: View {
                 )
         )
         .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.s06S6l2jYXUPYG94fTRPPLQQdZkx2hYz(), radius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.bTCtL4JJ6s6CZeDy20yfXlv4bGc83wHJ)
-        .opacity(animateOnAppear ? 1 : 0)
-        .offset(y: animateOnAppear ? 0 : 30)
-        .animation(.easeOut(duration: 0.8).delay(0.2), value: animateOnAppear)
+        .opacity(viewModel.animateOnAppear ? 1 : 0)
+        .offset(y: viewModel.animateOnAppear ? 0 : 30)
+        .animation(.easeOut(duration: 0.8).delay(0.2), value: viewModel.animateOnAppear)
     }
     
     // MARK: - Month Summary Section

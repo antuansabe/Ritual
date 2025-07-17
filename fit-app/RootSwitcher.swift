@@ -95,6 +95,7 @@ struct TabScaffold: View {
             isqjtgeChdmyuavMEwRRyV8yoeHAhS9Z()
                 .environmentObject(persistenceController)
         }
+        .catchCrash()
     }
 }
 
