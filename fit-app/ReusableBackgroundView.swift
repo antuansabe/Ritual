@@ -13,9 +13,9 @@ struct ReusableBackgroundView<Content: View>: View {
                 .opacity(appear ? 1 : 0)
                 .animation(.easeOut(duration: 0.25), value: appear)
 
-            // Glass lighting effect
-            Color.white.opacity(scheme == .dark ? 0.08 : 0.04)
-                .blur(radius: 60)
+            // Subtle glass lighting effect
+            Color.white.opacity(scheme == .dark ? 0.03 : 0.02)
+                .blur(radius: 80)
                 .ignoresSafeArea()
 
             content()
@@ -23,10 +23,14 @@ struct ReusableBackgroundView<Content: View>: View {
         .onAppear { appear = true }
     }
     
-    /// Returns the exact brand gradient used in the project
+    /// Returns a professional, subtle gradient
     private var currentBrandGradient: LinearGradient {
-        LinearGradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.6)],
-                       startPoint: .topLeading,
-                       endPoint: .bottomTrailing)
+        scheme == .dark
+            ? LinearGradient(colors: [.purple.opacity(0.4), .black.opacity(0.8)],
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
+            : LinearGradient(colors: [.purple.opacity(0.3), .white.opacity(0.1)],
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
     }
 }
