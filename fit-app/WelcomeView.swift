@@ -3,13 +3,19 @@ import SwiftUI
 struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
     @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
     @EnvironmentObject var userProfileManager: gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm
+    @EnvironmentObject var navigationStateManager: NavigationStateManager
     @State private var animateContent = false
-    @State private var showMainApp = false
     
     private var userName: String {
-        // Get from SecureStorage first
-        if let secureUserName = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.YhyL54l7qYGd78Z7egtPFzCWzLff1uDd) {
+        // Get from SecureStorage first - user display name
+        if let secureUserName = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: "userDisplayName"),
+           !secureUserName.isEmpty && secureUserName != "HELLO_USER" {
             return secureUserName
+        }
+        
+        // Try to get from AuthViewModel
+        if !authViewModel.currentUserName.isEmpty {
+            return authViewModel.currentUserName
         }
         
         // Fallback to user profile manager
@@ -44,11 +50,6 @@ struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
             withAnimation(.easeOut(duration: 1.2).delay(0.3)) {
                 animateContent = true
             }
-        }
-        .fullScreenCover(isPresented: $showMainApp) {
-            KQMbB3ZqQUMbSR2AGsJpCknS8pSLtpb6()
-                .environmentObject(authViewModel)
-                .environmentObject(userProfileManager)
         }
     }
     
@@ -89,7 +90,7 @@ struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
                 
                 // Personalized greeting with user name as primary
                 VStack(spacing: 8) {
-                    Text("HELLO_USER".t.replacingOccurrences(of: "{name}", with: userName))
+                    Text("Hola \(userName)")
                         .font(.system(size: 34, weight: .bold))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
@@ -228,9 +229,9 @@ struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
         // Mark welcome as seen in UserDefaults
         UserDefaults.standard.set(true, forKey: "hasSeenWelcome")
         
-        // Navigate to main app with animation
+        // Complete welcome flow through NavigationStateManager
         withAnimation(.easeInOut(duration: 0.5)) {
-            showMainApp = true
+            navigationStateManager.completeWelcome()
         }
     }
 }
@@ -248,4 +249,5 @@ struct rR0L7k2YdOzl6VXfh0gsdYto1NgC9a0H {
     FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0()
         .environmentObject(M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB())
         .environmentObject(gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX)
+        .environmentObject(NavigationStateManager())
 }
