@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreData
+import UIKit
 
 struct Xj3WJQIjdqYVZ7GRqNsGGOF8t6wx845J: View {
     @Environment(\.dismiss) private var dismiss
@@ -466,6 +467,10 @@ struct Xj3WJQIjdqYVZ7GRqNsGGOF8t6wx845J: View {
         // Notify WeeklyGoalManager about the goal change
         NotificationCenter.default.post(name: .PNqxq0lAjFsRRnIb7XoCcURRETBAHPqh, object: weeklyGoal)
         
+        // Haptic feedback for goal save
+        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+        impactFeedback.impactOccurred()
+        
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
             savedGoal = true
         }
@@ -482,11 +487,9 @@ struct Xj3WJQIjdqYVZ7GRqNsGGOF8t6wx845J: View {
             }
         }
         
-        // Reset saved state after 2 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                savedGoal = false
-            }
+        // Auto-dismiss modal after saving
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            dismiss()
         }
     }
 }

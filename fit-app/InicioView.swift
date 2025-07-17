@@ -160,13 +160,15 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
     var body: some View {
         ReusableBackgroundView {
             ScrollView {
-                VStack(spacing: 40) {
+                LazyVStack(spacing: 40) {
                     headerSection
                     metricsSection
                     recentWorkoutsSection
                 }
                 .padding(.top, 20)
-                .padding(.bottom, 120)
+            }
+            .safeAreaInset(edge: .bottom) { 
+                Spacer().frame(height: 80) 
             }
         }
         .navigationBarHidden(true)

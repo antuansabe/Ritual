@@ -6,6 +6,7 @@ struct HistorialView: View {
     private var workouts: FetchedResults<WorkoutEntity>
     @Environment(\.dismiss) private var dismiss
     @Environment(\.navigationContext) private var navigationContext
+    @EnvironmentObject private var navigationStateManager: NavigationStateManager
     @State private var animateOnAppear = false
     @State private var currentDate = Date()
     @StateObject private var motivationalManager = XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5()
@@ -14,6 +15,11 @@ struct HistorialView: View {
     @State private var selectedDate = Date()
     
     private let calendar = Calendar.current
+    
+    // Check if this is the root view (no navigation stack)
+    private var isRoot: Bool {
+        return navigationStateManager.isRootView()
+    }
     
     // Entrenamientos del mes actual
     private var currentMonthWorkouts: Int {
@@ -79,6 +85,7 @@ struct HistorialView: View {
             }
         }
         .navigationBarHidden(navigationContext.isFromTab)
+        .navigationBarBackButtonHidden(isRoot)
         .navigationBarTitleDisplayMode(.inline)
         .overlay {
             if showingTrainingDetail {

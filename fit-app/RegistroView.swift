@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 // MARK: - Activity Types Data
 struct ihgdZCZ77qBKjAhR9r9jixKHxA35ZHNR {
@@ -257,6 +258,9 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
         }
         .onChange(of: workoutViewModel.XBKRsaOVB7IubKbKig2RNYsBUWknczOR) { success in
             if success {
+                // Haptic feedback for workout saved
+                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                impactFeedback.impactOccurred()
                 showSuccessOverlay = true
             }
         }
@@ -273,6 +277,13 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
             ),
             isPresented: .constant(workoutViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy != nil)
         )
+        .onChange(of: workoutViewModel.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy) { error in
+            if error != nil {
+                // Haptic feedback for validation error
+                let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
+                impactFeedback.impactOccurred()
+            }
+        }
         .customAlert(
             title: "Datos inválidos",
             message: validationAlertMessage,
@@ -389,27 +400,6 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
                     .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
                 
                 Spacer()
-                
-                if customTrainingManager.PzZbtqu8h8znMzXeOie5uZA8XwVRtWxu() {
-                    Button(action: {
-                        showAddCustomTraining = true
-                    }) {
-                        HStack(spacing: 6) {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.system(size: 16, weight: .semibold))
-                            Text("Agregar")
-                                .font(.system(size: 14, weight: .semibold))
-                        }
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT)
-                                .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.su8Vctd4yB3rRBP8m4kTB7dmfsjGl0hT.opacity(0.4), radius: 4, x: 0, y: 2)
-                        )
-                    }
-                }
             }
             .padding(.horizontal, 16)
             .opacity(animateOnAppear ? 1 : 0)
