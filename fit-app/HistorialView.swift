@@ -117,6 +117,7 @@ final class HistorialViewModel: ObservableObject {
     private func calculateCurrentStreak(from workouts: [WorkoutEntity]) async -> Int {
         let today = Date()
         let sortedWorkouts = workouts
+    
             .sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
         
         var streak = 0

@@ -1,7 +1,9 @@
 import SwiftUI
+import Foundation
+import Combine
 
-// MARK: - AppNavigationManager
-final class AppNavigationManager: ObservableObject {
+// MARK: - NavigationStateManager
+final class NavigationStateManager: ObservableObject {
     @Published var rootTab: Int = 0          // 0-Inicio, 1-Registrar, ...
     @Published var showWelcome = false       // se activa 1 sola vez
     
@@ -58,7 +60,7 @@ extension View {
 // MARK: - RootSwitcher
 struct RootSwitcher: View {
     @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
-    @EnvironmentObject var navigationStateManager: AppNavigationManager
+    @EnvironmentObject var navigationStateManager: NavigationStateManager
     @EnvironmentObject var persistenceController: c3kqQniNesZXpxTzJtrm9NMyH8bXfWx7
     @EnvironmentObject var userProfileManager: gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm
     @State private var hasCompletedOnboarding = false
@@ -138,7 +140,7 @@ struct TabScaffold: View {
     @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
     @EnvironmentObject var persistenceController: c3kqQniNesZXpxTzJtrm9NMyH8bXfWx7
     @EnvironmentObject var userProfileManager: gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm
-    @EnvironmentObject var navigationStateManager: AppNavigationManager
+    @EnvironmentObject var navigationStateManager: NavigationStateManager
     
     var body: some View {
         ZStack {
@@ -160,7 +162,7 @@ struct bznZq23oqpIdNqA1wbzgsmcc11mjbUC2: App {
     @StateObject private var authViewModel = M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB()
     @StateObject private var persistenceController = c3kqQniNesZXpxTzJtrm9NMyH8bXfWx7.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     @StateObject private var userProfileManager = gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
-    @StateObject private var navigationStateManager = AppNavigationManager()
+    @StateObject private var navigationStateManager = NavigationStateManager()
     @State private var hasCompletedOnboarding = false
     
     private var Eipluq8LD9geJrV1Io29kimcg2nhUc0k: Bool {

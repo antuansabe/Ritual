@@ -23,8 +23,8 @@ class NavigationContext: ObservableObject {
     }
 }
 
-// MARK: - Navigation State Manager
-class NavigationStateManager: ObservableObject {
+// MARK: - Navigation Stack Manager (renamed to avoid conflicts)
+class NavigationStackManager: ObservableObject {
     @Published var navigationStack: [String] = []
     @Published var currentTab: Int = 0
     
