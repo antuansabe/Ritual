@@ -69,9 +69,7 @@ final class HistorialViewModel: ObservableObject {
         guard let workouts = workouts else { return }
         
         // Calculate values asynchronously to avoid blocking UI
-        Task.detached(priority: .userInitiated) { [weak self] in
-            guard let self = self else { return }
-            
+        Task { @MainActor in
             let currentMonth = self.calendar.component(.month, from: self.currentDate)
             let currentYear = self.calendar.component(.year, from: self.currentDate)
             
@@ -102,12 +100,10 @@ final class HistorialViewModel: ObservableObject {
             let totalMinutes = yearWorkouts.reduce(0) { $0 + Int($1.duration) }
             let currentStreak = self.calculateCurrentStreak(from: Array(workouts))
             
-            // Update on main thread
-            await MainActor.run {
-                self.currentMonthWorkouts = monthWorkouts
-                self.uniqueWorkoutDays = uniqueDays
-                self.yearStats = (totalWorkouts: totalWorkouts, totalMinutes: totalMinutes, currentStreak: currentStreak)
-            }
+            // Update properties directly since we're already on MainActor
+            self.currentMonthWorkouts = monthWorkouts
+            self.uniqueWorkoutDays = uniqueDays
+            self.yearStats = (totalWorkouts: totalWorkouts, totalMinutes: totalMinutes, currentStreak: currentStreak)
         }
     }
     

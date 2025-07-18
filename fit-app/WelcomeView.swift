@@ -3,7 +3,7 @@ import SwiftUI
 struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
     @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
     @EnvironmentObject var userProfileManager: gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm
-    @EnvironmentObject var navigationStateManager: NavigationStateManager
+    @EnvironmentObject var navigationStateManager: AppNavigationManager
     @State private var animateContent = false
     
     private var userName: String {
@@ -249,5 +249,5 @@ struct rR0L7k2YdOzl6VXfh0gsdYto1NgC9a0H {
     FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0()
         .environmentObject(M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB())
         .environmentObject(gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX)
-        .environmentObject(NavigationStateManager())
+        .environmentObject(AppNavigationManager())
 }
