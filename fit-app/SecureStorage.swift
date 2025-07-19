@@ -262,7 +262,7 @@ class HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow {
     /// - Returns: True if successful, false otherwise
     private func Z5hw73WlQzeRQt1obKOWBz9ghA4wenS3(_ keyData: Data, for key: String) -> Bool {
         // Delete any existing key first
-        px9X6eTxIKwtDzyDvpVH9pTYh9pWFLYy(for: key)
+        _ = px9X6eTxIKwtDzyDvpVH9pTYh9pWFLYy(for: key)
         
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -374,7 +374,7 @@ class HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow {
     /// - Returns: True if successful, false otherwise
     func TxBVFgZQXcAiGSpe5Bj4cWX37pRpzhmy(_ value: String, for key: String) -> Bool {
         // Delete any existing item first
-        NUGTlwW4yncSmuhUGrpLiLxGsjhSLWaO(key: key)
+        _ = NUGTlwW4yncSmuhUGrpLiLxGsjhSLWaO(key: key)
         
         guard let data = value.data(using: .utf8) else {
             #if DEBUG

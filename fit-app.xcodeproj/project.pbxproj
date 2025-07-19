@@ -54,6 +54,9 @@
 		R1S2T3U4V5W6X7Y8 /* ReusableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = Z1A2B3C4D5E6F7G8 /* ReusableBackgroundView.swift */; };
 		X1Y2Z3A4B5C6D7E8 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = Y1Z2A3B4C5D6E7F8 /* OnboardingView.swift */; };
 		X2Y3Z4A5B6C7D8E9 /* OnboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = Y2Z3A4B5C6D7E8F9 /* OnboardingSlide.swift */; };
+		L3G4L5V6W7X8Y9Z0 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3G4L5V6W7X8Y9Z1 /* LegalView.swift */; };
+		P1R2I3V4A5C6Y7H8 /* PrivacyPolicy.html in Resources */ = {isa = PBXBuildFile; fileRef = P1R2I3V4A5C6Y7H9 /* PrivacyPolicy.html */; };
+		T1E2R3M4S5O6F7S8 /* TermsOfService.html in Resources */ = {isa = PBXBuildFile; fileRef = T1E2R3M4S5O6F7S9 /* TermsOfService.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +129,9 @@
 		Y1Z2A3B4C5D6E7F8 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		Y2Z3A4B5C6D7E8F9 /* OnboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlide.swift; sourceTree = "<group>"; };
 		Z1A2B3C4D5E6F7G8 /* ReusableBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableBackgroundView.swift; sourceTree = "<group>"; };
+		L3G4L5V6W7X8Y9Z1 /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fit-app/LegalView.swift; sourceTree = "<group>"; };
+		P1R2I3V4A5C6Y7H9 /* PrivacyPolicy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = fit-app/Legal/PrivacyPolicy.html; sourceTree = "<group>"; };
+		T1E2R3M4S5O6F7S9 /* TermsOfService.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = fit-app/Legal/TermsOfService.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -394,6 +400,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				20D8510D2E16FC1F001B2F98 /* Assets.xcassets in Resources */,
+				P1R2I3V4A5C6Y7H8 /* PrivacyPolicy.html in Resources */,
+				T1E2R3M4S5O6F7S8 /* TermsOfService.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,6 +486,7 @@
 				326PY91UFRHMKPLA09WJOOTF /* AchievementManager.swift in Sources */,
 				B7C8D9E0F1A2B3C4 /* NavigationContext.swift in Sources */,
 				A1B2C3D4E5F60001 /* App.swift in Sources */,
+				L3G4L5V6W7X8Y9Z0 /* LegalView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

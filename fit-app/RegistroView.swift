@@ -720,7 +720,7 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
         
         switch validationResult {
         case .success(let validDuration):
-            let calories = Int32(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for: validDuration))
+            let _ = Int32(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for: validDuration))
             
             // Use basic Core Data saving with offline capability built into CloudKit
             Task {

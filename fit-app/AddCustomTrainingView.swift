@@ -2,13 +2,14 @@ import SwiftUI
 
 // MARK: - Custom Training Model
 struct Rwq5UG4rvo7IhqKrt5SQ38RnUcfGPsYD: Codable, Identifiable, Equatable {
-    let id = UUID()
+    let id: UUID
     let name: String
     let iconName: String
     let category: String
     let dateCreated: Date
     
     init(name: String, iconName: String, category: String = "Personalizado") {
+        self.id = UUID()
         self.name = name
         self.iconName = iconName
         self.category = category
