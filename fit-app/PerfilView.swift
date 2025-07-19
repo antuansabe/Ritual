@@ -559,6 +559,7 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
             }
             
             VStack(spacing: 12) {
+#if DEBUG
                 // CloudKit Test Button
                 Button(action: {
                     showingCloudKitTest = true
@@ -600,19 +601,6 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                             .foregroundColor(.orange)
                         
                         Spacer()
-                        
-                        // Show conflict count if any (temporarily disabled)
-                        /*
-                        if PersistenceController.conflictMonitor.conflicts.count > 0 {
-                            Text("\(PersistenceController.conflictMonitor.conflicts.count)")
-                                .font(.system(size: 12, weight: .bold))
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 4)
-                                .background(Color.red)
-                                .cornerRadius(12)
-                        }
-                        */
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 16)
@@ -652,6 +640,34 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                             )
                     )
                 }
+#endif
+                
+                // Legal links
+                NavigationLink("Política de privacidad", destination: LegalView(file: "PrivacyPolicy"))
+                    .foregroundColor(.blue)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.blue.opacity(0.1))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                
+                NavigationLink("Términos de servicio", destination: LegalView(file: "TermsOfService"))
+                    .foregroundColor(.blue)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.blue.opacity(0.1))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+                            )
+                    )
                 
                 // Logout Button using reusable component
                 fdsNnzsNuc4ubtpYpSbsrJfmPuz1AmGM(style: .card)
