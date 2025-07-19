@@ -2,34 +2,24 @@ import SwiftUI
 @preconcurrency import WebKit
 
 struct LegalView: UIViewRepresentable {
-    let file: String
+    let fileName: String        // "PrivacyPolicy" | "TermsOfService"
     
-    init(file: String) {
-        self.file = file
+    init(fileName: String) {
+        self.fileName = fileName
     }
     
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
-        webView.navigationDelegate = context.coordinator
+        if let url = Bundle.main.url(forResource: fileName, withExtension: "html") {
+            webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
+        } else {
+            loadErrorHTML(in: webView)
+        }
         return webView
     }
     
     func updateUIView(_ webView: WKWebView, context: Context) {
-        loadLocalHTML(in: webView)
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    private func loadLocalHTML(in webView: WKWebView) {
-        guard let htmlPath = Bundle.main.path(forResource: file, ofType: "html", inDirectory: "Legal"),
-              let htmlURL = URL(string: "file://\(htmlPath)") else {
-            loadErrorHTML(in: webView)
-            return
-        }
-        
-        webView.loadFileURL(htmlURL, allowingReadAccessTo: htmlURL.deletingLastPathComponent())
+        // No need to reload on update
     }
     
     private func loadErrorHTML(in webView: WKWebView) {
@@ -68,7 +58,7 @@ struct LegalView: UIViewRepresentable {
         <body>
             <div class="error-container">
                 <h1>Archivo no encontrado</h1>
-                <p>No se pudo cargar el archivo: <strong>\(file).html</strong></p>
+                <p>No se pudo cargar el archivo: <strong>\(fileName).html</strong></p>
                 <p>Por favor, contacta al soporte técnico.</p>
             </div>
         </body>
@@ -77,47 +67,16 @@ struct LegalView: UIViewRepresentable {
         
         webView.loadHTMLString(errorHTML, baseURL: nil)
     }
-    
-    class Coordinator: NSObject, WKNavigationDelegate {
-        let parent: LegalView
-        
-        init(_ parent: LegalView) {
-            self.parent = parent
-        }
-        
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            // Opcional: Ajustar el zoom o configuraciones adicionales
-            webView.evaluateJavaScript("document.body.style.webkitTextSizeAdjust='100%'")
-        }
-        
-        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-            print("Failed to load legal document: \(error.localizedDescription)")
-        }
-        
-        func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-            // Permitir navegación solo a archivos locales
-            if let url = navigationAction.request.url,
-               url.scheme == "file" || url.absoluteString.contains("Legal/") {
-                decisionHandler(.allow)
-            } else {
-                // Para enlaces externos, abrir en Safari
-                if let url = navigationAction.request.url {
-                    UIApplication.shared.open(url)
-                }
-                decisionHandler(.cancel)
-            }
-        }
-    }
 }
 
 // Vista wrapper con navegación
 struct LegalDocumentView: View {
-    let file: String
+    let fileName: String
     let title: String
     
     var body: some View {
         NavigationView {
-            LegalView(file: file)
+            LegalView(fileName: fileName)
                 .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -132,5 +91,5 @@ struct LegalDocumentView: View {
 }
 
 #Preview {
-    LegalView(file: "PrivacyPolicy")
+    LegalView(fileName: "PrivacyPolicy")
 }

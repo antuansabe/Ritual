@@ -643,7 +643,7 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
 #endif
                 
                 // Legal links
-                NavigationLink("Política de privacidad", destination: LegalView(file: "PrivacyPolicy"))
+                NavigationLink("Política de privacidad", destination: LegalView(fileName: "PrivacyPolicy"))
                     .foregroundColor(.blue)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 16)
@@ -656,7 +656,7 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                             )
                     )
                 
-                NavigationLink("Términos de servicio", destination: LegalView(file: "TermsOfService"))
+                NavigationLink("Términos de servicio", destination: LegalView(fileName: "TermsOfService"))
                     .foregroundColor(.blue)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 16)

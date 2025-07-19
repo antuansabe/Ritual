@@ -4,6 +4,8 @@ import AuthenticationServices
 struct wdJa7hhtRa6I67ei2Mi07KjELvqym68b: View {
     @EnvironmentObject var authViewModel: M8vqmFyXCG9Rq6KAMpOqYJzLdBbuMBhB
     @State private var animateOnAppear = false
+    @State private var showingTerms = false
+    @State private var showingPrivacyPolicy = false
     
     var body: some View {
         ZStack {
@@ -36,6 +38,34 @@ struct wdJa7hhtRa6I67ei2Mi07KjELvqym68b: View {
             .padding(.horizontal, 32)
         }
         .navigationBarHidden(true)
+        .sheet(isPresented: $showingTerms) {
+            NavigationView {
+                LegalView(fileName: "TermsOfService")
+                    .navigationTitle("Términos de Servicio")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Cerrar") {
+                                showingTerms = false
+                            }
+                        }
+                    }
+            }
+        }
+        .sheet(isPresented: $showingPrivacyPolicy) {
+            NavigationView {
+                LegalView(fileName: "PrivacyPolicy")
+                    .navigationTitle("Política de Privacidad")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Cerrar") {
+                                showingPrivacyPolicy = false
+                            }
+                        }
+                    }
+            }
+        }
         .onAppear {
             withAnimation(.easeOut(duration: 0.8)) {
                 animateOnAppear = true
@@ -186,20 +216,22 @@ struct wdJa7hhtRa6I67ei2Mi07KjELvqym68b: View {
             
             HStack(spacing: 8) {
                 Button("Términos de Servicio") {
-                    // Handle terms
+                    showingTerms = true
                 }
                 .font(.system(size: 12, weight: .medium))
                 .foregroundColor(.white.opacity(0.8))
+                .underline()
                 
                 Text("y")
                     .font(.system(size: 12, weight: .light))
                     .foregroundColor(.white.opacity(0.6))
                 
                 Button("Política de Privacidad") {
-                    // Handle privacy policy
+                    showingPrivacyPolicy = true
                 }
                 .font(.system(size: 12, weight: .medium))
                 .foregroundColor(.white.opacity(0.8))
+                .underline()
             }
         }
         .opacity(animateOnAppear ? 1 : 0)
