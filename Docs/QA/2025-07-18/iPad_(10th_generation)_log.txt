@@ -1,0 +1,2 @@
+xcodebuild: error: Scheme fit-app is not currently configured for the test-without-building action.
+
