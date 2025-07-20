@@ -559,11 +559,12 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
             }
             
             VStack(spacing: 12) {
-#if DEBUG
-                // CloudKit Test Button
-                Button(action: {
-                    showingCloudKitTest = true
-                }) {
+                // Debug buttons - only shown when isDebug is true
+                if pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.isDebug {
+                    // CloudKit Test Button
+                    Button(action: {
+                        showingCloudKitTest = true
+                    }) {
                     HStack(spacing: 12) {
                         Image(systemName: "icloud.and.arrow.up.and.arrow.down")
                             .font(.system(size: 18, weight: .semibold))
@@ -640,10 +641,10 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                             )
                     )
                 }
-#endif
+                }
                 
                 // Legal links
-                NavigationLink(destination: LegalView(fileName: "PrivacyPolicy")) {
+                NavigationLink(destination: LegalView(file: .privacy)) {
                     HStack(spacing: 12) {
                         Image(systemName: "hand.raised.fill")
                             .font(.system(size: 18, weight: .semibold))
@@ -667,7 +668,7 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                     )
                 }
                 
-                NavigationLink(destination: LegalView(fileName: "TermsOfService")) {
+                NavigationLink(destination: LegalView(file: .terms)) {
                     HStack(spacing: 12) {
                         Image(systemName: "doc.text.fill")
                             .font(.system(size: 18, weight: .semibold))

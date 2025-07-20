@@ -40,7 +40,7 @@ struct wdJa7hhtRa6I67ei2Mi07KjELvqym68b: View {
         .navigationBarHidden(true)
         .sheet(isPresented: $showingTerms) {
             NavigationView {
-                LegalView(fileName: "TermsOfService")
+                LegalView(file: .terms)
                     .navigationTitle("Términos de Servicio")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -54,7 +54,7 @@ struct wdJa7hhtRa6I67ei2Mi07KjELvqym68b: View {
         }
         .sheet(isPresented: $showingPrivacyPolicy) {
             NavigationView {
-                LegalView(fileName: "PrivacyPolicy")
+                LegalView(file: .privacy)
                     .navigationTitle("Política de Privacidad")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
