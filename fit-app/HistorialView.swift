@@ -636,9 +636,9 @@ struct oceDsSstWUWphwxip8d8NBirtHgG7NaD: View {
             }
             
             VStack(spacing: 12) {
-                // Weekday headers - Correct order starting with Monday  
+                // Weekday headers - Order starting with Monday (M for Miércoles)
                 HStack(spacing: 0) {
-                    ForEach(["L","M","X","J","V","S","D"], id: \.self) { day in
+                    ForEach(["L","M","M","J","V","S","D"], id: \.self) { day in
                         Text(day)
                             .font(.system(size: 12, weight: .semibold))
                             .foregroundColor(.white.opacity(0.6))
