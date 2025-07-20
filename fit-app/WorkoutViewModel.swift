@@ -70,31 +70,12 @@ extension XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5 {
     }
     
     func ES0BZT8uITuIRS240cz0GJ4YC02PSyRU(workouts: [WorkoutEntity]) -> Int {
-        return calculateWeeklyStreak(workouts: workouts)
+        // Use WeekEngine for consistent streak calculation
+        return WeekEngine.shared.currentStreak(from: workouts)
     }
     
     func calculateWeeklyStreak(workouts: [WorkoutEntity]) -> Int {
-        let calendar = Calendar.current
-        let today = Date()
-        
-        var streak = 0
-        var checkWeek = today
-        
-        for _ in 0..<52 { // Check last 52 weeks maximum
-            let workoutsInWeek = workouts.filter { workout in
-                guard let workoutDate = workout.date else { return false }
-                return calendar.isDate(workoutDate, equalTo: checkWeek, toGranularity: .weekOfYear)
-            }
-            
-            if workoutsInWeek.isEmpty {
-                break
-            } else {
-                streak += 1
-            }
-            
-            checkWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: checkWeek) ?? checkWeek
-        }
-        
-        return streak
+        // Delegate to WeekEngine for centralized calculation
+        return WeekEngine.shared.currentStreak(from: workouts)
     }
 }

@@ -53,8 +53,12 @@ final class HistorialViewModel: ObservableObject {
     
     func onDateTapped(_ date: Date) {
         guard let workouts = workouts else { return }
+        // Use WeekEngine for consistent date handling
+        let targetDay = WeekEngine.shared.localStartOfDay(for: date)
         let dayWorkouts = workouts.filter { workout in
-            calendar.isDate(workout.date ?? Date(), inSameDayAs: date)
+            guard let workoutDate = workout.date else { return false }
+            let workoutDay = WeekEngine.shared.localStartOfDay(for: workoutDate)
+            return workoutDay == targetDay
         }
         if !dayWorkouts.isEmpty {
             selectedDate = date
@@ -87,12 +91,13 @@ final class HistorialViewModel: ObservableObject {
                 return workoutMonth == currentMonth && workoutYear == currentYear
             }.count
             
-            // Calculate unique workout days
+            // Calculate unique workout days using WeekEngine for consistent date handling
             let workoutDates = Set(Array(workouts).compactMap { workout in
-                let workoutMonth = self.calendar.component(.month, from: workout.date ?? Date())
-                let workoutYear = self.calendar.component(.year, from: workout.date ?? Date())
+                guard let workoutDate = workout.date else { return nil }
+                let workoutMonth = self.calendar.component(.month, from: workoutDate)
+                let workoutYear = self.calendar.component(.year, from: workoutDate)
                 if workoutMonth == currentMonth && workoutYear == currentYear {
-                    return self.calendar.startOfDay(for: workout.date ?? Date())
+                    return WeekEngine.shared.localStartOfDay(for: workoutDate)
                 }
                 return nil
             })
@@ -115,49 +120,8 @@ final class HistorialViewModel: ObservableObject {
     }
     
     private func calculateCurrentStreak(from workouts: [WorkoutEntity]) async -> Int {
-        let today = Date()
-        let sortedWorkouts = workouts
-    
-            .sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
-        
-        var streak = 0
-        var currentDate = today
-        let calendar = Calendar.current
-        
-        // Check if we worked out today or yesterday to start streak
-        let hasWorkoutToday = sortedWorkouts.contains { workout in
-            calendar.isDate(workout.date ?? Date(), inSameDayAs: today)
-        }
-        
-        let yesterday = calendar.date(byAdding: .day, value: -1, to: today) ?? today
-        let hasWorkoutYesterday = sortedWorkouts.contains { workout in
-            calendar.isDate(workout.date ?? Date(), inSameDayAs: yesterday)
-        }
-        
-        if hasWorkoutToday {
-            currentDate = today
-        } else if hasWorkoutYesterday {
-            currentDate = yesterday
-        } else {
-            return 0 // No recent workouts
-        }
-        
-        // Count consecutive days with workouts
-        for i in 0..<30 { // Limit to 30 days to prevent long calculations
-            let checkDate = calendar.date(byAdding: .day, value: -i, to: currentDate) ?? currentDate
-            
-            let hasWorkout = sortedWorkouts.contains { workout in
-                calendar.isDate(workout.date ?? Date(), inSameDayAs: checkDate)
-            }
-            
-            if hasWorkout {
-                streak += 1
-            } else {
-                break
-            }
-        }
-        
-        return streak
+        // Use WeekEngine for consistent streak calculation
+        return WeekEngine.shared.currentStreak(from: workouts)
     }
 }
 

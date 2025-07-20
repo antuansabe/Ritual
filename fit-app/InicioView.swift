@@ -141,6 +141,7 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)])
     private var workouts: FetchedResults<WorkoutEntity>
     
+    @StateObject private var weeklyMetrics = WeeklyMetricsViewModel()
     @ObservedObject private var offlineManager = f44CM3JdBo3CztstNOncNr1s4UV8ejD1.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     @ObservedObject private var networkMonitor = T6BDbtv2u0anCAqwtryY4XMWEB6pm5mX.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     @ObservedObject private var userProfileManager = gcAHxRIJfz72aGUGGNJZgmaSXybR0xrm.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
@@ -178,6 +179,10 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
         .onAppear {
             withAnimation(.easeOut(duration: 1.0)) {
                 animateOnAppear = true
+            }
+            // Refresh weekly stats when view appears
+            Task {
+                await weeklyMetrics.refreshWeeklyStats(in: managedObjectContext)
             }
         }
         .alert("Cerrar sesión", isPresented: $showingLogoutConfirmation) {
@@ -221,7 +226,7 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
                 HStack(spacing: 12) {
                     rji5oBHeH5tqY2OwV0PYO7wSVw6bBkHN(
                         icon: "figure.walk.circle.fill",
-                        value: "\(workouts.count)",
+                        value: weeklyMetrics.formattedWeeklyWorkouts(),
                         label: "Entrenamientos",
                         tint: .blue
                     )
@@ -229,7 +234,7 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
                     
                     rji5oBHeH5tqY2OwV0PYO7wSVw6bBkHN(
                         icon: "clock.fill",
-                        value: "\(workouts.reduce(0) { $0 + Int($1.duration) })",
+                        value: weeklyMetrics.formattedWeeklyMinutes(),
                         label: "Minutos",
                         tint: .green
                     )
@@ -237,7 +242,7 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
                     
                     rji5oBHeH5tqY2OwV0PYO7wSVw6bBkHN(
                         icon: "flame.fill",
-                        value: "\(workouts.reduce(0) { $0 + Int($1.calories) })",
+                        value: weeklyMetrics.formattedWeeklyCalories(),
                         label: "Calorías",
                         tint: .orange
                     )
