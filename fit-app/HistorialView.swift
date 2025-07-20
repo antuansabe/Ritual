@@ -18,7 +18,11 @@ final class HistorialViewModel: ObservableObject {
     @Published private(set) var uniqueWorkoutDays: Int = 0
     @Published private(set) var yearStats: (totalWorkouts: Int, totalMinutes: Int, currentStreak: Int) = (0, 0, 0)
     
-    private let calendar = Calendar.current
+    private let calendar: Calendar = {
+        var cal = Calendar(identifier: .gregorian)
+        cal.firstWeekday = 2  // Monday
+        return cal
+    }()
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Dependencies
@@ -53,11 +57,11 @@ final class HistorialViewModel: ObservableObject {
     
     func onDateTapped(_ date: Date) {
         guard let workouts = workouts else { return }
-        // Use WeekEngine for consistent date handling
-        let targetDay = WeekEngine.shared.localStartOfDay(for: date)
+        // Use Calendar for consistent date handling
+        let targetDay = calendar.startOfDay(for: date)
         let dayWorkouts = workouts.filter { workout in
             guard let workoutDate = workout.date else { return false }
-            let workoutDay = WeekEngine.shared.localStartOfDay(for: workoutDate)
+            let workoutDay = calendar.startOfDay(for: workoutDate)
             return workoutDay == targetDay
         }
         if !dayWorkouts.isEmpty {
@@ -91,13 +95,13 @@ final class HistorialViewModel: ObservableObject {
                 return workoutMonth == currentMonth && workoutYear == currentYear
             }.count
             
-            // Calculate unique workout days using WeekEngine for consistent date handling
-            let workoutDates = Set(Array(workouts).compactMap { workout in
+            // Calculate unique workout days using Calendar for consistent date handling
+            let workoutDates = Set<Date>(Array(workouts).compactMap { workout in
                 guard let workoutDate = workout.date else { return nil }
                 let workoutMonth = self.calendar.component(.month, from: workoutDate)
                 let workoutYear = self.calendar.component(.year, from: workoutDate)
                 if workoutMonth == currentMonth && workoutYear == currentYear {
-                    return WeekEngine.shared.localStartOfDay(for: workoutDate)
+                    return self.calendar.startOfDay(for: workoutDate)
                 }
                 return nil
             })
@@ -134,7 +138,11 @@ struct HistorialView: View {
     @StateObject private var viewModel = HistorialViewModel()
     @StateObject private var motivationalManager = XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5()
     
-    private let calendar = Calendar.current
+    private let calendar: Calendar = {
+        var cal = Calendar(identifier: .gregorian)
+        cal.firstWeekday = 2  // Monday
+        return cal
+    }()
     
     // Check if this is the root view (no navigation stack)
     private var isRoot: Bool {
@@ -521,7 +529,11 @@ struct oceDsSstWUWphwxip8d8NBirtHgG7NaD: View {
     @Binding var currentDate: Date
     let onDateTapped: (Date) -> Void
     
-    private let calendar = Calendar.current
+    private let calendar: Calendar = {
+        var cal = Calendar(identifier: .gregorian)
+        cal.firstWeekday = 2  // Monday
+        return cal
+    }()
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
@@ -535,11 +547,11 @@ struct oceDsSstWUWphwxip8d8NBirtHgG7NaD: View {
             return []
         }
         
-        // Fix: Calendar first weekday in Spanish should be Monday (2), not Sunday (1)
+        // With firstWeekday = 2 (Monday), weekday values are already correct:
+        // 1=Sunday, 2=Monday, 3=Tuesday, 4=Wednesday, 5=Thursday, 6=Friday, 7=Saturday
         let firstWeekday = calendar.component(.weekday, from: firstDayOfMonth)
-        // Convert from Sunday=1 to Monday=1 system
-        let adjustedFirstWeekday = firstWeekday == 1 ? 7 : firstWeekday - 1
-        let startingSpaces = (adjustedFirstWeekday - 1) % 7
+        // Convert to 0-based index starting from Monday
+        let startingSpaces = (firstWeekday + 5) % 7
         
         var days: [Date] = []
         
@@ -624,15 +636,8 @@ struct oceDsSstWUWphwxip8d8NBirtHgG7NaD: View {
             }
             
             VStack(spacing: 12) {
-                // Weekday headers - Fixed order starting with Sunday
-                HStack(spacing: 0) {
-                    ForEach(["D", "L", "M", "M", "J", "V", "S"], id: \.self) { day in
-                        Text(day)
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundColor(.white.opacity(0.6))
-                            .frame(maxWidth: .infinity)
-                    }
-                }
+                // Weekday headers - Correct order starting with Monday
+                WeekdayHeader()
                 
                 // Calendar grid - Improved layout
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 7), spacing: 8) {

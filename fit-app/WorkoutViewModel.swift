@@ -2,6 +2,91 @@ import Foundation
 import CoreData
 import SwiftUI
 
+// MARK: - Week Engine for Centralized Week Calculations
+final class WeekEngine {
+    static let shared = WeekEngine()
+    private init() { }
+
+    private let calendar = Calendar.current
+
+    func weekStart(for date: Date) -> Date {
+        var components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date)
+        components.weekday = 2  // Monday
+        return calendar.date(from: components)!
+    }
+    
+    func weekEnd(for date: Date) -> Date {
+        let start = weekStart(for: date)
+        return calendar.date(byAdding: .day, value: 6, to: start)!
+    }
+
+    func workoutsThisWeek(in context: NSManagedObjectContext) throws -> [WorkoutEntity] {
+        let start = weekStart(for: Date())
+        let end = calendar.date(byAdding: .day, value: 7, to: start)!
+        
+        let request = WorkoutEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "date >= %@ AND date < %@", start as NSDate, end as NSDate)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: true)]
+        
+        return try context.fetch(request)
+    }
+
+    func currentStreak(from workouts: [WorkoutEntity]) -> Int {
+        let trainingDays = Set(workouts.compactMap { workout -> Date? in
+            guard let workoutDate = workout.date else { return nil }
+            return calendar.startOfDay(for: workoutDate)
+        })
+        
+        var streak = 0
+        var currentDay = calendar.startOfDay(for: Date())
+        let weekStartDate = weekStart(for: Date())
+        
+        while currentDay >= weekStartDate {
+            if trainingDays.contains(currentDay) {
+                streak += 1
+                currentDay = calendar.date(byAdding: .day, value: -1, to: currentDay)!
+            } else {
+                break
+            }
+        }
+        
+        return streak
+    }
+    
+    func weeklyTotals(in context: NSManagedObjectContext) throws -> (workouts: Int, minutes: Int, calories: Int) {
+        let workouts = try workoutsThisWeek(in: context)
+        
+        let totalWorkouts = workouts.count
+        let totalMinutes = workouts.reduce(0) { $0 + Int($1.duration) }
+        let totalCalories = workouts.reduce(0) { $0 + Int($1.calories) }
+        
+        return (workouts: totalWorkouts, minutes: totalMinutes, calories: totalCalories)
+    }
+    
+    func localStartOfDay(for date: Date) -> Date {
+        return calendar.startOfDay(for: date)
+    }
+    
+    func daysRemainingInWeek() -> Int {
+        let today = Date()
+        let weekEnd = self.weekEnd(for: today)
+        let daysRemaining = calendar.dateComponents([.day], from: calendar.startOfDay(for: today), to: calendar.startOfDay(for: weekEnd)).day ?? 0
+        return max(0, daysRemaining)
+    }
+    
+    func isInCurrentWeek(_ date: Date) -> Bool {
+        let currentWeekStart = weekStart(for: Date())
+        let currentWeekEnd = weekEnd(for: Date())
+        return date >= currentWeekStart && date <= currentWeekEnd
+    }
+    
+    func dayOfWeek(for date: Date) -> Int {
+        let weekStart = self.weekStart(for: date)
+        let days = calendar.dateComponents([.day], from: weekStart, to: date).day ?? 0
+        return days + 1 // 1-based (Monday = 1, Sunday = 7)
+    }
+}
+
 class Jc55BDpU9b1oI7imy0dSuxhnsfADioo4: ObservableObject {
     @Published var YSuY2aW2PCZkKwq4ph5miIoJ2ncJmCdo = false
     @Published var TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy: String?

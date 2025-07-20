@@ -17,7 +17,11 @@ final class HistorialViewModel: ObservableObject {
     @Published private(set) var uniqueWorkoutDays: Int = 0
     @Published private(set) var yearStats: (totalWorkouts: Int, totalMinutes: Int, currentStreak: Int) = (0, 0, 0)
     
-    private let calendar = Calendar.current
+    private let calendar: Calendar = {
+        var cal = Calendar(identifier: .gregorian)
+        cal.firstWeekday = 2  // Monday
+        return cal
+    }()
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Dependencies

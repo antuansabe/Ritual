@@ -12,7 +12,11 @@ struct Xj3WJQIjdqYVZ7GRqNsGGOF8t6wx845J: View {
     @State private var showSuccessAnimation = false
     @State private var savedGoal = false
     
-    private let calendar = Calendar.current
+    private let calendar: Calendar = {
+        var cal = Calendar(identifier: .gregorian)
+        cal.firstWeekday = 2  // Monday
+        return cal
+    }()
     
     // Calculate workouts for current week
     private var workoutsThisWeek: Int {
