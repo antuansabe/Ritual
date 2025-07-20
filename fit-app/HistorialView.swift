@@ -636,8 +636,15 @@ struct oceDsSstWUWphwxip8d8NBirtHgG7NaD: View {
             }
             
             VStack(spacing: 12) {
-                // Weekday headers - Correct order starting with Monday
-                WeekdayHeader()
+                // Weekday headers - Correct order starting with Monday  
+                HStack(spacing: 0) {
+                    ForEach(["L","M","X","J","V","S","D"], id: \.self) { day in
+                        Text(day)
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.white.opacity(0.6))
+                            .frame(maxWidth: .infinity)
+                    }
+                }
                 
                 // Calendar grid - Improved layout
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 7), spacing: 8) {
