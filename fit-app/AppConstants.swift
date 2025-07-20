@@ -276,6 +276,13 @@ struct F86UW67ccAWVKtMzac7t2afh26jfxsLy: View {
 // MARK: - App Configuration
 struct pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc {
     
+    // MARK: - Debug Configuration
+    #if DEBUG
+    static let isDebug = true
+    #else
+    static let isDebug = false
+    #endif
+    
     // MARK: - Workout Configuration
     struct qnTieLH0NmrFeqrEeovMwdRnTEZpaNwl {
         static let t4U1KVTYzBRzNbGbkCA2woYSBdnO0pDd = 1

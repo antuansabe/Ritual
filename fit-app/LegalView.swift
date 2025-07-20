@@ -35,11 +35,11 @@ struct LegalView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
         
-        // Try new .md files first, then legacy files as fallback
-        if let markdownURL = Bundle.main.url(forResource: file.rawValue, withExtension: "md") {
+        // Try HTML files first (in Legal directory), then .md files as fallback
+        if let htmlURL = Bundle.main.url(forResource: legacyFileName, withExtension: "html") {
+            webView.loadFileURL(htmlURL, allowingReadAccessTo: htmlURL.deletingLastPathComponent())
+        } else if let markdownURL = Bundle.main.url(forResource: file.rawValue, withExtension: "md") {
             loadMarkdownFile(markdownURL, in: webView)
-        } else if let legacyURL = Bundle.main.url(forResource: legacyFileName, withExtension: "html") {
-            webView.loadFileURL(legacyURL, allowingReadAccessTo: legacyURL.deletingLastPathComponent())
         } else {
             loadErrorHTML(in: webView)
         }
