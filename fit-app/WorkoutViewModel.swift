@@ -70,25 +70,29 @@ extension XiotqQDHiBDxqWDO0uwhKXZcSWBnijF5 {
     }
     
     func ES0BZT8uITuIRS240cz0GJ4YC02PSyRU(workouts: [WorkoutEntity]) -> Int {
+        return calculateWeeklyStreak(workouts: workouts)
+    }
+    
+    func calculateWeeklyStreak(workouts: [WorkoutEntity]) -> Int {
         let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
+        let today = Date()
         
         var streak = 0
-        var checkDate = today
+        var checkWeek = today
         
-        for _ in 0..<30 { // Check last 30 days maximum
-            let workoutsOnDate = workouts.compactMap { workout -> WorkoutEntity? in
-                guard let workoutDate = workout.date else { return nil }
-                return calendar.isDate(workoutDate, inSameDayAs: checkDate) ? workout : nil
+        for _ in 0..<52 { // Check last 52 weeks maximum
+            let workoutsInWeek = workouts.filter { workout in
+                guard let workoutDate = workout.date else { return false }
+                return calendar.isDate(workoutDate, equalTo: checkWeek, toGranularity: .weekOfYear)
             }
             
-            if workoutsOnDate.isEmpty {
+            if workoutsInWeek.isEmpty {
                 break
             } else {
                 streak += 1
             }
             
-            checkDate = calendar.date(byAdding: .day, value: -1, to: checkDate) ?? checkDate
+            checkWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: checkWeek) ?? checkWeek
         }
         
         return streak

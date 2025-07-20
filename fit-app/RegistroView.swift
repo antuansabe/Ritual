@@ -193,7 +193,7 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
     @Binding var selectedTab: Int
     
     @State private var tipoSeleccionado = "Cardio"
-    @State private var duracion = ""
+    @State private var duration = 0
     @State private var animateOnAppear = false
     @State private var showSuccessOverlay = false
     @State private var showAddCustomTraining = false
@@ -213,10 +213,7 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
     private let validator = VknfqtmwStiiWr4ox76LjSmWY9bPAg8Z.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX
     
     var isFormValid: Bool {
-        let durationResult = validator.mK1HuXd0dllufICl3QQamyvCvsx1UOhe(duracion)
-        let typeResult = validator.yQTfzeSq7UapiEXhlhx81yO5cHtgXaYD(tipoSeleccionado)
-        
-        return durationResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP && typeResult.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
+        return duration > 0 && !tipoSeleccionado.isEmpty
     }
     
     var body: some View {
@@ -471,16 +468,13 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
             
             VStack(spacing: 16) {
                 HStack(spacing: 12) {
-                    TextField("0", text: $duracion)
+                    TextField("0", value: $duration, format: .number)
                         .font(.system(size: 56, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .keyboardType(.numberPad)
                         .frame(maxWidth: 120)
                         .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 0.5)
-                        .onChange(of: duracion) { _ in
-                            Axpl8qOdzY7xWLvRNIqhc5cHQPWMFoCp()
-                        }
                     
                     Text("minutos")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
@@ -495,18 +489,18 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.EzcnhFsVsemfqR641lcIHDHfEWrqdIrZ)
                                 .stroke(
-                                    durationError != nil ? 
+                                    duration == 0 ? 
                                     Color.red.opacity(0.6) : 
                                     Color.blue.opacity(0.3), 
-                                    lineWidth: durationError != nil ? 3 : 2
+                                    lineWidth: duration == 0 ? 3 : 2
                                 )
                         )
                 )
                 .shadow(color: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.s06S6l2jYXUPYG94fTRPPLQQdZkx2hYz(), radius: 8, x: 0, y: 4)
                 
                 // Duration error message
-                if let durationError = durationError {
-                    Text(durationError)
+                if duration == 0 {
+                    Text("Selecciona duración")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.red.opacity(0.9))
                         .padding(.horizontal, 16)
@@ -534,26 +528,25 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
                 ForEach([15, 30, 45, 60, 90, 120], id: \.self) { minutes in
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.2)) {
-                            duracion = "\(minutes)"
-                            Axpl8qOdzY7xWLvRNIqhc5cHQPWMFoCp()
+                            duration = minutes
                         }
                     }) {
                         Text("\(minutes)")
                             .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.lsQGPy4QxpSwRnN9acKxlHS7hUYKqnmg)
-                            .foregroundColor(duracion == "\(minutes)" ? .white : .white.opacity(0.8))
+                            .foregroundColor(duration == minutes ? .white : .white.opacity(0.8))
                             .frame(height: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.ZPiJx0tqo8n2DtmG0CeHsdjOg2YoQqZx)
                             .frame(maxWidth: .infinity)
                             .background(
                                 RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.drEz2aTU4wuyafcRik6r81dFj2b4GDPU)
-                                    .fill(duracion == "\(minutes)" ? AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr) : AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg()))
+                                    .fill(duration == minutes ? AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr) : AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.XTqZhA1aMezwggsTNkLgubp1vTdAYrgg()))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.drEz2aTU4wuyafcRik6r81dFj2b4GDPU)
-                                            .stroke(duracion == "\(minutes)" ? AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr.opacity(0.3)) : AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.hEHvnuhquOEbu91QYcb2ngjX1eTkwuVb()), lineWidth: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.kEdPhJbe9pFfxc6GmcCjsIcLRnkyRurM)
+                                            .stroke(duration == minutes ? AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr.opacity(0.3)) : AnyShapeStyle(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.hEHvnuhquOEbu91QYcb2ngjX1eTkwuVb()), lineWidth: pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.k137TNijvZD3w1DkCOx9VDgHKsSa6IOU.kEdPhJbe9pFfxc6GmcCjsIcLRnkyRurM)
                                     )
                             )
-                            .shadow(color: duracion == "\(minutes)" ? pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr.opacity(0.3) : .clear, radius: 2)
+                            .shadow(color: duration == minutes ? pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.rYKfPHiDxgHes5dAHUqMXv8tJwl6R5jr.opacity(0.3) : .clear, radius: 2)
                     }
-                    .animation(.easeInOut(duration: 0.2), value: duracion == "\(minutes)")
+                    .animation(.easeInOut(duration: 0.2), value: duration == minutes)
                 }
             }
         }
@@ -577,7 +570,7 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
             HStack(spacing: 12) {
                 vbM47y2u0RtVJW266wDAsRiLu9QHzogC(
                     icon: "clock.fill",
-                    value: duracion.isEmpty ? "0" : duracion,
+                    value: duration == 0 ? "0" : "\(duration)",
                     label: "Minutos",
                     tint: .blue
                 )
@@ -585,7 +578,7 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
                 
                 vbM47y2u0RtVJW266wDAsRiLu9QHzogC(
                     icon: "flame.fill",
-                    value: duracion.isEmpty ? "0" : "\(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for: Int(duracion) ?? 0))",
+                    value: duration == 0 ? "0" : "\(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for: duration))",
                     label: "Calorías",
                     tint: .orange
                 )
@@ -631,7 +624,8 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
                 .animation(.easeInOut(duration: 0.2), value: isFormValid)
                 .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSaveButtonPressed)
             }
-            .disabled(!isFormValid || workoutViewModel.YSuY2aW2PCZkKwq4ph5miIoJ2ncJmCdo)
+            .disabled(duration == 0 || workoutViewModel.YSuY2aW2PCZkKwq4ph5miIoJ2ncJmCdo)
+            .opacity(duration == 0 ? 0.5 : 1)
             .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
                 isSaveButtonPressed = pressing
             }, perform: {})
@@ -639,7 +633,7 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
             Button("Limpiar campos") {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     tipoSeleccionado = "Cardio"
-                    duracion = ""
+                    duration = 0
                 }
             }
             .font(pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.Fl7U1OWoRlFXK0bWCdojinFQIb6zPmMX.lsQGPy4QxpSwRnN9acKxlHS7hUYKqnmg)
@@ -661,7 +655,7 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
     // MARK: - Validation Methods
     
     private func Axpl8qOdzY7xWLvRNIqhc5cHQPWMFoCp() {
-        let result = validator.mK1HuXd0dllufICl3QQamyvCvsx1UOhe(duracion)
+        let result = validator.mK1HuXd0dllufICl3QQamyvCvsx1UOhe(String(duration))
         withAnimation(.easeInOut(duration: 0.3)) {
             durationError = result.rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP ? nil : result.TGMG3Myrq6Le2PoAtbtRgcnL1DsCKLIy
         }
@@ -683,12 +677,12 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
     
     private func Kpi8sXbTgHCdZNmlB5vxM8cn96JM3G0o() -> Bool {
         // Use the same validation pattern as the form
-        let durationValid = validator.mK1HuXd0dllufICl3QQamyvCvsx1UOhe(duracion).rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
+        let durationValid = validator.mK1HuXd0dllufICl3QQamyvCvsx1UOhe(String(duration)).rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
         let typeValid = validator.yQTfzeSq7UapiEXhlhx81yO5cHtgXaYD(tipoSeleccionado).rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
         
         // Additional validation for calculated calories
-        if let durationInt = Int(duracion) {
-            let calories = pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for: durationInt)
+        if duration > 0 {
+            let calories = pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.macBuYFDgFuotG3Vx9Tc3pppQyU8fFgE(for: duration)
             let caloriesValid = validator.UeuZ4TttshvAphn0ACvLfm5t5LOE5kqT(calories).rzOOgG3zeQ5Mq29ToN3FEmWm4bvESZhP
             return durationValid && typeValid && caloriesValid
         }
@@ -713,7 +707,7 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
         }
         
         // Sanitize inputs before saving
-        let sanitizedDuration = validator.S1FcBW204dzhY83hyyJGO8udFCyY9l66(duracion)
+        let sanitizedDuration = String(duration)
         let sanitizedType = validator.S1FcBW204dzhY83hyyJGO8udFCyY9l66(tipoSeleccionado)
         
         let validationResult = pgbZhy0Lxp1T8uS1Guy4Hv0b3xS7aPLc.r394gO8EYYjBidmh5QxY475XdYckv2xp(sanitizedDuration)
@@ -746,7 +740,7 @@ struct IMjYxABvVAMQSC7XsNhcGrSt11ziYDi2: View {
                         // Reset form fields after a short delay
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             tipoSeleccionado = "Cardio"
-                            duracion = ""
+                            duration = 0
                         }
                         
                         // Navigate back to home tab after overlay disappears

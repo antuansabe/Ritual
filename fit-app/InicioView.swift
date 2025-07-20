@@ -216,7 +216,8 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
             }
             .padding(.horizontal, 20)
             
-            ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                Spacer()
                 HStack(spacing: 12) {
                     rji5oBHeH5tqY2OwV0PYO7wSVw6bBkHN(
                         icon: "figure.walk.circle.fill",
@@ -241,16 +242,9 @@ struct nGHHMNtoBwM0IFT4HW5NflwlHlDPD5KZ: View {
                         tint: .orange
                     )
                     .matchedGeometryEffect(id: "calories", in: heroAnimation)
-                    
-                    rji5oBHeH5tqY2OwV0PYO7wSVw6bBkHN(
-                        icon: "calendar.circle.fill",
-                        value: "\(ES0BZT8uITuIRS240cz0GJ4YC02PSyRU())",
-                        label: "Racha",
-                        tint: .purple
-                    )
-                    .matchedGeometryEffect(id: "streak", in: heroAnimation)
                 }
                 .padding(.horizontal, 20)
+                Spacer()
             }
             .opacity(animateOnAppear ? 1 : 0)
             .offset(x: animateOnAppear ? 0 : -50)
