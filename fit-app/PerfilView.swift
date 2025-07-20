@@ -643,8 +643,18 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
 #endif
                 
                 // Legal links
-                NavigationLink("Política de privacidad", destination: LegalView(fileName: "PrivacyPolicy"))
-                    .foregroundColor(.blue)
+                NavigationLink(destination: LegalView(fileName: "PrivacyPolicy")) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "hand.raised.fill")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.blue)
+                        
+                        Text("Política de privacidad")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.blue)
+                        
+                        Spacer()
+                    }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 16)
                     .background(
@@ -655,9 +665,20 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                                     .stroke(Color.blue.opacity(0.3), lineWidth: 1)
                             )
                     )
+                }
                 
-                NavigationLink("Términos de servicio", destination: LegalView(fileName: "TermsOfService"))
-                    .foregroundColor(.blue)
+                NavigationLink(destination: LegalView(fileName: "TermsOfService")) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "doc.text.fill")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.blue)
+                        
+                        Text("Términos de servicio")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.blue)
+                        
+                        Spacer()
+                    }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 16)
                     .background(
@@ -668,6 +689,7 @@ struct q29ClCI2LABu3hQnTLcu6EAO6vHtllJW: View {
                                     .stroke(Color.blue.opacity(0.3), lineWidth: 1)
                             )
                     )
+                }
                 
                 // Logout Button using reusable component
                 fdsNnzsNuc4ubtpYpSbsrJfmPuz1AmGM(style: .card)
