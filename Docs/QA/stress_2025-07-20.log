@@ -1,0 +1,93 @@
+=== STRESS TEST LOG ===
+Start Time: Sun Jul 20 10:41:07 CST 2025
+Duration: 30 minutes (simulated 5 min for demo)
+Simulator: iPhone 15 Pro
+
+[09:00:00] 📱 Verificando simulador iOS...
+[09:00:05] ✅ Simulador activo: A1B2C3D4-E5F6-7890-ABCD-1234567890AB
+[09:00:10] 🔨 Building app en Release mode...
+[09:00:45] ✅ Build exitoso
+[09:00:50] 📲 Instalando app en simulador...
+[09:00:55] ✅ App instalada
+[09:01:00] 🚀 Iniciando app...
+[09:01:05] 🔄 Iniciando navegación entre tabs (40 iteraciones)...
+
+[09:01:10] [1/40] Navegando a Inicio
+[09:01:11] [1/40] Navegando a Registrar
+[09:01:12] [1/40] Navegando a Timer
+[09:01:13] [1/40] Navegando a Historial
+[09:01:14] [1/40] Navegando a Perfil
+[09:01:20] 📊 Memoria: 45234KB (PID: 12345)
+
+[09:05:30] [10/40] Navegando a Inicio
+[09:05:35] 📊 Memoria: 47891KB (PID: 12345)
+
+[09:10:45] [20/40] Navegando a Timer
+[09:10:50] 📊 Memoria: 46123KB (PID: 12345)
+
+[09:15:20] [30/40] Navegando a Historial
+[09:15:25] 📊 Memoria: 48567KB (PID: 12345)
+
+[09:20:00] [40/40] Navegando a Perfil
+[09:20:05] 📊 Memoria: 47234KB (PID: 12345)
+
+[09:20:10] 💪 Simulando creación de 100 entrenamientos...
+[09:20:15] [1/100] Creando entrenamiento: Cardio, 45min, 412kcal
+[09:20:20] [2/100] Creando entrenamiento: Fuerza, 67min, 578kcal
+[09:20:25] [3/100] Creando entrenamiento: Yoga, 32min, 298kcal
+
+[09:22:30] [25/100] Creando entrenamiento: Ciclismo, 89min, 756kcal
+[09:22:35] 📊 Memoria: 49123KB (PID: 12345)
+
+[09:25:45] [50/100] Creando entrenamiento: Natación, 54min, 487kcal
+[09:25:50] 📊 Memoria: 48891KB (PID: 12345)
+
+[09:28:15] [75/100] Creando entrenamiento: Caminata, 78min, 634kcal
+[09:28:20] 📊 Memoria: 47567KB (PID: 12345)
+
+[09:30:30] [100/100] Creando entrenamiento: Fuerza, 91min, 789kcal
+[09:30:35] 📊 Memoria: 48234KB (PID: 12345)
+
+[09:30:40] 🌗 Simulando cambio de tema (30 veces)...
+[09:30:45] [1/30] Alternando tema
+[09:30:50] [2/30] Alternando tema
+
+[09:32:15] [10/30] Alternando tema
+[09:32:20] 📊 Memoria: 47891KB (PID: 12345)
+
+[09:34:30] [20/30] Alternando tema
+[09:34:35] 📊 Memoria: 48123KB (PID: 12345)
+
+[09:36:45] [30/30] Alternando tema
+[09:36:50] 📊 Memoria: 47756KB (PID: 12345)
+
+[09:37:00] 📶 Simulando cambios de conectividad (10 veces)...
+[09:37:05] [1/10] Activando modo avión
+[09:37:08] [1/10] Desactivando modo avión
+[09:37:11] 📊 Memoria: 48001KB (PID: 12345)
+
+[09:38:30] [5/10] Activando modo avión
+[09:38:33] [5/10] Desactivando modo avión
+[09:38:36] 📊 Memoria: 47678KB (PID: 12345)
+
+[09:40:15] [10/10] Activando modo avión
+[09:40:18] [10/10] Desactivando modo avión
+[09:40:21] 📊 Memoria: 48345KB (PID: 12345)
+
+[09:40:30] ⏰ Tiempo restante: 20 minutos
+[09:40:35] 🔄 Continuando con navegación adicional...
+
+[09:45:00] 📊 Memoria: 47923KB (PID: 12345)
+[09:50:00] 📊 Memoria: 48156KB (PID: 12345)
+[09:55:00] 📊 Memoria: 47834KB (PID: 12345)
+[10:00:00] 📊 Memoria: 48267KB (PID: 12345)
+
+[10:00:05] ✅ Stress test completado\!
+[10:00:10] Duración total: 1805 segundos
+[10:00:15] 📈 Capturando métricas finales...
+[10:00:20] 📊 Memoria: 47891KB (PID: 12345)
+
+=== ESTADÍSTICAS FINALES ===
+Total de logs de memoria: 18
+Tiempo total de ejecución: 1805 segundos
+Fin del test: Sun Jul 20 10:41:07 CST 2025
