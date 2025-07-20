@@ -7,14 +7,16 @@ struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
     @State private var animateContent = false
     
     private var userName: String {
-        // Get from SecureStorage first - user display name
-        if let secureUserName = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: "userDisplayName"),
-           !secureUserName.isEmpty && secureUserName != "HELLO_USER" {
-            return secureUserName
+        // Get from SecureStorage first - user display name using the correct key
+        let displayName = HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.DXPhOdciSwPjsN1KvFiEAYkiEIW53RAX.UwCfOvdiEB0JykxJZrQyJ9j9gpHY8v8T(for: HXLVXCYNs3KrYvdcOPdd8IWNdGGPQRow.JPsFJ6NTFsGAmXupFfYpO1PI5ArmDRGB.YhyL54l7qYGd78Z7egtPFzCWzLff1uDd) ?? "Atleta"
+        
+        // Don't use placeholder values
+        if !displayName.isEmpty && displayName != "HELLO_USER" && displayName != "Atleta" {
+            return displayName
         }
         
         // Try to get from AuthViewModel
-        if !authViewModel.currentUserName.isEmpty {
+        if !authViewModel.currentUserName.isEmpty && authViewModel.currentUserName != "HELLO_USER" {
             return authViewModel.currentUserName
         }
         
@@ -90,7 +92,7 @@ struct FODJtP74PgH7G1Dvz9bqZM4YTVIu3AY0: View {
                 
                 // Personalized greeting with user name as primary
                 VStack(spacing: 8) {
-                    Text("Hola \(userName)")
+                    Text("¡Hola, \(userName)!")
                         .font(.system(size: 34, weight: .bold))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)

@@ -2,13 +2,15 @@ import SwiftUI
 
 struct OnboardingSlide: View {
     let icon: String
+    let emoji: String
     let title: String
     let description: String
     let isLastSlide: Bool
     let onGetStarted: (() -> Void)?
     
-    init(icon: String, title: String, description: String, isLastSlide: Bool = false, onGetStarted: (() -> Void)? = nil) {
+    init(icon: String, emoji: String = "✨", title: String, description: String, isLastSlide: Bool = false, onGetStarted: (() -> Void)? = nil) {
         self.icon = icon
+        self.emoji = emoji
         self.title = title
         self.description = description
         self.isLastSlide = isLastSlide
@@ -19,41 +21,63 @@ struct OnboardingSlide: View {
         VStack(spacing: 40) {
             Spacer()
             
-            // Icon
+            // Glassmorphism Card with Icon and Emoji
             ZStack {
-                Circle()
-                    .fill(
+                // Glassmorphism background
+                RoundedRectangle(cornerRadius: 30)
+                    .fill(.regularMaterial)
+                    .background(
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(
+                                LinearGradient(
+                                    colors: [
+                                        Color.indigo.opacity(0.2),
+                                        Color.purple.opacity(0.2)
+                                    ],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                    )
+                    .frame(width: 140, height: 140)
+                    .shadow(color: Color.indigo.opacity(0.3), radius: 20, x: 0, y: 10)
+                
+                // SF Symbol
+                Image(systemName: icon)
+                    .font(.system(size: 40, weight: .semibold))
+                    .foregroundStyle(
                         LinearGradient(
-                            gradient: Gradient(colors: [
-                                Color(red: 0.6, green: 0.4, blue: 1.0),
-                                Color(red: 0.4, green: 0.2, blue: 0.8)
-                            ]),
+                            colors: [Color.indigo, Color.purple],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
-                    .frame(width: 120, height: 120)
-                    .shadow(color: Color(red: 0.5, green: 0.3, blue: 0.9).opacity(0.5), radius: 20, x: 0, y: 10)
                 
-                Image(systemName: icon)
-                    .font(.system(size: 50, weight: .semibold))
-                    .foregroundColor(.white)
+                // Emoji overlay
+                Text(emoji)
+                    .font(.system(size: 24))
+                    .offset(x: 35, y: -35)
+                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
             }
             
-            // Title
-            Text(title)
-                .font(.system(size: 28, weight: .bold))
-                .foregroundColor(.primary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-            
-            // Description
-            Text(description)
-                .font(.system(size: 16, weight: .regular))
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-                .lineSpacing(4)
+            VStack(spacing: 16) {
+                // Title - max 2 lines
+                Text(title)
+                    .font(.system(size: 28, weight: .bold))
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .padding(.horizontal)
+                
+                // Description - max 2 lines  
+                Text(description)
+                    .font(.system(size: 16, weight: .regular))
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .padding(.horizontal, 40)
+                    .lineSpacing(4)
+            }
             
             Spacer()
             
@@ -69,16 +93,13 @@ struct OnboardingSlide: View {
                         .padding(.vertical, 16)
                         .background(
                             LinearGradient(
-                                gradient: Gradient(colors: [
-                                    Color(red: 0.6, green: 0.4, blue: 1.0),
-                                    Color(red: 0.4, green: 0.2, blue: 0.8)
-                                ]),
+                                colors: [Color.indigo, Color.purple],
                                 startPoint: .leading,
                                 endPoint: .trailing
                             )
                         )
-                        .cornerRadius(14)
-                        .shadow(color: Color(red: 0.5, green: 0.3, blue: 0.9).opacity(0.3), radius: 10, x: 0, y: 5)
+                        .cornerRadius(16)
+                        .shadow(color: Color.indigo.opacity(0.3), radius: 12, x: 0, y: 6)
                 }
                 .padding(.horizontal, 40)
                 .padding(.bottom, 20)
@@ -99,6 +120,7 @@ struct OnboardingSlide: View {
 #Preview {
     OnboardingSlide(
         icon: "bolt.heart",
+        emoji: "⚡",
         title: "Registra tu energía",
         description: "Captura cada entrenamiento y observa cómo tu dedicación se transforma en progreso visible",
         isLastSlide: false

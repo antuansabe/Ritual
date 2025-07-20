@@ -5,9 +5,9 @@ struct OnboardingView: View {
     @Binding var hasCompletedOnboarding: Bool
     
     private let slides = [
-        (icon: "bolt.heart", title: "ONB_TITLE_1".t, description: "ONB_SUB_1".t),
-        (icon: "icloud", title: "ONB_TITLE_2".t, description: "ONB_SUB_2".t),
-        (icon: "chart.bar", title: "ONB_TITLE_3".t, description: "ONB_SUB_3".t)
+        (icon: "bolt.heart", emoji: "⚡", title: "ONB_TITLE_1".t, description: "ONB_SUB_1".t),
+        (icon: "icloud", emoji: "☁️", title: "ONB_TITLE_2".t, description: "ONB_SUB_2".t),
+        (icon: "chart.bar", emoji: "📊", title: "ONB_TITLE_3".t, description: "ONB_SUB_3".t)
     ]
     
     var body: some View {
@@ -44,6 +44,7 @@ struct OnboardingView: View {
                     ForEach(0..<slides.count, id: \.self) { index in
                         OnboardingSlide(
                             icon: slides[index].icon,
+                            emoji: slides[index].emoji,
                             title: slides[index].title,
                             description: slides[index].description,
                             isLastSlide: index == slides.count - 1,
